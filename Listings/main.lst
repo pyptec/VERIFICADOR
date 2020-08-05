@@ -1,0 +1,269 @@
+C51 COMPILER V9.59.0.0   MAIN                                                              08/05/2020 11:21:05 PAGE 1   
+
+
+C51 COMPILER V9.59.0.0, COMPILATION OF MODULE MAIN
+OBJECT MODULE PLACED IN .\Objects\main.obj
+COMPILER INVOKED BY: C:\Keil_v5\C51\BIN\C51.EXE main.c LARGE OPTIMIZE(8,SPEED) BROWSE DEBUG OBJECTEXTEND PRINT(.\Listing
+                    -s\main.lst) TABS(2) OBJECT(.\Objects\main.obj)
+
+line level    source
+
+   1          /*------------------------------------------------------------------------------
+   2          MAIN.C:  sistema verificador
+   3          
+   4          Diseñado Ing. Jaime Pedraza
+   5          ------------------------------------------------------------------------------*/
+   6          #include <main.h>
+   7          extern bit aSk;
+   8          /*------------------------------------------------------------------------------
+   9          interrupcion por timer 
+  10          ValTimeOutCom se decrementa cada overflow de la interrupcion
+  11          Timer_wait    Incrementa cada overflow de la interrrupcion
+  12          ------------------------------------------------------------------------------*/
+  13           timer0_int() interrupt 1 using 2
+  14              {
+  15   1            if(ValTimeOutCom==1)
+  16   1            {
+  17   2            ValTimeOutCom=1;
+  18   2            TF0=0;
+  19   2            }
+  20   1            else
+  21   1            {
+  22   2            ValTimeOutCom--;
+  23   2            Timer_wait++;
+  24   2            Timer_tivo++;
+  25   2            TF0=0;
+  26   2            }
+  27   1          }
+  28          /*------------------------------------------------------------------------------
+  29          ------------------------------------------------------------------------------*/
+  30          void ini_timer(void)
+  31          {
+  32   1      
+  33   1        TMOD=(TMOD & 0xF0) | 0x01;// configuro el reg TMOD sin precalador a 16 bits
+  34   1          
+  35   1        TH0=0X00;               //registro de la parte alta del timer0 de 16 bits                 *           
+  36   1        TL0=0X00;               // registro de la parte baja del timer0
+  37   1        TR0=1;                  // habilita el timer0 reg TCOM bit 4 para interrup
+  38   1      
+  39   1      }
+  40          /*------------------------------------------------------------------------------
+  41          ------------------------------------------------------------------------------*/
+  42          void on_Timer0_Interrup(void)
+  43          {
+  44   1        TF0=0;                  //registro TCON bit 5 bandera de overflow 
+  45   1        ET0=1;                  // enable interrupcion bit 1 del registro IENO
+  46   1        
+  47   1      }
+  48          /*------------------------------------------------------------------------------
+  49          ------------------------------------------------------------------------------*/
+  50          void off_Timer0_Interrup(void)
+  51          {
+  52   1        ET0=0;                  // enable interrupcion bit 1 del registro IENO
+  53   1        
+  54   1      }
+C51 COMPILER V9.59.0.0   MAIN                                                              08/05/2020 11:21:05 PAGE 2   
+
+  55          /*------------------------------------------------------------------------------
+  56          ------------------------------------------------------------------------------*/
+  57          /*------------------------------------------------------------------------------
+  58          _getkey waits until a character is received from the serial port.  This may not
+  59          be the exact desired operation (for example if the buffer is empty, this
+  60          function hangs waiting for a character to be received).
+  61          ------------------------------------------------------------------------------*/
+  62          char _getkey (void)
+  63          {
+  64   1      int k;
+  65   1      
+  66   1      do
+  67   1        {
+  68   2        k = com_getchar ();
+  69   2        }
+  70   1      while (k == -1);
+  71   1      
+  72   1      return ((unsigned char) k);
+  73   1      }
+  74          
+  75          /*------------------------------------------------------------------------------
+  76          ------------------------------------------------------------------------------*/
+  77          char putchar (char c)
+  78          {
+  79   1      volatile unsigned int i;
+  80   1      
+  81   1      while (com_putchar (c) != 0)
+  82   1        {
+  83   2        for (i=0; i<1000; i++)
+  84   2          {
+  85   3          /*** DO NOTHING ***/
+  86   3          }
+  87   2        }
+  88   1      
+  89   1      return (c);
+  90   1      }
+  91          /*------------------------------------------------------------------------------
+  92          escribir una cadena de datos por pto serie
+  93          ------------------------------------------------------------------------------*/
+  94          void EscribirCadenaSoft_buffer(unsigned char *buffer,unsigned char tamano_cadena)
+  95          {
+  96   1        unsigned char i,d;
+  97   1          for(i=0;i<tamano_cadena;i++)
+  98   1          {
+  99   2            d=putchar(*buffer);
+ 100   2            buffer++;
+ 101   2          }
+ 102   1      }
+ 103          /*
+ 104          unsigned char recibe_cmd_LPR(unsigned char *buffer_cmd)
+ 105          {
+ 106             unsigned char j, MaxChrRx;
+ 107             unsigned int contador;
+ 108            
+ 109             bit time_out;
+ 110             
+ 111             MaxChrRx=11;
+ 112          
+ 113            
+ 114                for (j=0; j<MaxChrRx; j++)
+ 115                {
+ 116                  contador=0;
+C51 COMPILER V9.59.0.0   MAIN                                                              08/05/2020 11:21:05 PAGE 3   
+
+ 117                  time_out=0;
+ 118                  while ((rx_ip==1)&&(time_out==0))
+ 119                  {
+ 120                    contador++;
+ 121                    if (contador>65000)
+ 122                    {
+ 123                      time_out=1;
+ 124                      
+ 125                    }       
+ 126                  }
+ 127                  if(time_out==1)break;
+ 128                    
+ 129                    *buffer_cmd=rx_Data();
+ 130                      buffer_cmd++;
+ 131                }
+ 132          
+ 133                *buffer_cmd=0;
+ 134                return j;
+ 135          }
+ 136          /*------------------------------------------------------------------------------
+ 137          Rutina de las condiciones iniciales del board
+ 138          ------------------------------------------------------------------------------*/
+ 139          void inicia_board(void)
+ 140          {
+ 141   1      cond_ini_tibbo();             /* inicia tibbo*/
+ 142   1      cond_ini_clock();             /* inicia clock*/
+ 143   1      cond_ini_pto();               /*Inicializacion del pto*/
+ 144   1      Atascado=0;                   /*prendo el verificador*/
+ 145   1      sel_com=1;                    /*seleccionar el pto serie */
+ 146   1      lock=0;                       /*barrera off*/ 
+ 147   1        
+ 148   1      }
+ 149          
+ 150          
+ 151          /*------------------------------------------------------------------------------
+ 152          Note that the two function above, _getkey and putchar, replace the library
+ 153          functions of the same name.  These functions use the interrupt-driven serial
+ 154          I/O routines in SIO.C.
+ 155          ------------------------------------------------------------------------------*/
+ 156          
+ 157          
+ 158          void main (void)
+ 159          {
+ 160   1        
+ 161   1        static unsigned char buffer[40];
+ 162   1        //unsigned char buffer_clock[]={0x02,0x31,0x48,0x32,0x32,0x2f,0x30,0x33,0x2f,0X32,0X30,0X31,0X39,0x20,0x3
+             -1,0x31,0x3a,0x33,0x39,0x3a,0x30,0x30,0x20,0x34,0x03,0}; //dia,mes,año,hora,minutos,SEGUNDOS,Dia de la semana
+ 163   1        //unsigned char S1_B2[]={0x13, 0x03, 0x1D, 0x0B, 0x0E, 00, 00, 00, 00, 00, 0x01, 0x13, 0x03, 0x1D, 0x0E, 
+             -0x1D};
+ 164   1        //unsigned char S1_B0[]={0x32, 0x31, 0x30, 0x37, 0x31, 0x35, 00, 00, 00, 00, 00, 00, 00, 00, 00, 01};
+ 165   1      
+ 166   1          char Length_trama;
+ 167   1      ini_timer();                                                              /* initialize interrupt timer0 */
+ 168   1      on_Timer0_Interrup();                                                     /* habilita el  timer0 */
+ 169   1      com_initialize ();                                                        /* initialize pto serie */
+ 170   1      com_baudrate ();                                                          /* setup for 9600 baud */
+ 171   1      inicia_board();                                                           /*Rutina de las condiciones iniciales del board*/
+ 172   1      EA = 1;                                                                   /* Enable Interrupts global*/
+ 173   1      
+ 174   1      time_bit();                                                               /*solo para pruebas*/
+ 175   1      Delay_20us(33);
+ 176   1      time_mbit();
+C51 COMPILER V9.59.0.0   MAIN                                                              08/05/2020 11:21:05 PAGE 4   
+
+ 177   1      tx_aux('a');  
+ 178   1        
+ 179   1      sel_Funcion();                                                              /*el pulsador funcion es el cmd q da la entrada a programacio
+             -n */
+ 180   1        
+ 181   1        if (DataIn==0)              
+ 182   1        {
+ 183   2        menu();                                                                   /*menu de configuracion*/
+ 184   2        }
+ 185   1        variable_inicio();                                                        /*leo y cargo  las variables de inicio de configuracion*/
+ 186   1      while(Secuencia_inicio_expedidor());                                        /* procedimiento de inicio de transporte (reset, y
+             - grabar eeprom)*/
+ 187   1        ValTimeOutCom=3;
+ 188   1                                                    
+ 189   1        while (1)                                                                 /* Loop Principal               */  
+ 190   1        {   
+ 191   2         
+ 192   2            if (prto_ready==0)                                                    /*testigo de prioridad cuando esta en (1) solo para captura
+             -r 
+ 193   2                                                                                      tarjeta espera la respuesta*/
+ 194   2            {     
+ 195   3              if (rx_ip==0)                                                         /*pregunto si llega datos de monitor pto serie emulado*/
+ 196   3              {
+ 197   4              
+ 198   4              Length_trama=recibe_cmd_Monitor(buffer);                            /*recibe la trama en buffer y saco la longitud d
+             -e la trama*/
+ 199   4              //Debug_monitor(buffer,Length_trama);
+ 200   4                                                                
+ 201   4              }
+ 202   3              
+ 203   3                  SecuenciaExpedidor();
+ 204   3            
+ 205   3              if (busy==0)                                                          /*comunicacion con el pto paralelo*/
+ 206   3              {
+ 207   4            
+ 208   4              
+ 209   4              Length_trama=recibe_port(buffer);                                   /*recibe informacion del pto paralelo*/
+ 210   4                                                  /*divido el texto*/
+ 211   4          
+ 212   4              Valida_Trama_Pto(buffer,Length_trama);                                /*valido la informacion recibida */
+ 213   4               
+ 214   4                  /*solo de prueba*/    
+ 215   4              Debug_pto_paralelo(buffer,Length_trama);
+ 216   4              
+ 217   4                  
+ 218   4              }
+ 219   3                
+ 220   3            }
+ 221   2            else
+ 222   2            {
+ 223   3              SecuenciaExpedidor();
+ 224   3            }       
+ 225   2            msj_lcd_informativo();                                                  /*muestra la informacion de  ID cliente, cod parque, fec
+             -ha,comparacion*/
+ 226   2        
+ 227   2      
+ 228   2          
+ 229   2        }
+ 230   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+C51 COMPILER V9.59.0.0   MAIN                                                              08/05/2020 11:21:05 PAGE 5   
+
+   CODE SIZE        =    372    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =    112      10
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----    ----
+   IDATA SIZE       =    100    ----
+   BIT SIZE         =      2    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

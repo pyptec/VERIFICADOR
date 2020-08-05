@@ -1,0 +1,14 @@
+".\Objects\main.obj",
+".\Objects\Accescan.obj",
+".\Objects\Clock.obj",
+".\Objects\delay.obj",
+".\Objects\eeprom.obj",
+".\Objects\io_sensores.obj",
+".\Objects\pantallas.obj",
+".\Objects\prog.obj",
+".\Objects\pto_paralelo.obj",
+".\Objects\tibbo.obj",
+".\Objects\uart.obj",
+".\Objects\verificador.obj" 
+TO ".\Objects\verificador_v_01" 
+PRINT(".\Listings\verificador_v_01.m51") RAMSIZE(256) 

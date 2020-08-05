@@ -1,0 +1,275 @@
+C51 COMPILER V9.59.0.0   EEPROM                                                            11/29/2019 11:25:15 PAGE 1   
+
+
+C51 COMPILER V9.59.0.0, COMPILATION OF MODULE EEPROM
+OBJECT MODULE PLACED IN .\object\eeprom.obj
+COMPILER INVOKED BY: C:\Keil_v5\C51\BIN\C51.EXE eeprom.c LARGE OBJECTADVANCED OPTIMIZE(11,SPEED) REGFILE(.\object\verifi
+                    -cador1.0.ORC) BROWSE DEFINE(XTAL=11059200) DEBUG TABS(2) OBJECT(.\object\eeprom.obj)
+
+line level    source
+
+   1          
+   2          #include <eeprom.h>
+   3          #include <reg51.h>
+   4          
+   5          /*funciones externas*/
+   6          extern void          _nop_     (void);
+   7          extern void Delay (void);
+   8          extern void Delay_20us(unsigned int cnt);
+   9          extern void Delay_1ms(unsigned int cnt);
+  10          //******************************************************************************************
+  11          //    RUTINAS DE EEPROM 24FC1025
+  12          //******************************************************************************************
+  13          sbit sda = P1^2;
+  14          sbit scl = P1^3;
+  15          //******************************************************************************************
+  16          
+  17          bit memory_flag;
+  18          unsigned char byte_rd;
+  19          unsigned char l_data_eeprom;
+  20          unsigned char l_chr;
+  21          
+  22          /*define posiciones de memoria*/
+  23          #define EE_ID_CLIENTE   0x0000
+  24          
+  25          
+  26          //*******************************************************************************************
+  27          void ackd(void)
+  28          {
+  29   1        unsigned int i;
+  30   1        memory_flag=1;
+  31   1        scl=1;
+  32   1        sda=1;
+  33   1        for (i=0; i<1100; i++)             //500
+  34   1        {
+  35   2          if (sda==0)
+  36   2          {
+  37   3            memory_flag=0;
+  38   3          scl=0;
+  39   3      
+  40   3          break;
+  41   3          }
+  42   2        }
+  43   1        
+  44   1        if (memory_flag==1)
+  45   1        { 
+  46   2      
+  47   2        }  
+  48   1      } 
+  49          //*******************************************************************************************
+  50          //*******************************************************************************************
+  51          void ack_lect(void)
+  52          {
+  53   1        int i;
+  54   1        scl=1;
+C51 COMPILER V9.59.0.0   EEPROM                                                            11/29/2019 11:25:15 PAGE 2   
+
+  55   1        sda=1;
+  56   1        memory_flag=1;
+  57   1        for (i=0; i<650; i++)
+  58   1        {
+  59   2          if (sda==0)
+  60   2          {
+  61   3            memory_flag=0;
+  62   3          scl=0;
+  63   3          break;
+  64   3          }
+  65   2        }
+  66   1      } 
+  67          //*******************************************************************************************
+  68          void p_me (void)
+  69          {
+  70   1          scl=1;
+  71   1          _nop_();
+  72   1          scl=0;
+  73   1      }
+  74          //*******************************************************************************************
+  75          void e_d_m (unsigned char a_serial_eeprom)
+  76          {
+  77   1        unsigned char nbits;
+  78   1          for (nbits=0; nbits<8; nbits++)
+  79   1        {
+  80   2          a_serial_eeprom <<=1;
+  81   2          if (CY==1)
+  82   2          { 
+  83   3            sda=1;
+  84   3          }
+  85   2          else
+  86   2          {
+  87   3            sda=0;
+  88   3          }
+  89   2          scl=1;
+  90   2          p_me();         
+  91   2        }
+  92   1        return;
+  93   1      }
+  94          //********************************************************************************************
+  95          void start (void)
+  96          {
+  97   1        sda=1;
+  98   1        scl=1;
+  99   1        _nop_();
+ 100   1        sda=0;
+ 101   1        scl=0;
+ 102   1        return;
+ 103   1      }
+ 104          //*******************************************************************************************
+ 105          void stop (void)
+ 106          {
+ 107   1        scl=0;
+ 108   1        sda=0;
+ 109   1        scl=1;
+ 110   1        sda=1;
+ 111   1        return;
+ 112   1      }
+ 113          //*******************************************************************************************
+ 114          unsigned char l_d_m (void)
+ 115          {
+ 116   1        unsigned char nbits;
+C51 COMPILER V9.59.0.0   EEPROM                                                            11/29/2019 11:25:15 PAGE 3   
+
+ 117   1          for (nbits=0; nbits<8; nbits++)
+ 118   1        {
+ 119   2          scl=0;
+ 120   2            if (sda==1) 
+ 121   2            {
+ 122   3            l_data_eeprom = l_data_eeprom| 0x01;
+ 123   3            if (nbits<=6) 
+ 124   3            {
+ 125   4              l_data_eeprom<<=1;
+ 126   4              scl=1;
+ 127   4            }
+ 128   3            }
+ 129   2            if (sda==0)
+ 130   2            {
+ 131   3              l_data_eeprom = l_data_eeprom & 0xFE;
+ 132   3            if (nbits<=6) 
+ 133   3            {
+ 134   4                l_data_eeprom <<=1;
+ 135   4              scl=1;
+ 136   4            }
+ 137   3            }
+ 138   2          }
+ 139   1        scl=0;
+ 140   1        return l_data_eeprom;
+ 141   1      }
+ 142          //*******************************************************************************************
+ 143          //*******************************************************************************************
+ 144          //  ESCRIBE EN EEPROM                                   *
+ 145          //*******************************************************************************************
+ 146          //void wr_eeprom (unsigned char control,unsigned char dir_h,unsigned char dir_l,unsigned char data_eeprom)
+ 147          void wr_eeprom (unsigned char control,unsigned int Dir, unsigned char data_eeprom)
+ 148          {
+ 149   1        unsigned char dir_h, dir_l;
+ 150   1        dir_l=Dir;
+ 151   1        Dir>>=8;
+ 152   1        dir_h=Dir;
+ 153   1      
+ 154   1      
+ 155   1        scl=0;
+ 156   1        sda=0;
+ 157   1      //  wait();
+ 158   1          start();
+ 159   1        e_d_m(control);
+ 160   1        ackd();
+ 161   1        e_d_m(dir_h);
+ 162   1        ackd();
+ 163   1        e_d_m(dir_l);
+ 164   1        ackd();
+ 165   1        e_d_m(data_eeprom);
+ 166   1        ackd();
+ 167   1        stop();
+ 168   1        Delay_1ms(13);
+ 169   1        
+ 170   1        scl=1;
+ 171   1        sda=1;
+ 172   1        Delay_20us(98);                   /*wait long*/
+ 173   1        Delay_20us(98);
+ 174   1      }
+ 175          //*******************************************************************************************
+ 176          //  ESCRIBE EN EEPROM                                   *
+ 177          //*******************************************************************************************
+ 178          /*
+C51 COMPILER V9.59.0.0   EEPROM                                                            11/29/2019 11:25:15 PAGE 4   
+
+ 179          void wrpage_eeprom (unsigned char control,unsigned char dir_h,unsigned char dir_l,unsigned char data_eepro
+             -m)  
+ 180          {
+ 181            unsigned int j;
+ 182            scl=0;
+ 183            sda=0;
+ 184            wait();
+ 185          
+ 186            wait();
+ 187          
+ 188              start();
+ 189            e_d_m(control);
+ 190            ack();
+ 191            e_d_m(dir_h);
+ 192            ack();
+ 193            e_d_m(dir_l);
+ 194            ack();
+ 195            for (j=0; j<=127; j++)
+ 196            {
+ 197              e_d_m(data_eeprom);
+ 198              ack();
+ 199            }
+ 200            stop();
+ 201            Delay_1ms(13);
+ 202            scl=1;
+ 203            sda=1;
+ 204           return;
+ 205          }                                              */
+ 206          //******************************************************************************************* 
+ 207          //******************************************************************************************* 
+ 208          //  LEE EN EEPROM                                     *
+ 209          //*******************************************************************************************
+ 210          //unsigned char rd_eeprom (unsigned char control,unsigned char dir_h,unsigned char dir_l) 
+ 211          unsigned char rd_eeprom (unsigned char control,unsigned int Dir) 
+ 212          {
+ 213   1      
+ 214   1        unsigned char dir_h, dir_l;
+ 215   1        dir_l=Dir;
+ 216   1        Dir>>=8;
+ 217   1        dir_h=Dir;
+ 218   1      
+ 219   1        scl=0;
+ 220   1        sda=0;
+ 221   1       // wait();
+ 222   1        start();
+ 223   1        e_d_m(control);
+ 224   1        ack_lect();
+ 225   1        e_d_m(dir_h);
+ 226   1          ack_lect();
+ 227   1        e_d_m(dir_l);
+ 228   1        ack_lect();
+ 229   1        start();
+ 230   1        e_d_m(control+0x01);
+ 231   1        ackd();
+ 232   1        scl=0;
+ 233   1        l_d_m();
+ 234   1        stop();
+ 235   1          scl=1;
+ 236   1        sda=1;
+ 237   1        return l_data_eeprom;
+ 238   1      }
+
+C51 COMPILER V9.59.0.0   EEPROM                                                            11/29/2019 11:25:15 PAGE 5   
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    392    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =      3    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =      1    ----
+   EDATA SIZE       =   ----    ----
+   HDATA SIZE       =   ----    ----
+   XDATA CONST SIZE =   ----    ----
+   FAR CONST SIZE   =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

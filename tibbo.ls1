@@ -1,0 +1,819 @@
+A51 MACRO ASSEMBLER  TIBBO                                                                03/07/2019 10:42:51 PAGE     1
+
+
+MACRO ASSEMBLER A51 V8.2.7.0
+OBJECT MODULE PLACED IN .\object\tibbo.OBJ
+ASSEMBLER INVOKED BY: C:\Keil_v5\C51\BIN\A51.EXE .\object\tibbo.src PR(.\tibbo.ls1) EP DEBUG
+
+LOC  OBJ            LINE     SOURCE
+
+                       1     ; .\object\tibbo.SRC generated from: tibbo.c
+                       2     ; COMPILER INVOKED BY:
+                       3     ;        C:\Keil_v5\C51\BIN\C51.EXE tibbo.c LARGE OBJECTADVANCED OPTIMIZE(11,SPEED) REGFILE
+                             (.\object\verificador1.0.ORC) BROWSE DEFINE(XTAL=11059200) DEBUG CODE SYMBOLS TABS(2) PREPRINT SRC(.\object\tibbo.SRC)
+                       4     
+                       5     $nomod51 
+                       6     
+                       7     NAME    TIBBO
+                       8     
+  0080                 9     P0      DATA    080H
+  0090                10     P1      DATA    090H
+  00A0                11     P2      DATA    0A0H
+  00B0                12     P3      DATA    0B0H
+  0090                13     txd2    BIT     090H.0
+  00B4                14     T0      BIT     0B0H.4
+  00D6                15     AC      BIT     0D0H.6
+  00B5                16     T1      BIT     0B0H.5
+  00AF                17     EA      BIT     0A8H.7
+  00A8                18     IE      DATA    0A8H
+  00B7                19     RD      BIT     0B0H.7
+  00AC                20     ES      BIT     0A8H.4
+  00B8                21     IP      DATA    0B8H
+  0098                22     RI      BIT     098H.0
+  00B2                23     INT0    BIT     0B0H.2
+  00D7                24     CY      BIT     0D0H.7
+  0099                25     TI      BIT     098H.1
+  00B3                26     INT1    BIT     0B0H.3
+  00BC                27     PS      BIT     0B8H.4
+  0081                28     SP      DATA    081H
+  0080                29     rx_ip   BIT     080H.0
+  00D2                30     OV      BIT     0D0H.2
+  00B6                31     WR      BIT     0B0H.6
+  0099                32     SBUF    DATA    099H
+  0087                33     PCON    DATA    087H
+  0098                34     SCON    DATA    098H
+  0089                35     TMOD    DATA    089H
+  0088                36     TCON    DATA    088H
+  0089                37     IE0     BIT     088H.1
+  008B                38     IE1     BIT     088H.3
+  00F0                39     B       DATA    0F0H
+  00E0                40     ACC     DATA    0E0H
+  00A9                41     ET0     BIT     0A8H.1
+  00AB                42     ET1     BIT     0A8H.3
+  008D                43     TF0     BIT     088H.5
+  008F                44     TF1     BIT     088H.7
+  009A                45     RB8     BIT     098H.2
+  008C                46     TH0     DATA    08CH
+  00A8                47     EX0     BIT     0A8H.0
+  0088                48     IT0     BIT     088H.0
+  008D                49     TH1     DATA    08DH
+  009B                50     TB8     BIT     098H.3
+  00AA                51     EX1     BIT     0A8H.2
+  008A                52     IT1     BIT     088H.2
+  00D0                53     P       BIT     0D0H.0
+  009F                54     SM0     BIT     098H.7
+  008A                55     TL0     DATA    08AH
+  009E                56     SM1     BIT     098H.6
+  008B                57     TL1     DATA    08BH
+A51 MACRO ASSEMBLER  TIBBO                                                                03/07/2019 10:42:51 PAGE     2
+
+  009D                58     SM2     BIT     098H.5
+  00B9                59     PT0     BIT     0B8H.1
+  00BB                60     PT1     BIT     0B8H.3
+  00D3                61     RS0     BIT     0D0H.3
+  008C                62     TR0     BIT     088H.4
+  00D4                63     RS1     BIT     0D0H.4
+  008E                64     TR1     BIT     088H.6
+  00B8                65     PX0     BIT     0B8H.0
+  00BA                66     PX1     BIT     0B8H.2
+  0083                67     DPH     DATA    083H
+  0082                68     DPL     DATA    082H
+  009C                69     REN     BIT     098H.4
+  00B0                70     RXD     BIT     0B0H.0
+  00B1                71     TXD     BIT     0B0H.1
+  00D5                72     F0      BIT     0D0H.5
+  00D0                73     PSW     DATA    0D0H
+                      74     ?PR?time_bit?TIBBO   SEGMENT CODE 
+                      75     ?PR?time_mbit?TIBBO  SEGMENT CODE 
+                      76     ?XD?time_mbit?TIBBO  SEGMENT XDATA OVERLAYABLE
+                      77     ?PR?_tx_aux?TIBBO    SEGMENT CODE 
+                      78     ?PR?_Debug_txt_Tibbo?TIBBO               SEGMENT CODE 
+                      79     ?XD?_Debug_txt_Tibbo?TIBBO               SEGMENT XDATA OVERLAYABLE
+                      80     ?PR?rx_Data?TIBBO    SEGMENT CODE 
+                      81     ?XD?rx_Data?TIBBO    SEGMENT XDATA OVERLAYABLE
+                      82     ?PR?cond_ini_tibbo?TIBBO                 SEGMENT CODE 
+                      83     ?PR?TIBBO            SEGMENT CODE 
+                      84             EXTRN   BIT (Debug_Tibbo)
+                      85             EXTRN   CODE (?C?CLDOPTR)
+                      86             PUBLIC  cond_ini_tibbo
+                      87             PUBLIC  rx_Data
+                      88             PUBLIC  _Debug_txt_Tibbo
+                      89             PUBLIC  _tx_aux
+                      90             PUBLIC  time_mbit
+                      91             PUBLIC  time_bit
+                      92     
+----                  93             RSEG  ?XD?_Debug_txt_Tibbo?TIBBO
+0000                  94     ?_Debug_txt_Tibbo?BYTE:
+0000                  95             str?346:   DS   3
+0003                  96             ORG  3
+0003                  97               i?347:   DS   1
+                      98     
+----                  99             RSEG  ?XD?time_mbit?TIBBO
+0000                 100     ?time_mbit?BYTE:
+0000                 101               j?141:   DS   1
+                     102     
+----                 103             RSEG  ?XD?rx_Data?TIBBO
+0000                 104     ?rx_Data?BYTE:
+0000                 105        temporal?448:   DS   1
+                     106     ; #include <reg51.h>
+                     107     ; #include "tibbo.h" 
+                     108     ; 
+                     109     ; sbit rx_ip = P0^0;                                    //              
+                     110     ; sbit txd2 = P1^0;                                     //Transmision Aux Datos IP         
+                                                                                  *
+                     111     ; 
+                     112     ; #define CR    0x0d
+                     113     ; #define LF    0x0a
+                     114     ; /*------------------------------------------------------------------------------
+                     115     ; ------------------------------------------------------------------------------*/
+                     116     ; 
+                     117     ; /*------------------------------------------------------------------------------
+                     118     ; ------------------------------------------------------------------------------*/
+                     119     
+----                 120             RSEG  ?PR?TIBBO
+0000                 121     Com002C:
+0000                 122     L?0045:
+A51 MACRO ASSEMBLER  TIBBO                                                                03/07/2019 10:42:51 PAGE     3
+
+                     123             USING   0
+0000                 124     L?0046:
+0000 900000   F      125             MOV     DPTR,#temporal?448
+0003 E0              126             MOVX    A,@DPTR
+0004 4480            127             ORL     A,#080H
+0006 FF              128             MOV     R7,A
+0007 22              129             RET     
+                     130     ; END OF Com002C
+                     131     
+                     132     ; void time_bit()
+                     133     
+----                 134             RSEG  ?PR?time_bit?TIBBO
+0000                 135     L?0042:
+                     136             USING   0
+0000                 137     L?0043:
+0000 900000   F      138             MOV     DPTR,#temporal?448
+0003 EF              139             MOV     A,R7
+0004 F0              140             MOVX    @DPTR,A
+0005 E0              141             MOVX    A,@DPTR
+0006 FF              142             MOV     R7,A
+0007 C3              143             CLR     C
+0008 13              144             RRC     A
+0009 F0              145             MOVX    @DPTR,A
+000A                 146     time_bit:
+                     147             USING   0
+                     148                             ; SOURCE LINE # 14
+                     149     ; {
+                     150                             ; SOURCE LINE # 15
+                     151     ;       unsigned char j;
+                     152     ; 
+                     153     ;       for (j=0; j<=41; j++)                           //18 para 19200  ...   41 Para 9600
+                                   //42 142us //16 a 9600 transmision
+                     154                             ; SOURCE LINE # 18
+                     155     ;---- Variable 'j?040' assigned to Register 'R7' ----
+000A E4              156             CLR     A
+000B FF              157             MOV     R7,A
+000C                 158     ?C0001:
+000C EF              159             MOV     A,R7
+000D D3              160             SETB    C
+000E 9429            161             SUBB    A,#029H
+0010 7480            162             MOV     A,#080H
+0012 9480            163             SUBB    A,#080H
+0014 5003            164             JNC     ?C0004
+                     165     ;       {
+                     166                             ; SOURCE LINE # 19
+                     167     ;               //_nop_();
+                     168     ;       //      _nop_();
+                     169     ;       }
+                     170                             ; SOURCE LINE # 22
+0016 0F              171             INC     R7
+0017 80F3            172             SJMP    ?C0001
+                     173     ; }
+                     174                             ; SOURCE LINE # 23
+0019                 175     ?C0004:
+0019 22              176             RET     
+                     177     ; END OF time_bit
+                     178     
+                     179     ; /*------------------------------------------------------------------------------
+                     180     ; ------------------------------------------------------------------------------*/
+                     181     ; void time_mbit(void)
+                     182     
+----                 183             RSEG  ?PR?time_mbit?TIBBO
+0000                 184     time_mbit:
+                     185             USING   0
+                     186                             ; SOURCE LINE # 26
+                     187     ; {
+A51 MACRO ASSEMBLER  TIBBO                                                                03/07/2019 10:42:51 PAGE     4
+
+                     188                             ; SOURCE LINE # 27
+                     189     ;       unsigned char j;
+                     190     ;       for (j=0; j<=2; j++)
+                     191                             ; SOURCE LINE # 29
+0000 E4              192             CLR     A
+0001 900000   F      193             MOV     DPTR,#j?141
+0004 F0              194             MOVX    @DPTR,A
+0005                 195     ?C0005:
+0005 900000   F      196             MOV     DPTR,#j?141
+0008 E0              197             MOVX    A,@DPTR
+0009 D3              198             SETB    C
+000A 9402            199             SUBB    A,#02H
+000C 7480            200             MOV     A,#080H
+000E 9480            201             SUBB    A,#080H
+0010 500F            202             JNC     ?C0008
+                     203     ;       {
+                     204                             ; SOURCE LINE # 30
+                     205     ; #pragma ASM
+                     206     ;               NOP
+0012 00              207               NOP
+                     208     ;               NOP
+0013 00              209               NOP
+                     210     ;               NOP
+0014 00              211               NOP
+                     212     ;               NOP
+0015 00              213               NOP
+                     214     ;               NOP
+0016 00              215               NOP
+                     216     ;               NOP
+0017 00              217               NOP
+                     218     ;               NOP
+0018 00              219               NOP
+                     220     ; #pragma ENDASM
+                     221     ;       //for (j=0; j<=5; j++)                          //      15 t medio bit
+                     222     ;       //{
+                     223     ;       }
+                     224                             ; SOURCE LINE # 42
+0019 900000   F      225             MOV     DPTR,#j?141
+001C E0              226             MOVX    A,@DPTR
+001D 04              227             INC     A
+001E F0              228             MOVX    @DPTR,A
+001F 80E4            229             SJMP    ?C0005
+                     230     ; //    }
+                     231     ; }
+                     232                             ; SOURCE LINE # 44
+0021                 233     ?C0008:
+0021 22              234             RET     
+                     235     ; END OF time_mbit
+                     236     
+                     237     ; 
+                     238     ; /*------------------------------------------------------------------------------
+                     239     ; ------------------------------------------------------------------------------*/
+                     240     ; void tx_aux(unsigned char caracter)
+                     241     
+----                 242             RSEG  ?PR?_tx_aux?TIBBO
+0000                 243     _tx_aux:
+                     244             USING   0
+                     245                             ; SOURCE LINE # 48
+                     246     ;---- Variable 'caracter?242' assigned to Register 'R6' ----
+0000 AE07            247             MOV     R6,AR7
+                     248     ; {
+                     249                             ; SOURCE LINE # 49
+                     250     ;       unsigned char j, temporal, bitTX;
+                     251     ; 
+                     252     ;       EA=0;
+                     253                             ; SOURCE LINE # 52
+A51 MACRO ASSEMBLER  TIBBO                                                                03/07/2019 10:42:51 PAGE     5
+
+0002 C2AF            254             CLR     EA
+                     255     ;       txd2=0;
+                     256                             ; SOURCE LINE # 53
+0004 C290            257             CLR     txd2
+                     258     ;       time_bit();
+                     259                             ; SOURCE LINE # 54
+0006 120000   F      260             LCALL   time_bit
+                     261     ;       temporal=caracter;
+                     262                             ; SOURCE LINE # 55
+                     263     ;---- Variable 'temporal?244' assigned to Register 'R5' ----
+0009 AD06            264             MOV     R5,AR6
+                     265     ;       bitTX=caracter&0x01;
+                     266                             ; SOURCE LINE # 56
+000B EE              267             MOV     A,R6
+000C 5401            268             ANL     A,#01H
+                     269     ;---- Variable 'bitTX?245' assigned to Register 'R6' ----
+000E FE              270             MOV     R6,A
+                     271     ;       if (bitTX==0x00)
+                     272                             ; SOURCE LINE # 57
+000F 7004            273             JNZ     ?C0009
+                     274     ;       {
+                     275                             ; SOURCE LINE # 58
+                     276     ;               txd2=0;
+                     277                             ; SOURCE LINE # 59
+0011 C290            278             CLR     txd2
+                     279     ;       }
+                     280                             ; SOURCE LINE # 60
+0013 8002            281             SJMP    ?C0010
+0015                 282     ?C0009:
+                     283     ;       else
+                     284     ;       {
+                     285                             ; SOURCE LINE # 62
+                     286     ;               txd2=1;
+                     287                             ; SOURCE LINE # 63
+0015 D290            288             SETB    txd2
+                     289     ;       }
+                     290                             ; SOURCE LINE # 64
+0017                 291     ?C0010:
+                     292     ;       time_bit();
+                     293                             ; SOURCE LINE # 65
+0017 120000   F      294             LCALL   time_bit
+                     295     ;       for (j=1; j<=7; j++)
+                     296                             ; SOURCE LINE # 66
+                     297     ;---- Variable 'j?243' assigned to Register 'R4' ----
+001A 7C01            298             MOV     R4,#01H
+001C                 299     ?C0011:
+001C EC              300             MOV     A,R4
+001D D3              301             SETB    C
+001E 9407            302             SUBB    A,#07H
+0020 7480            303             MOV     A,#080H
+0022 9480            304             SUBB    A,#080H
+0024 5015            305             JNC     ?C0012
+                     306     ;       {
+                     307                             ; SOURCE LINE # 67
+                     308     ;               temporal>>=1;
+                     309                             ; SOURCE LINE # 68
+0026 ED              310             MOV     A,R5
+0027 C3              311             CLR     C
+0028 13              312             RRC     A
+0029 FD              313             MOV     R5,A
+                     314     ;               bitTX=temporal&(0x01);
+                     315                             ; SOURCE LINE # 69
+002A 5401            316             ANL     A,#01H
+002C FE              317             MOV     R6,A
+                     318     ;               if (bitTX==0x00)
+                     319                             ; SOURCE LINE # 70
+A51 MACRO ASSEMBLER  TIBBO                                                                03/07/2019 10:42:51 PAGE     6
+
+002D 7004            320             JNZ     ?C0014
+                     321     ;               {
+                     322                             ; SOURCE LINE # 71
+                     323     ;                       txd2=0;
+                     324                             ; SOURCE LINE # 72
+002F C290            325             CLR     txd2
+                     326     ;               }
+                     327                             ; SOURCE LINE # 73
+0031 8002            328             SJMP    ?C0015
+0033                 329     ?C0014:
+                     330     ;               else
+                     331     ;               {
+                     332                             ; SOURCE LINE # 75
+                     333     ;                       txd2=1;
+                     334                             ; SOURCE LINE # 76
+0033 D290            335             SETB    txd2
+                     336     ;               }
+                     337                             ; SOURCE LINE # 77
+0035                 338     ?C0015:
+                     339     ;               time_bit();
+                     340                             ; SOURCE LINE # 78
+0035 120000   F      341             LCALL   time_bit
+                     342     ;       }
+                     343                             ; SOURCE LINE # 79
+0038 0C              344             INC     R4
+0039 80E1            345             SJMP    ?C0011
+003B                 346     ?C0012:
+                     347     ;       txd2=1;
+                     348                             ; SOURCE LINE # 80
+003B D290            349             SETB    txd2
+                     350     ;       time_bit();
+                     351                             ; SOURCE LINE # 81
+003D 120000   F      352             LCALL   time_bit
+                     353     ;       time_bit(); 
+                     354                             ; SOURCE LINE # 82
+0040 120000   F      355             LCALL   time_bit
+                     356     ; 
+                     357     ;       EA=1;
+                     358                             ; SOURCE LINE # 84
+0043 D2AF            359             SETB    EA
+                     360     ; }
+                     361                             ; SOURCE LINE # 85
+0045 22              362             RET     
+                     363     ; END OF _tx_aux
+                     364     
+                     365     ; /*------------------------------------------------------------------------------
+                     366     ; ------------------------------------------------------------------------------*/
+                     367     ; void Debug_txt_Tibbo(unsigned char * str)
+                     368     
+----                 369             RSEG  ?PR?_Debug_txt_Tibbo?TIBBO
+0000                 370     _Debug_txt_Tibbo:
+                     371             USING   0
+                     372                             ; SOURCE LINE # 88
+0000 900000   F      373             MOV     DPTR,#str?346
+0003 EB              374             MOV     A,R3
+0004 F0              375             MOVX    @DPTR,A
+0005 A3              376             INC     DPTR
+0006 EA              377             MOV     A,R2
+0007 F0              378             MOVX    @DPTR,A
+0008 A3              379             INC     DPTR
+0009 E9              380             MOV     A,R1
+000A F0              381             MOVX    @DPTR,A
+                     382     ; {
+                     383                             ; SOURCE LINE # 89
+                     384     ;       unsigned char i;
+                     385     ;       i=0;
+A51 MACRO ASSEMBLER  TIBBO                                                                03/07/2019 10:42:51 PAGE     7
+
+                     386                             ; SOURCE LINE # 91
+000B E4              387             CLR     A
+000C A3              388             INC     DPTR
+000D F0              389             MOVX    @DPTR,A
+                     390     ;       
+                     391     ;       if (Debug_Tibbo==1)
+                     392                             ; SOURCE LINE # 93
+000E 300024   F      393             JNB     Debug_Tibbo,?C0021
+                     394     ;       {
+                     395                             ; SOURCE LINE # 94
+                     396     ;               for (i=0; str[i] != '\0'; i++)
+                     397                             ; SOURCE LINE # 95
+0011 F0              398             MOVX    @DPTR,A
+0012                 399     ?C0018:
+0012 900000   F      400             MOV     DPTR,#str?346
+0015 E0              401             MOVX    A,@DPTR
+0016 FB              402             MOV     R3,A
+0017 A3              403             INC     DPTR
+0018 E0              404             MOVX    A,@DPTR
+0019 FA              405             MOV     R2,A
+001A A3              406             INC     DPTR
+001B E0              407             MOVX    A,@DPTR
+001C F9              408             MOV     R1,A
+001D A3              409             INC     DPTR
+001E E0              410             MOVX    A,@DPTR
+001F F582            411             MOV     DPL,A
+0021 758300          412             MOV     DPH,#00H
+0024 120000   F      413             LCALL   ?C?CLDOPTR
+0027 FF              414             MOV     R7,A
+0028 600B            415             JZ      ?C0021
+                     416     ;               {
+                     417                             ; SOURCE LINE # 96
+                     418     ;                       tx_aux(str[i]);
+                     419                             ; SOURCE LINE # 97
+002A 120000   F      420             LCALL   _tx_aux
+                     421     ;               }
+                     422                             ; SOURCE LINE # 98
+002D 900000   F      423             MOV     DPTR,#i?347
+0030 E0              424             MOVX    A,@DPTR
+0031 04              425             INC     A
+0032 F0              426             MOVX    @DPTR,A
+0033 80DD            427             SJMP    ?C0018
+                     428     ;               
+                     429     ;       }
+                     430                             ; SOURCE LINE # 100
+                     431     ; }
+                     432                             ; SOURCE LINE # 101
+0035                 433     ?C0021:
+0035 22              434             RET     
+                     435     ; END OF _Debug_txt_Tibbo
+                     436     
+                     437     ; 
+                     438     ; /*------------------------------------------------------------------------------
+                     439     ; ------------------------------------------------------------------------------*/
+                     440     ; unsigned char rx_Data(void)
+                     441     
+----                 442             RSEG  ?PR?rx_Data?TIBBO
+0000                 443     rx_Data:
+                     444             USING   0
+                     445                             ; SOURCE LINE # 105
+                     446     ; {
+                     447                             ; SOURCE LINE # 106
+                     448     ;       unsigned char temporal;
+                     449     ;       
+                     450     ;               temporal=0xff;
+                     451                             ; SOURCE LINE # 109
+A51 MACRO ASSEMBLER  TIBBO                                                                03/07/2019 10:42:51 PAGE     8
+
+0000 900000   F      452             MOV     DPTR,#temporal?448
+0003 74FF            453             MOV     A,#0FFH
+0005 F0              454             MOVX    @DPTR,A
+                     455     ;               time_mbit();
+                     456                             ; SOURCE LINE # 110
+0006 120000   F      457             LCALL   time_mbit
+                     458     ; //---------------------------------------------------------------------------------------
+                             -----------
+                     459     ;               time_bit();
+                     460                             ; SOURCE LINE # 112
+0009 120000   F      461             LCALL   time_bit
+                     462     ; //---------------------------------------------------------------------------------------
+                             -----------
+                     463     ;               temporal=(rx_ip==0)?(temporal&0x7f):(temporal|0x80);
+                     464                             ; SOURCE LINE # 114
+000C 900000   F      465             MOV     DPTR,#temporal?448
+000F E0              466             MOVX    A,@DPTR
+0010 208005          467             JB      rx_ip,?C0022
+0013 547F            468             ANL     A,#07FH
+0015 FF              469             MOV     R7,A
+0016 8003            470             SJMP    ?C0023
+0018                 471     ?C0022:
+0018 4480            472             ORL     A,#080H
+001A FF              473             MOV     R7,A
+001B                 474     ?C0023:
+                     475     ;               temporal>>=1;
+                     476                             ; SOURCE LINE # 115
+                     477     ; //------------------------------------------------------------------------------------
+                     478     ;               time_bit();
+                     479                             ; SOURCE LINE # 117
+001B 120000   F      480             LCALL   L?0042
+                     481     ; //------------------------------------------------------------------------------------
+                     482     ;               temporal=(rx_ip==0)?(temporal&0x7f):(temporal|0x80);
+                     483                             ; SOURCE LINE # 119
+001E 208006          484             JB      rx_ip,?C0024
+0021 E0              485             MOVX    A,@DPTR
+0022 547F            486             ANL     A,#07FH
+0024 FF              487             MOV     R7,A
+0025 8003            488             SJMP    ?C0025
+0027                 489     ?C0024:
+0027 120000   F      490             LCALL   L?0045
+002A                 491     ?C0025:
+                     492     ;               temporal>>=1;
+                     493                             ; SOURCE LINE # 120
+                     494     ; //------------------------------------------------------------------------------------
+                     495     ;               time_bit();
+                     496                             ; SOURCE LINE # 122
+002A 120000   F      497             LCALL   L?0042
+                     498     ; //------------------------------------------------------------------------------------
+                     499     ;               temporal=(rx_ip==0)?(temporal&0x7f):(temporal|0x80);
+                     500                             ; SOURCE LINE # 124
+002D 208006          501             JB      rx_ip,?C0026
+0030 E0              502             MOVX    A,@DPTR
+0031 547F            503             ANL     A,#07FH
+0033 FF              504             MOV     R7,A
+0034 8003            505             SJMP    ?C0027
+0036                 506     ?C0026:
+0036 120000   F      507             LCALL   L?0045
+0039                 508     ?C0027:
+                     509     ;               temporal>>=1;
+                     510                             ; SOURCE LINE # 125
+                     511     ; //------------------------------------------------------------------------------------
+                     512     ;               time_bit();
+                     513                             ; SOURCE LINE # 127
+0039 120000   F      514             LCALL   L?0043
+                     515     ; //------------------------------------------------------------------------------------
+A51 MACRO ASSEMBLER  TIBBO                                                                03/07/2019 10:42:51 PAGE     9
+
+                     516     ;               temporal=(rx_ip==0)?(temporal&0x7f):(temporal|0x80);
+                     517                             ; SOURCE LINE # 129
+003C 208006          518             JB      rx_ip,?C0028
+003F E0              519             MOVX    A,@DPTR
+0040 547F            520             ANL     A,#07FH
+0042 FF              521             MOV     R7,A
+0043 8003            522             SJMP    ?C0029
+0045                 523     ?C0028:
+0045 120000   F      524             LCALL   L?0046
+0048                 525     ?C0029:
+                     526     ;               temporal>>=1;
+                     527                             ; SOURCE LINE # 130
+                     528     ; //------------------------------------------------------------------------------------
+                     529     ;               time_bit();
+                     530                             ; SOURCE LINE # 132
+0048 120000   F      531             LCALL   L?0043
+                     532     ; //------------------------------------------------------------------------------------
+                     533     ;               temporal=(rx_ip==0)?(temporal&0x7f):(temporal|0x80);
+                     534                             ; SOURCE LINE # 134
+004B 208006          535             JB      rx_ip,?C0030
+004E E0              536             MOVX    A,@DPTR
+004F 547F            537             ANL     A,#07FH
+0051 FF              538             MOV     R7,A
+0052 8003            539             SJMP    ?C0031
+0054                 540     ?C0030:
+0054 120000   F      541             LCALL   L?0046
+0057                 542     ?C0031:
+                     543     ;               temporal>>=1;
+                     544                             ; SOURCE LINE # 135
+                     545     ; //------------------------------------------------------------------------------------
+                     546     ;               time_bit();
+                     547                             ; SOURCE LINE # 137
+0057 120000   F      548             LCALL   L?0043
+                     549     ; //------------------------------------------------------------------------------------
+                     550     ;               temporal=(rx_ip==0)?(temporal&0x7f):(temporal|0x80);
+                     551                             ; SOURCE LINE # 139
+005A 208006          552             JB      rx_ip,?C0032
+005D E0              553             MOVX    A,@DPTR
+005E 547F            554             ANL     A,#07FH
+0060 FF              555             MOV     R7,A
+0061 8003            556             SJMP    ?C0033
+0063                 557     ?C0032:
+0063 120000   F      558             LCALL   L?0046
+0066                 559     ?C0033:
+                     560     ;               temporal>>=1;
+                     561                             ; SOURCE LINE # 140
+                     562     ; //------------------------------------------------------------------------------------
+                     563     ;               time_bit();
+                     564                             ; SOURCE LINE # 142
+0066 120000   F      565             LCALL   L?0043
+                     566     ; //------------------------------------------------------------------------------------
+                     567     ;               temporal=(rx_ip==0)?(temporal&0x7f):(temporal|0x80);
+                     568                             ; SOURCE LINE # 144
+0069 208006          569             JB      rx_ip,?C0034
+006C E0              570             MOVX    A,@DPTR
+006D 547F            571             ANL     A,#07FH
+006F FF              572             MOV     R7,A
+0070 8003            573             SJMP    ?C0035
+0072                 574     ?C0034:
+0072 120000   F      575             LCALL   L?0046
+0075                 576     ?C0035:
+                     577     ;               temporal>>=1;
+                     578                             ; SOURCE LINE # 145
+                     579     ; //------------------------------------------------------------------------------------
+                     580     ;               time_bit();
+                     581                             ; SOURCE LINE # 147
+A51 MACRO ASSEMBLER  TIBBO                                                                03/07/2019 10:42:51 PAGE    10
+
+0075 120000   F      582             LCALL   L?0043
+                     583     ;               temporal=(rx_ip==0)?(temporal&0x7f):(temporal|0x80);
+                     584                             ; SOURCE LINE # 148
+0078 208006          585             JB      rx_ip,?C0036
+007B E0              586             MOVX    A,@DPTR
+007C 547F            587             ANL     A,#07FH
+007E FF              588             MOV     R7,A
+007F 8003            589             SJMP    ?C0037
+0081                 590     ?C0036:
+0081 120000   F      591             LCALL   L?0046
+0084                 592     ?C0037:
+0084 900000   F      593             MOV     DPTR,#temporal?448
+0087 EF              594             MOV     A,R7
+0088 F0              595             MOVX    @DPTR,A
+                     596     ; //------------------------------------------------------------------------------------
+                     597     ;               time_bit();
+                     598                             ; SOURCE LINE # 150
+0089 120000   F      599             LCALL   time_bit
+008C                 600     ?C0038:
+                     601     ;               while (rx_ip==0)
+                     602                             ; SOURCE LINE # 151
+008C 3080FD          603             JNB     rx_ip,?C0038
+                     604     ;               {
+                     605                             ; SOURCE LINE # 152
+                     606     ;               }
+                     607                             ; SOURCE LINE # 153
+                     608     ; //------------------------------------------------------------------------------------
+                     609     ;       return temporal; 
+                     610                             ; SOURCE LINE # 155
+008F 900000   F      611             MOV     DPTR,#temporal?448
+0092 E0              612             MOVX    A,@DPTR
+0093 FF              613             MOV     R7,A
+                     614     ; 
+                     615     ; }     
+                     616                             ; SOURCE LINE # 157
+0094 22              617             RET     
+                     618     ; END OF rx_Data
+                     619     
+                     620     ; /*------------------------------------------------------------------------------
+                     621     ; ------------------------------------------------------------------------------*/
+                     622     ; void cond_ini_tibbo(void)
+                     623     
+----                 624             RSEG  ?PR?cond_ini_tibbo?TIBBO
+0000                 625     cond_ini_tibbo:
+                     626             USING   0
+                     627                             ; SOURCE LINE # 160
+                     628     ; {
+                     629                             ; SOURCE LINE # 161
+                     630     ; 
+                     631     ;       txd2=1;
+                     632                             ; SOURCE LINE # 163
+0000 D290            633             SETB    txd2
+                     634     ;       rx_ip=1;
+                     635                             ; SOURCE LINE # 164
+0002 D280            636             SETB    rx_ip
+                     637     ; }
+                     638                             ; SOURCE LINE # 165
+0004 22              639             RET     
+                     640     ; END OF cond_ini_tibbo
+                     641     
+                     642             END
+A51 MACRO ASSEMBLER  TIBBO                                                                03/07/2019 10:42:51 PAGE    11
+
+SYMBOL TABLE LISTING
+------ ----- -------
+
+
+N A M E                     T Y P E  V A L U E   ATTRIBUTES
+
+?C0001 . . . . . . . . . .  C ADDR   000CH   R   SEG=?PR?TIME_BIT?TIBBO
+?C0004 . . . . . . . . . .  C ADDR   0019H   R   SEG=?PR?TIME_BIT?TIBBO
+?C0005 . . . . . . . . . .  C ADDR   0005H   R   SEG=?PR?TIME_MBIT?TIBBO
+?C0008 . . . . . . . . . .  C ADDR   0021H   R   SEG=?PR?TIME_MBIT?TIBBO
+?C0009 . . . . . . . . . .  C ADDR   0015H   R   SEG=?PR?_TX_AUX?TIBBO
+?C0010 . . . . . . . . . .  C ADDR   0017H   R   SEG=?PR?_TX_AUX?TIBBO
+?C0011 . . . . . . . . . .  C ADDR   001CH   R   SEG=?PR?_TX_AUX?TIBBO
+?C0012 . . . . . . . . . .  C ADDR   003BH   R   SEG=?PR?_TX_AUX?TIBBO
+?C0014 . . . . . . . . . .  C ADDR   0033H   R   SEG=?PR?_TX_AUX?TIBBO
+?C0015 . . . . . . . . . .  C ADDR   0035H   R   SEG=?PR?_TX_AUX?TIBBO
+?C0018 . . . . . . . . . .  C ADDR   0012H   R   SEG=?PR?_DEBUG_TXT_TIBBO?TIBBO
+?C0021 . . . . . . . . . .  C ADDR   0035H   R   SEG=?PR?_DEBUG_TXT_TIBBO?TIBBO
+?C0022 . . . . . . . . . .  C ADDR   0018H   R   SEG=?PR?RX_DATA?TIBBO
+?C0023 . . . . . . . . . .  C ADDR   001BH   R   SEG=?PR?RX_DATA?TIBBO
+?C0024 . . . . . . . . . .  C ADDR   0027H   R   SEG=?PR?RX_DATA?TIBBO
+?C0025 . . . . . . . . . .  C ADDR   002AH   R   SEG=?PR?RX_DATA?TIBBO
+?C0026 . . . . . . . . . .  C ADDR   0036H   R   SEG=?PR?RX_DATA?TIBBO
+?C0027 . . . . . . . . . .  C ADDR   0039H   R   SEG=?PR?RX_DATA?TIBBO
+?C0028 . . . . . . . . . .  C ADDR   0045H   R   SEG=?PR?RX_DATA?TIBBO
+?C0029 . . . . . . . . . .  C ADDR   0048H   R   SEG=?PR?RX_DATA?TIBBO
+?C0030 . . . . . . . . . .  C ADDR   0054H   R   SEG=?PR?RX_DATA?TIBBO
+?C0031 . . . . . . . . . .  C ADDR   0057H   R   SEG=?PR?RX_DATA?TIBBO
+?C0032 . . . . . . . . . .  C ADDR   0063H   R   SEG=?PR?RX_DATA?TIBBO
+?C0033 . . . . . . . . . .  C ADDR   0066H   R   SEG=?PR?RX_DATA?TIBBO
+?C0034 . . . . . . . . . .  C ADDR   0072H   R   SEG=?PR?RX_DATA?TIBBO
+?C0035 . . . . . . . . . .  C ADDR   0075H   R   SEG=?PR?RX_DATA?TIBBO
+?C0036 . . . . . . . . . .  C ADDR   0081H   R   SEG=?PR?RX_DATA?TIBBO
+?C0037 . . . . . . . . . .  C ADDR   0084H   R   SEG=?PR?RX_DATA?TIBBO
+?C0038 . . . . . . . . . .  C ADDR   008CH   R   SEG=?PR?RX_DATA?TIBBO
+?C?CLDOPTR . . . . . . . .  C ADDR   -----       EXT
+?PR?COND_INI_TIBBO?TIBBO .  C SEG    0005H       REL=UNIT
+?PR?RX_DATA?TIBBO. . . . .  C SEG    0095H       REL=UNIT
+?PR?TIBBO. . . . . . . . .  C SEG    0008H       REL=UNIT
+?PR?TIME_BIT?TIBBO . . . .  C SEG    001AH       REL=UNIT
+?PR?TIME_MBIT?TIBBO. . . .  C SEG    0022H       REL=UNIT
+?PR?_DEBUG_TXT_TIBBO?TIBBO  C SEG    0036H       REL=UNIT
+?PR?_TX_AUX?TIBBO. . . . .  C SEG    0046H       REL=UNIT
+?RX_DATA?BYTE. . . . . . .  X ADDR   0000H   R   SEG=?XD?RX_DATA?TIBBO
+?TIME_MBIT?BYTE. . . . . .  X ADDR   0000H   R   SEG=?XD?TIME_MBIT?TIBBO
+?XD?RX_DATA?TIBBO. . . . .  X SEG    0001H       REL=UNIT
+?XD?TIME_MBIT?TIBBO. . . .  X SEG    0001H       REL=UNIT
+?XD?_DEBUG_TXT_TIBBO?TIBBO  X SEG    0004H       REL=UNIT
+?_DEBUG_TXT_TIBBO?BYTE . .  X ADDR   0000H   R   SEG=?XD?_DEBUG_TXT_TIBBO?TIBBO
+AC . . . . . . . . . . . .  B ADDR   00D0H.6 A   
+ACC. . . . . . . . . . . .  D ADDR   00E0H   A   
+AR6. . . . . . . . . . . .  D ADDR   0006H   A   
+AR7. . . . . . . . . . . .  D ADDR   0007H   A   
+B. . . . . . . . . . . . .  D ADDR   00F0H   A   
+COM002C. . . . . . . . . .  C ADDR   0000H   R   SEG=?PR?TIBBO
+COND_INI_TIBBO . . . . . .  C ADDR   0000H   R   SEG=?PR?COND_INI_TIBBO?TIBBO
+CY . . . . . . . . . . . .  B ADDR   00D0H.7 A   
+DEBUG_TIBBO. . . . . . . .  B ADDR   -----       EXT
+DPH. . . . . . . . . . . .  D ADDR   0083H   A   
+DPL. . . . . . . . . . . .  D ADDR   0082H   A   
+EA . . . . . . . . . . . .  B ADDR   00A8H.7 A   
+ES . . . . . . . . . . . .  B ADDR   00A8H.4 A   
+ET0. . . . . . . . . . . .  B ADDR   00A8H.1 A   
+ET1. . . . . . . . . . . .  B ADDR   00A8H.3 A   
+EX0. . . . . . . . . . . .  B ADDR   00A8H.0 A   
+EX1. . . . . . . . . . . .  B ADDR   00A8H.2 A   
+A51 MACRO ASSEMBLER  TIBBO                                                                03/07/2019 10:42:51 PAGE    12
+
+F0 . . . . . . . . . . . .  B ADDR   00D0H.5 A   
+I?347. . . . . . . . . . .  X ADDR   0003H   R   SEG=?XD?_DEBUG_TXT_TIBBO?TIBBO
+IE . . . . . . . . . . . .  D ADDR   00A8H   A   
+IE0. . . . . . . . . . . .  B ADDR   0088H.1 A   
+IE1. . . . . . . . . . . .  B ADDR   0088H.3 A   
+INT0 . . . . . . . . . . .  B ADDR   00B0H.2 A   
+INT1 . . . . . . . . . . .  B ADDR   00B0H.3 A   
+IP . . . . . . . . . . . .  D ADDR   00B8H   A   
+IT0. . . . . . . . . . . .  B ADDR   0088H.0 A   
+IT1. . . . . . . . . . . .  B ADDR   0088H.2 A   
+J?141. . . . . . . . . . .  X ADDR   0000H   R   SEG=?XD?TIME_MBIT?TIBBO
+L?0042 . . . . . . . . . .  C ADDR   0000H   R   SEG=?PR?TIME_BIT?TIBBO
+L?0043 . . . . . . . . . .  C ADDR   0000H   R   SEG=?PR?TIME_BIT?TIBBO
+L?0045 . . . . . . . . . .  C ADDR   0000H   R   SEG=?PR?TIBBO
+L?0046 . . . . . . . . . .  C ADDR   0000H   R   SEG=?PR?TIBBO
+OV . . . . . . . . . . . .  B ADDR   00D0H.2 A   
+P. . . . . . . . . . . . .  B ADDR   00D0H.0 A   
+P0 . . . . . . . . . . . .  D ADDR   0080H   A   
+P1 . . . . . . . . . . . .  D ADDR   0090H   A   
+P2 . . . . . . . . . . . .  D ADDR   00A0H   A   
+P3 . . . . . . . . . . . .  D ADDR   00B0H   A   
+PCON . . . . . . . . . . .  D ADDR   0087H   A   
+PS . . . . . . . . . . . .  B ADDR   00B8H.4 A   
+PSW. . . . . . . . . . . .  D ADDR   00D0H   A   
+PT0. . . . . . . . . . . .  B ADDR   00B8H.1 A   
+PT1. . . . . . . . . . . .  B ADDR   00B8H.3 A   
+PX0. . . . . . . . . . . .  B ADDR   00B8H.0 A   
+PX1. . . . . . . . . . . .  B ADDR   00B8H.2 A   
+RB8. . . . . . . . . . . .  B ADDR   0098H.2 A   
+RD . . . . . . . . . . . .  B ADDR   00B0H.7 A   
+REN. . . . . . . . . . . .  B ADDR   0098H.4 A   
+RI . . . . . . . . . . . .  B ADDR   0098H.0 A   
+RS0. . . . . . . . . . . .  B ADDR   00D0H.3 A   
+RS1. . . . . . . . . . . .  B ADDR   00D0H.4 A   
+RXD. . . . . . . . . . . .  B ADDR   00B0H.0 A   
+RX_DATA. . . . . . . . . .  C ADDR   0000H   R   SEG=?PR?RX_DATA?TIBBO
+RX_IP. . . . . . . . . . .  B ADDR   0080H.0 A   
+SBUF . . . . . . . . . . .  D ADDR   0099H   A   
+SCON . . . . . . . . . . .  D ADDR   0098H   A   
+SM0. . . . . . . . . . . .  B ADDR   0098H.7 A   
+SM1. . . . . . . . . . . .  B ADDR   0098H.6 A   
+SM2. . . . . . . . . . . .  B ADDR   0098H.5 A   
+SP . . . . . . . . . . . .  D ADDR   0081H   A   
+STR?346. . . . . . . . . .  X ADDR   0000H   R   SEG=?XD?_DEBUG_TXT_TIBBO?TIBBO
+T0 . . . . . . . . . . . .  B ADDR   00B0H.4 A   
+T1 . . . . . . . . . . . .  B ADDR   00B0H.5 A   
+TB8. . . . . . . . . . . .  B ADDR   0098H.3 A   
+TCON . . . . . . . . . . .  D ADDR   0088H   A   
+TEMPORAL?448 . . . . . . .  X ADDR   0000H   R   SEG=?XD?RX_DATA?TIBBO
+TF0. . . . . . . . . . . .  B ADDR   0088H.5 A   
+TF1. . . . . . . . . . . .  B ADDR   0088H.7 A   
+TH0. . . . . . . . . . . .  D ADDR   008CH   A   
+TH1. . . . . . . . . . . .  D ADDR   008DH   A   
+TI . . . . . . . . . . . .  B ADDR   0098H.1 A   
+TIBBO. . . . . . . . . . .  N NUMB   -----       
+TIME_BIT . . . . . . . . .  C ADDR   000AH   R   SEG=?PR?TIME_BIT?TIBBO
+TIME_MBIT. . . . . . . . .  C ADDR   0000H   R   SEG=?PR?TIME_MBIT?TIBBO
+TL0. . . . . . . . . . . .  D ADDR   008AH   A   
+TL1. . . . . . . . . . . .  D ADDR   008BH   A   
+TMOD . . . . . . . . . . .  D ADDR   0089H   A   
+TR0. . . . . . . . . . . .  B ADDR   0088H.4 A   
+TR1. . . . . . . . . . . .  B ADDR   0088H.6 A   
+TXD. . . . . . . . . . . .  B ADDR   00B0H.1 A   
+TXD2 . . . . . . . . . . .  B ADDR   0090H.0 A   
+WR . . . . . . . . . . . .  B ADDR   00B0H.6 A   
+_DEBUG_TXT_TIBBO . . . . .  C ADDR   0000H   R   SEG=?PR?_DEBUG_TXT_TIBBO?TIBBO
+A51 MACRO ASSEMBLER  TIBBO                                                                03/07/2019 10:42:51 PAGE    13
+
+_TX_AUX. . . . . . . . . .  C ADDR   0000H   R   SEG=?PR?_TX_AUX?TIBBO
+
+
+REGISTER BANK(S) USED: 0 
+
+
+ASSEMBLY COMPLETE.  0 WARNING(S), 0 ERROR(S)

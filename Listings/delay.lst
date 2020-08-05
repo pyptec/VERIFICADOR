@@ -1,0 +1,89 @@
+C51 COMPILER V9.59.0.0   DELAY                                                             08/05/2020 11:21:05 PAGE 1   
+
+
+C51 COMPILER V9.59.0.0, COMPILATION OF MODULE DELAY
+OBJECT MODULE PLACED IN .\Objects\delay.obj
+COMPILER INVOKED BY: C:\Keil_v5\C51\BIN\C51.EXE delay.c LARGE OPTIMIZE(8,SPEED) BROWSE DEBUG OBJECTEXTEND PRINT(.\Listin
+                    -gs\delay.lst) TABS(2) OBJECT(.\Objects\delay.obj)
+
+line level    source
+
+   1          /**********************************************
+   2          Diseñado por Ing. Jaime Pedraza  Marzo 4 de 2019
+   3          **********************************************/
+   4          /*
+   5          *
+   6          @file   delay.c
+   7          @brief  delay functions 
+   8          *
+   9          */
+  10          
+  11          #include "delay.h"
+  12          
+  13          /*****************************************************************************************
+  14            Function name: Delay_1us
+  15            Input   : cnt; Delay duration = cnt * 1u seconds
+  16            Output  : non
+  17            Description
+  18            : A delay function for waiting cnt*1u second.
+  19          *****************************************************************************************/
+  20          void Delay_20us(unsigned int cnt)
+  21          {
+  22   1        unsigned int i;
+  23   1        
+  24   1        for(i = 0; i<cnt; i++) {
+  25   2      
+  26   2          }
+  27   1      }
+  28          
+  29          
+  30          /*****************************************************************************************
+  31            Function name: Delay_1ms
+  32            Input   : cnt; Delay duration = cnt * 1m seconds
+  33            Output  : non
+  34            Description
+  35            : A delay function for waiting cnt*1m second. This function use wait_1us but the wait_1us
+  36              has some error (not accurate). So if you want exact time delay, please use the Timer.
+  37          *****************************************************************************************/
+  38          void Delay_1ms(unsigned int cnt)
+  39          {
+  40   1        unsigned int i;
+  41   1        for (i = 0; i < cnt; i++){ Delay_20us(150);}
+  42   1      }
+  43          
+  44          /*****************************************************************************************
+  45            Function name: Delay_10ms
+  46            Input   : cnt; Delay duration = cnt * 10m seconds
+  47            Output  : non
+  48            Description
+  49            : A delay function for waiting cnt*10m second. This function use wait_1ms but the wait_1ms
+  50              has some error (not accurate more than wait_1us). So if you want exact time delay, 
+  51              please use the Timer.
+  52          *****************************************************************************************/
+  53          
+  54          void Delay_10ms(unsigned int cnt)
+C51 COMPILER V9.59.0.0   DELAY                                                             08/05/2020 11:21:05 PAGE 2   
+
+  55          {
+  56   1        unsigned int i;
+  57   1        for (i = 0; i <cnt; i++) Delay_1ms(10);
+  58   1      }
+  59          
+  60          void Delay (void)  {                        /* wait function            */
+  61   1        ;                                         
+  62   1      }
+  63          
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    104    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =   ----       4
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

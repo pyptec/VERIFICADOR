@@ -1,0 +1,196 @@
+; .\delay.SRC generated from: delay.c
+; COMPILER INVOKED BY:
+;        C:\Keil_v5\C51\BIN\C51.EXE delay.c OBJECTADVANCED OPTIMIZE(11,SPEED) REGFILE(.\intsio2.ORC) BROWSE DEFINE(XTAL=11059200) DEBUG CODE SYMBOLS TABS(2) PREPRINT SRC(.\delay.SRC)
+
+
+NAME	DELAY
+
+?PR?_Delay_1us?DELAY SEGMENT CODE 
+?DT?_Delay_1us?DELAY SEGMENT DATA OVERLAYABLE
+?PR?_Delay_1ms?DELAY SEGMENT CODE 
+?DT?_Delay_1ms?DELAY SEGMENT DATA OVERLAYABLE
+?PR?_Delay_10ms?DELAY                    SEGMENT CODE 
+?DT?_Delay_10ms?DELAY                    SEGMENT DATA OVERLAYABLE
+	PUBLIC	_Delay_10ms
+	PUBLIC	_Delay_1ms
+	PUBLIC	_Delay_1us
+
+	RSEG  ?DT?_Delay_10ms?DELAY
+?_Delay_10ms?BYTE:
+        cnt?244:   DS   2
+	ORG  2
+          i?245:   DS   2
+
+	RSEG  ?DT?_Delay_1ms?DELAY
+?_Delay_1ms?BYTE:
+        cnt?142:   DS   2
+	ORG  2
+          i?143:   DS   2
+
+	RSEG  ?DT?_Delay_1us?DELAY
+?_Delay_1us?BYTE:
+        cnt?040:   DS   2
+	ORG  2
+          i?041:   DS   2
+; /**********************************************
+; Diseñado por Ing. Jaime Pedraza  Marzo 4 de 2019
+; **********************************************/
+; /*
+; *
+; @file		delay.c
+; @brief	delay functions 
+; *
+; */
+; 
+; #include "delay.h"
+; 
+; /*****************************************************************************************
+; 	Function name: Delay_1us
+; 	Input		:	cnt; Delay duration = cnt * 1u seconds
+; 	Output	:	non
+; 	Description
+; 	: A delay function for waiting cnt*1u second.
+; *****************************************************************************************/
+; void Delay_1us(unsigned int cnt)
+
+	RSEG  ?PR?_Delay_1us?DELAY
+_Delay_1us:
+	USING	0
+			; SOURCE LINE # 20
+	MOV  	cnt?040,R6
+	MOV  	cnt?040+01H,R7
+; {
+			; SOURCE LINE # 21
+; 	unsigned int i;
+; 	
+; 	for(i = 0; i<cnt; i++) {
+			; SOURCE LINE # 24
+	CLR  	A
+	MOV  	i?041,A
+	MOV  	i?041+01H,A
+?C0001:
+	CLR  	C
+	MOV  	A,i?041+01H
+	SUBB 	A,cnt?040+01H
+	MOV  	A,i?041
+	SUBB 	A,cnt?040
+	JNC  	?C0004
+; #pragma ASM
+; 		NOP
+	  NOP
+; 		NOP
+	  NOP
+; 		
+	  
+; #pragma ENDASM
+; 		}
+			; SOURCE LINE # 30
+	INC  	i?041+01H
+	MOV  	A,i?041+01H
+	JNZ  	?C0001
+	INC  	i?041
+?C0013:
+	SJMP 	?C0001
+; }
+			; SOURCE LINE # 31
+?C0004:
+	RET  	
+; END OF _Delay_1us
+
+; 
+; 
+; /*****************************************************************************************
+; 	Function name: Delay_1ms
+; 	Input		:	cnt; Delay duration = cnt * 1m seconds
+; 	Output	:	non
+; 	Description
+; 	: A delay function for waiting cnt*1m second. This function use wait_1us but the wait_1us
+; 		has some error (not accurate). So if you want exact time delay, please use the Timer.
+; *****************************************************************************************/
+; void Delay_1ms(unsigned int cnt)
+
+	RSEG  ?PR?_Delay_1ms?DELAY
+_Delay_1ms:
+	USING	0
+			; SOURCE LINE # 42
+	MOV  	cnt?142,R6
+	MOV  	cnt?142+01H,R7
+; {
+			; SOURCE LINE # 43
+; 	unsigned int i;
+; 	for (i = 0; i < cnt; i++) Delay_1us(1000);
+			; SOURCE LINE # 45
+	CLR  	A
+	MOV  	i?143,A
+	MOV  	i?143+01H,A
+?C0005:
+	CLR  	C
+	MOV  	A,i?143+01H
+	SUBB 	A,cnt?142+01H
+	MOV  	A,i?143
+	SUBB 	A,cnt?142
+	JNC  	?C0008
+	MOV  	R7,#0E8H
+	MOV  	R6,#03H
+	LCALL	_Delay_1us
+	INC  	i?143+01H
+	MOV  	A,i?143+01H
+	JNZ  	?C0005
+	INC  	i?143
+?C0014:
+	SJMP 	?C0005
+; }
+			; SOURCE LINE # 46
+?C0008:
+	RET  	
+; END OF _Delay_1ms
+
+; 
+; /*****************************************************************************************
+; 	Function name: Delay_10ms
+; 	Input		:	cnt; Delay duration = cnt * 10m seconds
+; 	Output	:	non
+; 	Description
+; 	: A delay function for waiting cnt*10m second. This function use wait_1ms but the wait_1ms
+; 		has some error (not accurate more than wait_1us). So if you want exact time delay, 
+; 		please use the Timer.
+; *****************************************************************************************/
+; void Delay_10ms(unsigned int cnt)
+
+	RSEG  ?PR?_Delay_10ms?DELAY
+_Delay_10ms:
+	USING	0
+			; SOURCE LINE # 57
+	MOV  	cnt?244,R6
+	MOV  	cnt?244+01H,R7
+; {
+			; SOURCE LINE # 58
+; 	unsigned int i;
+; 	for (i = 0; i < cnt; i++) Delay_1ms(10);
+			; SOURCE LINE # 60
+	CLR  	A
+	MOV  	i?245,A
+	MOV  	i?245+01H,A
+?C0009:
+	CLR  	C
+	MOV  	A,i?245+01H
+	SUBB 	A,cnt?244+01H
+	MOV  	A,i?245
+	SUBB 	A,cnt?244
+	JNC  	?C0012
+	MOV  	R7,#0AH
+	MOV  	R6,#00H
+	LCALL	_Delay_1ms
+	INC  	i?245+01H
+	MOV  	A,i?245+01H
+	JNZ  	?C0009
+	INC  	i?245
+?C0015:
+	SJMP 	?C0009
+; }
+			; SOURCE LINE # 61
+?C0012:
+	RET  	
+; END OF _Delay_10ms
+
+	END

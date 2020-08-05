@@ -1,0 +1,394 @@
+C51 COMPILER V9.59.0.0   TIBBO                                                             11/29/2019 11:25:15 PAGE 1   
+
+
+C51 COMPILER V9.59.0.0, COMPILATION OF MODULE TIBBO
+OBJECT MODULE PLACED IN .\object\tibbo.obj
+COMPILER INVOKED BY: C:\Keil_v5\C51\BIN\C51.EXE tibbo.c LARGE OBJECTADVANCED OPTIMIZE(11,SPEED) REGFILE(.\object\verific
+                    -ador1.0.ORC) BROWSE DEFINE(XTAL=11059200) DEBUG TABS(2) OBJECT(.\object\tibbo.obj)
+
+line level    source
+
+   1          #include <reg51.h>
+   2          #include "tibbo.h" 
+   3          
+   4          /*funciones externas*/
+   5          extern void Delay_20us(unsigned int cnt);
+   6          extern void          _nop_     (void);
+   7          extern unsigned char hex_bcd (unsigned char byte);
+   8          
+   9          /*variable externas*/
+  10          extern unsigned char Debug_Tibbo;
+  11          
+  12          sbit rx_ip = P0^0;          //    
+  13          sbit txd2 = P1^0;         //Transmision Aux Datos IP                *
+  14          
+  15          
+  16          /*------------------------------------------------------------------------------
+  17          ------------------------------------------------------------------------------*/
+  18          void time_bit()
+  19          {
+  20   1        unsigned char j;
+  21   1      
+  22   1        for (j=0; j<=7; j++)        //18 para 19200  ...   41 Para 9600  //42 142us //7 a 9600 transmision
+  23   1        {
+  24   2          _nop_();
+  25   2          _nop_();
+  26   2          _nop_();
+  27   2          _nop_();
+  28   2          _nop_();
+  29   2          _nop_();
+  30   2          _nop_();
+  31   2          _nop_();
+  32   2          _nop_();
+  33   2        }
+  34   1      }
+  35          /*------------------------------------------------------------------------------
+  36          ------------------------------------------------------------------------------*/
+  37          void time_mbit(void)
+  38          {
+  39   1        unsigned char j;
+  40   1        for (j=0; j<=4; j++)
+  41   1        {
+  42   2          _nop_();
+  43   2          _nop_();
+  44   2          _nop_();
+  45   2          _nop_();
+  46   2          _nop_();
+  47   2          _nop_();
+  48   2          _nop_();
+  49   2        }
+  50   1      
+  51   1      }
+  52          
+  53          /*------------------------------------------------------------------------------
+  54          Transmite un caracter  por tibbo a 9600 bd
+C51 COMPILER V9.59.0.0   TIBBO                                                             11/29/2019 11:25:15 PAGE 2   
+
+  55          ------------------------------------------------------------------------------*/
+  56          void tx_aux(unsigned char caracter)
+  57          {
+  58   1        unsigned char j, temporal, bitTX;
+  59   1      
+  60   1        EA=0;
+  61   1        txd2=0;
+  62   1        time_bit();
+  63   1          _nop_();
+  64   1          _nop_();
+  65   1          temporal=caracter;
+  66   1        bitTX=caracter&0x01;
+  67   1        if (bitTX==0x00)
+  68   1        {
+  69   2          txd2=0;
+  70   2        }
+  71   1        else
+  72   1        {
+  73   2            txd2=1;
+  74   2        }
+  75   1        time_bit();
+  76   1        for (j=1; j<=7; j++)
+  77   1        {
+  78   2          temporal>>=1;
+  79   2          bitTX=temporal&(0x01);
+  80   2          if (bitTX==0x00)
+  81   2          {
+  82   3            txd2=0;
+  83   3          }
+  84   2          else
+  85   2          {
+  86   3              txd2=1;
+  87   3          }
+  88   2          time_bit();
+  89   2        }
+  90   1        txd2=1;
+  91   1        time_bit();
+  92   1        time_bit(); 
+  93   1      
+  94   1        EA=1;
+  95   1      }
+  96          
+  97          
+  98          void Debug_HexDec(unsigned char xfc)
+  99          {
+ 100   1        unsigned int valor;
+ 101   1        unsigned char centena, decena, unidad;
+ 102   1        valor=0;
+ 103   1      
+ 104   1        centena=0;
+ 105   1        decena=0;
+ 106   1        unidad=0;
+ 107   1        if (Debug_Tibbo==1)
+ 108   1        {  
+ 109   2          while (xfc>=0x064)        // resto 100
+ 110   2          {
+ 111   3            xfc=xfc-0x64;
+ 112   3            centena=centena+1;
+ 113   3          }
+ 114   2          while (xfc>=0x0a)       // resto 10
+ 115   2          {
+ 116   3            xfc=xfc-0x0a;
+C51 COMPILER V9.59.0.0   TIBBO                                                             11/29/2019 11:25:15 PAGE 3   
+
+ 117   3            decena=decena+1;
+ 118   3          }
+ 119   2          unidad=xfc;
+ 120   2            tx_aux(centena|0x30);
+ 121   2          tx_aux(decena|0x30);
+ 122   2            tx_aux(unidad|0x30);
+ 123   2          
+ 124   2        }
+ 125   1      }
+ 126          
+ 127          /*------------------------------------------------------------------------------
+ 128          Transmito un caracter pasandolo a ascii 
+ 129          ------------------------------------------------------------------------------*/
+ 130          void Debug_chr_Tibbo(unsigned char Dat)
+ 131          {
+ 132   1        unsigned char temp;
+ 133   1        if (Debug_Tibbo==1)
+ 134   1        {
+ 135   2          temp=(Dat&0xf0)>>4;
+ 136   2          (temp>0x09)?(temp=temp+0x37):(temp=temp+0x30);
+ 137   2            
+ 138   2          tx_aux(temp);
+ 139   2                     
+ 140   2          temp=(Dat&0x0f);
+ 141   2          (temp>0x09)?(temp=temp+0x37):(temp=temp+0x30);
+ 142   2          tx_aux(temp);
+ 143   2          tx_aux(' ');
+ 144   2        
+ 145   2        }
+ 146   1      }
+ 147          
+ 148          /*------------------------------------------------------------------------------
+ 149          Transmito un Buffer x y lo pasa a ascii 
+ 150          io=0 datos enviados
+ 151          io=1 datos recibidos
+ 152          ------------------------------------------------------------------------------*/
+ 153          void DebugBufferMF(unsigned char *str,unsigned char num_char,char io)
+ 154          {
+ 155   1        unsigned char j;
+ 156   1       
+ 157   1        
+ 158   1        if (Debug_Tibbo==1)
+ 159   1        {
+ 160   2          if(io!=0)
+ 161   2          {
+ 162   3          Debug_txt_Tibbo((unsigned char *) "Datos MF respuesta: ");
+ 163   3          }else Debug_txt_Tibbo((unsigned char *) "Datos MF Enviados: ");
+ 164   2          for (j=0; j<num_char; j++)
+ 165   2          {
+ 166   3          Debug_chr_Tibbo(*str);
+ 167   3          str++;
+ 168   3          }
+ 169   2          tx_aux('\r');
+ 170   2          tx_aux('\n');
+ 171   2        }
+ 172   1      
+ 173   1      }
+ 174          
+ 175          /*------------------------------------------------------------------------------
+ 176          imprime la trama hasta el caracter null
+ 177          ------------------------------------------------------------------------------*/
+ 178          void Debug_txt_Tibbo(unsigned char * str)
+C51 COMPILER V9.59.0.0   TIBBO                                                             11/29/2019 11:25:15 PAGE 4   
+
+ 179          {
+ 180   1        unsigned char i;
+ 181   1        i=0;
+ 182   1        
+ 183   1        if (Debug_Tibbo==1)
+ 184   1        {
+ 185   2          for (i=0; str[i] != '\0'; i++)
+ 186   2          {
+ 187   3              tx_aux(str[i]);
+ 188   3          }
+ 189   2          
+ 190   2        }
+ 191   1      }
+ 192          
+ 193          void Debug_Dividir_texto()
+ 194          {
+ 195   1        Debug_txt_Tibbo((unsigned char *) "/*---------------------------------------*/\r\n");
+ 196   1      }
+ 197          
+ 198          /*------------------------------------------------------------------------------
+ 199          Recibe la trama del tibbo a 9600bd
+ 200          ------------------------------------------------------------------------------*/
+ 201          unsigned char rx_Data(void)
+ 202          {
+ 203   1        unsigned char temporal;
+ 204   1        
+ 205   1          temporal=0xff;
+ 206   1          time_mbit();
+ 207   1      //--------------------------------------------------------------------------------------------------
+ 208   1          time_bit();
+ 209   1      //--------------------------------------------------------------------------------------------------
+ 210   1          temporal=(rx_ip==0)?(temporal&0x7f):(temporal|0x80);
+ 211   1          temporal>>=1;
+ 212   1      //------------------------------------------------------------------------------------
+ 213   1          time_bit();
+ 214   1      //------------------------------------------------------------------------------------
+ 215   1          temporal=(rx_ip==0)?(temporal&0x7f):(temporal|0x80);
+ 216   1          temporal>>=1;
+ 217   1      //------------------------------------------------------------------------------------
+ 218   1          time_bit();
+ 219   1      //------------------------------------------------------------------------------------
+ 220   1          temporal=(rx_ip==0)?(temporal&0x7f):(temporal|0x80);
+ 221   1          temporal>>=1;
+ 222   1      //------------------------------------------------------------------------------------
+ 223   1          time_bit();
+ 224   1      //------------------------------------------------------------------------------------
+ 225   1          temporal=(rx_ip==0)?(temporal&0x7f):(temporal|0x80);
+ 226   1          temporal>>=1;
+ 227   1      //------------------------------------------------------------------------------------
+ 228   1          time_bit();
+ 229   1      //------------------------------------------------------------------------------------
+ 230   1          temporal=(rx_ip==0)?(temporal&0x7f):(temporal|0x80);
+ 231   1          temporal>>=1;
+ 232   1      //------------------------------------------------------------------------------------
+ 233   1          time_bit();
+ 234   1      //------------------------------------------------------------------------------------
+ 235   1          temporal=(rx_ip==0)?(temporal&0x7f):(temporal|0x80);
+ 236   1          temporal>>=1;
+ 237   1      //------------------------------------------------------------------------------------
+ 238   1          time_bit();
+ 239   1      //------------------------------------------------------------------------------------
+ 240   1          temporal=(rx_ip==0)?(temporal&0x7f):(temporal|0x80);
+C51 COMPILER V9.59.0.0   TIBBO                                                             11/29/2019 11:25:15 PAGE 5   
+
+ 241   1          temporal>>=1;
+ 242   1      //------------------------------------------------------------------------------------
+ 243   1          time_bit();
+ 244   1          temporal=(rx_ip==0)?(temporal&0x7f):(temporal|0x80);
+ 245   1      //------------------------------------------------------------------------------------
+ 246   1          time_bit();
+ 247   1            while (rx_ip==0)
+ 248   1          {
+ 249   2          }
+ 250   1      //------------------------------------------------------------------------------------
+ 251   1        return temporal; 
+ 252   1      
+ 253   1      } 
+ 254          void Debug_Fecha_actual(unsigned char *buffer)
+ 255          {
+ 256   1        Debug_txt_Tibbo((unsigned char *) "Fecha Actual en Board: ");
+ 257   1            Debug_chr_Tibbo(hex_bcd(*buffer));                            /*año*/
+ 258   1            tx_aux('/');
+ 259   1            Debug_chr_Tibbo(hex_bcd(*(buffer+1)));                        /*mes*/
+ 260   1            tx_aux('/');
+ 261   1            Debug_chr_Tibbo(hex_bcd(*(buffer+2)));                        /*dia*/
+ 262   1            tx_aux(' ');
+ 263   1            Debug_chr_Tibbo(hex_bcd(*(buffer+3)));                        /*hora*/
+ 264   1            tx_aux(':');
+ 265   1            Debug_chr_Tibbo(hex_bcd(*(buffer+4)));                        /*minutos*/
+ 266   1            Debug_txt_Tibbo((unsigned char *) "\r\n\r\n");
+ 267   1      }
+ 268          /*------------------------------------------------------------------------------
+ 269          Condiciones iniciales de los pines
+ 270          ------------------------------------------------------------------------------*/
+ 271          void cond_ini_tibbo(void)
+ 272          {
+ 273   1      
+ 274   1        txd2=1;
+ 275   1        rx_ip=1;
+ 276   1      }
+ 277          /*------------------------------------------------------------------------------
+ 278          ------------------------------------------------------------------------------*/
+ 279          /*
+ 280          void DebugRtaStatus(unsigned char Tipo)       // 1='N'  0='P'
+ 281          {
+ 282          
+ 283            if ((Tipo=='N')&&(Debug_Tibbo==1))          
+ 284            {
+ 285              Debug_txt_Tibbo(0,(unsigned char *) "Respuesta Incorrecta: N ");
+ 286          
+ 287              if ((Buffer_Rta_Lintech[3]=='0')&&(Buffer_Rta_Lintech[4]=='0'))
+ 288              {
+ 289                Debug_txt_Tibbo(1,(unsigned char *) "Error No definido");
+ 290              }         
+ 291              else if ((Buffer_Rta_Lintech[3]=='0')&&(Buffer_Rta_Lintech[4]=='1'))
+ 292              {
+ 293                Debug_txt_Tibbo(1,(unsigned char *) "CMD con Error de Parametro");
+ 294              }
+ 295              else if ((Buffer_Rta_Lintech[3]=='0')&&(Buffer_Rta_Lintech[4]=='2'))
+ 296              {
+ 297                Debug_txt_Tibbo(1,(unsigned char *) "Error secuencia de ejecucion del CMD");
+ 298              }
+ 299              else if ((Buffer_Rta_Lintech[3]=='0')&&(Buffer_Rta_Lintech[4]=='3'))
+ 300              {
+ 301                Debug_txt_Tibbo(1,(unsigned char *) "CMD no soportado por Hardware");
+ 302              }
+C51 COMPILER V9.59.0.0   TIBBO                                                             11/29/2019 11:25:15 PAGE 6   
+
+ 303              else if ((Buffer_Rta_Lintech[3]=='1')&&(Buffer_Rta_Lintech[4]=='0'))
+ 304              {
+ 305                Debug_txt_Tibbo(1,(unsigned char *) "Tarjeta Atascada / Overtimme");
+ 306              }
+ 307              else if ((Buffer_Rta_Lintech[3]=='A')&&(Buffer_Rta_Lintech[4]=='0'))
+ 308              {
+ 309                Debug_txt_Tibbo(1,(unsigned char *) "Dispensador Vacio");
+ 310              }
+ 311              else if ((Buffer_Rta_Lintech[3]=='A')&&(Buffer_Rta_Lintech[4]=='1'))
+ 312              {
+ 313                Debug_txt_Tibbo(1,(unsigned char *) "Colector Lleno");
+ 314              }
+ 315            }
+ 316            else if ((Tipo=='P')&&(Debug_Tibbo==1))               // valido st0  0 canal libre, 1 tarjeta en la boca, 2 tar
+             -jeta en rf
+ 317            {
+ 318              
+ 319              if (Buffer_Rta_Lintech[3]=='0')
+ 320              {
+ 321                if (Buffer_Rta_Lintech[3]!=Notify)
+ 322                {
+ 323                  Debug_txt_Tibbo(1,(unsigned char *) "Canal Libre");
+ 324                  Notify=Buffer_Rta_Lintech[3];
+ 325                }
+ 326              }         
+ 327              else if (Buffer_Rta_Lintech[3]=='1')
+ 328              {
+ 329                if (Buffer_Rta_Lintech[3]!=Notify)
+ 330                {
+ 331                  Debug_txt_Tibbo(1,(unsigned char *) "Tarjeta en Bezel");
+ 332                  Notify=Buffer_Rta_Lintech[3];
+ 333                }     
+ 334              }
+ 335              else if (Buffer_Rta_Lintech[3]=='2')
+ 336              {
+ 337                if (Buffer_Rta_Lintech[3]!=Notify)
+ 338                {
+ 339                  Debug_txt_Tibbo(1,(unsigned char *) "Tarjeta en RF");
+ 340                  Notify=Buffer_Rta_Lintech[3];
+ 341                }
+ 342              }
+ 343              else
+ 344              {
+ 345                if (Buffer_Rta_Lintech[3]!=Notify)
+ 346                {
+ 347                  Debug_txt_Tibbo(1,(unsigned char *) "P: Status Incorrecto...");
+ 348                  Notify=Buffer_Rta_Lintech[3];
+ 349                }
+ 350              }
+ 351              }
+ 352              
+ 353          }*/
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    897    ----
+   CONSTANT SIZE    =    116    ----
+   XDATA SIZE       =   ----      15
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+C51 COMPILER V9.59.0.0   TIBBO                                                             11/29/2019 11:25:15 PAGE 7   
+
+   EDATA SIZE       =   ----    ----
+   HDATA SIZE       =   ----    ----
+   XDATA CONST SIZE =   ----    ----
+   FAR CONST SIZE   =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

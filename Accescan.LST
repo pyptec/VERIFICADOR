@@ -1,0 +1,385 @@
+C51 COMPILER V9.59.0.0   ACCESCAN                                                          11/29/2019 11:25:14 PAGE 1   
+
+
+C51 COMPILER V9.59.0.0, COMPILATION OF MODULE ACCESCAN
+OBJECT MODULE PLACED IN .\object\Accescan.obj
+COMPILER INVOKED BY: C:\Keil_v5\C51\BIN\C51.EXE Accescan.c LARGE OBJECTADVANCED OPTIMIZE(11,SPEED) REGFILE(.\object\veri
+                    -ficador1.0.ORC) BROWSE DEFINE(XTAL=11059200) DEBUG TABS(2) OBJECT(.\object\Accescan.obj)
+
+line level    source
+
+   1          #include <Accescan.h>
+   2          #include <reg51.h>
+   3          
+   4          extern void Block_write_clock_ascii(unsigned char *datos_clock);
+   5          extern void PantallaLCD(unsigned char cod_msg);
+   6          extern void Reloj_Pantalla_Lcd();
+   7          extern unsigned char rx_Data(void);
+   8          extern void Debug_txt_Tibbo(unsigned char * str);
+   9          extern void DebugBufferMF(unsigned char *str,unsigned char num_char,char io);
+  10          extern void Debug_Dividir_texto();
+  11          extern void tx_aux(unsigned char caracter);
+  12          extern unsigned char Dir_board();
+  13          extern void Block_read_clock_ascii(unsigned char *datos_clock);
+  14          extern void Two_ByteHex_Decimal(unsigned char *buffer,unsigned char id_h,unsigned char id_l);
+  15          extern void ByteHex_Decimal(unsigned char *buffer,unsigned char valorhex);
+  16          extern void PantallaLCD(unsigned char cod_msg);
+  17          extern void LCD_txt (unsigned char * msg,char enable_char_add );
+  18          extern unsigned char  ValidaSensoresPaso(void);
+  19          extern void tx_aux(unsigned char caracter);
+  20          extern void PantallaLCD_LINEA_2(unsigned char cod_msg, unsigned char *buffer);
+  21          extern unsigned char hex_bcd (unsigned char byte);
+  22          extern void Trama_pto_Paralelo_P(unsigned char *buffer_S1_B0,unsigned char *buffer_S1_B2,unsigned char cmd
+             -);
+  23          extern void  send_port(unsigned char *buffer_port, unsigned char length_char);
+  24          
+  25          
+  26          
+  27          extern unsigned char Timer_wait;
+  28          extern unsigned char Tipo_Vehiculo;
+  29          extern unsigned char USE_LPR;
+  30          extern unsigned char  Debug_Tibbo;
+  31          sbit rx_ip = P0^0;        
+  32          sbit lock = P1^7;           //Relevo 
+  33          sbit Atascado = P0^3;       //Rele de on/off del verificador o transporte
+  34          sbit led_err_imp = P0^2;      //Error   
+  35          
+  36          
+  37          #define STX                     02 
+  38          #define ETX                     03 
+  39          #define FUERA_DE_LINEA          0xb6
+  40          #define ON_LINE                 0xAA
+  41          
+  42          /*mensajes de pantalla*/
+  43          #define BIENVENIDO              0XFE
+  44          #define SIN_PAGO                0XE7
+  45          #define LECTURA_DE_TARJETAS     0xB0
+  46          
+  47          
+  48          //unsigned char S1_B2[]={0x13, 0x03, 0x1D, 0x0B, 0x0E, 00, 00, 00, 00, 00, 0x01, 0x13, 0x03, 0x1D, 0x0E, 0
+             -x1D};
+  49          //unsigned char S1_B0[]={0x32, 0x31, 0x30, 0x37, 0x31, 0x35, 00, 00, 00, 00, 00, 00, 00, 00, 00, 01};
+  50          //unsigned char S_B[]={0xE7, 00, 00, 00, 00, 00, 00, 00, 00, 00, 01};
+  51          /*------------------------------------------------------------------------------
+  52          Rutina q valida los cmd del pto paralelo
+C51 COMPILER V9.59.0.0   ACCESCAN                                                          11/29/2019 11:25:14 PAGE 2   
+
+  53          ------------------------------------------------------------------------------*/
+  54          void Valida_Trama_Pto(unsigned char *buffer, unsigned char length_trama)
+  55          {
+  56   1         unsigned char buff[11];
+  57   1        /*-------------------------------CMD H reloj para el board y la pantalla lcd-----------------------------
+             --------------*/
+  58   1          if((length_trama==25)&&(*buffer==STX)&&(*(buffer+2)=='H')&&*(buffer+(length_trama-1))==ETX)                         
+             -/*cmd de Accescan que me envia el reloj actualizado*/
+  59   1          { 
+  60   2            
+  61   2            Block_write_clock_ascii(buffer+3);                                                                                /* se escribe el reloj de har
+             -dware*/
+  62   2          
+  63   2            Reloj_Pantalla_Lcd();                                                                                             /* Escribo el reloj en la pantalla 
+             -lcd*/
+  64   2          
+  65   2          }
+  66   1          /*-------------------------------CMD B6 fuera de linea -------------------------------------------------
+             -------------*/
+  67   1          else if(*buffer==FUERA_DE_LINEA)                                                                                    /*cmd de Accescan que dice q e
+             -sta fuera de linea*/
+  68   1          {
+  69   2            if (Timer_wait>=20)                                                                                               /* se envia el msj fuera de linea*/
+  70   2            {                                                                                                                 /* con un tiempo de retardo =((1/(22118400/12
+             -)*65535)*30)*/
+  71   3              PantallaLCD(FUERA_DE_LINEA);
+  72   3              led_err_imp=0;                                                                                                  /*error led on*/
+  73   3              Timer_wait=0;
+  74   3              lock=0;                                                                                                         /*relevo off despues de 1 minuto*/
+  75   3              Atascado=0; 
+  76   3            }
+  77   2          }
+  78   1          /*-------------------------------CMD AA en linea -------------------------------------------------------
+             ------------*/
+  79   1          else if (*buffer==ON_LINE)                                                                                          /*en linea*/
+  80   1          {
+  81   2            
+  82   2            if (Timer_wait>=20)                                                                                               /* se envia el msj fuera de linea*/
+  83   2            { 
+  84   3              Timer_wait=0;                                                                                                   /*se inicia el timer*/
+  85   3              lock=0;
+  86   3              led_err_imp=1;                                                                                                  /*relevo off despues de 1 minuto*/
+  87   3              Atascado=0; 
+  88   3            if ((Debug_Tibbo==0)&&(USE_LPR==1))
+  89   3            {
+  90   4              Debug_Tibbo=1;
+  91   4              Debug_txt_Tibbo((unsigned char *) "LIVE");
+  92   4              Debug_Tibbo=0;
+  93   4            }
+  94   3            }
+  95   2            
+  96   2          } 
+  97   1          else if ((length_trama==19)&&(*buffer==STX)&&(*(buffer+1)=='O')&&*(buffer+(length_trama-1))==ETX)             
+             -      /*mensaje de bienvenidos*/
+  98   1          {
+  99   2            PantallaLCD(BIENVENIDO);
+ 100   2          }
+ 101   1          else if ((length_trama==1)&&(*buffer==0xA1))                                                                        /*cmd 0xA1 audio caja qu
+             -e es igual a no registra pago */
+ 102   1          {
+ 103   2               PantallaLCD(SIN_PAGO);
+ 104   2          }
+C51 COMPILER V9.59.0.0   ACCESCAN                                                          11/29/2019 11:25:14 PAGE 3   
+
+ 105   1                    /*-------------------------------CMD de wiegand---------------------------------------------------*
+             -/
+ 106   1          else if ((length_trama==6)&&(*buffer==STX)&&(*(buffer+1)=='W')&&*(buffer+(length_trama-1))==ETX)                
+             -    /* cmd q comunica con monitor po wigan*/
+ 107   1          {
+ 108   2              if (USE_LPR==1)
+ 109   2              {
+ 110   3                    /*-------------------------------mensaje en la pantalla--------------------------------------------
+             --------*/
+ 111   3                    ByteHex_Decimal(buff,*(buffer+2));                                                                        /*convierto el primer byte_he
+             -x a decimal    */
+ 112   3                    buff[3]=' ';
+ 113   3                    Two_ByteHex_Decimal(buff+4,*(buffer+3),*(buffer+4)) ;                                                     /*convierto un byte
+             - de 16 bits a decimal*/                                                 
+ 114   3                  
+ 115   3                    PantallaLCD_LINEA_2(LECTURA_DE_TARJETAS,buff);
+ 116   3                                                                                                                              /*transmito el codigo de la tarjeta a la panta
+             -lla lcd*/
+ 117   3                    /*-------------------------------------------------------------------------------------------------
+             --------*/
+ 118   3                
+ 119   3                    while(!ValidaSensoresPaso());
+ 120   3                      
+ 121   3                    Cmd_LPR_Salida_wiegand(buff);
+ 122   3              }                                                                             
+ 123   2              
+ 124   2              else
+ 125   2              {
+ 126   3                 /*-------------------------------mensaje en la pantalla---------------------------------------------
+             -------*/
+ 127   3                    ByteHex_Decimal(buff,*(buffer+2));                                                                        /*convierto el primer byte_he
+             -x a decimal    */
+ 128   3                    buff[3]=' ';
+ 129   3                    Two_ByteHex_Decimal(buff+4,*(buffer+3),*(buffer+4)) ;                                                     /*convierto un byte
+             - de 16 bits a decimal*/                                                 
+ 130   3                    PantallaLCD_LINEA_2(LECTURA_DE_TARJETAS,buff);                                                            /*transmito el codigo d
+             -e la tarjeta a la pantalla lcd*/
+ 131   3                                                                                                          
+ 132   3                /*---------------------------------------------------------------------------------------------------
+             ------*/  
+ 133   3              
+ 134   3              }
+ 135   2          }
+ 136   1          
+ 137   1      }
+ 138          /*------------------------------------------------------------------------------
+ 139          Rutina q recibe  los cmd de Monitor por el tibbo
+ 140          return el num de caracteres recibidos
+ 141          y almacena la trama en un apuntador
+ 142          ------------------------------------------------------------------------------*/
+ 143          unsigned char recibe_cmd_Monitor(unsigned char *buffer_cmd)
+ 144          {
+ 145   1        unsigned char j, NumDatos,time_out,MaxChrRx;
+ 146   1        unsigned int contador;
+ 147   1        
+ 148   1          NumDatos=0;
+ 149   1          MaxChrRx=11;
+ 150   1      
+ 151   1        if (USE_LPR==1)
+ 152   1        {
+ 153   2            for (j=0; j<MaxChrRx; j++)
+ 154   2            {
+C51 COMPILER V9.59.0.0   ACCESCAN                                                          11/29/2019 11:25:14 PAGE 4   
+
+ 155   3              contador=0;
+ 156   3              time_out=0;
+ 157   3              while ((rx_ip==1)&&(time_out==0))
+ 158   3              {
+ 159   4                contador++;
+ 160   4                if (contador>20000)
+ 161   4                {
+ 162   5                  time_out=1;
+ 163   5                  j=MaxChrRx;
+ 164   5                }       
+ 165   4              }
+ 166   3              if(time_out==1)break;
+ 167   3                NumDatos++;
+ 168   3                *buffer_cmd=rx_Data();
+ 169   3                  buffer_cmd++;
+ 170   3            }
+ 171   2      
+ 172   2            *buffer_cmd=0;
+ 173   2            
+ 174   2      
+ 175   2        }
+ 176   1        return  NumDatos;
+ 177   1      } 
+ 178          /*------------------------------------------------------------------------------
+ 179          Rutina q valida los cmd de Monitor
+ 180          ------------------------------------------------------------------------------*/
+ 181          /*
+ 182          void Valida_Trama_Monitor(unsigned char *buffer, unsigned char length_trama)
+ 183          {   
+ 184            length_trama=1;
+ 185              if  ((*(buffer+2)==ETX)&&(*(buffer+1)=='P'))                                                                            /* APERTURA DE BARRETA
+             -*/ 
+ 186          /*        {
+ 187                    lock=1;                                                                                                           /*habilita el relevo ON*/
+ 188          //          Timer_wait=0;
+ 189          //        }
+ 190          //    else if (*buffer=='<')
+ 191          //    {                                                                                                                       /*placa*/
+ 192          //    }
+ 193          //}
+ 194          /*------------------------------------------------------------------------------
+ 195          
+ 196          ------------------------------------------------------------------------------*/
+ 197          /*
+ 198          void Cmd_Monitor()
+ 199          {
+ 200              
+ 201            
+ 202          }
+ 203          */
+ 204          /*------------------------------------------------------------------------------
+ 205          Transmito un caracter al software monitor 
+ 206          ------------------------------------------------------------------------------*/
+ 207          void Monitor_chr (unsigned char *str,unsigned char num_char)
+ 208          {
+ 209   1        unsigned char j;
+ 210   1        for (j=0; j<num_char; j++)
+ 211   1          {
+ 212   2          tx_aux(*str);
+ 213   2          str++;
+ 214   2          }
+ 215   1      }
+C51 COMPILER V9.59.0.0   ACCESCAN                                                          11/29/2019 11:25:14 PAGE 5   
+
+ 216            
+ 217          /*------------------------------------------------------------------------------
+ 218          Transmito CMD de salida wiegand 
+ 219          ------------------------------------------------------------------------------*/
+ 220          void Cmd_LPR_Salida_wiegand(unsigned char *buffer)
+ 221          {
+ 222   1        unsigned char Buffer_Lpr[30];
+ 223   1        unsigned char j=3;
+ 224   1        Buffer_Lpr[0]=STX;                                      /*inicio de cmd STx*/
+ 225   1        Buffer_Lpr[1]=Dir_board();                              /*direccion de la tarjeta*/
+ 226   1        Buffer_Lpr[2]='S';                                      /*cmd S que salida wiegand*/
+ 227   1        if(Tipo_Vehiculo!=0)                                    /*Tipo de vehiculo*/
+ 228   1          {
+ 229   2            Buffer_Lpr[j++]='M';                                /*moto*/
+ 230   2          }
+ 231   1          else
+ 232   1          {
+ 233   2            Buffer_Lpr[j++]='C';                                /*carro*/
+ 234   2          }
+ 235   1        
+ 236   1          
+ 237   1          
+ 238   1          for (j=4; *buffer != '\0'; j++)                       /*numero del tab o tarjeta Mf*/
+ 239   1            {
+ 240   2                Buffer_Lpr[j]=*buffer;
+ 241   2                buffer++;
+ 242   2              
+ 243   2            }
+ 244   1            Buffer_Lpr[j++]=':';                                /*separador del tab  o tarjeta MF*/
+ 245   1                        
+ 246   1            Block_read_clock_ascii(Buffer_Lpr+j);               /*año,mes,dia,hora,minutos,*/
+ 247   1            Buffer_Lpr[j+10]=':';                               /*separador fecha*/
+ 248   1            Buffer_Lpr[j+11]=ETX;                               /*fin de la trama*/
+ 249   1          
+ 250   1                
+ 251   1          
+ 252   1            Monitor_chr(Buffer_Lpr,j+12);                       /*rutina de envio de la trama a monitor*/
+ 253   1      }
+ 254          /*------------------------------------------------------------------------------
+ 255          
+ 256          ------------------------------------------------------------------------------*/
+ 257          void Cmd_LPR_Salida(unsigned char *buffer_S1_B0,unsigned char *buffer_S1_B2)
+ 258          {
+ 259   1        
+ 260   1        
+ 261   1        unsigned char Buffer_Lpr[30];
+ 262   1        unsigned temp;
+ 263   1        unsigned char j=3;
+ 264   1        Buffer_Lpr[0]=STX;                                /*inicio de cmd STx*/
+ 265   1        Buffer_Lpr[1]=Dir_board();                        /*direccion de la tarjeta*/
+ 266   1        Buffer_Lpr[2]='S';                                /*numero de digitos de transmicion NO IMPORTA NO ES VALIDADO EN PRINCIP
+             -AL*/
+ 267   1        
+ 268   1          if(*(buffer_S1_B2+8)!=0)                        /*Tipo de vehiculo*/
+ 269   1          {
+ 270   2            Buffer_Lpr[j++]='M';                          /*moto*/
+ 271   2          }
+ 272   1          else
+ 273   1          {
+ 274   2            Buffer_Lpr[j++]='C';                          /*carro*/
+ 275   2          }
+ 276   1        
+C51 COMPILER V9.59.0.0   ACCESCAN                                                          11/29/2019 11:25:14 PAGE 6   
+
+ 277   1        
+ 278   1        do
+ 279   1        {
+ 280   2         Buffer_Lpr[j++]=*buffer_S1_B0;                 /*ticket o consecutivo*/
+ 281   2          buffer_S1_B0++;
+ 282   2        }while (*buffer_S1_B0!=0);
+ 283   1        
+ 284   1        
+ 285   1        
+ 286   1        
+ 287   1        
+ 288   1          Buffer_Lpr[j++]=':';                            /*separador de la fecha de entrada*/
+ 289   1      
+ 290   1          temp=hex_bcd(*(buffer_S1_B2+0));                /*año a ascii*/
+ 291   1          Buffer_Lpr[j++]=((temp & 0xf0)>>4)| 0x30;
+ 292   1          Buffer_Lpr[j++]=((temp & 0x0f))| 0x30;
+ 293   1          
+ 294   1          temp=hex_bcd(*(buffer_S1_B2+1));                /*mes a ascii*/
+ 295   1          Buffer_Lpr[j++]=((temp & 0xf0)>>4)| 0x30;
+ 296   1          Buffer_Lpr[j++]=((temp & 0x0f))| 0x30;
+ 297   1        
+ 298   1          temp=hex_bcd(*(buffer_S1_B2+2));                /*Dia a ascii*/
+ 299   1          Buffer_Lpr[j++]=((temp & 0xf0)>>4)| 0x30;
+ 300   1          Buffer_Lpr[j++]=((temp & 0x0f))| 0x30;
+ 301   1        
+ 302   1          temp=hex_bcd(*(buffer_S1_B2+3));                /*Hora a ascii*/
+ 303   1          Buffer_Lpr[j++]=((temp & 0xf0)>>4)| 0x30;
+ 304   1          Buffer_Lpr[j++]=((temp & 0x0f))| 0x30;
+ 305   1        
+ 306   1          temp=hex_bcd(*(buffer_S1_B2+4));                /*Minutos a ascii*/
+ 307   1          Buffer_Lpr[j++]=((temp & 0xf0)>>4)| 0x30;
+ 308   1          Buffer_Lpr[j++]=((temp & 0x0f))| 0x30;
+ 309   1        
+ 310   1          
+ 311   1        
+ 312   1          Buffer_Lpr[j++]=':';                            /*separador tipo fecha*/
+ 313   1                                                          /**/
+ 314   1              
+ 315   1          Buffer_Lpr[j++]=ETX;  
+ 316   1        
+ 317   1          Monitor_chr(Buffer_Lpr,j);                        /*rutina de envio de la trama a monitor*/
+ 318   1      }
+ 319            
+ 320          
+ 321            
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =   1656    ----
+   CONSTANT SIZE    =      5    ----
+   XDATA SIZE       =   ----      89
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+   EDATA SIZE       =   ----    ----
+   HDATA SIZE       =   ----    ----
+   XDATA CONST SIZE =   ----    ----
+   FAR CONST SIZE   =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

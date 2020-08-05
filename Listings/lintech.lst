@@ -1,0 +1,586 @@
+C51 COMPILER V9.59.0.0   LINTECH                                                           08/05/2020 11:21:06 PAGE 1   
+
+
+C51 COMPILER V9.59.0.0, COMPILATION OF MODULE LINTECH
+OBJECT MODULE PLACED IN .\Objects\lintech.obj
+COMPILER INVOKED BY: C:\Keil_v5\C51\BIN\C51.EXE lintech.c LARGE OPTIMIZE(8,SPEED) BROWSE DEBUG OBJECTEXTEND PRINT(.\List
+                    -ings\lintech.lst) TABS(2) OBJECT(.\Objects\lintech.obj)
+
+line level    source
+
+   1          #include<lintech.h>
+   2          
+   3          /*----------------------------------------------------------------------------
+   4           definiciones de lintech en la inicializacion de expedidor o verificador
+   5          ------------------------------------------------------------------------------*/
+   6          
+   7          #define INICIA_LINTECH          0x30
+   8          #define SEQ_CAPTURE_DATOS_INI   0x31
+   9          #define GRABA_EEPROM            0x32
+  10          #define SEQ_CAPTURA_OK_EEPROM   0X33
+  11          #define FIN_OK                  0x00
+  12          
+  13          /*----------------------------------------------------------------------------
+  14           definiciones de lintech en el comando Check_Status
+  15          ------------------------------------------------------------------------------*/
+  16          
+  17          #define S_DETAIL        0x31
+  18          #define S_NORMAL        0x30
+  19          
+  20          /*------------------------------------------------------------------------------
+  21           definiciones de lintech en el comando Card_Insercion
+  22          ------------------------------------------------------------------------------*/
+  23          
+  24          #define Habilita        0x30
+  25          #define Inhabilita      0x31
+  26          
+  27          /*------------------------------------------------------------------------------
+  28          Definicion de Lintech en el comando Inicializa
+  29          ------------------------------------------------------------------------------*/
+  30          
+  31          #define TO_FRONT        '0'
+  32          #define CAPTURE_BOX     '1'
+  33          #define SIN_MOVIMIENTO  '3'
+  34          
+  35          /*------------------------------------------------------------------------------
+  36          Definicion de Lintech en el comando mover tarjeta (Mov_Card)
+  37          ------------------------------------------------------------------------------*/
+  38          
+  39          #define   MovPos_Front        '0'   
+  40          #define   MovPos_IC           '1'
+  41          #define   MovPos_RF           '2'
+  42          #define   MovPos_Capture      '3'
+  43          #define   MovPos_EjectFront   '9'
+  44          
+  45          /*------------------------------------------------------------------------------
+  46          Definicion de la trama Lintech de las respuestas de los cmd
+  47          ------------------------------------------------------------------------------*/
+  48          
+  49          #define Pos_TipoResp        4
+  50          #define Pos_Length          3
+  51          #define Pos_St0             7
+  52          #define Pos_St1             8
+  53          #define Pos_St2             9
+  54          #define Pos_IniDatMF        0x0a
+C51 COMPILER V9.59.0.0   LINTECH                                                           08/05/2020 11:21:06 PAGE 2   
+
+  55          #define Card_type_H         0x0a
+  56          #define Card_type_L         0x0b
+  57          
+  58          /*----------------------------------------------------------------------------
+  59          definicion de datos de trama lintech
+  60          ------------------------------------------------------------------------------*/
+  61          
+  62          #define   ETX               03
+  63          #define   STX_LINTECH       0xf2
+  64          
+  65          /*----------------------------------------------------------------------------
+  66          tiempo de delay entre funciones
+  67          ------------------------------------------------------------------------------*/
+  68          
+  69          #define   TIME_CARD         50    //100
+  70          #define   TIME_CARD_WR      150
+  71          
+  72          /*----------------------------------------------------------------------------
+  73          definicion de recepcion serial 
+  74          ------------------------------------------------------------------------------*/
+  75          
+  76          #define  ESPERA_RX          0           //espera el primer cmd de recepcion del verificado 
+  77          
+  78          /*externo bit*/
+  79          
+  80          extern bit buffer_ready;
+  81          
+  82          /*variables externas*/
+  83          
+  84          extern unsigned char g_cEstadoComSoft;
+  85          extern unsigned char ValTimeOutCom;
+  86          extern unsigned char g_cEstadoComSeqMF;
+  87          extern unsigned char g_cContByteRx;
+  88          
+  89          /*FUNCIONES PROTOTIPO*/
+  90          extern void Debug_txt_Tibbo(unsigned char * str);
+  91          extern void DebugBufferMF(unsigned char *str,unsigned char num_char,char io);
+  92          extern void EscribirCadenaSoft_buffer(unsigned char *buffer,unsigned char tamano_cadena);
+  93          extern void Debug_chr_Tibbo(unsigned char Dat);
+  94          extern unsigned char Dir_board();
+  95          
+  96          /*----------------------------------------------------------------------------
+  97          funcion de inicializacion del transporte
+  98          
+  99          ------------------------------------------------------------------------------*/
+ 100          
+ 101          void Inicializa(unsigned char TipoMovimiento)
+ 102          {
+ 103   1        unsigned char j, bcc;
+ 104   1        unsigned char g_scArrTxComSoft[10];
+ 105   1        bcc=0;
+ 106   1        if ((TipoMovimiento==SIN_MOVIMIENTO)||(TipoMovimiento==TO_FRONT)||(TipoMovimiento==CAPTURE_BOX))
+ 107   1        {
+ 108   2          
+ 109   2          Debug_txt_Tibbo((unsigned char *) "Incializa Dispensador\r\n\r\n");
+ 110   2          
+ 111   2          g_scArrTxComSoft[0]=STX_LINTECH;
+ 112   2          g_scArrTxComSoft[1]=0X00;
+ 113   2          g_scArrTxComSoft[2]=0X00;
+ 114   2          g_scArrTxComSoft[3]=0X03;
+ 115   2          g_scArrTxComSoft[4]='C';
+ 116   2          g_scArrTxComSoft[5]='0';
+C51 COMPILER V9.59.0.0   LINTECH                                                           08/05/2020 11:21:06 PAGE 3   
+
+ 117   2          g_scArrTxComSoft[6]=TipoMovimiento;
+ 118   2          g_scArrTxComSoft[7]=ETX;
+ 119   2          for (j=0; j<8; j++)
+ 120   2          {
+ 121   3            bcc=g_scArrTxComSoft[j]^bcc;
+ 122   3          }
+ 123   2          g_scArrTxComSoft[8]=bcc;
+ 124   2          buffer_ready=0;                                   /* buffer del pto serie (0) inicia a esperar la trama*/
+ 125   2          g_cEstadoComSoft=ESPERA_RX;                       /* Espera el ASK en el pt o serie para empesar a almacenas*/
+ 126   2          DebugBufferMF(g_scArrTxComSoft,9,0);                /*muestra la trama enviada al pto serie a debug por tibbo*/
+ 127   2          EscribirCadenaSoft_buffer(g_scArrTxComSoft,9);    /* envio la trama por el pto serie*/
+ 128   2          ValTimeOutCom=TIME_CARD;
+ 129   2        }
+ 130   1      }
+ 131          
+ 132          /*------------------------------------------------------------------------------
+ 133          cmd de lintech que responde en que estado de los sensores se encuentra
+ 134          
+ 135          (30) solo envia el resumen de los sensores
+ 136          (31) da un reporte detallado de los sensores
+ 137          ------------------------------------------------------------------------------*/
+ 138          
+ 139          void Check_Status(unsigned char Detalle)
+ 140          {
+ 141   1        unsigned char j, bcc;
+ 142   1        unsigned char g_scArrTxComSoft[10];
+ 143   1        Debug_txt_Tibbo((unsigned char *) "Check_Status\r\n\r\n");
+ 144   1      
+ 145   1        bcc=0;
+ 146   1      
+ 147   1        g_scArrTxComSoft[0]=STX_LINTECH;
+ 148   1        g_scArrTxComSoft[1]=0X00;
+ 149   1        g_scArrTxComSoft[2]=0X00;
+ 150   1        g_scArrTxComSoft[3]=0X03;
+ 151   1        g_scArrTxComSoft[4]='C';
+ 152   1        g_scArrTxComSoft[5]='1';
+ 153   1        g_scArrTxComSoft[6]=Detalle;
+ 154   1        g_scArrTxComSoft[7]=ETX;
+ 155   1        for (j=0; j<8; j++)
+ 156   1        {
+ 157   2          bcc=g_scArrTxComSoft[j]^bcc;
+ 158   2        }
+ 159   1        g_scArrTxComSoft[8]=bcc;
+ 160   1        buffer_ready=0;
+ 161   1        g_cEstadoComSoft=ESPERA_RX;
+ 162   1        DebugBufferMF(g_scArrTxComSoft,9,0);
+ 163   1        EscribirCadenaSoft_buffer(g_scArrTxComSoft,9);
+ 164   1        ValTimeOutCom=TIME_CARD;
+ 165   1      }
+ 166          
+ 167          /*------------------------------------------------------------------------------
+ 168          Procedimiento que habilita la insercion o inhabilita la insersion
+ 169          (31) inhabilita
+ 170          (30) habilita
+ 171          ------------------------------------------------------------------------------*/
+ 172          
+ 173          void Card_Insercion(char Tipo)
+ 174          {
+ 175   1        unsigned char j, bcc;
+ 176   1        unsigned char g_scArrTxComSoft[10];
+ 177   1        if (Tipo==Habilita)
+ 178   1        {
+C51 COMPILER V9.59.0.0   LINTECH                                                           08/05/2020 11:21:06 PAGE 4   
+
+ 179   2          Debug_txt_Tibbo((unsigned char *) "Habilita Insersion\r\n\r\n");
+ 180   2          g_scArrTxComSoft[6]=Habilita;
+ 181   2        }
+ 182   1        else
+ 183   1        {
+ 184   2          
+ 185   2          Debug_txt_Tibbo((unsigned char *) "Inhabilita Insersion\r\n\r\n");
+ 186   2          g_scArrTxComSoft[6]=Inhabilita;
+ 187   2        
+ 188   2        }
+ 189   1      
+ 190   1        bcc=0;
+ 191   1      
+ 192   1        g_scArrTxComSoft[0]=0xF2;
+ 193   1        g_scArrTxComSoft[1]=0X00;
+ 194   1        g_scArrTxComSoft[2]=0X00;
+ 195   1        g_scArrTxComSoft[3]=0X03;
+ 196   1        g_scArrTxComSoft[4]='C';
+ 197   1        g_scArrTxComSoft[5]='3';
+ 198   1      
+ 199   1        g_scArrTxComSoft[7]=ETX;
+ 200   1        for (j=0; j<8; j++)
+ 201   1        {
+ 202   2          bcc=g_scArrTxComSoft[j]^bcc;
+ 203   2        }
+ 204   1      
+ 205   1        g_scArrTxComSoft[8]=bcc;
+ 206   1      
+ 207   1        buffer_ready=0;
+ 208   1        g_cEstadoComSoft=ESPERA_RX;
+ 209   1        DebugBufferMF(g_scArrTxComSoft,9,0);
+ 210   1        EscribirCadenaSoft_buffer(g_scArrTxComSoft,9);
+ 211   1        ValTimeOutCom=TIME_CARD;
+ 212   1      }
+ 213          
+ 214          /*------------------------------------------------------------------------------
+ 215          CMD q mueve la tarjeta 
+ 216            MovPos_Front        '0'   
+ 217            MovPos_IC           '1'
+ 218            MovPos_RF           '2'
+ 219            MovPos_Capture      '3'
+ 220            MovPos_EjectFront   '9'
+ 221          ------------------------------------------------------------------------------*/
+ 222          
+ 223          void Mov_Card(unsigned char Posicion)
+ 224          {
+ 225   1        unsigned char j, bcc;
+ 226   1        unsigned char g_scArrTxComSoft[10];
+ 227   1        bcc=0;
+ 228   1      
+ 229   1        if ((Posicion==MovPos_RF)||(Posicion==MovPos_IC)||(Posicion==MovPos_Front)||(Posicion==MovPos_EjectFront
+             -)||(Posicion==MovPos_Capture))
+ 230   1        {
+ 231   2          if (Posicion==MovPos_RF)
+ 232   2          {
+ 233   3            Debug_txt_Tibbo((unsigned char *) "Moviendo Tarjeta a RF\r\n\r\n");
+ 234   3          }
+ 235   2          else if (Posicion==MovPos_IC)
+ 236   2          {
+ 237   3            Debug_txt_Tibbo((unsigned char *) "Moviendo Tarjeta a IC\r\n\r\n");
+ 238   3            }
+ 239   2          else if (Posicion==MovPos_Front)
+C51 COMPILER V9.59.0.0   LINTECH                                                           08/05/2020 11:21:06 PAGE 5   
+
+ 240   2          {
+ 241   3            Debug_txt_Tibbo((unsigned char *) "Moviendo Tarjeta a Bezel\r\n\r\n");
+ 242   3          }
+ 243   2          else if (Posicion==MovPos_EjectFront)
+ 244   2          {
+ 245   3            Debug_txt_Tibbo((unsigned char *) "Expulsando Tarjeta\r\n\r\n");
+ 246   3          }
+ 247   2          else if (Posicion==MovPos_Capture)
+ 248   2          {
+ 249   3            Debug_txt_Tibbo((unsigned char *) "Capturando Tarjeta\r\n\r\n");
+ 250   3          }
+ 251   2      
+ 252   2          g_scArrTxComSoft[0]=STX_LINTECH;
+ 253   2          g_scArrTxComSoft[1]=0X00;
+ 254   2          g_scArrTxComSoft[2]=0X00;
+ 255   2          g_scArrTxComSoft[3]=0X03;
+ 256   2          g_scArrTxComSoft[4]='C';
+ 257   2          g_scArrTxComSoft[5]='2';
+ 258   2          g_scArrTxComSoft[6]=Posicion;
+ 259   2          g_scArrTxComSoft[7]=ETX;
+ 260   2          for (j=0; j<8; j++)
+ 261   2          {
+ 262   3            bcc=g_scArrTxComSoft[j]^bcc;
+ 263   3          }
+ 264   2          g_scArrTxComSoft[8]=bcc;
+ 265   2          buffer_ready=0;
+ 266   2          g_cEstadoComSoft=ESPERA_RX;
+ 267   2          DebugBufferMF(g_scArrTxComSoft,9,0);
+ 268   2          EscribirCadenaSoft_buffer(g_scArrTxComSoft,9);
+ 269   2          ValTimeOutCom=TIME_CARD;        //TIME_CARD_WR;
+ 270   2        }
+ 271   1      
+ 272   1      }
+ 273          
+ 274          //*******************************************************************************************
+ 275          // rutina q mira el tipo de tarjeta si es valido para el uso  
+ 276          //*******************************************************************************************
+ 277          
+ 278          void Aut_Card_check_Status(void)
+ 279          {
+ 280   1      unsigned char j, bcc;
+ 281   1      unsigned char g_scArrTxComSoft[10];
+ 282   1            bcc=0;
+ 283   1        
+ 284   1        Debug_txt_Tibbo((unsigned char *) "Aut_Card_check_Status\r\n\r\n");
+ 285   1        
+ 286   1        g_scArrTxComSoft[0]=STX_LINTECH;
+ 287   1          g_scArrTxComSoft[1]=0X00;
+ 288   1          g_scArrTxComSoft[2]=0X00;
+ 289   1          g_scArrTxComSoft[3]=0X03;
+ 290   1          g_scArrTxComSoft[4]='C';
+ 291   1          g_scArrTxComSoft[5]=0x50;
+ 292   1          g_scArrTxComSoft[6]=0x31;
+ 293   1          g_scArrTxComSoft[7]=ETX;
+ 294   1            for (j=0; j<8; j++)
+ 295   1          {
+ 296   2            bcc=g_scArrTxComSoft[j]^bcc;
+ 297   2          }
+ 298   1          g_scArrTxComSoft[8]=bcc;
+ 299   1          buffer_ready=0;                                   /* buffer del pto serie (0) inicia a esperar la trama*/
+ 300   1          g_cEstadoComSoft=ESPERA_RX;                       /* Espera el ASK en el pt o serie para empesar a almacenas*/
+ 301   1          DebugBufferMF(g_scArrTxComSoft,9,0);                /*muestra la trama enviada al pto serie a debug por tibbo*/
+C51 COMPILER V9.59.0.0   LINTECH                                                           08/05/2020 11:21:06 PAGE 6   
+
+ 302   1          EscribirCadenaSoft_buffer(g_scArrTxComSoft,9);    /* envio la trama por el pto serie*/
+ 303   1          ValTimeOutCom=TIME_CARD;
+ 304   1        } 
+ 305          
+ 306          /*------------------------------------------------------------------------------
+ 307          CMD q programa la clave en el verificador o transporte
+ 308          ------------------------------------------------------------------------------*/
+ 309          
+ 310            void Dwload_EEprom (void)
+ 311          {
+ 312   1        unsigned char j, bcc;
+ 313   1        unsigned char g_scArrTxComSoft[21];
+ 314   1        bcc=0;
+ 315   1        Debug_txt_Tibbo((unsigned char *) "Download MF EEprom\r\n\r\n");
+ 316   1        
+ 317   1        g_scArrTxComSoft[0]=0xF2;
+ 318   1        g_scArrTxComSoft[1]=0X00;
+ 319   1        g_scArrTxComSoft[2]=0X00;
+ 320   1        g_scArrTxComSoft[3]=0X0E;
+ 321   1        g_scArrTxComSoft[4]='C';
+ 322   1        g_scArrTxComSoft[5]=0x60;
+ 323   1        g_scArrTxComSoft[6]='3';
+ 324   1        g_scArrTxComSoft[7]=0x00;
+ 325   1        g_scArrTxComSoft[8]=0Xd0;
+ 326   1        g_scArrTxComSoft[9]=0X00;
+ 327   1        g_scArrTxComSoft[10]=0X01;
+ 328   1        g_scArrTxComSoft[11]=0x06;
+ 329   1        g_scArrTxComSoft[12]='3';
+ 330   1        g_scArrTxComSoft[13]='V';
+ 331   1        g_scArrTxComSoft[14]='0';
+ 332   1        g_scArrTxComSoft[15]='p';
+ 333   1        g_scArrTxComSoft[16]='4';
+ 334   1        g_scArrTxComSoft[17]='r';
+ 335   1        g_scArrTxComSoft[18]=ETX;
+ 336   1        
+ 337   1        for (j=0; j<19; j++)
+ 338   1          {
+ 339   2            bcc=g_scArrTxComSoft[j]^bcc;
+ 340   2          }
+ 341   1          g_scArrTxComSoft[19]=bcc;
+ 342   1          buffer_ready=0;                                   /* buffer del pto serie (0) inicia a esperar la trama*/
+ 343   1          g_cEstadoComSoft=ESPERA_RX;                       /* Espera el ASK en el pt o serie para empesar a almacenas*/
+ 344   1          DebugBufferMF(g_scArrTxComSoft,20,0);               /*muestra la trama enviada al pto serie a debug por tibbo*/
+ 345   1          EscribirCadenaSoft_buffer(g_scArrTxComSoft,20);   /* envio la trama por el pto serie*/
+ 346   1          ValTimeOutCom=TIME_CARD;
+ 347   1      }
+ 348          
+ 349          /*------------------------------------------------------------------------------
+ 350          Funcion q verifica si la clave y la carga en el transporte
+ 351          ------------------------------------------------------------------------------*/
+ 352          
+ 353          void LoadVerify_EEprom(void)
+ 354          {
+ 355   1        unsigned char j, bcc;
+ 356   1        unsigned char g_scArrTxComSoft[15];
+ 357   1        bcc=0;
+ 358   1        Debug_txt_Tibbo((unsigned char *) "Carga y Verifica de EEprom\r\n\r\n");
+ 359   1      
+ 360   1      
+ 361   1        g_scArrTxComSoft[0]=0xF2;
+ 362   1        g_scArrTxComSoft[1]=0X00;
+ 363   1        g_scArrTxComSoft[2]=0X00;
+C51 COMPILER V9.59.0.0   LINTECH                                                           08/05/2020 11:21:06 PAGE 7   
+
+ 364   1        g_scArrTxComSoft[3]=0X07;
+ 365   1        g_scArrTxComSoft[4]='C';
+ 366   1        g_scArrTxComSoft[5]=0x60;
+ 367   1        g_scArrTxComSoft[6]='3';
+ 368   1        g_scArrTxComSoft[7]=0x00;
+ 369   1        g_scArrTxComSoft[8]=0x21;
+ 370   1          g_scArrTxComSoft[9]=0x00;
+ 371   1        g_scArrTxComSoft[10]=0x01;
+ 372   1        g_scArrTxComSoft[11]=ETX;
+ 373   1        g_scArrTxComSoft[12]=0xc6;
+ 374   1      
+ 375   1        
+ 376   1      
+ 377   1        for (j=0; j<13; j++)
+ 378   1          {
+ 379   2            bcc=g_scArrTxComSoft[j]^bcc;
+ 380   2          }
+ 381   1          g_scArrTxComSoft[13]=bcc;
+ 382   1          buffer_ready=0;                                   /* buffer del pto serie (0) inicia a esperar la trama*/
+ 383   1          g_cEstadoComSoft=ESPERA_RX;                       /* Espera el ASK en el pt o serie para empesar a almacenas*/
+ 384   1          DebugBufferMF(g_scArrTxComSoft,14,0);               /*muestra la trama enviada al pto serie a debug por tibbo*/
+ 385   1          EscribirCadenaSoft_buffer(g_scArrTxComSoft,14);   /* envio la trama por el pto serie*/
+ 386   1          ValTimeOutCom=TIME_CARD;
+ 387   1          
+ 388   1      }
+ 389          
+ 390          /*------------------------------------------------------------------------------
+ 391          Funcion q lee la MF dandole el sector y el bloque
+ 392          ------------------------------------------------------------------------------*/
+ 393          
+ 394          void RD_MF(unsigned char Sector, unsigned char Bloque)
+ 395          {
+ 396   1      
+ 397   1        unsigned char j, bcc;
+ 398   1        unsigned char g_scArrTxComSoft[15];
+ 399   1        bcc=0;
+ 400   1      
+ 401   1        Debug_txt_Tibbo((unsigned char *) "Leyendo MF > Sector: ");
+ 402   1        Debug_chr_Tibbo(Sector);
+ 403   1        
+ 404   1        Debug_txt_Tibbo((unsigned char *) " Bloque: ");
+ 405   1        Debug_chr_Tibbo(Bloque);
+ 406   1        Debug_txt_Tibbo((unsigned char *) "\r\n\r\n");
+ 407   1      
+ 408   1      
+ 409   1        g_scArrTxComSoft[0]=0xF2;
+ 410   1        g_scArrTxComSoft[1]=0X00;                   
+ 411   1        g_scArrTxComSoft[2]=0X00;
+ 412   1        g_scArrTxComSoft[3]=0X08;
+ 413   1        g_scArrTxComSoft[4]='C';
+ 414   1        g_scArrTxComSoft[5]=0X60;
+ 415   1        g_scArrTxComSoft[6]='3';
+ 416   1        g_scArrTxComSoft[7]=0x00;
+ 417   1        g_scArrTxComSoft[8]=0xb0;
+ 418   1        g_scArrTxComSoft[9]=Sector;
+ 419   1        g_scArrTxComSoft[10]=Bloque;
+ 420   1        g_scArrTxComSoft[11]=0x01;
+ 421   1        g_scArrTxComSoft[12]=ETX;
+ 422   1      
+ 423   1        for (j=0; j<13; j++)
+ 424   1        {
+ 425   2          bcc=g_scArrTxComSoft[j]^bcc;
+C51 COMPILER V9.59.0.0   LINTECH                                                           08/05/2020 11:21:06 PAGE 8   
+
+ 426   2        }
+ 427   1        g_scArrTxComSoft[13]=bcc;
+ 428   1      
+ 429   1      
+ 430   1          buffer_ready=0;                                   /* buffer del pto serie (0) inicia a esperar la trama*/
+ 431   1          g_cEstadoComSoft=ESPERA_RX;                       /* Espera el ASK en el pt o serie para empesar a almacenas*/
+ 432   1          DebugBufferMF(g_scArrTxComSoft,14,0);               /*muestra la trama enviada al pto serie a debug por tibbo*/
+ 433   1          EscribirCadenaSoft_buffer(g_scArrTxComSoft,14);   /* envio la trama por el pto serie*/
+ 434   1          ValTimeOutCom=TIME_CARD;
+ 435   1      
+ 436   1      }
+ 437          
+ 438          /*------------------------------------------------------------------------------
+ 439          Funcion q lescribe la MF dandole el sector y el bloque y los datos
+ 440          ------------------------------------------------------------------------------*/
+ 441          
+ 442          
+ 443          void WR_MF(unsigned char Sector, unsigned char Bloque,unsigned char *buffer)     
+ 444             
+ 445          {
+ 446   1        unsigned char j, bcc;
+ 447   1        unsigned char g_scArrTxComSoft[31];
+ 448   1        bcc=0;
+ 449   1      
+ 450   1        Debug_txt_Tibbo((unsigned char *) "Escribe MF > Sector: ");
+ 451   1        Debug_chr_Tibbo(Sector);
+ 452   1        
+ 453   1        Debug_txt_Tibbo((unsigned char *) " Bloque: ");
+ 454   1        Debug_chr_Tibbo(Bloque);
+ 455   1        Debug_txt_Tibbo((unsigned char *) "\r\n\r\n");
+ 456   1                                          
+ 457   1        g_scArrTxComSoft[0]=0xF2;
+ 458   1        g_scArrTxComSoft[1]=0X00;                   
+ 459   1        g_scArrTxComSoft[2]=0X00;
+ 460   1        g_scArrTxComSoft[3]=24;                                 /* Numero Datos a programar */ 
+ 461   1        
+ 462   1        g_scArrTxComSoft[4]='C';
+ 463   1        g_scArrTxComSoft[5]=0X60;
+ 464   1        g_scArrTxComSoft[6]='3';
+ 465   1        g_scArrTxComSoft[7]=0x00;
+ 466   1        g_scArrTxComSoft[8]=0xd1;
+ 467   1        g_scArrTxComSoft[9]=Sector;                             //Sector;
+ 468   1        g_scArrTxComSoft[10]=Bloque;                            //Bloque;
+ 469   1        g_scArrTxComSoft[11]=0x01;
+ 470   1      
+ 471   1        if(Sector!=2)
+ 472   1        { 
+ 473   2      /*------------------------------------------------------------------------------
+ 474   2      borro la fecha de entrada de entrada 
+ 475   2      ------------------------------------------------------------------------------*/
+ 476   2      
+ 477   2        g_scArrTxComSoft[12]=0x00;                              /*borro la fecha de entrada año mes dia hora minutos*/
+ 478   2        g_scArrTxComSoft[13]=0x00;
+ 479   2        g_scArrTxComSoft[14]=0x00;
+ 480   2        g_scArrTxComSoft[15]=0x00;
+ 481   2        g_scArrTxComSoft[16]=0x00;
+ 482   2      
+ 483   2      /*------------------------------------------------------------------------------
+ 484   2      borro los descuentos
+ 485   2      ------------------------------------------------------------------------------*/
+ 486   2        g_scArrTxComSoft[17]=0x00;
+ 487   2        g_scArrTxComSoft[18]=0x00;
+C51 COMPILER V9.59.0.0   LINTECH                                                           08/05/2020 11:21:06 PAGE 9   
+
+ 488   2        g_scArrTxComSoft[19]=0x00;
+ 489   2        
+ 490   2      /*------------------------------------------------------------------------------
+ 491   2      tipo de vehiculo
+ 492   2      ------------------------------------------------------------------------------*/
+ 493   2        
+ 494   2        g_scArrTxComSoft[20]=*buffer;
+ 495   2        
+ 496   2      /*------------------------------------------------------------------------------
+ 497   2      direccion de BOArd_pcb de salida o puerta de salida
+ 498   2      ------------------------------------------------------------------------------*/  
+ 499   2        g_scArrTxComSoft[21]=0x0f&Dir_board();
+ 500   2        
+ 501   2      /*------------------------------------------------------------------------------
+ 502   2      programo el APB como salida (02) entrada(01)
+ 503   2      ------------------------------------------------------------------------------*/
+ 504   2      g_scArrTxComSoft[22]=02;
+ 505   2      
+ 506   2      /*------------------------------------------------------------------------------
+ 507   2      borro la fecha de salida 
+ 508   2      ------------------------------------------------------------------------------*/
+ 509   2      
+ 510   2        g_scArrTxComSoft[23]=0x00;                              /*borro la fecha de entrada año mes dia hora minutos*/
+ 511   2        g_scArrTxComSoft[24]=0x00;
+ 512   2        g_scArrTxComSoft[25]=0x00;
+ 513   2        g_scArrTxComSoft[26]=0x00;
+ 514   2        g_scArrTxComSoft[27]=0x00;
+ 515   2      
+ 516   2        }
+ 517   1          else 
+ 518   1          {
+ 519   2            for (j=12; j<=28; j++)
+ 520   2            {
+ 521   3              g_scArrTxComSoft[j]=0x00; 
+ 522   3            }
+ 523   2          }
+ 524   1      
+ 525   1      
+ 526   1      
+ 527   1      
+ 528   1        g_scArrTxComSoft[28]=ETX;
+ 529   1        
+ 530   1        for (j=0; j<=28; j++)
+ 531   1        {
+ 532   2          bcc=bcc^g_scArrTxComSoft[j];
+ 533   2        }
+ 534   1        g_scArrTxComSoft[29]=bcc;
+ 535   1      
+ 536   1        
+ 537   1          buffer_ready=0;                                   /* buffer del pto serie (0) inicia a esperar la trama*/
+ 538   1          g_cEstadoComSoft=ESPERA_RX;                       /* Espera el ASK en el pt o serie para empesar a almacenas*/
+ 539   1          DebugBufferMF(g_scArrTxComSoft,30,0);               /*muestra la trama enviada al pto serie a debug por tibbo*/
+ 540   1          EscribirCadenaSoft_buffer(g_scArrTxComSoft,30);   /* envio la trama por el pto serie*/
+ 541   1          ValTimeOutCom=TIME_CARD_WR;
+ 542   1        
+ 543   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =   1626    ----
+   CONSTANT SIZE    =    357    ----
+   XDATA SIZE       =   ----     150
+C51 COMPILER V9.59.0.0   LINTECH                                                           08/05/2020 11:21:06 PAGE 10  
+
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)
