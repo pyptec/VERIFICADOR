@@ -1,4 +1,4 @@
-C51 COMPILER V9.59.0.0   PTO_PARALELO                                                      08/05/2020 11:21:06 PAGE 1   
+C51 COMPILER V9.59.0.0   PTO_PARALELO                                                      08/31/2020 09:26:19 PAGE 1   
 
 
 C51 COMPILER V9.59.0.0, COMPILATION OF MODULE PTO_PARALELO
@@ -62,7 +62,7 @@ line level    source
   51   1        unsigned int T_ANCHO=160;
   52   1        unsigned char data_temp=0;
   53   1      
-C51 COMPILER V9.59.0.0   PTO_PARALELO                                                      08/05/2020 11:21:06 PAGE 2   
+C51 COMPILER V9.59.0.0   PTO_PARALELO                                                      08/31/2020 09:26:19 PAGE 2   
 
   54   1        
   55   1        if (busy==0)
@@ -126,7 +126,7 @@ line level    source
  113          void  send_port(unsigned char *buffer_port, unsigned char length_char)
  114          {
  115   1       
-C51 COMPILER V9.59.0.0   PTO_PARALELO                                                      08/05/2020 11:21:06 PAGE 3   
+C51 COMPILER V9.59.0.0   PTO_PARALELO                                                      08/31/2020 09:26:19 PAGE 3   
 
  116   1        long int cont;
  117   1        unsigned char timeOut,length;
@@ -190,7 +190,7 @@ line level    source
  174            {
  175             Buffer_port[j++]=*buffer_S1_B0;                  /*ticket*/
  176          //    buffer_S1_B0++;
-C51 COMPILER V9.59.0.0   PTO_PARALELO                                                      08/05/2020 11:21:06 PAGE 4   
+C51 COMPILER V9.59.0.0   PTO_PARALELO                                                      08/31/2020 09:26:19 PAGE 4   
 
  177            //}while (*buffer_S1_B0!=0);
  178            
@@ -254,7 +254,7 @@ line level    source
  233   1        Buffer_port[2]=21;                                /*numero de digitos de transmicion NO IMPORTA NO ES VALIDADO EN PRINCIP
              -AL*/
  234   1        do
-C51 COMPILER V9.59.0.0   PTO_PARALELO                                                      08/05/2020 11:21:06 PAGE 5   
+C51 COMPILER V9.59.0.0   PTO_PARALELO                                                      08/31/2020 09:26:19 PAGE 5   
 
  235   1        { 
  236   2         Buffer_port[j++]=*buffer_S1_B0;                  /*ticket*/
@@ -318,7 +318,7 @@ line level    source
  291          //  Buffer_port[0]=STX;                               /*inicio de cmd STx*/
  292            //Buffer_port[1]=cmd;                               /*cmd*/
  293            
-C51 COMPILER V9.59.0.0   PTO_PARALELO                                                      08/05/2020 11:21:06 PAGE 6   
+C51 COMPILER V9.59.0.0   PTO_PARALELO                                                      08/31/2020 09:26:19 PAGE 6   
 
  294          //  do
  295            //{
@@ -382,7 +382,7 @@ line level    source
  349          Funcion q arma la trama a transmitir pto paralelo trama g
  350          -------------------------------------------------------------------------------------------*/ 
  351          void Trama_pto_Paralelo_new(unsigned char *buffer_S1_B0,unsigned char *buffer_S1_B2,unsigned char cmd)
-C51 COMPILER V9.59.0.0   PTO_PARALELO                                                      08/05/2020 11:21:06 PAGE 7   
+C51 COMPILER V9.59.0.0   PTO_PARALELO                                                      08/31/2020 09:26:19 PAGE 7   
 
  352          {
  353   1        unsigned char Buffer_port[30];
@@ -446,7 +446,7 @@ line level    source
  408   1          {
  409   2            Buffer_port[j++]='M';                         /*moto*/
  410   2          }
-C51 COMPILER V9.59.0.0   PTO_PARALELO                                                      08/05/2020 11:21:06 PAGE 8   
+C51 COMPILER V9.59.0.0   PTO_PARALELO                                                      08/31/2020 09:26:19 PAGE 8   
 
  411   1          else
  412   1          {
@@ -510,7 +510,7 @@ line level    source
  470   1        rx_in_data=1;                                   //Led de visualizacion  OFF
  471   1      
  472   1        P2=0XFF;
-C51 COMPILER V9.59.0.0   PTO_PARALELO                                                      08/05/2020 11:21:06 PAGE 9   
+C51 COMPILER V9.59.0.0   PTO_PARALELO                                                      08/31/2020 09:26:19 PAGE 9   
 
  473   1      
  474   1        Delay_20us(98); 
@@ -574,7 +574,7 @@ line level    source
  532   2              
  533   2           }
  534   1        
-C51 COMPILER V9.59.0.0   PTO_PARALELO                                                      08/05/2020 11:21:06 PAGE 10  
+C51 COMPILER V9.59.0.0   PTO_PARALELO                                                      08/31/2020 09:26:19 PAGE 10  
 
  535   1        
  536   1           sprintf(buf,"%d",COD_PARK);                /*cod_park lo paso a strim*/

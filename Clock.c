@@ -30,6 +30,9 @@ sbit rst = P1^6 ;
 #define RSEG						0x81
 #define RDIA_SEMANA			0x8B
 
+#define True										0x01
+#define False										0x00
+
 unsigned char data_clk;
 //*********************************************************************************
 
@@ -409,7 +412,7 @@ void Block_read_clock_ascii(unsigned char *datos_clock)
 {
 	unsigned char dato;
 
-	//dia,mes,año,hora,minutos,segundos,Dia de la semana
+	//dia,mes,año,hora,minutos
 		
 		/*año*/
 		dato=lee_clk(RANO);
@@ -446,18 +449,6 @@ void Block_read_clock_ascii(unsigned char *datos_clock)
 	  datos_clock++;
 		*datos_clock=(dato&0x0f)| 0x30;						/*dato parte bajo*/
 		datos_clock++;	
-	
-		/*segundos*/		
-		dato=lee_clk(RSEG);
-		*datos_clock=((dato&0xf0)>>4)| 0x30;			/*dato parte alta*/
-	  datos_clock++;
-		*datos_clock=(dato&0x0f)| 0x30;						/*dato parte bajo*/
-		datos_clock++;
-	
-		/*dia de la semana*/
-		dato=lee_clk(RDIA_SEMANA);
-		*datos_clock=(dato&0x0f)| 0x30;						/*dato parte bajo*/
-		datos_clock++;
 		*datos_clock=0;
 								
 }	
@@ -480,6 +471,28 @@ void Block_read_Clock_Hex(unsigned char *datos_clock)
 	*datos_clock=bcd_hex(lee_clk(RMIN));			
 	 datos_clock++;
 
+}
+void hex_ascii(unsigned char * datos,unsigned char * fecha_asii)
+{
+	unsigned char dato;
+	//unsigned fecha_asii[7];
+	
+		dato=hex_bcd (*datos);
+		*fecha_asii=((dato&0xf0)>>4)| 0x30;			/*dato parte alta*/
+	 	*(fecha_asii+1)=(dato&0x0f)| 0x30;						/*dato parte bajo*/
+	  datos++;
+	
+		dato=hex_bcd (*(datos));
+			*(fecha_asii+2)=((dato&0xf0)>>4)| 0x30;			/*dato parte alta*/
+	 		*(fecha_asii+3)=(dato&0x0f)| 0x30;						/*dato parte bajo*/
+	  datos++;
+	
+		dato=hex_bcd (*(datos));
+			*(fecha_asii+4)=((dato&0xf0)>>4)| 0x30;			/*dato parte alta*/
+	 		*(fecha_asii+5)=(dato&0x0f)| 0x30;						/*dato parte bajo*/
+	  
+			*(fecha_asii+6)=0;
+	
 }
 /*
 void Block_read_Clock_Hex_bcd(unsigned char *datos_clock)
@@ -627,7 +640,31 @@ char check_fechaOut(char *buffer)
 	}
 	return temp;
 }
+unsigned char check_fechaOut_2(unsigned char *buffer)
+{
+	unsigned long int fecha_inicio,fecha_fin;
+	unsigned char datos_clk[6];
+	char temp;
+	
+	
+		Block_read_Clock_Hex(datos_clk);															/*leo el clock actual*/
+ 		fecha_inicio =	datos_clk[0] * 365 + datos_clk[1] * 30 + datos_clk[2] ;
+		fecha_fin = *(buffer ) * 365 + *(buffer + 1) * 30  + *(buffer + 2);
+		
+			
+		if (fecha_fin >= fecha_inicio	)						
+		{
+			temp = True;
+		}
+		else
+		{
+			temp = False;
+		}
+			
 
+	
+	return temp;
+}
 //*******************************************************************************************
 void analiza_tiempo(char *buffer,unsigned int Val_DctoMinutos)
 {

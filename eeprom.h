@@ -26,5 +26,8 @@ void wr_eeprom (unsigned char control,unsigned int Dir, unsigned char data_eepro
 void wrpage_eeprom (unsigned char control,unsigned char dir_h,unsigned char dir_l,unsigned char data_eeprom); 
 unsigned char rd_eeprom (unsigned char control,unsigned int Dir); 
 void variable_inicio();
+void LeerMemoria(unsigned int addres, unsigned char *res);
+void EscribirMemoria(unsigned int addres,unsigned char *res);
+
 
 #endif	/* _EEPROM_H_ */

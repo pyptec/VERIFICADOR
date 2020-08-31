@@ -1,4 +1,4 @@
-C51 COMPILER V9.59.0.0   EEPROM                                                            08/05/2020 11:21:05 PAGE 1   
+C51 COMPILER V9.59.0.0   EEPROM                                                            08/31/2020 09:26:18 PAGE 1   
 
 
 C51 COMPILER V9.59.0.0, COMPILATION OF MODULE EEPROM
@@ -62,7 +62,7 @@ line level    source
   51   1        {
   52   2          if (sda==0)
   53   2          {
-C51 COMPILER V9.59.0.0   EEPROM                                                            08/05/2020 11:21:05 PAGE 2   
+C51 COMPILER V9.59.0.0   EEPROM                                                            08/31/2020 09:26:18 PAGE 2   
 
   54   3            memory_flag=0;
   55   3          scl=0;
@@ -126,7 +126,7 @@ line level    source
  113          {
  114   1        sda=1;
  115   1        scl=1;
-C51 COMPILER V9.59.0.0   EEPROM                                                            08/05/2020 11:21:05 PAGE 3   
+C51 COMPILER V9.59.0.0   EEPROM                                                            08/31/2020 09:26:18 PAGE 3   
 
  116   1        _nop_();
  117   1        sda=0;
@@ -190,7 +190,7 @@ line level    source
  175   1          start();
  176   1        e_d_m(control);
  177   1        ackd();
-C51 COMPILER V9.59.0.0   EEPROM                                                            08/05/2020 11:21:05 PAGE 4   
+C51 COMPILER V9.59.0.0   EEPROM                                                            08/31/2020 09:26:18 PAGE 4   
 
  178   1        e_d_m(dir_h);
  179   1        ackd();
@@ -254,7 +254,7 @@ line level    source
  236   1        scl=0;
  237   1        sda=0;
  238   1       // wait();
-C51 COMPILER V9.59.0.0   EEPROM                                                            08/05/2020 11:21:05 PAGE 5   
+C51 COMPILER V9.59.0.0   EEPROM                                                            08/31/2020 09:26:18 PAGE 5   
 
  239   1        start();
  240   1        e_d_m(control);
@@ -288,12 +288,45 @@ line level    source
  268   1        COMPARACION_ACTIVA=rd_eeprom(0xa8,EE_CPRCN_ACTIVA);
  269   1        Raspberry = rd_eeprom(0xa8,EE_TIPO_PANTALLA);
  270   1      }
+ 271          //***********************************************************************************************
+ 272          //Rutina que lee la eeprom 
+ 273          //***********************************************************************************************
+ 274          void LeerMemoria(unsigned int addres, unsigned char *res)
+ 275            {
+ 276   1      unsigned char i;
+ 277   1      do {
+ 278   2        *res=rd_eeprom(0xa8,addres);;
+ 279   2        i=*res;
+ 280   2        addres++;
+ 281   2        res++;
+ 282   2      }while(i !='\0');
+ 283   1        *res='\0';
+ 284   1        }
+ 285          void EscribirMemoria(unsigned int addres,unsigned char *res)
+ 286            {
+ 287   1      
+ 288   1      
+ 289   1      while(*res !='\0'){
+ 290   2        if(*res =='\r'){*res='\0';}  
+ 291   2        wr_eeprom(0xa8,addres,*res);
+ 292   2       
+ 293   2          addres++;
+ 294   2          res++;
+ 295   2        }
+ 296   1       wr_eeprom(0xa8,addres,*res);
+ 297   1         addres++;
+ 298   1          res++;
+ 299   1        wr_eeprom(0xa8,addres,0);
+ 300   1      
+C51 COMPILER V9.59.0.0   EEPROM                                                            08/31/2020 09:26:18 PAGE 6   
+
+ 301   1      }
 
 
 MODULE INFORMATION:   STATIC OVERLAYABLE
-   CODE SIZE        =    418    ----
+   CODE SIZE        =    654    ----
    CONSTANT SIZE    =   ----    ----
-   XDATA SIZE       =      3    ----
+   XDATA SIZE       =      3      10
    PDATA SIZE       =   ----    ----
    DATA SIZE        =   ----    ----
    IDATA SIZE       =   ----    ----

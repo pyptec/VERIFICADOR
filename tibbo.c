@@ -163,7 +163,7 @@ void DebugBufferMF(unsigned char *str,unsigned char num_char,char io)
    //if((rd_eeprom(0xa8,EE_DEBUG))!= 0)	
   if (Debug_Tibbo==1)
   {
-		Debug_Dividir_texto();
+		//Debug_Dividir_texto();
 		if(io!=0)
 		{
   	Debug_txt_Tibbo((unsigned char *) "Datos MF respuesta: ");

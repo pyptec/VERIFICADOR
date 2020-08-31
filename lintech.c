@@ -106,7 +106,7 @@ void Inicializa(unsigned char TipoMovimiento)
 	if ((TipoMovimiento==SIN_MOVIMIENTO)||(TipoMovimiento==TO_FRONT)||(TipoMovimiento==CAPTURE_BOX))
 	{
 		
-		Debug_txt_Tibbo((unsigned char *) "Incializa Dispensador\r\n\r\n");
+		Debug_txt_Tibbo((unsigned char *) "Incializa Dispensador\r\n");
 		
 		g_scArrTxComSoft[0]=STX_LINTECH;
 		g_scArrTxComSoft[1]=0X00;
@@ -140,7 +140,7 @@ void Check_Status(unsigned char Detalle)
 {
 	unsigned char j, bcc;
 	unsigned char	g_scArrTxComSoft[10];
-	Debug_txt_Tibbo((unsigned char *) "Check_Status\r\n\r\n");
+	Debug_txt_Tibbo((unsigned char *) "Check_Status\r\n");
 
 	bcc=0;
 
@@ -176,13 +176,13 @@ void Card_Insercion(char Tipo)
 	unsigned char	g_scArrTxComSoft[10];
 	if (Tipo==Habilita)
 	{
-		Debug_txt_Tibbo((unsigned char *) "Habilita Insersion\r\n\r\n");
+		Debug_txt_Tibbo((unsigned char *) "Habilita Insersion\r\n");
 		g_scArrTxComSoft[6]=Habilita;
 	}
 	else
 	{
 		
-		Debug_txt_Tibbo((unsigned char *) "Inhabilita Insersion\r\n\r\n");
+		Debug_txt_Tibbo((unsigned char *) "Inhabilita Insersion\r\n");
 		g_scArrTxComSoft[6]=Inhabilita;
 	
 	}
@@ -230,23 +230,23 @@ void Mov_Card(unsigned char Posicion)
 	{
 	 	if (Posicion==MovPos_RF)
 		{
-		 	Debug_txt_Tibbo((unsigned char *) "Moviendo Tarjeta a RF\r\n\r\n");
+		 	Debug_txt_Tibbo((unsigned char *) "Moviendo Tarjeta a RF\r\n");
 		}
 		else if (Posicion==MovPos_IC)
 		{
-			Debug_txt_Tibbo((unsigned char *) "Moviendo Tarjeta a IC\r\n\r\n");
+			Debug_txt_Tibbo((unsigned char *) "Moviendo Tarjeta a IC\r\n");
    		}
 		else if (Posicion==MovPos_Front)
 		{
-			Debug_txt_Tibbo((unsigned char *) "Moviendo Tarjeta a Bezel\r\n\r\n");
+			Debug_txt_Tibbo((unsigned char *) "Moviendo Tarjeta a Bezel\r\n");
  		}
 		else if (Posicion==MovPos_EjectFront)
 		{
-			Debug_txt_Tibbo((unsigned char *) "Expulsando Tarjeta\r\n\r\n");
+			Debug_txt_Tibbo((unsigned char *) "Expulsando Tarjeta\r\n");
 		}
 		else if (Posicion==MovPos_Capture)
 		{
-			Debug_txt_Tibbo((unsigned char *) "Capturando Tarjeta\r\n\r\n");
+			Debug_txt_Tibbo((unsigned char *) "Capturando Tarjeta\r\n");
  		}
 
 		g_scArrTxComSoft[0]=STX_LINTECH;
@@ -281,7 +281,7 @@ unsigned char j, bcc;
 unsigned char	g_scArrTxComSoft[10];
 		  bcc=0;
 	
-	Debug_txt_Tibbo((unsigned char *) "Aut_Card_check_Status\r\n\r\n");
+	Debug_txt_Tibbo((unsigned char *) "Aut_Card_check_Status\r\n");
  	
 	g_scArrTxComSoft[0]=STX_LINTECH;
 		g_scArrTxComSoft[1]=0X00;
@@ -312,7 +312,7 @@ CMD q programa la clave en el verificador o transporte
  	unsigned char j, bcc;
 	unsigned char	g_scArrTxComSoft[21];
 	bcc=0;
-	Debug_txt_Tibbo((unsigned char *) "Download MF EEprom\r\n\r\n");
+	Debug_txt_Tibbo((unsigned char *) "Download MF EEprom\r\n");
 	
 	g_scArrTxComSoft[0]=0xF2;
 	g_scArrTxComSoft[1]=0X00;
@@ -355,7 +355,7 @@ void LoadVerify_EEprom(void)
 	unsigned char j, bcc;
 	unsigned char	g_scArrTxComSoft[15];
 	bcc=0;
-	Debug_txt_Tibbo((unsigned char *) "Carga y Verifica de EEprom\r\n\r\n");
+	Debug_txt_Tibbo((unsigned char *) "Carga y Verifica de EEprom\r\n");
 
 
 	g_scArrTxComSoft[0]=0xF2;
@@ -403,7 +403,7 @@ void RD_MF(unsigned char Sector, unsigned char Bloque)
 	
 	Debug_txt_Tibbo((unsigned char *) " Bloque: ");
 	Debug_chr_Tibbo(Bloque);
-	Debug_txt_Tibbo((unsigned char *) "\r\n\r\n");
+	Debug_txt_Tibbo((unsigned char *) "\r\n");
 
 
 	g_scArrTxComSoft[0]=0xF2;
@@ -452,7 +452,7 @@ void WR_MF(unsigned char Sector, unsigned char Bloque,unsigned char *buffer)
 	
 	Debug_txt_Tibbo((unsigned char *) " Bloque: ");
 	Debug_chr_Tibbo(Bloque);
-	Debug_txt_Tibbo((unsigned char *) "\r\n\r\n");
+	Debug_txt_Tibbo((unsigned char *) "\r\n");
 																	  
 	g_scArrTxComSoft[0]=0xF2;
 	g_scArrTxComSoft[1]=0X00;									  
@@ -540,4 +540,66 @@ borro la fecha de salida
 		EscribirCadenaSoft_buffer(g_scArrTxComSoft,30);		/* envio la trama por el pto serie*/
 		ValTimeOutCom=TIME_CARD_WR;
 	
+}
+//*******************************************************************************************
+// rutina q mira el tipo de tarjeta si es valido para el uso 	
+//*******************************************************************************************
+
+void Unique_Identifier_UID(void)
+{
+unsigned char j, bcc;
+unsigned char	g_scArrTxComSoft[10];
+		  bcc=0;
+	
+	Debug_txt_Tibbo((unsigned char *) "UID\r\n");
+ 	
+	g_scArrTxComSoft[0]=STX_LINTECH;
+		g_scArrTxComSoft[1]=0X00;
+		g_scArrTxComSoft[2]=0X00;
+		g_scArrTxComSoft[3]=0X05;
+		g_scArrTxComSoft[4]='C';
+		g_scArrTxComSoft[5]=0x60;
+		g_scArrTxComSoft[6]=0x30;
+		g_scArrTxComSoft[7]=0x41;
+		g_scArrTxComSoft[8]=0x30;
+		g_scArrTxComSoft[9]=ETX;
+	   	for (j=0; j<10; j++)
+		{
+			bcc=g_scArrTxComSoft[j]^bcc;
+		}
+		g_scArrTxComSoft[10]=bcc;
+		buffer_ready=0;																		/* buffer del pto serie (0) inicia a esperar la trama*/
+		g_cEstadoComSoft=ESPERA_RX;												/* Espera el ASK en el pt o serie para empesar a almacenas*/
+		DebugBufferMF(g_scArrTxComSoft,11,0);								/*muestra la trama enviada al pto serie a debug por tibbo*/
+		EscribirCadenaSoft_buffer(g_scArrTxComSoft,11);		/* envio la trama por el pto serie*/
+		ValTimeOutCom=TIME_CARD;
+	}	
+void Power_off(void)
+{
+unsigned char j, bcc;
+unsigned char	g_scArrTxComSoft[10];
+		  bcc=0;
+	
+	Debug_txt_Tibbo((unsigned char *) "POWER OFF UID\r\n");
+ 	
+	g_scArrTxComSoft[0]=STX_LINTECH;
+		g_scArrTxComSoft[1]=0X00;
+		g_scArrTxComSoft[2]=0X00;
+		g_scArrTxComSoft[3]=0X03;
+		g_scArrTxComSoft[4]='C';
+		g_scArrTxComSoft[5]=0x60;
+		g_scArrTxComSoft[6]=0x31;
+		g_scArrTxComSoft[7]=ETX;
+	   	for (j=0; j<8; j++)
+		{
+			bcc=g_scArrTxComSoft[j]^bcc;
+		}
+		g_scArrTxComSoft[8]=bcc;
+		buffer_ready=0;																		/* buffer del pto serie (0) inicia a esperar la trama*/
+		g_cEstadoComSoft=ESPERA_RX;												/* Espera el ASK en el pt o serie para empesar a almacenas*/
+		DebugBufferMF(g_scArrTxComSoft,9,0);								/*muestra la trama enviada al pto serie a debug por tibbo*/
+		EscribirCadenaSoft_buffer(g_scArrTxComSoft,9);		/* envio la trama por el pto serie*/
+		ValTimeOutCom=TIME_CARD;
+
+
 }

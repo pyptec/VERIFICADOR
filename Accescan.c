@@ -360,8 +360,9 @@ void Cmd_LPR_Salida(unsigned char *buffer_S1_B0,unsigned char *buffer_S1_B2)
 	Buffer_Lpr[0]=STX;																/*inicio de cmd STx*/
 	Buffer_Lpr[1]=Dir_board();												/*direccion de la tarjeta*/
 	Buffer_Lpr[2]='S';																/*numero de digitos de transmicion NO IMPORTA NO ES VALIDADO EN PRINCIPAL*/
-	
-		if(*(buffer_S1_B2+8)!=0)												/*Tipo de vehiculo*/
+
+	/*Tipo de vehiculo*/
+		if(*(buffer_S1_B2+8)!=0)												
 		{
 			Buffer_Lpr[j++]='M';													/*moto*/
 		}
@@ -369,14 +370,19 @@ void Cmd_LPR_Salida(unsigned char *buffer_S1_B0,unsigned char *buffer_S1_B2)
 		{
 			Buffer_Lpr[j++]='C';													/*carro*/
 		}
-	
-	
-	do
-	{
-	 Buffer_Lpr[j++]=*buffer_S1_B0;									/*ticket o consecutivo*/
+	//if(tipo_card == MENSUALIDAD)
+	//{
+		
+	//}
+	//else
+	//{
+	/*ticket o consecutivo*/
+		do
+		{
+		Buffer_Lpr[j++]=*buffer_S1_B0;									/*ticket o consecutivo*/
 		buffer_S1_B0++;
-	}while (*buffer_S1_B0!=0);
-	
+		}while (*buffer_S1_B0!=0);
+	//}
 	
 	
 	

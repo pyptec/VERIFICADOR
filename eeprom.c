@@ -268,3 +268,34 @@ void variable_inicio()
 	COMPARACION_ACTIVA=rd_eeprom(0xa8,EE_CPRCN_ACTIVA);
 	Raspberry = rd_eeprom(0xa8,EE_TIPO_PANTALLA);
 }
+//***********************************************************************************************
+//Rutina que lee la eeprom 
+//***********************************************************************************************
+void LeerMemoria(unsigned int addres, unsigned char *res)
+	{
+unsigned char i;
+do {
+ 	*res=rd_eeprom(0xa8,addres);;
+	i=*res;
+	addres++;
+	res++;
+}while(i !='\0');
+ 	*res='\0';
+	}
+void EscribirMemoria(unsigned int addres,unsigned char *res)
+	{
+
+
+while(*res !='\0'){
+	if(*res =='\r'){*res='\0';}  
+	wr_eeprom(0xa8,addres,*res);
+ 
+    addres++;
+		res++;
+	}
+ wr_eeprom(0xa8,addres,*res);
+	 addres++;
+		res++;
+  wr_eeprom(0xa8,addres,0);
+
+}

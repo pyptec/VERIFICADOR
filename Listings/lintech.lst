@@ -1,4 +1,4 @@
-C51 COMPILER V9.59.0.0   LINTECH                                                           08/05/2020 11:21:06 PAGE 1   
+C51 COMPILER V9.59.0.0   LINTECH                                                           08/31/2020 09:26:19 PAGE 1   
 
 
 C51 COMPILER V9.59.0.0, COMPILATION OF MODULE LINTECH
@@ -62,7 +62,7 @@ line level    source
   52          #define Pos_St1             8
   53          #define Pos_St2             9
   54          #define Pos_IniDatMF        0x0a
-C51 COMPILER V9.59.0.0   LINTECH                                                           08/05/2020 11:21:06 PAGE 2   
+C51 COMPILER V9.59.0.0   LINTECH                                                           08/31/2020 09:26:19 PAGE 2   
 
   55          #define Card_type_H         0x0a
   56          #define Card_type_L         0x0b
@@ -118,7 +118,7 @@ line level    source
  106   1        if ((TipoMovimiento==SIN_MOVIMIENTO)||(TipoMovimiento==TO_FRONT)||(TipoMovimiento==CAPTURE_BOX))
  107   1        {
  108   2          
- 109   2          Debug_txt_Tibbo((unsigned char *) "Incializa Dispensador\r\n\r\n");
+ 109   2          Debug_txt_Tibbo((unsigned char *) "Incializa Dispensador\r\n");
  110   2          
  111   2          g_scArrTxComSoft[0]=STX_LINTECH;
  112   2          g_scArrTxComSoft[1]=0X00;
@@ -126,7 +126,7 @@ line level    source
  114   2          g_scArrTxComSoft[3]=0X03;
  115   2          g_scArrTxComSoft[4]='C';
  116   2          g_scArrTxComSoft[5]='0';
-C51 COMPILER V9.59.0.0   LINTECH                                                           08/05/2020 11:21:06 PAGE 3   
+C51 COMPILER V9.59.0.0   LINTECH                                                           08/31/2020 09:26:19 PAGE 3   
 
  117   2          g_scArrTxComSoft[6]=TipoMovimiento;
  118   2          g_scArrTxComSoft[7]=ETX;
@@ -154,7 +154,7 @@ line level    source
  140          {
  141   1        unsigned char j, bcc;
  142   1        unsigned char g_scArrTxComSoft[10];
- 143   1        Debug_txt_Tibbo((unsigned char *) "Check_Status\r\n\r\n");
+ 143   1        Debug_txt_Tibbo((unsigned char *) "Check_Status\r\n");
  144   1      
  145   1        bcc=0;
  146   1      
@@ -190,15 +190,15 @@ line level    source
  176   1        unsigned char g_scArrTxComSoft[10];
  177   1        if (Tipo==Habilita)
  178   1        {
-C51 COMPILER V9.59.0.0   LINTECH                                                           08/05/2020 11:21:06 PAGE 4   
+C51 COMPILER V9.59.0.0   LINTECH                                                           08/31/2020 09:26:19 PAGE 4   
 
- 179   2          Debug_txt_Tibbo((unsigned char *) "Habilita Insersion\r\n\r\n");
+ 179   2          Debug_txt_Tibbo((unsigned char *) "Habilita Insersion\r\n");
  180   2          g_scArrTxComSoft[6]=Habilita;
  181   2        }
  182   1        else
  183   1        {
  184   2          
- 185   2          Debug_txt_Tibbo((unsigned char *) "Inhabilita Insersion\r\n\r\n");
+ 185   2          Debug_txt_Tibbo((unsigned char *) "Inhabilita Insersion\r\n");
  186   2          g_scArrTxComSoft[6]=Inhabilita;
  187   2        
  188   2        }
@@ -247,25 +247,25 @@ line level    source
  230   1        {
  231   2          if (Posicion==MovPos_RF)
  232   2          {
- 233   3            Debug_txt_Tibbo((unsigned char *) "Moviendo Tarjeta a RF\r\n\r\n");
+ 233   3            Debug_txt_Tibbo((unsigned char *) "Moviendo Tarjeta a RF\r\n");
  234   3          }
  235   2          else if (Posicion==MovPos_IC)
  236   2          {
- 237   3            Debug_txt_Tibbo((unsigned char *) "Moviendo Tarjeta a IC\r\n\r\n");
+ 237   3            Debug_txt_Tibbo((unsigned char *) "Moviendo Tarjeta a IC\r\n");
  238   3            }
  239   2          else if (Posicion==MovPos_Front)
-C51 COMPILER V9.59.0.0   LINTECH                                                           08/05/2020 11:21:06 PAGE 5   
+C51 COMPILER V9.59.0.0   LINTECH                                                           08/31/2020 09:26:19 PAGE 5   
 
  240   2          {
- 241   3            Debug_txt_Tibbo((unsigned char *) "Moviendo Tarjeta a Bezel\r\n\r\n");
+ 241   3            Debug_txt_Tibbo((unsigned char *) "Moviendo Tarjeta a Bezel\r\n");
  242   3          }
  243   2          else if (Posicion==MovPos_EjectFront)
  244   2          {
- 245   3            Debug_txt_Tibbo((unsigned char *) "Expulsando Tarjeta\r\n\r\n");
+ 245   3            Debug_txt_Tibbo((unsigned char *) "Expulsando Tarjeta\r\n");
  246   3          }
  247   2          else if (Posicion==MovPos_Capture)
  248   2          {
- 249   3            Debug_txt_Tibbo((unsigned char *) "Capturando Tarjeta\r\n\r\n");
+ 249   3            Debug_txt_Tibbo((unsigned char *) "Capturando Tarjeta\r\n");
  250   3          }
  251   2      
  252   2          g_scArrTxComSoft[0]=STX_LINTECH;
@@ -300,7 +300,7 @@ line level    source
  281   1      unsigned char g_scArrTxComSoft[10];
  282   1            bcc=0;
  283   1        
- 284   1        Debug_txt_Tibbo((unsigned char *) "Aut_Card_check_Status\r\n\r\n");
+ 284   1        Debug_txt_Tibbo((unsigned char *) "Aut_Card_check_Status\r\n");
  285   1        
  286   1        g_scArrTxComSoft[0]=STX_LINTECH;
  287   1          g_scArrTxComSoft[1]=0X00;
@@ -318,7 +318,7 @@ line level    source
  299   1          buffer_ready=0;                                   /* buffer del pto serie (0) inicia a esperar la trama*/
  300   1          g_cEstadoComSoft=ESPERA_RX;                       /* Espera el ASK en el pt o serie para empesar a almacenas*/
  301   1          DebugBufferMF(g_scArrTxComSoft,9,0);                /*muestra la trama enviada al pto serie a debug por tibbo*/
-C51 COMPILER V9.59.0.0   LINTECH                                                           08/05/2020 11:21:06 PAGE 6   
+C51 COMPILER V9.59.0.0   LINTECH                                                           08/31/2020 09:26:19 PAGE 6   
 
  302   1          EscribirCadenaSoft_buffer(g_scArrTxComSoft,9);    /* envio la trama por el pto serie*/
  303   1          ValTimeOutCom=TIME_CARD;
@@ -333,7 +333,7 @@ line level    source
  312   1        unsigned char j, bcc;
  313   1        unsigned char g_scArrTxComSoft[21];
  314   1        bcc=0;
- 315   1        Debug_txt_Tibbo((unsigned char *) "Download MF EEprom\r\n\r\n");
+ 315   1        Debug_txt_Tibbo((unsigned char *) "Download MF EEprom\r\n");
  316   1        
  317   1        g_scArrTxComSoft[0]=0xF2;
  318   1        g_scArrTxComSoft[1]=0X00;
@@ -376,13 +376,13 @@ line level    source
  355   1        unsigned char j, bcc;
  356   1        unsigned char g_scArrTxComSoft[15];
  357   1        bcc=0;
- 358   1        Debug_txt_Tibbo((unsigned char *) "Carga y Verifica de EEprom\r\n\r\n");
+ 358   1        Debug_txt_Tibbo((unsigned char *) "Carga y Verifica de EEprom\r\n");
  359   1      
  360   1      
  361   1        g_scArrTxComSoft[0]=0xF2;
  362   1        g_scArrTxComSoft[1]=0X00;
  363   1        g_scArrTxComSoft[2]=0X00;
-C51 COMPILER V9.59.0.0   LINTECH                                                           08/05/2020 11:21:06 PAGE 7   
+C51 COMPILER V9.59.0.0   LINTECH                                                           08/31/2020 09:26:19 PAGE 7   
 
  364   1        g_scArrTxComSoft[3]=0X07;
  365   1        g_scArrTxComSoft[4]='C';
@@ -426,7 +426,7 @@ line level    source
  403   1        
  404   1        Debug_txt_Tibbo((unsigned char *) " Bloque: ");
  405   1        Debug_chr_Tibbo(Bloque);
- 406   1        Debug_txt_Tibbo((unsigned char *) "\r\n\r\n");
+ 406   1        Debug_txt_Tibbo((unsigned char *) "\r\n");
  407   1      
  408   1      
  409   1        g_scArrTxComSoft[0]=0xF2;
@@ -446,7 +446,7 @@ line level    source
  423   1        for (j=0; j<13; j++)
  424   1        {
  425   2          bcc=g_scArrTxComSoft[j]^bcc;
-C51 COMPILER V9.59.0.0   LINTECH                                                           08/05/2020 11:21:06 PAGE 8   
+C51 COMPILER V9.59.0.0   LINTECH                                                           08/31/2020 09:26:19 PAGE 8   
 
  426   2        }
  427   1        g_scArrTxComSoft[13]=bcc;
@@ -477,7 +477,7 @@ line level    source
  452   1        
  453   1        Debug_txt_Tibbo((unsigned char *) " Bloque: ");
  454   1        Debug_chr_Tibbo(Bloque);
- 455   1        Debug_txt_Tibbo((unsigned char *) "\r\n\r\n");
+ 455   1        Debug_txt_Tibbo((unsigned char *) "\r\n");
  456   1                                          
  457   1        g_scArrTxComSoft[0]=0xF2;
  458   1        g_scArrTxComSoft[1]=0X00;                   
@@ -510,7 +510,7 @@ line level    source
  485   2      ------------------------------------------------------------------------------*/
  486   2        g_scArrTxComSoft[17]=0x00;
  487   2        g_scArrTxComSoft[18]=0x00;
-C51 COMPILER V9.59.0.0   LINTECH                                                           08/05/2020 11:21:06 PAGE 9   
+C51 COMPILER V9.59.0.0   LINTECH                                                           08/31/2020 09:26:19 PAGE 9   
 
  488   2        g_scArrTxComSoft[19]=0x00;
  489   2        
@@ -568,13 +568,77 @@ line level    source
  541   1          ValTimeOutCom=TIME_CARD_WR;
  542   1        
  543   1      }
+ 544          //*******************************************************************************************
+ 545          // rutina q mira el tipo de tarjeta si es valido para el uso  
+ 546          //*******************************************************************************************
+ 547          
+ 548          void Unique_Identifier_UID(void)
+ 549          {
+C51 COMPILER V9.59.0.0   LINTECH                                                           08/31/2020 09:26:19 PAGE 10  
+
+ 550   1      unsigned char j, bcc;
+ 551   1      unsigned char g_scArrTxComSoft[10];
+ 552   1            bcc=0;
+ 553   1        
+ 554   1        Debug_txt_Tibbo((unsigned char *) "UID\r\n");
+ 555   1        
+ 556   1        g_scArrTxComSoft[0]=STX_LINTECH;
+ 557   1          g_scArrTxComSoft[1]=0X00;
+ 558   1          g_scArrTxComSoft[2]=0X00;
+ 559   1          g_scArrTxComSoft[3]=0X05;
+ 560   1          g_scArrTxComSoft[4]='C';
+ 561   1          g_scArrTxComSoft[5]=0x60;
+ 562   1          g_scArrTxComSoft[6]=0x30;
+ 563   1          g_scArrTxComSoft[7]=0x41;
+ 564   1          g_scArrTxComSoft[8]=0x30;
+ 565   1          g_scArrTxComSoft[9]=ETX;
+ 566   1            for (j=0; j<10; j++)
+ 567   1          {
+ 568   2            bcc=g_scArrTxComSoft[j]^bcc;
+ 569   2          }
+ 570   1          g_scArrTxComSoft[10]=bcc;
+ 571   1          buffer_ready=0;                                   /* buffer del pto serie (0) inicia a esperar la trama*/
+ 572   1          g_cEstadoComSoft=ESPERA_RX;                       /* Espera el ASK en el pt o serie para empesar a almacenas*/
+ 573   1          DebugBufferMF(g_scArrTxComSoft,11,0);               /*muestra la trama enviada al pto serie a debug por tibbo*/
+ 574   1          EscribirCadenaSoft_buffer(g_scArrTxComSoft,11);   /* envio la trama por el pto serie*/
+ 575   1          ValTimeOutCom=TIME_CARD;
+ 576   1        } 
+ 577          void Power_off(void)
+ 578          {
+ 579   1      unsigned char j, bcc;
+ 580   1      unsigned char g_scArrTxComSoft[10];
+ 581   1            bcc=0;
+ 582   1        
+ 583   1        Debug_txt_Tibbo((unsigned char *) "POWER OFF UID\r\n");
+ 584   1        
+ 585   1        g_scArrTxComSoft[0]=STX_LINTECH;
+ 586   1          g_scArrTxComSoft[1]=0X00;
+ 587   1          g_scArrTxComSoft[2]=0X00;
+ 588   1          g_scArrTxComSoft[3]=0X03;
+ 589   1          g_scArrTxComSoft[4]='C';
+ 590   1          g_scArrTxComSoft[5]=0x60;
+ 591   1          g_scArrTxComSoft[6]=0x31;
+ 592   1          g_scArrTxComSoft[7]=ETX;
+ 593   1            for (j=0; j<8; j++)
+ 594   1          {
+ 595   2            bcc=g_scArrTxComSoft[j]^bcc;
+ 596   2          }
+ 597   1          g_scArrTxComSoft[8]=bcc;
+ 598   1          buffer_ready=0;                                   /* buffer del pto serie (0) inicia a esperar la trama*/
+ 599   1          g_cEstadoComSoft=ESPERA_RX;                       /* Espera el ASK en el pt o serie para empesar a almacenas*/
+ 600   1          DebugBufferMF(g_scArrTxComSoft,9,0);                /*muestra la trama enviada al pto serie a debug por tibbo*/
+ 601   1          EscribirCadenaSoft_buffer(g_scArrTxComSoft,9);    /* envio la trama por el pto serie*/
+ 602   1          ValTimeOutCom=TIME_CARD;
+ 603   1      
+ 604   1      
+ 605   1      }
 
 
 MODULE INFORMATION:   STATIC OVERLAYABLE
-   CODE SIZE        =   1626    ----
-   CONSTANT SIZE    =    357    ----
-   XDATA SIZE       =   ----     150
-C51 COMPILER V9.59.0.0   LINTECH                                                           08/05/2020 11:21:06 PAGE 10  
+   CODE SIZE        =   1890    ----
+   CONSTANT SIZE    =    353    ----
+   XDATA SIZE       =   ----     172
+C51 COMPILER V9.59.0.0   LINTECH                                                           08/31/2020 09:26:19 PAGE 11  
 
    PDATA SIZE       =   ----    ----
    DATA SIZE        =   ----    ----

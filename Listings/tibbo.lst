@@ -1,4 +1,4 @@
-C51 COMPILER V9.59.0.0   TIBBO                                                             08/05/2020 11:21:06 PAGE 1   
+C51 COMPILER V9.59.0.0   TIBBO                                                             08/31/2020 09:26:19 PAGE 1   
 
 
 C51 COMPILER V9.59.0.0, COMPILATION OF MODULE TIBBO
@@ -62,7 +62,7 @@ line level    source
   52   2          _nop_();
   53   2        }
   54   1      
-C51 COMPILER V9.59.0.0   TIBBO                                                             08/05/2020 11:21:06 PAGE 2   
+C51 COMPILER V9.59.0.0   TIBBO                                                             08/31/2020 09:26:19 PAGE 2   
 
   55   1      }
   56          
@@ -126,7 +126,7 @@ line level    source
  114   2          while (xfc>=0x064)        // resto 100
  115   2          {
  116   3            xfc=xfc-0x64;
-C51 COMPILER V9.59.0.0   TIBBO                                                             08/05/2020 11:21:06 PAGE 3   
+C51 COMPILER V9.59.0.0   TIBBO                                                             08/31/2020 09:26:19 PAGE 3   
 
  117   3            centena=centena+1;
  118   3          }
@@ -177,7 +177,7 @@ line level    source
  163   1         //if((rd_eeprom(0xa8,EE_DEBUG))!= 0) 
  164   1        if (Debug_Tibbo==1)
  165   1        {
- 166   2          Debug_Dividir_texto();
+ 166   2          //Debug_Dividir_texto();
  167   2          if(io!=0)
  168   2          {
  169   3          Debug_txt_Tibbo((unsigned char *) "Datos MF respuesta: ");
@@ -190,7 +190,7 @@ line level    source
  176   2          
  177   2          tx_aux('\n');
  178   2          tx_aux('\r');
-C51 COMPILER V9.59.0.0   TIBBO                                                             08/05/2020 11:21:06 PAGE 4   
+C51 COMPILER V9.59.0.0   TIBBO                                                             08/31/2020 09:26:19 PAGE 4   
 
  179   2          //Debug_Dividir_texto();
  180   2        }
@@ -254,7 +254,7 @@ line level    source
  238   1          time_bit();
  239   1      //------------------------------------------------------------------------------------
  240   1          temporal=(rx_ip==0)?(temporal&0x7f):(temporal|0x80);
-C51 COMPILER V9.59.0.0   TIBBO                                                             08/05/2020 11:21:06 PAGE 5   
+C51 COMPILER V9.59.0.0   TIBBO                                                             08/31/2020 09:26:19 PAGE 5   
 
  241   1          temporal>>=1;
  242   1      //------------------------------------------------------------------------------------
@@ -318,7 +318,7 @@ line level    source
  300          //void Debug_monitor(unsigned char *buffer, unsigned char Length_trama )
  301          //{
  302            //Debug_Dividir_texto();                                              /*se divide el texto */     
-C51 COMPILER V9.59.0.0   TIBBO                                                             08/05/2020 11:21:06 PAGE 6   
+C51 COMPILER V9.59.0.0   TIBBO                                                             08/31/2020 09:26:19 PAGE 6   
 
  303          //  Debug_txt_Tibbo((unsigned char *) "Recibe trama Monitor= ");        
  304          //  Debug_txt_Tibbo(buffer);
@@ -382,7 +382,7 @@ line level    source
  361              else if (Buffer_Rta_Lintech[3]=='1')
  362              {
  363                if (Buffer_Rta_Lintech[3]!=Notify)
-C51 COMPILER V9.59.0.0   TIBBO                                                             08/05/2020 11:21:06 PAGE 7   
+C51 COMPILER V9.59.0.0   TIBBO                                                             08/31/2020 09:26:19 PAGE 7   
 
  364                {
  365                  Debug_txt_Tibbo(1,(unsigned char *) "Tarjeta en Bezel");
@@ -411,7 +411,7 @@ line level    source
 
 
 MODULE INFORMATION:   STATIC OVERLAYABLE
-   CODE SIZE        =    844    ----
+   CODE SIZE        =    841    ----
    CONSTANT SIZE    =    167    ----
    XDATA SIZE       =   ----      19
    PDATA SIZE       =   ----    ----
