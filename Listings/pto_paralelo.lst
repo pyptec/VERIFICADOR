@@ -1,4 +1,4 @@
-C51 COMPILER V9.59.0.0   PTO_PARALELO                                                      08/31/2020 09:26:19 PAGE 1   
+C51 COMPILER V9.59.0.0   PTO_PARALELO                                                      09/02/2020 07:28:02 PAGE 1   
 
 
 C51 COMPILER V9.59.0.0, COMPILATION OF MODULE PTO_PARALELO
@@ -62,7 +62,7 @@ line level    source
   51   1        unsigned int T_ANCHO=160;
   52   1        unsigned char data_temp=0;
   53   1      
-C51 COMPILER V9.59.0.0   PTO_PARALELO                                                      08/31/2020 09:26:19 PAGE 2   
+C51 COMPILER V9.59.0.0   PTO_PARALELO                                                      09/02/2020 07:28:02 PAGE 2   
 
   54   1        
   55   1        if (busy==0)
@@ -126,7 +126,7 @@ line level    source
  113          void  send_port(unsigned char *buffer_port, unsigned char length_char)
  114          {
  115   1       
-C51 COMPILER V9.59.0.0   PTO_PARALELO                                                      08/31/2020 09:26:19 PAGE 3   
+C51 COMPILER V9.59.0.0   PTO_PARALELO                                                      09/02/2020 07:28:02 PAGE 3   
 
  116   1        long int cont;
  117   1        unsigned char timeOut,length;
@@ -190,7 +190,7 @@ line level    source
  174            {
  175             Buffer_port[j++]=*buffer_S1_B0;                  /*ticket*/
  176          //    buffer_S1_B0++;
-C51 COMPILER V9.59.0.0   PTO_PARALELO                                                      08/31/2020 09:26:19 PAGE 4   
+C51 COMPILER V9.59.0.0   PTO_PARALELO                                                      09/02/2020 07:28:02 PAGE 4   
 
  177            //}while (*buffer_S1_B0!=0);
  178            
@@ -254,7 +254,7 @@ line level    source
  233   1        Buffer_port[2]=21;                                /*numero de digitos de transmicion NO IMPORTA NO ES VALIDADO EN PRINCIP
              -AL*/
  234   1        do
-C51 COMPILER V9.59.0.0   PTO_PARALELO                                                      08/31/2020 09:26:19 PAGE 5   
+C51 COMPILER V9.59.0.0   PTO_PARALELO                                                      09/02/2020 07:28:02 PAGE 5   
 
  235   1        { 
  236   2         Buffer_port[j++]=*buffer_S1_B0;                  /*ticket*/
@@ -307,291 +307,219 @@ line level    source
  280   1      }
  281          
  282          /*-------------------------------------------------------------------------------------------
- 283          Funcion q arma la trama a transmitir pto paralelo trama 
- 284          C = cajero
- 285          s =
- 286          -------------------------------------------------------------------------------------------*/ 
- 287          //void Trama_pto_Paralelo_C_s(unsigned char *buffer_S1_B0,unsigned char *buffer_S1_B2)
- 288          //{
- 289          //  unsigned char Buffer_port[30];
- 290          //  unsigned char j=2;
- 291          //  Buffer_port[0]=STX;                               /*inicio de cmd STx*/
- 292            //Buffer_port[1]=cmd;                               /*cmd*/
- 293            
-C51 COMPILER V9.59.0.0   PTO_PARALELO                                                      08/31/2020 09:26:19 PAGE 6   
+ 283          Funcion q arma la trama a transmitir pto paralelo trama g
+ 284          -------------------------------------------------------------------------------------------*/ 
+ 285          void Trama_pto_Paralelo_new(unsigned char *buffer_S1_B0,unsigned char *buffer_S1_B2,unsigned char cmd)
+ 286          {
+ 287   1        unsigned char Buffer_port[30];
+ 288   1        unsigned char j=2;
+ 289   1        
+ 290   1        Buffer_port[0]=STX;                               /*inicio de cmd STx*/
+ 291   1        Buffer_port[1]=cmd;                               /*cmd*/
+ 292   1          /*ticket*/
+ 293   1        do
+C51 COMPILER V9.59.0.0   PTO_PARALELO                                                      09/02/2020 07:28:02 PAGE 6   
 
- 294          //  do
- 295            //{
- 296            // Buffer_port[j++]=*buffer_S1_B0;                  /*ticket*/
- 297            //  buffer_S1_B0++;
- 298            //}while (*buffer_S1_B0!=0);
- 299            
- 300            
- 301                  
- 302            
- 303            
- 304            //if(*(buffer_S1_B2+5)!=0)                          /*MF_DCTO           0x05        Tipo de descuento (00)sin descuento, (01xx 
-             -xxxx) 0x40 fija fecha de salida,
- 305          //                                                    10xx xxxx dcto por porcentaje xx xxxx= valor del porcentaje, 11xx xxxx dcto po
-             -r dinero */
- 306            //{
- 307              //Buffer_port[j++]='-';                           /*separador del descuento*/
- 308              //Buffer_port[j++]=*(buffer_S1_B2+5)+0x30;        /*descuento pasado a ascii*/
- 309            //}
- 310            //else
- 311            //{
- 312            //  Buffer_port[j++]='-';                           /*separador del descuento*/
- 313            //  Buffer_port[j++]='0';
- 314            //}
- 315            //if((*(buffer_S1_B2+9)&0x0f)==0x0f)                  /*MF_IN_PAGO=0x09       si es =0x0f fue liquidado en cajero   */
-             -  
- 316            //{
- 317              //Buffer_port[1]='C';
- 318            //}
- 319            //else
- 320            //{
- 321            //  Buffer_port[1]='s';
- 322            //}
- 323            //  Buffer_port[j++]='-';                           /*separador de la fecha de entrada*/
- 324            //  Buffer_port[j++]=*(buffer_S1_B2+0)+0x030;       /*año de entrada*/
- 325            //  Buffer_port[j++]=*(buffer_S1_B2+1)+0x030;       /*mes de entrada*/
- 326            //  Buffer_port[j++]=*(buffer_S1_B2+2)+0x030;       /*dia de entrada*/
- 327            //  Buffer_port[j++]=*(buffer_S1_B2+3)+0x030;       /*hora de entrada*/
- 328            //  Buffer_port[j++]=*(buffer_S1_B2+4)+0x030;       /*minutos de entrada*/
- 329            
- 330          //    Buffer_port[j++]='.';                           /*separador tipo de vehiculo*/
- 331                                                              /*MF_TIPO_VEHICULO  0x08              tipo vehiculo 00 carro, 01 moto, 02 bicicleta, 04 
-             -tractomula*/
- 332              
- 333            //  if(*(buffer_S1_B2+8)!=0)
- 334              //{
- 335                //Buffer_port[j++]='M';                         /*moto*/
- 336              //}
- 337              //else
- 338              //{
- 339              //  Buffer_port[j++]='C';                         /*carro*/
- 340              //}
- 341              //Buffer_port[j++]=ETX; 
- 342              //while(busy==0);
- 343              //send_port(Buffer_port,j);                         /*trama transmitida pto paralelo*/
- 344              
- 345            
- 346          //}
- 347          
- 348          /*-------------------------------------------------------------------------------------------
- 349          Funcion q arma la trama a transmitir pto paralelo trama g
- 350          -------------------------------------------------------------------------------------------*/ 
- 351          void Trama_pto_Paralelo_new(unsigned char *buffer_S1_B0,unsigned char *buffer_S1_B2,unsigned char cmd)
-C51 COMPILER V9.59.0.0   PTO_PARALELO                                                      08/31/2020 09:26:19 PAGE 7   
-
- 352          {
- 353   1        unsigned char Buffer_port[30];
- 354   1        unsigned char j=2;
- 355   1        
- 356   1        Buffer_port[0]=STX;                               /*inicio de cmd STx*/
- 357   1        Buffer_port[1]=cmd;                               /*cmd*/
- 358   1      
- 359   1        do
- 360   1        {
- 361   2         Buffer_port[j++]=*buffer_S1_B0;                  /*ticket*/
- 362   2          buffer_S1_B0++;
- 363   2        }while (*buffer_S1_B0!=0);
- 364   1        
- 365   1        if(*(buffer_S1_B2+6)!=0)                          /*MF_DCTO           0x05        Tipo de descuento (00)sin descuento, (01xx xx
+ 294   1        {
+ 295   2         Buffer_port[j++]=*buffer_S1_B0;                  
+ 296   2          buffer_S1_B0++;
+ 297   2        }while (*buffer_S1_B0!=0);
+ 298   1        
+ 299   1        if(*(buffer_S1_B2+6)!=0)                          /*MF_DCTO           0x05        Tipo de descuento (00)sin descuento, (01xx xx
              -xx) 0x40 fija fecha de salida,
- 366   1                                                          10xx xxxx dcto por porcentaje xx xxxx= valor del porcentaje, 11xx xxxx dcto por 
+ 300   1                                                          10xx xxxx dcto por porcentaje xx xxxx= valor del porcentaje, 11xx xxxx dcto por 
              -dinero */
- 367   1        {
- 368   2          Buffer_port[j++]='-';                           /*separador del descuento*/
- 369   2          Buffer_port[j++]=*(buffer_S1_B2+6)+0x30;        /*descuento pasado a ascii*/
- 370   2        }
- 371   1        else
- 372   1        {
- 373   2          Buffer_port[j++]='-';                           /*separador del descuento*/
- 374   2          Buffer_port[j++]='0';
- 375   2        }
- 376   1        
- 377   1        if((*(buffer_S1_B2+9)&0x0f)==0x0f)                  /*MF_IN_PAGO=0x09       si es =0x0f fue liquidado en cajero   */  
- 378   1        {
- 379   2          Buffer_port[1]='C';
- 380   2        }
- 381   1        else
- 382   1        {
- 383   2          Buffer_port[1]='s';
- 384   2        }
- 385   1        
- 386   1          Buffer_port[j++]='-';                           /*separador de la fecha de entrada*/
- 387   1          Buffer_port[j++]=*(buffer_S1_B2+0)+0x030;       /*año de entrada*/
- 388   1          Buffer_port[j++]=*(buffer_S1_B2+1)+0x030;       /*mes de entrada*/
- 389   1          Buffer_port[j++]=*(buffer_S1_B2+2)+0x030;       /*dia de entrada*/
- 390   1          Buffer_port[j++]=*(buffer_S1_B2+3)+0x030;       /*hora de entrada*/
- 391   1          Buffer_port[j++]=*(buffer_S1_B2+4)+0x030;       /*minutos de entrada*/
- 392   1          Buffer_port[j++]='-'; 
- 393   1          
- 394   1          Block_read_Clock_Hex(Buffer_port+j);
- 395   1          
- 396   1          Buffer_port[j++]=Buffer_port[j]+ 0x30;
- 397   1          Buffer_port[j++]=Buffer_port[j]+ 0x30;
- 398   1          Buffer_port[j++]=Buffer_port[j]+ 0x30;
- 399   1          Buffer_port[j++]=Buffer_port[j]+ 0x30;
- 400   1          Buffer_port[j++]=Buffer_port[j]+ 0x30;
- 401   1          
- 402   1          
- 403   1        
- 404   1          Buffer_port[j++]='.';                           /*separador tipo de vehiculo*/
- 405   1                                                          /*MF_TIPO_VEHICULO  0x08              tipo vehiculo 00 carro, 01 moto, 02 bicicleta, 04 
+ 301   1        {
+ 302   2          Buffer_port[j++]='-';                           /*separador del descuento*/
+ 303   2          Buffer_port[j++]=*(buffer_S1_B2+6)+0x30;        /*descuento pasado a ascii*/
+ 304   2        }
+ 305   1        else
+ 306   1        {
+ 307   2          Buffer_port[j++]='-';                           /*separador del descuento*/
+ 308   2          Buffer_port[j++]='0';
+ 309   2        }
+ 310   1        
+ 311   1        if((*(buffer_S1_B2+9)&0x0f)==0x0f)                  /*MF_IN_PAGO=0x09       si es =0x0f fue liquidado en cajero   */  
+ 312   1        {
+ 313   2          Buffer_port[1]='C';
+ 314   2        }
+ 315   1        else
+ 316   1        {
+ 317   2          Buffer_port[1]='s';
+ 318   2        }
+ 319   1        
+ 320   1          Buffer_port[j++]='-';                           /*separador de la fecha de entrada*/
+ 321   1          Buffer_port[j++]=*(buffer_S1_B2+0)+0x030;       /*año de entrada*/
+ 322   1          Buffer_port[j++]=*(buffer_S1_B2+1)+0x030;       /*mes de entrada*/
+ 323   1          Buffer_port[j++]=*(buffer_S1_B2+2)+0x030;       /*dia de entrada*/
+ 324   1          Buffer_port[j++]=*(buffer_S1_B2+3)+0x030;       /*hora de entrada*/
+ 325   1          Buffer_port[j++]=*(buffer_S1_B2+4)+0x030;       /*minutos de entrada*/
+ 326   1          Buffer_port[j++]='-'; 
+ 327   1          /*hora de salida*/
+ 328   1          Block_read_Clock_Hex(Buffer_port+j);
+ 329   1          
+ 330   1          Buffer_port[j++]=Buffer_port[j]+ 0x30;
+ 331   1          Buffer_port[j++]=Buffer_port[j]+ 0x30;
+ 332   1          Buffer_port[j++]=Buffer_port[j]+ 0x30;
+ 333   1          Buffer_port[j++]=Buffer_port[j]+ 0x30;
+ 334   1          Buffer_port[j++]=Buffer_port[j]+ 0x30;
+ 335   1          
+ 336   1          
+ 337   1        
+ 338   1          Buffer_port[j++]='.';                           /*separador tipo de vehiculo*/
+ 339   1                                                          /*MF_TIPO_VEHICULO  0x08              tipo vehiculo 00 carro, 01 moto, 02 bicicleta, 04 
              -tractomula*/
- 406   1          
- 407   1          if(*(buffer_S1_B2+8)!=0)
- 408   1          {
- 409   2            Buffer_port[j++]='M';                         /*moto*/
- 410   2          }
-C51 COMPILER V9.59.0.0   PTO_PARALELO                                                      08/31/2020 09:26:19 PAGE 8   
+ 340   1          
+ 341   1          if(*(buffer_S1_B2+8)!=0)
+ 342   1          {
+ 343   2            Buffer_port[j++]='M';                         /*moto*/
+ 344   2          }
+ 345   1          else
+ 346   1          {
+ 347   2            Buffer_port[j++]='C';                         /*carro*/
+ 348   2          }
+ 349   1          Buffer_port[j++]=ETX; 
+ 350   1        
+ 351   1          
+ 352   1          ready=0;
+C51 COMPILER V9.59.0.0   PTO_PARALELO                                                      09/02/2020 07:28:02 PAGE 7   
 
- 411   1          else
- 412   1          {
- 413   2            Buffer_port[j++]='C';                         /*carro*/
- 414   2          }
- 415   1          Buffer_port[j++]=ETX; 
- 416   1        
- 417   1          
- 418   1          ready=0;
- 419   1            while(busy==0);
- 420   1          send_port(Buffer_port,j);                         /*trama transmitida pto paralelo*/
- 421   1          
- 422   1            Debug_Dividir_texto();                                              /*division del texto */
- 423   1            Debug_txt_Tibbo((unsigned char *) "Datos enviados pto paral=");       
- 424   1            DebugBufferMF(Buffer_port,j,0);   
- 425   1            Debug_Dividir_texto();  
- 426   1      }
- 427          
- 428          
- 429          
- 430          /*-------------------------------------------------------------------------------------------
- 431          Reloj del pto paralelo
- 432          -------------------------------------------------------------------------------------------*/
- 433          void Pulso_Bus(void)
- 434          {
- 435   1        port_clk=0;
- 436   1        Delay_20us(33);
- 437   1        port_clk=1;
- 438   1        Delay_20us(33);                 /*wait_ancho*/
- 439   1      }
- 440          /*-------------------------------------------------------------------------------------------
- 441          Envia msj de error visualizar en el lcd del micro principal
- 442          -------------------------------------------------------------------------------------------*/
- 443          void send_portERR(unsigned char cod_err)
- 444          {
- 445   1        unsigned char timeOut;
- 446   1        long int cont;
- 447   1        
- 448   1        port_clk=1;                                   /*Reloj del pto paralelo El que transmite debe fijar primero el Clk en 1*/
- 449   1        rx_in_data=0;                                 //Led de visualizacion  ON
- 450   1        timeOut=0;
- 451   1        cont=15000;
- 452   1        
- 453   1        P2=cod_err;
- 454   1        ready=0;                                      //Genera interrupcion al Principal
- 455   1        while ((busy==1)&&(timeOut==0))               //Espera reconocimiento INT por entrada busy
- 456   1        {
- 457   2          cont--;
- 458   2          if (cont==0)
- 459   2          {
- 460   3            timeOut=1;
- 461   3          }
- 462   2        }
- 463   1        if ((timeOut==0)&&(busy==0))
- 464   1        {
- 465   2              P2=cod_err;
- 466   2            Pulso_Bus();
- 467   2        }
- 468   1        ready=1;
- 469   1        port_clk=1;
- 470   1        rx_in_data=1;                                   //Led de visualizacion  OFF
- 471   1      
- 472   1        P2=0XFF;
-C51 COMPILER V9.59.0.0   PTO_PARALELO                                                      08/31/2020 09:26:19 PAGE 9   
+ 353   1            while(busy==0);
+ 354   1          send_port(Buffer_port,j);                         /*trama transmitida pto paralelo*/
+ 355   1          
+ 356   1            Debug_Dividir_texto();                                              /*division del texto */
+ 357   1            Debug_txt_Tibbo((unsigned char *) "Datos enviados pto paral=");       
+ 358   1            DebugBufferMF(Buffer_port,j,0);   
+ 359   1            Debug_Dividir_texto();  
+ 360   1      }
+ 361          
+ 362          
+ 363          
+ 364          /*-------------------------------------------------------------------------------------------
+ 365          Reloj del pto paralelo
+ 366          -------------------------------------------------------------------------------------------*/
+ 367          void Pulso_Bus(void)
+ 368          {
+ 369   1        port_clk=0;
+ 370   1        Delay_20us(33);
+ 371   1        port_clk=1;
+ 372   1        Delay_20us(33);                 /*wait_ancho*/
+ 373   1      }
+ 374          /*-------------------------------------------------------------------------------------------
+ 375          Envia msj de error visualizar en el lcd del micro principal
+ 376          -------------------------------------------------------------------------------------------*/
+ 377          void send_portERR(unsigned char cod_err)
+ 378          {
+ 379   1        unsigned char timeOut;
+ 380   1        long int cont;
+ 381   1        
+ 382   1        port_clk=1;                                   /*Reloj del pto paralelo El que transmite debe fijar primero el Clk en 1*/
+ 383   1        rx_in_data=0;                                 //Led de visualizacion  ON
+ 384   1        timeOut=0;
+ 385   1        cont=15000;
+ 386   1        
+ 387   1        P2=cod_err;
+ 388   1        ready=0;                                      //Genera interrupcion al Principal
+ 389   1        while ((busy==1)&&(timeOut==0))               //Espera reconocimiento INT por entrada busy
+ 390   1        {
+ 391   2          cont--;
+ 392   2          if (cont==0)
+ 393   2          {
+ 394   3            timeOut=1;
+ 395   3          }
+ 396   2        }
+ 397   1        if ((timeOut==0)&&(busy==0))
+ 398   1        {
+ 399   2              P2=cod_err;
+ 400   2            Pulso_Bus();
+ 401   2        }
+ 402   1        ready=1;
+ 403   1        port_clk=1;
+ 404   1        rx_in_data=1;                                   //Led de visualizacion  OFF
+ 405   1      
+ 406   1        P2=0XFF;
+ 407   1      
+ 408   1        Delay_20us(98); 
+ 409   1        Delay_20us(98); 
+ 410   1        
+ 411   1      }
+ 412          /*-------------------------------------------------------------------------------------------
+ 413          Condiciones de Inicio del pto paralelo
+ 414          -------------------------------------------------------------------------------------------*/
+C51 COMPILER V9.59.0.0   PTO_PARALELO                                                      09/02/2020 07:28:02 PAGE 8   
 
- 473   1      
- 474   1        Delay_20us(98); 
- 475   1        Delay_20us(98); 
- 476   1        
- 477   1      }
- 478          /*-------------------------------------------------------------------------------------------
- 479          Condiciones de Inicio del pto paralelo
- 480          -------------------------------------------------------------------------------------------*/
- 481          void cond_ini_pto()
- 482          { 
- 483   1        
- 484   1        port_clk=1;
- 485   1        ready=1;
- 486   1        rx_in_data=1;
- 487   1        P2=0xff;
- 488   1      }
- 489          /*------------------------------------------------------------------------------
- 490          Funcion q carga el reloj y lo envia por el pto paralelo
- 491          msj informativo con el pulsador funcion 
- 492          ------------------------------------------------------------------------------*/
- 493          void load_and_send_info_reloj()
- 494          {
- 495   1        unsigned char buffer_info[11];
- 496   1        
- 497   1          buffer_info[0]=STX;                   /*STX*/
- 498   1          
- 499   1          buffer_info[1]='i';                   /*se envia el cmd*/
- 500   1          
- 501   1          Block_read_Clock(buffer_info+2);      /*año, mes,dia, hora, minutos, segundos*/
- 502   1          buffer_info[8]=lee_clk(0x8b);         //Dia semana
- 503   1          buffer_info[9]=ETX;                   //ETX
- 504   1      
- 505   1         
- 506   1      
- 507   1          send_port(buffer_info,10);
- 508   1      }
- 509          
- 510          /*------------------------------------------------------------------------------
- 511          procedimiento que transmite por el pto paralelo ID_cliente,COD_park
- 512          con el pulsador funcion
- 513          ------------------------------------------------------------------------------*/ 
- 514          void load_and_send_id_cod()
- 515          {
- 516   1      unsigned char buffer_info[11];
- 517   1      unsigned char buf[4];
- 518   1      unsigned char i,k;
- 519   1      k=0;
- 520   1      
- 521   1          buffer_info[0]=STX;                       //STX
- 522   1          buffer_info[1]='D';                       // nombre del comando de id_cliente, cod_park
- 523   1          sprintf(buf,"%d",ID_CLIENTE);             /*ID_CLIENTE lo paso a strim */
- 524   1          for(i=2;;i++)
- 525   1          {
- 526   2            if(buf[k] !=0)                          /*alamaceno id del clinete en el buffer*/
- 527   2            {
- 528   3            buffer_info[i]=buf[k] ;                 /*almaceno el dato en el buffer*/
- 529   3            k++;
- 530   3            }
- 531   2              else {buffer_info[i]=';'; i++; break;}  /*le pongo un  separador */
- 532   2              
- 533   2           }
- 534   1        
-C51 COMPILER V9.59.0.0   PTO_PARALELO                                                      08/31/2020 09:26:19 PAGE 10  
+ 415          void cond_ini_pto()
+ 416          { 
+ 417   1        
+ 418   1        port_clk=1;
+ 419   1        ready=1;
+ 420   1        rx_in_data=1;
+ 421   1        P2=0xff;
+ 422   1      }
+ 423          /*------------------------------------------------------------------------------
+ 424          Funcion q carga el reloj y lo envia por el pto paralelo
+ 425          msj informativo con el pulsador funcion 
+ 426          ------------------------------------------------------------------------------*/
+ 427          void load_and_send_info_reloj()
+ 428          {
+ 429   1        unsigned char buffer_info[11];
+ 430   1        
+ 431   1          buffer_info[0]=STX;                   /*STX*/
+ 432   1          
+ 433   1          buffer_info[1]='i';                   /*se envia el cmd*/
+ 434   1          
+ 435   1          Block_read_Clock(buffer_info+2);      /*año, mes,dia, hora, minutos, segundos*/
+ 436   1          buffer_info[8]=lee_clk(0x8b);         //Dia semana
+ 437   1          buffer_info[9]=ETX;                   //ETX
+ 438   1      
+ 439   1         
+ 440   1      
+ 441   1          send_port(buffer_info,10);
+ 442   1      }
+ 443          
+ 444          /*------------------------------------------------------------------------------
+ 445          procedimiento que transmite por el pto paralelo ID_cliente,COD_park
+ 446          con el pulsador funcion
+ 447          ------------------------------------------------------------------------------*/ 
+ 448          void load_and_send_id_cod()
+ 449          {
+ 450   1      unsigned char buffer_info[11];
+ 451   1      unsigned char buf[4];
+ 452   1      unsigned char i,k;
+ 453   1      k=0;
+ 454   1      
+ 455   1          buffer_info[0]=STX;                       //STX
+ 456   1          buffer_info[1]='D';                       // nombre del comando de id_cliente, cod_park
+ 457   1          sprintf(buf,"%d",ID_CLIENTE);             /*ID_CLIENTE lo paso a strim */
+ 458   1          for(i=2;;i++)
+ 459   1          {
+ 460   2            if(buf[k] !=0)                          /*alamaceno id del clinete en el buffer*/
+ 461   2            {
+ 462   3            buffer_info[i]=buf[k] ;                 /*almaceno el dato en el buffer*/
+ 463   3            k++;
+ 464   3            }
+ 465   2              else {buffer_info[i]=';'; i++; break;}  /*le pongo un  separador */
+ 466   2              
+ 467   2           }
+ 468   1        
+ 469   1        
+ 470   1           sprintf(buf,"%d",COD_PARK);                /*cod_park lo paso a strim*/
+ 471   1          
+ 472   1          for(k=0;;i++)
+ 473   1          {
+ 474   2            if(buf[k] !=0)
+ 475   2            {
+ 476   3            buffer_info[i]=buf[k] ;                   /*lo almaceno en el  buffer*/
+C51 COMPILER V9.59.0.0   PTO_PARALELO                                                      09/02/2020 07:28:02 PAGE 9   
 
- 535   1        
- 536   1           sprintf(buf,"%d",COD_PARK);                /*cod_park lo paso a strim*/
- 537   1          
- 538   1          for(k=0;;i++)
- 539   1          {
- 540   2            if(buf[k] !=0)
- 541   2            {
- 542   3            buffer_info[i]=buf[k] ;                   /*lo almaceno en el  buffer*/
- 543   3            k++;
- 544   3            }else {buffer_info[i]=';'; i++; break;}
- 545   2           }
- 546   1        
- 547   1        
- 548   1            buffer_info[i]=ETX;                     //ETX
- 549   1            send_port(buffer_info,i);                 /*se transmite informacion pt0 paralelo*/
- 550   1      }
+ 477   3            k++;
+ 478   3            }else {buffer_info[i]=';'; i++; break;}
+ 479   2           }
+ 480   1        
+ 481   1        
+ 482   1            buffer_info[i]=ETX;                     //ETX
+ 483   1            send_port(buffer_info,i);                 /*se transmite informacion pt0 paralelo*/
+ 484   1      }
 
 
 MODULE INFORMATION:   STATIC OVERLAYABLE

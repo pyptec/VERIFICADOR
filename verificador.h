@@ -16,7 +16,8 @@ unsigned char  Secuencia_inicio_expedidor(void);
 char Trama_Validacion_P_N();
 unsigned char error_rx_pto();
 unsigned Bloque_Horario(unsigned int addr);
-
+void Armar_Trama_Pto_Paralelo_Expedidor_Mensual(unsigned char *Atributos_Expedidor);
+unsigned char Responde_Lectura_Tarjeta_Sector1_Bloque0 (unsigned char *Atributos_Expedidor);
 
 #endif	/* _VERIFICADOR_H_ */
 

@@ -104,6 +104,7 @@ const unsigned  char ETX= 03	;
 const unsigned  char STX_LINTECH= 0xf2	;
 bit buffer_ready=0;
 bit prto_ready=0;
+bit placa_ready = 0;
 /*definicion de bit*/
 
 

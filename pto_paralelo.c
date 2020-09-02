@@ -280,72 +280,6 @@ static unsigned char Buffer_port[30];
 }
 
 /*-------------------------------------------------------------------------------------------
-Funcion q arma la trama a transmitir pto paralelo trama 
-C = cajero
-s =
--------------------------------------------------------------------------------------------*/	
-//void Trama_pto_Paralelo_C_s(unsigned char *buffer_S1_B0,unsigned char *buffer_S1_B2)
-//{
-//	unsigned char Buffer_port[30];
-//	unsigned char j=2;
-//	Buffer_port[0]=STX;																/*inicio de cmd STx*/
-	//Buffer_port[1]=cmd;																/*cmd*/
-	
-//	do
-	//{
-	// Buffer_port[j++]=*buffer_S1_B0;									/*ticket*/
-	//	buffer_S1_B0++;
-	//}while (*buffer_S1_B0!=0);
-	
-	
-				
-	
-	
-	//if(*(buffer_S1_B2+5)!=0)													/*MF_DCTO						0x05				Tipo de descuento (00)sin descuento, (01xx xxxx) 0x40 fija fecha de salida,
-//																										10xx xxxx dcto por porcentaje xx xxxx= valor del porcentaje, 11xx xxxx dcto por dinero */
-	//{
-		//Buffer_port[j++]='-';														/*separador del descuento*/
-		//Buffer_port[j++]=*(buffer_S1_B2+5)+0x30;				/*descuento pasado a ascii*/
-	//}
-	//else
-	//{
-	//	Buffer_port[j++]='-';														/*separador del descuento*/
-	//	Buffer_port[j++]='0';
-	//}
-	//if((*(buffer_S1_B2+9)&0x0f)==0x0f)									/*MF_IN_PAGO=0x09				si es =0x0f fue liquidado en cajero 	*/	
-	//{
-		//Buffer_port[1]='C';
-	//}
-	//else
-	//{
-	//	Buffer_port[1]='s';
-	//}
-	//	Buffer_port[j++]='-';														/*separador de la fecha de entrada*/
-	//	Buffer_port[j++]=*(buffer_S1_B2+0)+0x030;				/*año de entrada*/
-	//	Buffer_port[j++]=*(buffer_S1_B2+1)+0x030;				/*mes de entrada*/
-	//	Buffer_port[j++]=*(buffer_S1_B2+2)+0x030;				/*dia de entrada*/
-	//	Buffer_port[j++]=*(buffer_S1_B2+3)+0x030;				/*hora de entrada*/
-	//	Buffer_port[j++]=*(buffer_S1_B2+4)+0x030;				/*minutos de entrada*/
-	
-//		Buffer_port[j++]='.';														/*separador tipo de vehiculo*/
-																										/*MF_TIPO_VEHICULO	0x08							tipo vehiculo 00 carro, 01 moto, 02 bicicleta, 04 tractomula*/
-		
-	//	if(*(buffer_S1_B2+8)!=0)
-		//{
-			//Buffer_port[j++]='M';													/*moto*/
-		//}
-		//else
-		//{
-		//	Buffer_port[j++]='C';													/*carro*/
-		//}
-		//Buffer_port[j++]=ETX;	
-		//while(busy==0);
-		//send_port(Buffer_port,j);													/*trama transmitida pto paralelo*/
-		
-	
-//}
-
-/*-------------------------------------------------------------------------------------------
 Funcion q arma la trama a transmitir pto paralelo trama g
 -------------------------------------------------------------------------------------------*/	
 void Trama_pto_Paralelo_new(unsigned char *buffer_S1_B0,unsigned char *buffer_S1_B2,unsigned char cmd)
@@ -355,10 +289,10 @@ void Trama_pto_Paralelo_new(unsigned char *buffer_S1_B0,unsigned char *buffer_S1
 	
 	Buffer_port[0]=STX;																/*inicio de cmd STx*/
 	Buffer_port[1]=cmd;																/*cmd*/
-
+		/*ticket*/
 	do
 	{
-	 Buffer_port[j++]=*buffer_S1_B0;									/*ticket*/
+	 Buffer_port[j++]=*buffer_S1_B0;									
 		buffer_S1_B0++;
 	}while (*buffer_S1_B0!=0);
 	
@@ -390,7 +324,7 @@ void Trama_pto_Paralelo_new(unsigned char *buffer_S1_B0,unsigned char *buffer_S1
 		Buffer_port[j++]=*(buffer_S1_B2+3)+0x030;				/*hora de entrada*/
 		Buffer_port[j++]=*(buffer_S1_B2+4)+0x030;				/*minutos de entrada*/
 		Buffer_port[j++]='-';	
-		
+		/*hora de salida*/
 		Block_read_Clock_Hex(Buffer_port+j);
 		
 		Buffer_port[j++]=Buffer_port[j]+ 0x30;

@@ -335,7 +335,8 @@ void ByteHex_Decimal(unsigned char *buffer,unsigned char valorhex)
 	*buffer=decena|0x30;
 	buffer++;
 	*buffer=numero|0x30;														/*unidad en ascii */
-	
+	buffer++;
+	*buffer= 0;
 
 }
 /*------------------------------------------------------------------------------

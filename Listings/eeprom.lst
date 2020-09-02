@@ -1,4 +1,4 @@
-C51 COMPILER V9.59.0.0   EEPROM                                                            08/31/2020 09:26:18 PAGE 1   
+C51 COMPILER V9.59.0.0   EEPROM                                                            09/02/2020 07:28:02 PAGE 1   
 
 
 C51 COMPILER V9.59.0.0, COMPILATION OF MODULE EEPROM
@@ -62,7 +62,7 @@ line level    source
   51   1        {
   52   2          if (sda==0)
   53   2          {
-C51 COMPILER V9.59.0.0   EEPROM                                                            08/31/2020 09:26:18 PAGE 2   
+C51 COMPILER V9.59.0.0   EEPROM                                                            09/02/2020 07:28:02 PAGE 2   
 
   54   3            memory_flag=0;
   55   3          scl=0;
@@ -126,7 +126,7 @@ line level    source
  113          {
  114   1        sda=1;
  115   1        scl=1;
-C51 COMPILER V9.59.0.0   EEPROM                                                            08/31/2020 09:26:18 PAGE 3   
+C51 COMPILER V9.59.0.0   EEPROM                                                            09/02/2020 07:28:02 PAGE 3   
 
  116   1        _nop_();
  117   1        sda=0;
@@ -190,7 +190,7 @@ line level    source
  175   1          start();
  176   1        e_d_m(control);
  177   1        ackd();
-C51 COMPILER V9.59.0.0   EEPROM                                                            08/31/2020 09:26:18 PAGE 4   
+C51 COMPILER V9.59.0.0   EEPROM                                                            09/02/2020 07:28:02 PAGE 4   
 
  178   1        e_d_m(dir_h);
  179   1        ackd();
@@ -254,7 +254,7 @@ line level    source
  236   1        scl=0;
  237   1        sda=0;
  238   1       // wait();
-C51 COMPILER V9.59.0.0   EEPROM                                                            08/31/2020 09:26:18 PAGE 5   
+C51 COMPILER V9.59.0.0   EEPROM                                                            09/02/2020 07:28:02 PAGE 5   
 
  239   1        start();
  240   1        e_d_m(control);
@@ -318,7 +318,7 @@ line level    source
  298   1          res++;
  299   1        wr_eeprom(0xa8,addres,0);
  300   1      
-C51 COMPILER V9.59.0.0   EEPROM                                                            08/31/2020 09:26:18 PAGE 6   
+C51 COMPILER V9.59.0.0   EEPROM                                                            09/02/2020 07:28:02 PAGE 6   
 
  301   1      }
 

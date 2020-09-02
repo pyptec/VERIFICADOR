@@ -1,4 +1,4 @@
-C51 COMPILER V9.59.0.0   PROG                                                              08/31/2020 09:26:19 PAGE 1   
+C51 COMPILER V9.59.0.0   PROG                                                              09/02/2020 07:28:02 PAGE 1   
 
 
 C51 COMPILER V9.59.0.0, COMPILATION OF MODULE PROG
@@ -62,7 +62,7 @@ line level    source
   52          #define EE_ID_REGISTER          0x0300
   53          #define EE_FECHA_VENCIMIENTO    0X0350
   54          /* Definicion del tamaño de comando y longitud de cmd*/
-C51 COMPILER V9.59.0.0   PROG                                                              08/31/2020 09:26:19 PAGE 2   
+C51 COMPILER V9.59.0.0   PROG                                                              09/02/2020 07:28:02 PAGE 2   
 
   55          
   56          #define   NUMCOMMAND 14
@@ -126,7 +126,7 @@ line level    source
  111   1        static unsigned int temp, temp1;
  112   1        unsigned char aleatorio []={":[<%?XT]=)" };
  113   1        unsigned char suma []={"#*YJAIMEcamiltK"};/*caracteres q se le suman a la trama */
-C51 COMPILER V9.59.0.0   PROG                                                              08/31/2020 09:26:19 PAGE 3   
+C51 COMPILER V9.59.0.0   PROG                                                              09/02/2020 07:28:02 PAGE 3   
 
  114   1        unsigned char xxor []={"wrz25q68-91fS.@" };
  115   1        unsigned char usuario1[11];
@@ -190,7 +190,7 @@ line level    source
  171          
  172          unsigned char ListaComandos(unsigned char *cmd)
  173          {
-C51 COMPILER V9.59.0.0   PROG                                                              08/31/2020 09:26:19 PAGE 4   
+C51 COMPILER V9.59.0.0   PROG                                                              09/02/2020 07:28:02 PAGE 4   
 
  174   1         unsigned char buf[LONGSIZE];
  175   1         unsigned char i;
@@ -254,7 +254,7 @@ line level    source
  233          Rutina de muestra el cursor
  234          ------------------------------------------------------------------------------*/
  235          
-C51 COMPILER V9.59.0.0   PROG                                                              08/31/2020 09:26:19 PAGE 5   
+C51 COMPILER V9.59.0.0   PROG                                                              09/02/2020 07:28:02 PAGE 5   
 
  236          void DisplayCursor(void)
  237          {
@@ -318,7 +318,7 @@ line level    source
              -talla*/
  295   1        
  296   1        printf("\r\n\n DIGITE SU NUEVO ID_CLIENTE=");                                 /*digite el nuevo id_cliente*/
-C51 COMPILER V9.59.0.0   PROG                                                              08/31/2020 09:26:19 PAGE 6   
+C51 COMPILER V9.59.0.0   PROG                                                              09/02/2020 07:28:02 PAGE 6   
 
  297   1        IngresaDato(buffer,0);                                                        /*trae el dato digitado*/
  298   1        dataee=atoi(buffer);                                                          /*lo convierto a un dato hex*/
@@ -382,7 +382,7 @@ line level    source
  351          SIN_COBRO=0 inhabilitado, SIN_COBRO=1 sin cobro, SIN_COBRO=2 sin cobro y salida el mismo dia");
  352          ------------------------------------------------------------------------------*/
  353          void Prog_Sin_Cobro()
-C51 COMPILER V9.59.0.0   PROG                                                              08/31/2020 09:26:19 PAGE 7   
+C51 COMPILER V9.59.0.0   PROG                                                              09/02/2020 07:28:02 PAGE 7   
 
  354          {
  355   1        
@@ -446,7 +446,7 @@ line level    source
  411   2          printf("\r\n\n ACTUAL DEBUG INHABILITADO=%s\r\n\n",buffer);                           /*se muestra el id_cliente actu
              -al en pantalla*/
  412   2        }
-C51 COMPILER V9.59.0.0   PROG                                                              08/31/2020 09:26:19 PAGE 8   
+C51 COMPILER V9.59.0.0   PROG                                                              09/02/2020 07:28:02 PAGE 8   
 
  413   1        else
  414   1        {
@@ -510,7 +510,7 @@ line level    source
  469   2        }
  470   1      }
  471          /*------------------------------------------------------------------------------------
-C51 COMPILER V9.59.0.0   PROG                                                              08/31/2020 09:26:19 PAGE 9   
+C51 COMPILER V9.59.0.0   PROG                                                              09/02/2020 07:28:02 PAGE 9   
 
  472          Compara la placa de la tarjeta y la del software
  473          --------------------------------------------------------------------------------------*/
@@ -574,7 +574,7 @@ line level    source
  527   2        }
  528   1        
  529   1        printf("\r\n\n DIGITE EL NUEVO ESTADO DE LA PANTALLA =");                                 /*digite el nuevo id_cliente*/
-C51 COMPILER V9.59.0.0   PROG                                                              08/31/2020 09:26:19 PAGE 10  
+C51 COMPILER V9.59.0.0   PROG                                                              09/02/2020 07:28:02 PAGE 10  
 
  530   1        IngresaDato(buffer,0);                                                        /*trae el dato digitado*/
  531   1        dataee=atoi(buffer);                                                          /*lo convierto a un dato hex*/
@@ -638,7 +638,7 @@ line level    source
  586   1        unsigned char ee_addr_horario[11];
  587   1          /*direcciones de memoria de almacenamiento*/
  588   1        ee_addr_horario[ee_horario1_addr]= EE_HORARIO_1;
-C51 COMPILER V9.59.0.0   PROG                                                              08/31/2020 09:26:19 PAGE 11  
+C51 COMPILER V9.59.0.0   PROG                                                              09/02/2020 07:28:02 PAGE 11  
 
  589   1        ee_addr_horario[ee_horario2_addr]= EE_HORARIO_2;
  590   1        ee_addr_horario[ee_horario3_addr]= EE_HORARIO_3;
@@ -702,7 +702,7 @@ line level    source
  646   1        wr_eeprom(0xa8,addr + Hora_Low_addr_Desde ,buffer[Hora_Low_data]);
  647   1        dataee = rd_eeprom(0xa8,addr + Hora_Low_addr_Desde); //
  648   1        printf("%c:",dataee);
-C51 COMPILER V9.59.0.0   PROG                                                              08/31/2020 09:26:19 PAGE 12  
+C51 COMPILER V9.59.0.0   PROG                                                              09/02/2020 07:28:02 PAGE 12  
 
  649   1        wr_eeprom(0xa8,addr + Minutos_High_addr_Desde,buffer[Minutos_High_data]);
  650   1        dataee = rd_eeprom(0xa8,addr + Minutos_High_addr_Desde);
@@ -766,7 +766,7 @@ line level    source
  708   1        printf("Viernes = 6, Sabado = 7, Domingo = 1 : ");
  709   1        IngresaDato(buffer,0);
  710   1        
-C51 COMPILER V9.59.0.0   PROG                                                              08/31/2020 09:26:19 PAGE 13  
+C51 COMPILER V9.59.0.0   PROG                                                              09/02/2020 07:28:02 PAGE 13  
 
  711   1        
  712   1        printf("\r\n\n Dias Programados : ");
@@ -830,7 +830,7 @@ line level    source
  770   3            dataee = rd_eeprom(0xa8,addr+Domingo_addr); 
  771   3            printf("= %c",dataee);
  772   3          }
-C51 COMPILER V9.59.0.0   PROG                                                              08/31/2020 09:26:19 PAGE 14  
+C51 COMPILER V9.59.0.0   PROG                                                              09/02/2020 07:28:02 PAGE 14  
 
  773   2        }
  774   1        
@@ -894,7 +894,7 @@ line level    source
  832   1          
  833   1            dataee=rd_eeprom(0xa8,addr+Sabado_addr);  
  834   1          if(dataee == Sabado_dato)
-C51 COMPILER V9.59.0.0   PROG                                                              08/31/2020 09:26:19 PAGE 15  
+C51 COMPILER V9.59.0.0   PROG                                                              09/02/2020 07:28:02 PAGE 15  
 
  835   1          {
  836   2          printf(" Sabado = Programado\r\n");
@@ -958,7 +958,7 @@ line level    source
  894   2        /*la hora de inicio del horario*/
  895   2        
  896   2        Prog_Horario_Desde_Hasta(addr);
-C51 COMPILER V9.59.0.0   PROG                                                              08/31/2020 09:26:19 PAGE 16  
+C51 COMPILER V9.59.0.0   PROG                                                              09/02/2020 07:28:02 PAGE 16  
 
  897   2        
  898   2        /*programo si hay segundo horario*/
@@ -1022,7 +1022,7 @@ line level    source
  955   1          printf("\r\n\n %X",dataee); 
  956   1        /*lo convierto a un dato hex*/
  957   1         wr_eeprom(0xa8,EE_FECHA_VENCIMIENTO,dataee);                                         /*grabo el dato en la eeprom*/
-C51 COMPILER V9.59.0.0   PROG                                                              08/31/2020 09:26:19 PAGE 17  
+C51 COMPILER V9.59.0.0   PROG                                                              09/02/2020 07:28:02 PAGE 17  
 
  958   1          fecha[0]=buffer[2]; 
  959   1          fecha[1]=buffer[3]; 
@@ -1086,7 +1086,7 @@ line level    source
 1016   4            /*la hora de inicio del segundo horario*/
 1017   4            addr =addr + Minutos_Low_addr_Desde ;
 1018   4            Ver_Horario_Desde_Hasta(addr);
-C51 COMPILER V9.59.0.0   PROG                                                              08/31/2020 09:26:19 PAGE 18  
+C51 COMPILER V9.59.0.0   PROG                                                              09/02/2020 07:28:02 PAGE 18  
 
 1019   4            }
 1020   3            else
@@ -1150,7 +1150,7 @@ line level    source
 1077   2        } 
 1078   1        /*Estado del lpr*/
 1079   1        dataee=rd_eeprom(0xa8,EE_USE_LPR);                                          /*se lee el id_cliente actual */
-C51 COMPILER V9.59.0.0   PROG                                                              08/31/2020 09:26:19 PAGE 19  
+C51 COMPILER V9.59.0.0   PROG                                                              09/02/2020 07:28:02 PAGE 19  
 
 1080   1        sprintf(buffer,"%d",dataee);                                                  /*se convierte  un entero a un string*/
 1081   1        if(dataee==0)
@@ -1214,7 +1214,7 @@ line level    source
 1137          {
 1138   1         printf("\r\n ID_CLIENTE    --- CMD 0 Identificador del cliente maximo 255");
 1139   1         printf("\r\n COD_PARK      --- CMD 1 El numero del parqueadero maximo 255");
-C51 COMPILER V9.59.0.0   PROG                                                              08/31/2020 09:26:19 PAGE 20  
+C51 COMPILER V9.59.0.0   PROG                                                              09/02/2020 07:28:02 PAGE 20  
 
 1140   1         printf("\r\n T_GRACIA      --- CMD 2 Tiempo sin cobro 00,  maximo 255");
 1141   1         printf("\r\n SIN_COBRO     --- CMD 3 Inhabilitado= 0, Gratis= 1 , Gratis y salida el mismo dia= 2");
@@ -1278,7 +1278,7 @@ line level    source
 1199   1        do{
 1200   2        printf("\r\n\n/>Id Registro:");
 1201   2        LeerMemoria(EE_ID_REGISTER,buffer);
-C51 COMPILER V9.59.0.0   PROG                                                              08/31/2020 09:26:19 PAGE 21  
+C51 COMPILER V9.59.0.0   PROG                                                              09/02/2020 07:28:02 PAGE 21  
 
 1202   2        buffer[10]=0;
 1203   2        printf("%s", buffer);
@@ -1342,7 +1342,7 @@ line level    source
 1261   4                  case 0:                     /*Se programa la identificacion del cliente*/
 1262   4                    prog_id_cliente();
 1263   4                  
-C51 COMPILER V9.59.0.0   PROG                                                              08/31/2020 09:26:19 PAGE 22  
+C51 COMPILER V9.59.0.0   PROG                                                              09/02/2020 07:28:02 PAGE 22  
 
 1264   4                   break;
 1265   4                  
@@ -1406,7 +1406,7 @@ line level    source
 1323   2        }
 1324   1      }
 1325          
-C51 COMPILER V9.59.0.0   PROG                                                              08/31/2020 09:26:19 PAGE 23  
+C51 COMPILER V9.59.0.0   PROG                                                              09/02/2020 07:28:02 PAGE 23  
 
 1326            
 1327          

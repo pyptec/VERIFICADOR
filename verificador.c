@@ -45,13 +45,18 @@ extern unsigned char  ValidaSensores_Out(void);
 extern char  *strcpy  (char *s1, const char *s2);
 extern char lee_clk (unsigned char dir_clk);
 extern char check_fechaOut_2(unsigned char *buffer); 
+extern void Unique_Identifier_UID(void);
+extern void Power_off(void);
+extern void  send_port(unsigned char *buffer_port, unsigned char length_char);
 
 /*funcion prototipo programacion*/
 extern unsigned char *Addr_Horarios();
 
 sbit lock = P1^7;						//Relevo 	
 sbit Atascado = P0^3;				//Rele de on/off del verificador o transporte
-sbit led_err_imp = P0^2;			//Error 	
+sbit led_err_imp = P0^2;			//Error 
+sbit busy = P3^3;  					/*bussy de Entrada Interrupcion del Procesador principal			*/
+sbit ready = P3^2;					//Salida. solicitud envio Datos		
 /*variables externas*/
 extern bit aSk;
 extern unsigned char g_cEstadoComSoft;
@@ -66,7 +71,8 @@ extern unsigned int T_GRACIA;																				/*tiempo de gracia del parqueo*
 extern unsigned char Timer_wait;
 extern unsigned int  SIN_COBRO;
 extern unsigned char error_rx;
-
+unsigned char buffer_S_B[17];
+extern idata unsigned char placa[];
 
 /*externo bit*/
 
@@ -99,9 +105,15 @@ Definiciones de sequencias de verificador y expedidor
 #define SEQ_WR_S2B0_RPTA			0X11
 #define SEQ_RD_S1B0_EJECT			0x12
 #define SEQ_RD_S1B0_EJECT_RPTA			0x13
-#define SEQ_ROTACION			0X14
-#define SEQ_MENSUAL				0X15
-
+//#define SEQ_TIPO_TARJETAS	0X14
+#define SEQ_ROTACION			0X15
+#define SEQ_MENSUAL				0X16
+#define SEQ_LOAD_PASSWORD	0X17
+#define SEQ_UID						0X18
+#define SEQ_UID_RPTA				0x19
+#define SEQ_POWER_OFF			0X1a
+#define SEQ_POWER_ON			0X1b
+#define SEQ_TIPO_CARD			0X1c
 
 #define SEQ_EXPULSAR_TARJ			0x20
 #define SEQ_EXPULSAR_CHECK 		0x21
@@ -237,26 +249,6 @@ definicion  de daos del reloj
 #define Sabado					7
 #define Domingo					1
 
-enum Hora_Minutos_addr{
-	Hora_High_addr_Desde = 7, Hora_Low_addr_Desde = 8, Minutos_High_addr_Desde = 9, Minutos_Low_addr_Desde = 10,
-	Hora_High_addr_Hasta = 11, Hora_Low_addr_Hasta = 12, Minutos_High_addr_Hasta = 13, Minutos_Low_addr_Hasta = 14
-};
-/*----------------------------------------------------------------------------
-definiciones de la tarjeta MF tipo de cliente esto esta en la posicion (0) de la memoria MF
-(0) si el dato es cero esta inactiva
-(1) activa o ROTACION
-(2) mensualidad
-------------------------------------------------------------------------------*/
-enum Tipos_MF_TIPO_TARJETA{
-	INACTIVA,					
-	ROTACION, 					
-	MENSUALIDAD,
-	PREPAGO,
-	CORTESIA,
-	LOCATARIO,
-	TARJETA_PERDIDA = 0X10,
-	INHABILITADA = 0X11
-};
 /*----------------------------------------------------------------------------
 posicion de  MF  bloque 1 sector 1
 (0) tipo de tarjeta 
@@ -308,7 +300,64 @@ MF_LSB_POR_DNR=3		DESCUENTO POR DINERO
 define posiciones de memoria EEPROM
 ------------------------------------------------------------------------------*/
 #define	EE_DCTO_PASA_CAJA			0X000F
+#define EE_CPRCN_ACTIVA				0x000C
 
+
+enum Hora_Minutos_addr{
+	Hora_High_addr_Desde = 7, Hora_Low_addr_Desde = 8, Minutos_High_addr_Desde = 9, Minutos_Low_addr_Desde = 10,
+	Hora_High_addr_Hasta = 11, Hora_Low_addr_Hasta = 12, Minutos_High_addr_Hasta = 13, Minutos_Low_addr_Hasta = 14
+};
+/*----------------------------------------------------------------------------
+definiciones de la tarjeta MF tipo de cliente esto esta en la posicion (0) de la memoria MF
+(0) si el dato es cero esta inactiva
+(1) activa o ROTACION
+(2) mensualidad
+------------------------------------------------------------------------------*/
+enum Tipos_MF_TIPO_TARJETA{
+	INACTIVA,					
+	ROTACION, 					
+	MENSUALIDAD,
+	PREPAGO,
+	CORTESIA,
+	LOCATARIO,
+	TARJETA_PERDIDA = 0X10,
+	INHABILITADA = 0X11
+};
+
+enum expedidor {
+ fecha_Int_Ano,
+ fecha_Int_Mes,	
+ fecha_Int_Dia,	
+ fecha_Int_Hora,
+ fecha_Int_Min,		
+ Tipo_Tarjeta,
+ Apb,
+ Horario,
+ Pico_Placa,
+ Type_Vehiculo,
+ Uid_0,
+ Uid_1,
+ Uid_2,
+ Uid_3,
+ Expira_ano,
+ Expira_mes,
+ Expira_dia
+ 
+};
+/*comandos pto paralelo*/
+enum CMD_Trama_Pto_Paralelo{
+	STX=02,
+	CMD_PTO_PARALELO_EXPEDIDOR='a',
+//	ETX= 03,
+	NULL=0,
+	CMD_MONITOR_EXPEDIDOR='E',
+	CMD_PTO_PARALELO_EXPEDIDOR_MENSUAL='M'
+};
+enum Tipos_Vehiculos{
+		AUTOMOVIL,					
+		MOTO,
+		BICICLETA
+};
 /*----------------------------------------------------------------------------
 Definicion de varaibles globales del objeto
 ------------------------------------------------------------------------------*/
@@ -729,18 +778,305 @@ unsigned Bloque_Horario(unsigned int addr)
 
 return Estado_Horario;
 }
+unsigned char  Responde_Lectura_Tarjeta_Sector1_Bloque1 (unsigned char *Atributos_Expedidor)
+{
+	unsigned char temp;
+	unsigned char Estado_expedidor;
+	
+	Debug_txt_Tibbo((unsigned char *) "SEQ_RD_S1B1 OK\r\n");															/* trama OK CARGA LA EEPROM Y LA VERIFICA*/
+																
+			
+			if (Buffer_Rta_Lintech[Pos_Length] >=0x18)
+			{
+				
+					for (temp=0; temp<16; temp++)
+					{
+						buffer_S_B[temp]=Buffer_Rta_Lintech[Pos_IniDatMF+temp];														/*almaceno la informacion de MF en un arreglo*/
+					}
+					DebugBufferMF(buffer_S_B,16,RESPUESTA);																/*imprimo la trama recibida*/	
+					if (((buffer_S_B[MF_ID_CLIENTE]==ID_CLIENTE)&&(buffer_S_B[MF_COD_PARK]==COD_PARK))||((ID_CLIENTE==0)&&(COD_PARK==0)))		
+					{
+						Debug_txt_Tibbo((unsigned char *) "ID_CLIENTE: ");
+						Debug_HexDec(buffer_S_B[MF_ID_CLIENTE]);
+						Debug_txt_Tibbo((unsigned char *) "\r\n");
+						
+						Debug_txt_Tibbo((unsigned char *) "COD_PARK:");
+						Debug_HexDec(buffer_S_B[MF_COD_PARK]);
+						Debug_txt_Tibbo((unsigned char *) "\r\n");
+						
+						Debug_txt_Tibbo((unsigned char *) "TIPO DE TARJETA: ");
+						Debug_chr_Tibbo(buffer_S_B [MF_TIPO_TARJETA]);
+						Debug_txt_Tibbo((unsigned char *) "\r\n");
+						
+						
+						*(Atributos_Expedidor + Tipo_Tarjeta) = buffer_S_B [MF_TIPO_TARJETA];
+					
+						/*fecha de vencimiento de mensual o prepago*/
+						*(Atributos_Expedidor + Expira_ano) = buffer_S_B [MF_EXPIRA_ANO];
+						*(Atributos_Expedidor + Expira_mes) = buffer_S_B [MF_EXPIRA_MES];
+						*(Atributos_Expedidor + Expira_dia) = buffer_S_B [MF_EXPIRA_DIA];
+																																							
+							Estado_expedidor=SEQ_RD_S1B2;
+					
+					}
+					else
+					{
+						send_portERR(0XE5);
+						PantallaLCD(ERROR_COD_PARK);																												/*envio el msj por la pantalla lcd o la raspberry*/
+						g_cEstadoComSeqMF=SEQ_EXPULSAR_TARJ;																								/* codigo de parqueo erro expulso la tarjeta */		
+					}
+			}
+			else
+			{
+				send_portERR(0XDF);
+				PantallaLCD(TARJETA_SIN_FORMATO);																												/*envio el msj por la pantalla lcd o la raspberry*/
+				Estado_expedidor=SEQ_EXPULSAR_TARJ;
+			}
+			return Estado_expedidor;
+}			
 
+unsigned char Responde_Lectura_Tarjeta_Sector1_Bloque2 (unsigned char *Atributos_Expedidor)
+{
+	unsigned char temp;
+	unsigned char Estado_expedidor;
+	if (Buffer_Rta_Lintech[Pos_Length] >=0x18)
+		 {
+			Debug_txt_Tibbo((unsigned char *) "SEQ_RD_S1B2 OK\r\n");															/* trama OK CARGA LA EEPROM Y LA VERIFICA*/
+											
+			for (temp=0; temp<16; temp++)
+			{
+				buffer_S_B[temp]=Buffer_Rta_Lintech[Pos_IniDatMF+temp];															/*almaceno la informacion de MF en un arreglo*/
+			}
+			DebugBufferMF(buffer_S_B,16,RESPUESTA);	
+			/*fecha entrada*/
+
+			*(Atributos_Expedidor + fecha_Int_Ano) =		buffer_S_B [MF_FECHA_INT] ;
+			*(Atributos_Expedidor + fecha_Int_Mes) =		buffer_S_B [MF_FECHA_INT+1] ;
+			*(Atributos_Expedidor + fecha_Int_Dia) =		buffer_S_B [MF_FECHA_INT+2] ;
+			*(Atributos_Expedidor + fecha_Int_Hora)=		buffer_S_B [MF_FECHA_INT+3] ;
+			*(Atributos_Expedidor + fecha_Int_Min) =		buffer_S_B [MF_FECHA_INT+4] ;
+			/*horario*/
+			Debug_txt_Tibbo((unsigned char *) "HORARIO:");
+			Debug_chr_Tibbo((buffer_S_B [MF_TIPO_VEHICULO] & 0XF0) >> 4);
+			*(Atributos_Expedidor + Horario)= ((buffer_S_B [MF_TIPO_VEHICULO] & 0XF0) >> 4);
+				Debug_txt_Tibbo((unsigned char *) "\r\n");
+			/*pico y placa*/
+			*(Atributos_Expedidor + Pico_Placa)= ((buffer_S_B [MF_IN_PAGO] & 0XF0) >> 4);			
+			/*APB*/
+			*(Atributos_Expedidor + Apb)=		buffer_S_B [MF_APB] ;
+			/*tipo de tarjeta*/
+			*(Atributos_Expedidor + Type_Vehiculo	) = buffer_S_B [MF_TIPO_VEHICULO]& 0x0f;
+		//	Estado_expedidor=SEQ_TIPO_TARJETAS;
+			 /*------------------------------------------------------------------------------	
+			APB
+			------------------------------------------------------------------------------*/
+				//if (*(Atributos_Expedidor + Tipo_Tarjeta) == MENSUALIDAD)
+				//{
+				//	*(Atributos_Expedidor + Apb)=	3;
+				//}
+				if((*(Atributos_Expedidor + Apb) == 02)||(*(Atributos_Expedidor + Apb) == 0) )															/*Pregunto por el antipasban si es 02 ya salio y no posee entrada*/
+				{																																																							/*00 inhabilitada la tarjeta*/
+				Debug_txt_Tibbo((unsigned char *) "ERROR: SIN INGRESO\r\n");
+				send_portERR(0xA2);																															/*error audio*/	
+				send_portERR(0XE6);
+				PantallaLCD(SIN_INGRESO);
+				Estado_expedidor=SEQ_EXPULSAR_TARJ;
+				
+				}
+				else
+				{
+				
+			 /*------------------------------------------------------------------------------	
+				tipo de tarjeta
+				------------------------------------------------------------------------------*/
+
+				if 	(*(Atributos_Expedidor + Tipo_Tarjeta) ==ROTACION)					
+				{
+					Debug_txt_Tibbo((unsigned char *) "TIPO DE TARJETA ROTACION\r\n");
+					Estado_expedidor=SEQ_ROTACION;
+					
+				}
+				else if (*(Atributos_Expedidor + Tipo_Tarjeta)== MENSUALIDAD)	
+				{
+					Debug_txt_Tibbo((unsigned char *) "TIPO DE TARJETA MENSUALIDAD\r\n ");
+					Estado_expedidor=SEQ_MENSUAL;
+					
+				}
+				else
+				{
+					Debug_txt_Tibbo((unsigned char *) "TIPO NUEVO DE TARJETA SIN DEFINIR\r\n");
+				  Estado_expedidor=SEQ_EXPULSAR_TARJ;
+				  
+				}
+			 }
+		}
+	else
+		 {
+			 g_cEstadoComSeqMF=SEQ_RD_S1B2;
+		 }
+		 
+		 return Estado_expedidor;
+	
+}
+unsigned char Responde_Lectura_Tarjeta_Sector1_Bloque0 (unsigned char *Atributos_Expedidor)
+{
+	unsigned char temp;
+	unsigned char Estado_expedidor;
+	unsigned char buffer_S1_B0[17];
+	if (Buffer_Rta_Lintech[Pos_Length] >=0x18)
+		 {
+	Debug_txt_Tibbo((unsigned char *) "SEQ_RD_S1B0 OK\r\n");															/* trama OK CARGA numero de ticket*/
+																		
+			
+	for (temp=0; temp<16; temp++)
+			{
+				
+				buffer_S1_B0[temp]=Buffer_Rta_Lintech[Pos_IniDatMF+temp];																	/*almaceno la informacion de MF el ticket*/
+				if(Buffer_Rta_Lintech[Pos_IniDatMF+temp]==0)
+				{
+					break;
+				}
+			}
+			
+			Debug_txt_Tibbo((unsigned char *) "Numero Ticket: ");
+			Debug_txt_Tibbo(buffer_S1_B0);
+			Debug_txt_Tibbo((unsigned char *) "\r\n");
+			
+			/*transmito pto paralelo*/	
+			if (*(Atributos_Expedidor + Tipo_Tarjeta)!= MENSUALIDAD)	
+			{
+			Timer_wait=0;																																								/*activo la barrera*/
+			Trama_pto_Paralelo_new(buffer_S1_B0,buffer_S_B,'s');
+			}
+			else
+			{
+			
+			Armar_Trama_Pto_Paralelo_Expedidor_Mensual(Atributos_Expedidor);
+			}
+			if(USE_LPR)
+			{
+				/*envio datos a Monitor*/
+				if (*(Atributos_Expedidor + Tipo_Tarjeta)!= MENSUALIDAD)	
+				{
+				Cmd_LPR_Salida(buffer_S1_B0,buffer_S_B);	
+				}
+				else
+				{
+				Cmd_LPR_Salida(Atributos_Expedidor,buffer_S_B);	
+				}
+			}
+			
+			
+			
+			Estado_expedidor=SEQ_WR_S1B2;
+			
+		}else
+		 {
+			Estado_expedidor= SEQ_RD_S1B0;
+		 }
+		 return Estado_expedidor;
+}
+
+void Armar_Trama_Pto_Paralelo_Expedidor_Mensual(unsigned char *Atributos_Expedidor)
+{
+	static unsigned char buffer[28];
+	//unsigned char j;
+	/*la trama esta compuesta de
+	STX,CMD,-,NoTICKET,-,FECHAINT,-,placa,ETX*/
+
+	buffer[0]=STX;
+	buffer[1]=CMD_PTO_PARALELO_EXPEDIDOR_MENSUAL;
+	buffer[2]=*(Atributos_Expedidor + Uid_0);
+	buffer[3]=*(Atributos_Expedidor + Uid_1);
+	buffer[4]=*(Atributos_Expedidor + Uid_2);
+	buffer[5]=*(Atributos_Expedidor + Uid_3);
+	
+	//leo la fecha de entrada
+	//Block_read_Clock_Hex(buffer+6);					
+	
+	buffer[6]=*(Atributos_Expedidor + fecha_Int_Ano)+0x030;							/*año de entrada*/
+	buffer[7]=*(Atributos_Expedidor + fecha_Int_Mes)+0x030;					/*mes de entrada*/
+	buffer[8]=*(Atributos_Expedidor + fecha_Int_Dia)+0x030;					/*dia de entrada*/
+	buffer[9]=*(Atributos_Expedidor + fecha_Int_Hora)+0x030;					/*hora de entrada*/
+	buffer[10]=*(Atributos_Expedidor + fecha_Int_Min)+0x030;					/*minutos de entrada*/
+
+	/*placa*/
+	if (rd_eeprom(0xa8,EE_CPRCN_ACTIVA)!=0)
+	{		
+		
+			buffer[11]= placa[0];
+			buffer[12]= placa[1];
+			buffer[13]= placa[2];
+			buffer[14]= placa[3];
+			buffer[15]= placa[4];
+			buffer[16]= placa[5];
+
+	}
+
+	if(*(Atributos_Expedidor + Type_Vehiculo) == AUTOMOVIL )
+	{
+		buffer[17]= 'C';
+	}
+	else
+	{
+		buffer[17]= 'M';
+	}
+	
+	buffer[18]= ETX;
+	buffer[19]= NULL;
+	ready=0;
+			while(busy==0);
+		send_port(buffer,19);													/*trama transmitida pto paralelo*/
+		
+			Debug_Dividir_texto();																							/*division del texto */
+			Debug_txt_Tibbo((unsigned char *) "Datos enviados pto paral=");				
+			DebugBufferMF(buffer,19,0);		
+			Debug_Dividir_texto();
+}
+unsigned char Analiza_Uid_Card(unsigned char *Atributos_Expedidor )
+{
+	unsigned char Estado_expedidor;
+	unsigned char temp;
+			if (Buffer_Rta_Lintech[Pos_Length] >= 0x0f)
+			{
+				
+					for (temp=0; temp<16; ++temp)
+					{
+						buffer_S_B[temp]=Buffer_Rta_Lintech[Pos_IniDatMF+temp];														/*almaceno la informacion de MF en un arreglo*/
+					 
+					}
+					
+					Debug_txt_Tibbo((unsigned char *) "buffer_UID\r\n");
+					DebugBufferMF(buffer_S_B,16,RESPUESTA);
+					
+	
+					Debug_txt_Tibbo((unsigned char *) "UID_CARD :");	
+					Debug_chr_Tibbo((buffer_S_B [ MF_UID_0]));	
+					Debug_chr_Tibbo((buffer_S_B [ MF_UID_1]));	
+					Debug_chr_Tibbo((buffer_S_B [ MF_UID_2]));	
+					Debug_chr_Tibbo((buffer_S_B [ MF_UID_3]));
+					Debug_txt_Tibbo((unsigned char *) "\r\n");
+					
+				*(Atributos_Expedidor + Uid_0) = buffer_S_B [MF_UID_0];		
+				*(Atributos_Expedidor + Uid_1) = buffer_S_B [MF_UID_1];			
+				*(Atributos_Expedidor + Uid_2) = buffer_S_B [MF_UID_2];			
+				*(Atributos_Expedidor + Uid_3) = buffer_S_B [MF_UID_3];	
+				Estado_expedidor=SEQ_LOAD_PASSWORD;																												//SEQ_TIPO_CARD;
+			}		
+			else
+			{
+				Estado_expedidor=SEQ_POWER_OFF;
+			}	
+			return Estado_expedidor;
+}
 void SecuenciaExpedidor(void)
 {
 	unsigned char temp;
 	unsigned int tiempo;
 	unsigned char Estado_Tiempo[4];
-//	static unsigned char Atributos_Expedidor[15];
+	static unsigned char Atributos_Expedidor[18];
 	static unsigned char buffer_S1_B0[17];
-	static unsigned char buffer_S1_B1[17];
-	static unsigned char buffer_S1_B2[17];
 	unsigned char clock_temp[6];
-	static unsigned char Horario;
 	static unsigned char contador=0;
 	unsigned char *atributos;
 	switch (g_cEstadoComSeqMF)
@@ -836,7 +1172,7 @@ Valido la informacion de los sensores
 			}	
 			else if (temp==3)
 			{
-			Debug_txt_Tibbo((unsigned char *) "SEQ_CARD_INSERCION  FALLO\r\n\r\n");											/* trama no valida*/
+			Debug_txt_Tibbo((unsigned char *) "SEQ_CARD_INSERCION  FALLO\r\n");											/* trama no valida*/
 			DebugBufferMF(Buffer_Rta_Lintech,g_cContByteRx,1);																					/*imprimo la trama recibida*/
 			g_cEstadoComSeqMF=SEQ_CHECK_STATUS;																													/* (3) Trama invalida cmd (N)*/	
 			}			
@@ -858,12 +1194,12 @@ Valido la informacion de los sensores
 		}
 		else
 		{
-			Debug_txt_Tibbo((unsigned char *) "CHECK SATUS OK\r\n\r\n");																	/* trama valida Habilitado */
+			Debug_txt_Tibbo((unsigned char *) "CHECK STATUS OK\r\n");																	/* trama valida Habilitado */
 			DebugBufferMF(Buffer_Rta_Lintech,g_cContByteRx,RESPUESTA);																		/*imprimo la trama recibida*/
 				if (Buffer_Rta_Lintech[Pos_St0]=='0')																												/* CANAL LIBRE	  no tiene tarjetas en el mecanismo*/
 						{
 							
-							Debug_txt_Tibbo((unsigned char *) "No tiene tarjetas en el mecanismo\r\n\r\n");				/* trama valida Habilitado insercion por boca*/
+							Debug_txt_Tibbo((unsigned char *) "No tiene tarjetas en el mecanismo\r\n");				/* trama valida Habilitado insercion por boca*/
 							ValTimeOutCom=TIME_CARD;
 							g_cEstadoComSeqMF=SEQ_CHECK_STATUS;																										/*volvemos a preguntar	*/					
 							if (ValidaSensoresPaso()!=0)																												/*pregunto q alla presencia vehicular*/
@@ -871,7 +1207,7 @@ Valido la informacion de los sensores
 								if(contador==0)																																		/*contador si es cero envia el msj a la pantala*/
 								{	
 									contador++;
-									Debug_txt_Tibbo((unsigned char *) "Vehiculo en el loop\r\n\r\n");										/* se encuentra un sensor activo*/
+									Debug_txt_Tibbo((unsigned char *) "Vehiculo en el loop\r\n");										/* se encuentra un sensor activo*/
 									send_portERR(0xA0);																																	/*audio ingrese tarjeta con rele*/
 									PantallaLCD(INGRESE);																															/*msj por raspberry "ingrese su tarjeta"*/
 									 									
@@ -887,26 +1223,26 @@ Valido la informacion de los sensores
 						else if	(Buffer_Rta_Lintech[Pos_St0]=='1')	 																						/*  se detecta la tarjeta en la boca TARJETA EN BEZZEL*/
 						{
 							
-							Debug_txt_Tibbo((unsigned char *) "Tarjeta en la boca\r\n\r\n");											/* trama valida Habilitado insercion por boca*/
+							Debug_txt_Tibbo((unsigned char *) "Tarjeta en la boca\r\n");											/* trama valida Habilitado insercion por boca*/
 							g_cEstadoComSeqMF=SEQ_EXPULSAR_TARJ;		
 							//g_cEstadoComSeqMF=SEQ_CHECK_STATUS;																										/*volvemos a preguntar	*/			
 																	   
 						}
 						else if (Buffer_Rta_Lintech[Pos_St0]=='2') 																						// TARJETA EN RF
 						{
-							Debug_txt_Tibbo((unsigned char *) "Tarjeta lista para leer en RF\r\n\r\n");							/* trama valida Habilitado insercion por boca*/
+							Debug_txt_Tibbo((unsigned char *) "Tarjeta lista para leer en RF\r\n");							/* trama valida Habilitado insercion por boca*/
 													
 							
 							if (ValidaSensoresPaso()!=0)																												/*pregunto q alla presencia vehicular*/
 							{
-							Debug_txt_Tibbo((unsigned char *) "Vehiculo en el loop\r\n\r\n");										/* se encuentra un sensor activo*/
-							Aut_Card_check_Status();																														/* se pregunta el tipo de tarjeta si es MF50*/
+							Debug_txt_Tibbo((unsigned char *) "Vehiculo en el loop\r\n");										/* se encuentra un sensor activo*/
+							//Aut_Card_check_Status();																														/* se pregunta el tipo de tarjeta si es MF50*/
 																																																	/*tarjeta presente prioridad  */
-							g_cEstadoComSeqMF=SEQ_REQUEST;																											/*vamos al siguiente paso a con validar el cmd*/		
+							g_cEstadoComSeqMF=SEQ_TIPO_CARD;//SEQ_REQUEST;																											/*vamos al siguiente paso a con validar el cmd*/		
 							}
 							else
 							{
-								Debug_txt_Tibbo((unsigned char *) "Vehiculo no en el loop\r\n\r\n");							/* no hay vehiculo en el loop*/
+								Debug_txt_Tibbo((unsigned char *) "Vehiculo no en el loop\r\n");							/* no hay vehiculo en el loop*/
 								send_portERR(0XE0);																																/*envio msj al PRINCIPAL lcd tarjeta*/
 								PantallaLCD(ERROR_LOOP);																													/*envio el msj por la pantalla lcd o la raspberry*/
 								g_cEstadoComSeqMF=SEQ_EXPULSAR_TARJ;																								/*volvemos a preguntar	*/	
@@ -941,14 +1277,14 @@ las demas combinaciones son tomadas como no validas
 				else if (temp==3)
 			{
 				
-				Debug_txt_Tibbo((unsigned char *) "SEQ_REQUEST FALLO\r\n\r\n");												/* trama no valida*/
+				Debug_txt_Tibbo((unsigned char *) "SEQ_REQUEST FALLO\r\n");												/* trama no valida*/
 				DebugBufferMF(Buffer_Rta_Lintech,g_cContByteRx,1);																		/*imprimo la trama recibida*/
 				g_cEstadoComSeqMF=SEQ_CHECK_STATUS;																										/* error de la trama */	
 																																															/* (3) Trama invalida cmd (N)*/	
 			}	
 			else
 			{
-				Debug_txt_Tibbo((unsigned char *) "Dispensador No Responde SEQ REQUEST...\r\n\r\n");			/* pto serie no responde*/
+				Debug_txt_Tibbo((unsigned char *) "Dispensador No Responde SEQ REQUEST...\r\n");			/* pto serie no responde*/
 				send_portERR(0XE1);	   																																		/*la tarjeta no es valida no la puede identificar*/
 				PantallaLCD(TARJETA_INVALIDA);																														/*envio el msj por la pantalla lcd o la raspberry*/
 				g_cEstadoComSeqMF=SEQ_EXPULSAR_TARJ;																											/* capturo la respuesta y regreso a chequear verificador*/	
@@ -963,8 +1299,8 @@ las demas combinaciones son tomadas como no validas
 							   	{
 										Debug_txt_Tibbo((unsigned char *) "Tarjeta valida MF50\r\n\r\n");							/* trama valida son MF50*/
 										DebugBufferMF(Buffer_Rta_Lintech,g_cContByteRx,1);														/* se muestra la trama*/
-										LoadVerify_EEprom();  																												// verifico q la clave este cargada en el transporte
-										g_cEstadoComSeqMF=SEQ_MF_LINTECH;																							/* la tarjeta es MF50*/
+										//LoadVerify_EEprom();  																												// verifico q la clave este cargada en el transporte
+										g_cEstadoComSeqMF=SEQ_UID;	//SEQ_MF_LINTECH;																							/* la tarjeta es MF50*/
 										
 								 }else
 								 	{
@@ -1020,7 +1356,7 @@ Verifica la eeprom
 		}
 		else
 		{
-			Debug_txt_Tibbo((unsigned char *) "LOAD VERIFY EEPROM OK\r\n\r\n");												/* trama OK CARGA LA EEPROM Y LA VERIFICA*/
+			Debug_txt_Tibbo((unsigned char *) "LOAD VERIFY EEPROM OK\r\n");												/* trama OK CARGA LA EEPROM Y LA VERIFICA*/
 			DebugBufferMF(Buffer_Rta_Lintech,g_cContByteRx,RESPUESTA);																/*imprimo la trama recibida*/	
 																																																/*leo MF */
 			g_cEstadoComSeqMF=SEQ_RD_S1B1;																														/*respuesta ok inicia clave verificada*/
@@ -1076,61 +1412,7 @@ Analiso lo leido en Mf en el sector 1  bloque 1
 		}
 		else
 		{
-			Debug_txt_Tibbo((unsigned char *) "SEQ_RD_S1B1 OK\r\n");															/* trama OK CARGA LA EEPROM Y LA VERIFICA*/
-			//DebugBufferMF(Buffer_Rta_Lintech,g_cContByteRx,RESPUESTA);																/*imprimo la trama recibida*/	
-			
-			if (Buffer_Rta_Lintech[Pos_Length] >=0x18)
-			{
-				
-					for (temp=0; temp<16; temp++)
-					{
-						buffer_S1_B1[temp]=Buffer_Rta_Lintech[Pos_IniDatMF+temp];														/*almaceno la informacion de MF en un arreglo*/
-					}
-					DebugBufferMF(buffer_S1_B1,16,RESPUESTA);																/*imprimo la trama recibida*/	
-					if (((buffer_S1_B1[MF_ID_CLIENTE]==ID_CLIENTE)&&(buffer_S1_B1[MF_COD_PARK]==COD_PARK))||((ID_CLIENTE==0)&&(COD_PARK==0)))		
-					{
-							
-						Debug_txt_Tibbo((unsigned char *) "ID_CLIENTE: ");
-						Debug_HexDec(buffer_S1_B1[MF_ID_CLIENTE]);
-						Debug_txt_Tibbo((unsigned char *) "\r\n");
-						
-						Debug_txt_Tibbo((unsigned char *) "COD_PARK:");
-						Debug_HexDec(buffer_S1_B1[MF_COD_PARK]);
-						Debug_txt_Tibbo((unsigned char *) "\r\n");
-
-
-						
-						//if 	((buffer_S1_B1[MF_TIPO_TARJETA]==ROTACION))					
-						//{
-							Debug_txt_Tibbo((unsigned char *) "TIPO DE TARJETA: ");
-							Debug_chr_Tibbo(buffer_S1_B1[MF_TIPO_TARJETA]);
-							Debug_txt_Tibbo((unsigned char *) "\r\n");
-							
-																																								
-							g_cEstadoComSeqMF=SEQ_RD_S1B2;
-							
-						//}
-						//else 
-						//{
-					//		send_portERR(0xe1);
-						//	PantallaLCD(TARJETA_INVALIDA);																											/*envio el msj por la pantalla lcd o la raspberry*/
-						//	g_cEstadoComSeqMF=SEQ_EXPULSAR_TARJ;																								/* expulso la tarjeta */		
-						//}
-					}
-					else
-					{
-						send_portERR(0XE5);
-						PantallaLCD(ERROR_COD_PARK);																												/*envio el msj por la pantalla lcd o la raspberry*/
-						g_cEstadoComSeqMF=SEQ_EXPULSAR_TARJ;																								/* codigo de parqueo erro expulso la tarjeta */		
-					}
-			}
-			else
-			{
-				send_portERR(0XDF);
-				PantallaLCD(TARJETA_SIN_FORMATO);																												/*envio el msj por la pantalla lcd o la raspberry*/
-				g_cEstadoComSeqMF=SEQ_EXPULSAR_TARJ;
-			}
-			
+			g_cEstadoComSeqMF = Responde_Lectura_Tarjeta_Sector1_Bloque1(Atributos_Expedidor);
 		}			
 	break;
 /*------------------------------------------------------------------------------
@@ -1178,62 +1460,63 @@ ANALIZO LO LEIDO  Mf en el  sector 1 bloque 2
 		}
 		else
 		{
-		 if (Buffer_Rta_Lintech[Pos_Length] >=0x18)
-		 {
+		 g_cEstadoComSeqMF = Responde_Lectura_Tarjeta_Sector1_Bloque2 (Atributos_Expedidor);
+		// if (Buffer_Rta_Lintech[Pos_Length] >=0x18)
+		 //{
 				
-			Debug_txt_Tibbo((unsigned char *) "SEQ_RD_S1B2 OK\r\n");															/* trama OK CARGA LA EEPROM Y LA VERIFICA*/
+	//		Debug_txt_Tibbo((unsigned char *) "SEQ_RD_S1B2 OK\r\n");															/* trama OK CARGA LA EEPROM Y LA VERIFICA*/
 			//DebugBufferMF(Buffer_Rta_Lintech,g_cContByteRx,RESPUESTA);																/*imprimo la trama recibida*/	
-			for (temp=0; temp<16; temp++)
-			{
-				buffer_S1_B2[temp]=Buffer_Rta_Lintech[Pos_IniDatMF+temp];															/*almaceno la informacion de MF en un arreglo*/
-			}
-			DebugBufferMF(buffer_S1_B2,16,RESPUESTA);	
+		//	for (temp=0; temp<16; temp++)
+		//	{
+		//		buffer_S1_B2[temp]=Buffer_Rta_Lintech[Pos_IniDatMF+temp];															/*almaceno la informacion de MF en un arreglo*/
+		//	}
+		//	DebugBufferMF(buffer_S1_B2,16,RESPUESTA);	
 				/*------------------------------------------------------------------------------	
 			APB
 			------------------------------------------------------------------------------*/
 		
-			if((buffer_S1_B2[MF_APB]==02)||(buffer_S1_B2[MF_APB]==0) )															/*Pregunto por el antipasban si es 02 ya salio y no posee entrada*/
-			{																																																							/*00 inhabilitada la tarjeta*/
-			Debug_txt_Tibbo((unsigned char *) "ERROR: SIN INGRESO\r\n");
-			send_portERR(0xA2);																															/*error audio*/	
-			send_portERR(0XE6);
-			PantallaLCD(SIN_INGRESO);
-			g_cEstadoComSeqMF=SEQ_EXPULSAR_TARJ;
+		//	if((buffer_S1_B2[MF_APB]==02)||(buffer_S1_B2[MF_APB]==0) )															/*Pregunto por el antipasban si es 02 ya salio y no posee entrada*/
+		//	{																																																							/*00 inhabilitada la tarjeta*/
+		//	Debug_txt_Tibbo((unsigned char *) "ERROR: SIN INGRESO\r\n");
+		//	send_portERR(0xA2);																															/*error audio*/	
+		//	send_portERR(0XE6);
+		//	PantallaLCD(SIN_INGRESO);
+		//	g_cEstadoComSeqMF=SEQ_EXPULSAR_TARJ;
 				
-			}
-			else
-			{
+		//	}
+		//	else
+		//	{
 				
 			 /*------------------------------------------------------------------------------	
 				tipo de tarjeta
 				------------------------------------------------------------------------------*/
 		
-				if 	((buffer_S1_B1[MF_TIPO_TARJETA]==ROTACION))					
-				{
-					Debug_txt_Tibbo((unsigned char *) "TIPO DE TARJETA ROTACION\r\n");
-					g_cEstadoComSeqMF=SEQ_ROTACION;
+			//	if 	((buffer_S1_B1[MF_TIPO_TARJETA]==ROTACION))					
+			//	{
+				//	Debug_txt_Tibbo((unsigned char *) "TIPO DE TARJETA ROTACION\r\n");
+				//	g_cEstadoComSeqMF=SEQ_ROTACION;
 					
-				}
-				else if ((buffer_S1_B1[MF_TIPO_TARJETA]== MENSUALIDAD))	
-				{
-					Debug_txt_Tibbo((unsigned char *) "TIPO DE TARJETA MENSUALIDAD\r\n ");
-					g_cEstadoComSeqMF=SEQ_MENSUAL;
+			//	}
+			//	else if ((buffer_S1_B1[MF_TIPO_TARJETA]== MENSUALIDAD))	
+			//	{
+			//		Debug_txt_Tibbo((unsigned char *) "TIPO DE TARJETA MENSUALIDAD\r\n ");
+			//		g_cEstadoComSeqMF=SEQ_MENSUAL;
 					
-				}
-				else
-				{
-					Debug_txt_Tibbo((unsigned char *) "TIPO NUEVO DE TARJETA SIN DEFINIR\r\n");
-				  g_cEstadoComSeqMF=SEQ_EXPULSAR_TARJ;
+			//	}
+			//	else
+			//	{
+			//		Debug_txt_Tibbo((unsigned char *) "TIPO NUEVO DE TARJETA SIN DEFINIR\r\n");
+			//	  g_cEstadoComSeqMF=SEQ_EXPULSAR_TARJ;
 				  
-				}
-			}
-			break;
-		 }
-		 else
-		{
-			g_cEstadoComSeqMF=SEQ_RD_S1B2;
+			//	}
+		//	}
+		//	break;
+		// }
+		// else
+		//{
+			//g_cEstadoComSeqMF=SEQ_RD_S1B2;
 			
-		}
+	//	}
 	}
 		break;
 	case SEQ_ROTACION:
@@ -1256,7 +1539,7 @@ ANALIZO LO LEIDO  Mf en el  sector 1 bloque 2
 					Block_read_Clock_Hex(clock_temp);																																						/*leo el reloj año,mes,dia*/
 									
 		
-					if ((buffer_S1_B2[0]==clock_temp[0])&&(buffer_S1_B2[1]==clock_temp[1])&&(buffer_S1_B2[2]==clock_temp[2]))		/*se analiza la fecha de entrada de la tarjeta MF y la fecha del dia */
+					if ((buffer_S_B[0]==clock_temp[0])&&(buffer_S_B[1]==clock_temp[1])&&(buffer_S_B[2]==clock_temp[2]))		/*se analiza la fecha de entrada de la tarjeta MF y la fecha del dia */
 					{
 						Debug_txt_Tibbo((unsigned char *) "Salida Autorizada\r\n");
 																																																											/* Leo el ticket */
@@ -1279,19 +1562,19 @@ ANALIZO LO LEIDO  Mf en el  sector 1 bloque 2
 		validacion descuentos  se maneja en 2 posiciones de memoria del MF
 			MF_LSB= tipo de descuento 			
 ------------------------------------------------------------------------------*/			
-			else if(buffer_S1_B2[MF_LSB]!=0)
+			else if(buffer_S_B[MF_LSB]!=0)
 			{
 				
 			 if((rd_eeprom(0xa8,EE_DCTO_PASA_CAJA))!= 0)	
 			{
 				Debug_Dividir_texto();
 				Debug_txt_Tibbo((unsigned char *) "CODIGO DE DCTO: ");																											/*codigo de descuento es elnumero de descuento del cliente*/
-				Debug_chr_Tibbo(buffer_S1_B2[MF_LSB]);
+				Debug_chr_Tibbo(buffer_S_B[MF_LSB]);
 				Debug_txt_Tibbo((unsigned char *) "\r\n");	
 				/*parte alta del tiempo libre*/
-				temp=(buffer_S1_B2[MF_IN_PAGO]&0x70)>>4	;																																		/*se lee la parte alta del tiempo libre y se rotsa 4 bits a la derecha*/
+				temp=(buffer_S_B[MF_IN_PAGO]&0x70)>>4	;																																		/*se lee la parte alta del tiempo libre y se rotsa 4 bits a la derecha*/
 				tiempo=temp;																																																/*se carga en un entero*/
-				tiempo=(tiempo <<8) | buffer_S1_B2[MF_DCTO]	;																																/*MF_DCTO= tiene la parte baja del tiempo libre, se une la parte alta con la baja */
+				tiempo=(tiempo <<8) | buffer_S_B[MF_DCTO]	;																																/*MF_DCTO= tiene la parte baja del tiempo libre, se une la parte alta con la baja */
 																																																										/*creando un int del tiemo de dcto*/
 				Debug_txt_Tibbo((unsigned char *) "TIEMPO DE DCTO: ");
 				sprintf( Estado_Tiempo,"%u",tiempo);																																				/*se muestra el tiempo de descuento*/
@@ -1301,10 +1584,10 @@ ANALIZO LO LEIDO  Mf en el  sector 1 bloque 2
 				
 			/*tipo de descuento es el bit 8 de MF_IN_PAGO*/	
 			/*por fecha que es fijar fecha de salida*/
-					if ((buffer_S1_B2[MF_IN_PAGO]&0x80)==0) 																																	/*tipo de descuento por fecha de salida*/
+					if ((buffer_S_B[MF_IN_PAGO]&0x80)==0) 																																	/*tipo de descuento por fecha de salida*/
 					{
 					Debug_txt_Tibbo((unsigned char *) "DCTO FIJA FECHA DE OUT: ");																						/**/
-					analiza_tiempo(buffer_S1_B2,tiempo); 
+					analiza_tiempo(buffer_S_B,tiempo); 
 				/*fijar fecha de salida*/
 					}
 					else
@@ -1336,20 +1619,20 @@ ANALIZO LO LEIDO  Mf en el  sector 1 bloque 2
 				Debug_txt_Tibbo((unsigned char *) "Tiempo Gracia: ");
 				Debug_chr_Tibbo(T_GRACIA);																														/*imprimo la trama recibida*/	
 				Debug_txt_Tibbo((unsigned char *) "\r\n");		
-				analiza_tiempo(buffer_S1_B2,T_GRACIA); 																								// Simula Fecha Max de Salida.
+				analiza_tiempo(buffer_S_B,T_GRACIA); 																								// Simula Fecha Max de Salida.
 			
 			}
 		/*------------------------------------------------------------------------------	
 		comun para todos
 		------------------------------------------------------------------------------*/		
-			temp=check_fechaOut(buffer_S1_B2+MF_FECHA_OUT);																					/*se analiza la fecha de salida*/
+			temp=check_fechaOut(buffer_S_B+MF_FECHA_OUT);																					/*se analiza la fecha de salida*/
 				if(temp==1)
 				{
 						Debug_txt_Tibbo((unsigned char *) "TARJETA SIN PAGO\r\n");
 						send_portERR(0xA2);																															/*error audio*/	
 						send_portERR(0XE7);
 						PantallaLCD(SIN_PAGO);																														/*envio el msj por la pantalla lcd o la raspberry*/
-						//RD_MF(1, 0);																																			/**leo el ticket*/	
+																																							/**leo el ticket*/	
 						g_cEstadoComSeqMF=SEQ_RD_S1B0_EJECT;					
 												
 				}
@@ -1376,21 +1659,19 @@ ANALIZO LO LEIDO  Mf en el  sector 1 bloque 2
 	break;
 	case SEQ_MENSUAL:
 		/*cheque la fecha de expiracion del mensual*/
-		Horario= ((buffer_S1_B2 [MF_TIPO_VEHICULO] & 0XF0) >> 4);
-	if (Horarios(Horario) == True)
+	
+	if (Horarios(Atributos_Expedidor [Horario]) == True)
 	{
-		atributos = &buffer_S1_B1[MF_EXPIRA_ANO];
+		atributos = &Atributos_Expedidor [Expira_ano];//;buffer_S1_B1[MF_EXPIRA_ANO];
 		
 		if ( check_fechaOut_2(atributos) == True )
 			{
 				/*valida el vehiculo en el loop y en la card*/
 				
 					Debug_txt_Tibbo((unsigned char *) "MENSUAL AL DIA\r\n");	
-				//	*(Atributos_Expedidor + Sector) = Sector_1;
-				//	*(Atributos_Expedidor + Bloque) = Bloque_2;
+				
 				//	Armar_Trama_Tarjeta_Sector1_Bloque2(Atributos_Expedidor,Buffer_Write_MF);
 					g_cEstadoComSeqMF=SEQ_RD_S1B0;	
-					//Estado_expedidor=SEQ_WRITE_SECTOR_BLOQUE;
 				
 			}
 				else 
@@ -1400,7 +1681,7 @@ ANALIZO LO LEIDO  Mf en el  sector 1 bloque 2
 //				PantallaLCD(TARJETA_VENCIDA);
 				Debug_txt_Tibbo((unsigned char *) "MENSUAL EXPIRA\r\n");
 				g_cEstadoComSeqMF = SEQ_EXPULSAR_TARJ;
-				//Estado_expedidor = SEQ_EXPULSAR_CARD;
+				
 			}
 	}
 	else
@@ -1449,35 +1730,8 @@ Leo la Mf en el  sector 1 bloque 0
 		}
 		else
 		{
-			Debug_txt_Tibbo((unsigned char *) "SEQ_RD_S1B0 OK\r\n");															/* trama OK CARGA numero de ticket*/
-		//	DebugBufferMF(Buffer_Rta_Lintech,g_cContByteRx,RESPUESTA);																/*imprimo la trama recibida*/		
-			
-	for (temp=0; temp<16; temp++)
-			{
-				
-				buffer_S1_B0[temp]=Buffer_Rta_Lintech[Pos_IniDatMF+temp];																	/*almaceno la informacion de MF el ticket*/
-				if(Buffer_Rta_Lintech[Pos_IniDatMF+temp]==0)
-				{
-					break;
-				}
-			}
-			DebugBufferMF(buffer_S1_B0,16,RESPUESTA);	
-			Debug_txt_Tibbo((unsigned char *) "Numero Ticket: ");
-			Debug_txt_Tibbo(buffer_S1_B0);
-			Debug_txt_Tibbo((unsigned char *) "\r\n");
-			
-			//lock=1;		
-			
-			Timer_wait=0;																																								/*activo la barrera*/
-			Trama_pto_Paralelo_new(buffer_S1_B0,buffer_S1_B2,'s');																			/*transmito pto paralelo*/
-			if(USE_LPR)
-			{
-				Cmd_LPR_Salida(buffer_S1_B0,buffer_S1_B2);																								/*envio datos a Monitor*/
-			}
-			
-			
-			
-			g_cEstadoComSeqMF=SEQ_WR_S1B2;
+			g_cEstadoComSeqMF=Responde_Lectura_Tarjeta_Sector1_Bloque0 (Atributos_Expedidor);
+	
 		}
 	break;
 
@@ -1489,7 +1743,7 @@ envio a escribir en  la Mf en el  sector 1 bloque 2
 	case SEQ_WR_S1B2:
 	
 				
-				WR_MF(1, 2,buffer_S1_B2+MF_TIPO_VEHICULO);
+				WR_MF(1, 2,Atributos_Expedidor);//buffer_S_B+MF_TIPO_VEHICULO
 				g_cEstadoComSeqMF=SEQ_WR_S1B2_RPTA;
 			
 	break;
@@ -1537,7 +1791,7 @@ espero la respuesta de la escritura en  la Mf en el  sector 1 bloque 2
 		}
 		break;
 	case SEQ_WR_S2B0:
-		WR_MF(2, 0,buffer_S1_B2+MF_TIPO_VEHICULO);
+		WR_MF(2, 0,buffer_S_B+MF_TIPO_VEHICULO);//s1b2
 	
 		g_cEstadoComSeqMF=SEQ_WR_S2B0_RPTA;	
 		break;
@@ -1586,9 +1840,15 @@ espero la respuesta de la escritura en  la Mf en el  sector 1 bloque 2
 	
 			Debug_txt_Tibbo((unsigned char *) "ok tarjeta ok...\r\n");															/* pto serie no responde*/
 			
-		
+		if (Atributos_Expedidor [ Tipo_Tarjeta]!= MENSUALIDAD)	
+			{
 						
 			g_cEstadoComSeqMF=SEQ_RTA_CAPTURE;
+			}
+			else
+			{
+				g_cEstadoComSeqMF=SEQ_EXPULSAR_TARJ;		
+			}
 		}
 		break;
 		
@@ -1616,7 +1876,7 @@ El vehiculo no se encuentra en el loop  ejecto la tarjeta y espero la respuesta
 					if (ValidaSensores_Out()==1)
 				{
 					lock=0;
-					Debug_txt_Tibbo((unsigned char *) "rele off\r\n\r\n");													/* trama ok la tarjeta fue ejectada*/
+					Debug_txt_Tibbo((unsigned char *) "rele off\r\n");													/* trama ok la tarjeta fue ejectada*/
 				
 				}
 			
@@ -1626,7 +1886,7 @@ El vehiculo no se encuentra en el loop  ejecto la tarjeta y espero la respuesta
 			}	
 				else if (temp==3)
 			{
-			Debug_txt_Tibbo((unsigned char *) "NO EJECT TARJET ERROR\r\n\r\n");										/* Tama incorrecta no ejecta la tarjeta*/
+			Debug_txt_Tibbo((unsigned char *) "NO EJECT TARJET ERROR\r\n");										/* Tama incorrecta no ejecta la tarjeta*/
 			DebugBufferMF(Buffer_Rta_Lintech,g_cContByteRx,RESPUESTA);														/*imprimo la trama recibida*/
 			g_cEstadoComSeqMF=SEQ_INICIO;																													/* (3) Trama invalida cmd (N)*/	
 			}	
@@ -1725,11 +1985,64 @@ LA tarjeta no tiene pago
 				}
 			}
 			DebugBufferMF(buffer_S1_B0,16,RESPUESTA);	
-			Trama_pto_Paralelo_P(buffer_S1_B0,buffer_S1_B2,'P');		
+			Trama_pto_Paralelo_P(buffer_S1_B0,buffer_S_B,'P');		
 			g_cEstadoComSeqMF=SEQ_EXPULSAR_TARJ;		
 		}	
 			break;
-	
+	case SEQ_UID:
+		Unique_Identifier_UID();
+	g_cEstadoComSeqMF = SEQ_UID_RPTA;
+	break;
+	case SEQ_UID_RPTA:
+			if((temp=Trama_Validacion_P_N())!=0)
+		{
+			if(temp==2)
+			{
+			g_cEstadoComSeqMF=SEQ_UID_RPTA;																												/*no ha respondido*/
+			}	
+			else if (temp==3)
+			{
+			Debug_txt_Tibbo((unsigned char *) "SEQ_UID_RPTA FALLO\r\n");											/* trama no valida*/
+			DebugBufferMF(Buffer_Rta_Lintech,g_cContByteRx,1);																					/*imprimo la trama recibida*/
+			g_cEstadoComSeqMF=SEQ_UID;																													/* (3) Trama invalida cmd (N)*/	
+			}			
+			else
+			{
+				
+				/*Dispensador No Responde PTO SERIE ...*/
+		
+				if(temp=error_rx_pto()==0)
+				{
+					g_cEstadoComSeqMF=SEQ_UID_RPTA;
+				}
+				else if(temp=error_rx_pto()==1)
+				{
+					g_cEstadoComSeqMF=SEQ_UID;
+				}
+			
+			}
+		}
+		else
+		{
+			g_cEstadoComSeqMF = Analiza_Uid_Card(Atributos_Expedidor );
+		}
+		break;
+	case SEQ_LOAD_PASSWORD:
+		LoadVerify_EEprom();
+		g_cEstadoComSeqMF=SEQ_MF_LINTECH;		
+		break;
+	case SEQ_POWER_OFF:
+		Power_off();
+		g_cEstadoComSeqMF=SEQ_UID;
+		break;
+	case SEQ_POWER_ON:
+		Power_off();
+	g_cEstadoComSeqMF = SEQ_LOAD_PASSWORD;
+		break;
+	case SEQ_TIPO_CARD:
+		Aut_Card_check_Status();
+		g_cEstadoComSeqMF=SEQ_REQUEST;						
+		break;
 /*------------------------------------------------------------------------------
 expulsa la tarjeta por que no pertenece a MF50
 ------------------------------------------------------------------------------*/		

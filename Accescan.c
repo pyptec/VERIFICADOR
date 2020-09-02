@@ -1,6 +1,6 @@
 #include <Accescan.h>
 #include <reg51.h>
-
+#include <string.h>
 extern void Block_write_clock_ascii(unsigned char *datos_clock);
 extern void PantallaLCD(unsigned char cod_msg);
 extern void Reloj_Pantalla_Lcd();
@@ -25,9 +25,11 @@ extern unsigned char validar_clk(unsigned char *datos_clock);
 extern void Debug_chr_Tibbo(unsigned char Dat);
 extern unsigned char rd_eeprom (unsigned char control,unsigned int Dir); 
 
+
 extern unsigned int Timer_tivo;
 extern unsigned char Timer_wait;
 extern unsigned char Tipo_Vehiculo;
+extern unsigned char ValTimeOutCom;
 
 extern unsigned char  Debug_Tibbo;
 sbit rx_ip = P0^0;				
@@ -72,7 +74,42 @@ sbit led_err_imp = P0^2;			//Error
 #define EE_DEBUG							0x0008
 /*define variables de esta funcion*/
  unsigned char USE_LPR;
+ idata unsigned char placa[]={0x30,0x30,0x30,0x30,0x30,0x30,0x0,0x0,0x0};
  
+ /*externos bits*/
+
+extern bit placa_ready;
+ enum Tipos_MF_TIPO_TARJETA{
+	INACTIVA,					
+	ROTACION, 					
+	MENSUALIDAD,
+	PREPAGO,
+	CORTESIA,
+	LOCATARIO,
+	TARJETA_PERDIDA = 0X10,
+	INHABILITADA = 0X11
+};
+ enum expedidor {
+ fecha_Int_Ano,
+ fecha_Int_Mes,	
+ fecha_Int_Dia,	
+ fecha_Int_Hora,
+ fecha_Int_Min,		
+ Tipo_Tarjeta,
+ Apb,
+ Horario,
+ Pico_Placa,
+ Type_Vehiculo,
+ Uid_0,
+ Uid_1,
+ Uid_2,
+ Uid_3,
+ Expira_ano,
+ Expira_mes,
+ Expira_dia
+ 
+};
+
 //unsigned char S1_B2[]={0x13, 0x03, 0x1D, 0x0B, 0x0E, 00, 00, 00, 00, 00, 0x01, 0x13, 0x03, 0x1D, 0x0E, 0x1D};
 //unsigned char S1_B0[]={0x32, 0x31, 0x30, 0x37, 0x31, 0x35, 00, 00, 00, 00, 00, 00, 00, 00, 00, 01};
 //unsigned char S_B[]={0xE7, 00, 00, 00, 00, 00, 00, 00, 00, 00, 01};
@@ -274,29 +311,51 @@ unsigned char recibe_cmd_Monitor(unsigned char *buffer_cmd)
 /*------------------------------------------------------------------------------
 Rutina q valida los cmd de Monitor
 ------------------------------------------------------------------------------*/
-/*
+
 void Valida_Trama_Monitor(unsigned char *buffer, unsigned char length_trama)
 {		
+	unsigned char j=0;
+	unsigned char p=2;
 	length_trama=1;
 		if	((*(buffer+2)==ETX)&&(*(buffer+1)=='P')) 																																						/* APERTURA DE BARRETA*/ 
-/*				{
+				{
 	 				lock=1;																																																						/*habilita el relevo ON*/
-//					Timer_wait=0;
-//	 			}
-//		else if (*buffer=='<')
-//		{																																																												/*placa*/
-//		}
-//}
+					Timer_wait=0;
+	 			}
+			else if (*(buffer+1)=='<')
+		{
+			/*placa*/
+			do
+			{
+				placa[j]=*(buffer+p);
+				p++;
+				j++;
+			}while (*(buffer+p) != ETX);
+			*(buffer+p)=0;
+				placa[j-1]=0;
+			  placa_ready=1;
+			ValTimeOutCom=10;
+			/*placa no play <NO_PLATE>*/ 
+			
+		}
+		else if (*(buffer+1)=='[')
+		{
+			/*cancel*/
+		}
+}
 /*------------------------------------------------------------------------------
 
 ------------------------------------------------------------------------------*/
-/*
-void Cmd_Monitor()
+void clear_placa()
 {
-		
-	
+	unsigned char i;
+	for(i=0;i<6;i++)
+	{
+	 placa[i]=0x30;
+	}
+ placa_ready=0;
 }
-*/
+	
 /*------------------------------------------------------------------------------
 Transmito un caracter al software monitor 
 ------------------------------------------------------------------------------*/
@@ -370,24 +429,30 @@ void Cmd_LPR_Salida(unsigned char *buffer_S1_B0,unsigned char *buffer_S1_B2)
 		{
 			Buffer_Lpr[j++]='C';													/*carro*/
 		}
-	//if(tipo_card == MENSUALIDAD)
-	//{
-		
-	//}
-	//else
-	//{
+	if(*(buffer_S1_B0 + Tipo_Tarjeta )== MENSUALIDAD)
+	{
+		ByteHex_Decimal(Buffer_Lpr+4,*(buffer_S1_B0 + Uid_2));
+		j=strlen(Buffer_Lpr);
+		Buffer_Lpr[j]= ' ';
+		Buffer_Lpr[j+1]= 0;
+		j=strlen(Buffer_Lpr);
+		Two_ByteHex_Decimal(Buffer_Lpr+j,*(buffer_S1_B0 + Uid_1),*(buffer_S1_B0 + Uid_0));
+			
+	}
+	else
+	{
 	/*ticket o consecutivo*/
 		do
 		{
 		Buffer_Lpr[j++]=*buffer_S1_B0;									/*ticket o consecutivo*/
 		buffer_S1_B0++;
 		}while (*buffer_S1_B0!=0);
-	//}
+	}
+	
+		j=strlen(Buffer_Lpr);
 	
 	
-	
-	
-		Buffer_Lpr[j++]=':';														/*separador de la fecha de entrada*/
+		Buffer_Lpr[j]=':';														/*separador de la fecha de entrada*/
 
 		temp=hex_bcd(*(buffer_S1_B2+0));								/*año a ascii*/
 		Buffer_Lpr[j++]=((temp & 0xf0)>>4)| 0x30;
@@ -418,21 +483,7 @@ void Cmd_LPR_Salida(unsigned char *buffer_S1_B0,unsigned char *buffer_S1_B2)
 	
 		Monitor_chr(Buffer_Lpr,j);												/*rutina de envio de la trama a monitor*/
 }
-/*	
-void live()
-{
-																																											/*en linea*/
-		
-			
-		
-	//		if ((Debug_Tibbo==0)&&(USE_LPR==1))
-//			{
-	//			Debug_Tibbo=1;
-		//		Debug_txt_Tibbo((unsigned char *) "LIVE");
-		//		Debug_Tibbo=0;
-		//	}
-//			
-			
-			
-//}
+//void Cmd_LPR_Salida_Mensual(unsigned char *buffer_S1_B0,unsigned char *buffer_S1_B2)
+//{}
+	
 	

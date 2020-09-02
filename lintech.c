@@ -93,6 +93,38 @@ extern void EscribirCadenaSoft_buffer(unsigned char *buffer,unsigned char tamano
 extern void Debug_chr_Tibbo(unsigned char Dat);
 extern unsigned char Dir_board();
 
+enum Tipos_MF_TIPO_TARJETA{
+	INACTIVA,					
+	ROTACION, 					
+	MENSUALIDAD,
+	PREPAGO,
+	CORTESIA,
+	LOCATARIO,
+	TARJETA_PERDIDA = 0X10,
+	INHABILITADA = 0X11
+};
+
+enum expedidor {
+ fecha_Int_Ano,
+ fecha_Int_Mes,	
+ fecha_Int_Dia,	
+ fecha_Int_Hora,
+ fecha_Int_Min,		
+ Tipo_Tarjeta,
+ Apb,
+ Horario,
+ Pico_Placa,
+ Type_Vehiculo,
+ Uid_0,
+ Uid_1,
+ Uid_2,
+ Uid_3,
+ Expira_ano,
+ Expira_mes,
+ Expira_dia
+ 
+};
+
 /*----------------------------------------------------------------------------
 funcion de inicializacion del transporte
 
@@ -490,9 +522,14 @@ borro los descuentos
 /*------------------------------------------------------------------------------
 tipo de vehiculo
 ------------------------------------------------------------------------------*/
-	
-	g_scArrTxComSoft[20]=*buffer;
-	
+	if (*(buffer + Tipo_Tarjeta)!= MENSUALIDAD)
+	{
+	g_scArrTxComSoft[20]=0;
+	}
+	else
+	{
+		g_scArrTxComSoft[20]=(*(buffer + Horario) << 4) | *(buffer + Type_Vehiculo);
+	}
 /*------------------------------------------------------------------------------
 direccion de BOArd_pcb de salida o puerta de salida
 ------------------------------------------------------------------------------*/	
@@ -501,8 +538,14 @@ direccion de BOArd_pcb de salida o puerta de salida
 /*------------------------------------------------------------------------------
 programo el APB como salida (02) entrada(01)
 ------------------------------------------------------------------------------*/
-g_scArrTxComSoft[22]=02;
-
+if (*(buffer + Tipo_Tarjeta)!= MENSUALIDAD)
+	{
+	g_scArrTxComSoft[22]=02;
+	}
+	else
+	{
+		g_scArrTxComSoft[22]=*(buffer + Apb) ;
+	}
 /*------------------------------------------------------------------------------
 borro la fecha de salida 
 ------------------------------------------------------------------------------*/

@@ -13,5 +13,6 @@ void Dwload_EEprom (void);
 void LoadVerify_EEprom(void);
 void RD_MF(unsigned char Sector, unsigned char Bloque);
 void WR_MF(unsigned char Sector, unsigned char Bloque,unsigned char *buffer);
-
+void Unique_Identifier_UID(void);
+void Power_off(void);
 #endif	/* _lintech_H_ */
