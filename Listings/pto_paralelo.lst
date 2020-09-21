@@ -1,4 +1,4 @@
-C51 COMPILER V9.59.0.0   PTO_PARALELO                                                      09/02/2020 07:28:02 PAGE 1   
+C51 COMPILER V9.59.0.0   PTO_PARALELO                                                      09/21/2020 13:31:52 PAGE 1   
 
 
 C51 COMPILER V9.59.0.0, COMPILATION OF MODULE PTO_PARALELO
@@ -62,7 +62,7 @@ line level    source
   51   1        unsigned int T_ANCHO=160;
   52   1        unsigned char data_temp=0;
   53   1      
-C51 COMPILER V9.59.0.0   PTO_PARALELO                                                      09/02/2020 07:28:02 PAGE 2   
+C51 COMPILER V9.59.0.0   PTO_PARALELO                                                      09/21/2020 13:31:52 PAGE 2   
 
   54   1        
   55   1        if (busy==0)
@@ -126,7 +126,7 @@ line level    source
  113          void  send_port(unsigned char *buffer_port, unsigned char length_char)
  114          {
  115   1       
-C51 COMPILER V9.59.0.0   PTO_PARALELO                                                      09/02/2020 07:28:02 PAGE 3   
+C51 COMPILER V9.59.0.0   PTO_PARALELO                                                      09/21/2020 13:31:52 PAGE 3   
 
  116   1        long int cont;
  117   1        unsigned char timeOut,length;
@@ -190,7 +190,7 @@ line level    source
  174            {
  175             Buffer_port[j++]=*buffer_S1_B0;                  /*ticket*/
  176          //    buffer_S1_B0++;
-C51 COMPILER V9.59.0.0   PTO_PARALELO                                                      09/02/2020 07:28:02 PAGE 4   
+C51 COMPILER V9.59.0.0   PTO_PARALELO                                                      09/21/2020 13:31:52 PAGE 4   
 
  177            //}while (*buffer_S1_B0!=0);
  178            
@@ -254,7 +254,7 @@ line level    source
  233   1        Buffer_port[2]=21;                                /*numero de digitos de transmicion NO IMPORTA NO ES VALIDADO EN PRINCIP
              -AL*/
  234   1        do
-C51 COMPILER V9.59.0.0   PTO_PARALELO                                                      09/02/2020 07:28:02 PAGE 5   
+C51 COMPILER V9.59.0.0   PTO_PARALELO                                                      09/21/2020 13:31:52 PAGE 5   
 
  235   1        { 
  236   2         Buffer_port[j++]=*buffer_S1_B0;                  /*ticket*/
@@ -318,7 +318,7 @@ line level    source
  291   1        Buffer_port[1]=cmd;                               /*cmd*/
  292   1          /*ticket*/
  293   1        do
-C51 COMPILER V9.59.0.0   PTO_PARALELO                                                      09/02/2020 07:28:02 PAGE 6   
+C51 COMPILER V9.59.0.0   PTO_PARALELO                                                      09/21/2020 13:31:52 PAGE 6   
 
  294   1        {
  295   2         Buffer_port[j++]=*buffer_S1_B0;                  
@@ -382,7 +382,7 @@ line level    source
  350   1        
  351   1          
  352   1          ready=0;
-C51 COMPILER V9.59.0.0   PTO_PARALELO                                                      09/02/2020 07:28:02 PAGE 7   
+C51 COMPILER V9.59.0.0   PTO_PARALELO                                                      09/21/2020 13:31:52 PAGE 7   
 
  353   1            while(busy==0);
  354   1          send_port(Buffer_port,j);                         /*trama transmitida pto paralelo*/
@@ -446,7 +446,7 @@ line level    source
  412          /*-------------------------------------------------------------------------------------------
  413          Condiciones de Inicio del pto paralelo
  414          -------------------------------------------------------------------------------------------*/
-C51 COMPILER V9.59.0.0   PTO_PARALELO                                                      09/02/2020 07:28:02 PAGE 8   
+C51 COMPILER V9.59.0.0   PTO_PARALELO                                                      09/21/2020 13:31:52 PAGE 8   
 
  415          void cond_ini_pto()
  416          { 
@@ -510,7 +510,7 @@ line level    source
  474   2            if(buf[k] !=0)
  475   2            {
  476   3            buffer_info[i]=buf[k] ;                   /*lo almaceno en el  buffer*/
-C51 COMPILER V9.59.0.0   PTO_PARALELO                                                      09/02/2020 07:28:02 PAGE 9   
+C51 COMPILER V9.59.0.0   PTO_PARALELO                                                      09/21/2020 13:31:52 PAGE 9   
 
  477   3            k++;
  478   3            }else {buffer_info[i]=';'; i++; break;}

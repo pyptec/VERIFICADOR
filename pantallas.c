@@ -40,7 +40,9 @@ extern void Debug_chr_Tibbo(unsigned char Dat);
 #define TARJETA_SIN_FORMATO	    173					//0xDF
 #define OFF_LINE								174					//B6
 #define UN_MOMENTO							175
-
+#define TARJETA_VENCIDA					180
+#define MENSUAL_FUERA_HORARIO		181
+#define HORARIO_NO_PROG					182
 
 #define NOTIFIQUE_EVP						'N'
 #define NO_NOTIFIQUE_EVP				'S'
@@ -390,6 +392,15 @@ unsigned char num_chr;
                 
 									Raspberry_data((unsigned char  *) "a;98;UN MOMENTO POR FAVOR\n\r\0");
                   break;
+						case TARJETA_VENCIDA:
+							Raspberry_data((unsigned char  *) "a;07;¡ MENSUALIDAD VENCIDA !\n\r\0");
+						  break;	
+						case MENSUAL_FUERA_HORARIO:
+							Raspberry_data((unsigned char  *) "a;06;MENSUAL FUERA DE HORARIO\n\r\0");
+						   break;
+						case HORARIO_NO_PROG:
+							Raspberry_data((unsigned char  *)  "a;98;HORARIO NO PROGRAMADO\n\r\0");	
+							break;		
 					
 					default:
 			

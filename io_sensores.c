@@ -20,8 +20,10 @@ sbit busy = P3^3;  					/*bussy de Entrada Interrupcion del Procesador principal
 
 #define AUTOMOVIL						0X00
 #define MOTO								0X01
-
+/*datos en eeprom*/
 #define EE_CPRCN_ACTIVA				0x000C
+#define EE_ADDRESS_HIGH_BOARD		0X0012
+
 extern bit COMPARACION_ACTIVA;
 extern  unsigned char Tipo_Vehiculo;
 
@@ -97,8 +99,8 @@ Funcion q debuelve la direccion de la tarjeta
 ------------------------------------------------------------------------------*/
 unsigned char Dir_board()
 {
-	char Board=0x31;
-	
+	unsigned char Board=0x01;
+	unsigned char Board_High;
 	sel_Dir1();
 	if (DataIn==1)
 	{
@@ -109,7 +111,21 @@ unsigned char Dir_board()
 	{
 		Board=Board+2;
 	}
-	return (Board);
+	if(Board == 0x01)
+	{	
+	Board_High=rd_eeprom(0xa8,EE_ADDRESS_HIGH_BOARD);
+	
+		if(Board_High != 0)
+		{
+			if(Board_High == 0xff)
+			{
+				Board=0x01;
+			}
+			else 	Board= Board_High ;
+		}	
+	
+	}
+	return (Board+0x30);
 }
 /*------------------------------------------------------------------------------
 Detecto la activacion de los sensores de salida

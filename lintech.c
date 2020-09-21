@@ -544,7 +544,7 @@ if (*(buffer + Tipo_Tarjeta)!= MENSUALIDAD)
 	}
 	else
 	{
-		g_scArrTxComSoft[22]=*(buffer + Apb) ;
+		g_scArrTxComSoft[22]=02;//*(buffer + Apb) ;
 	}
 /*------------------------------------------------------------------------------
 borro la fecha de salida 

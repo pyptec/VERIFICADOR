@@ -16,7 +16,8 @@ void Valida_Trama_Monitor(unsigned char *buffer, unsigned char length_trama);
 void Cmd_Monitor();
 void Monitor_chr (unsigned char *str,unsigned char num_char);
 void Cmd_LPR_Salida_wiegand(unsigned char *buffer);
-void Cmd_LPR_Salida(unsigned char *buffer_S1_B0,unsigned char *buffer_S1_B2);
+void Cmd_LPR_Salida(unsigned char *buffer_S1_B0,unsigned char *buffer_S1_B);
+
 void live();
 
 

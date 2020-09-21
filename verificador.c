@@ -3,7 +3,7 @@
 */
 #include "verificador.h"
 #include <reg51.h>
-
+#include <string.h>
 
 /*funciones prototipo externas */
 
@@ -19,7 +19,9 @@ extern char check_fechaOut(char *buffer);
 extern unsigned char Dir_board();
 extern void PantallaLCD(unsigned char cod_msg);
 extern void Trama_pto_Paralelo_C_s(unsigned char *buffer_S1_B0,unsigned char *buffer_S1_B2);
-extern void Cmd_LPR_Salida(unsigned char *buffer_S1_B0,unsigned char *buffer_S1_B2);
+extern void Cmd_LPR_Salida(unsigned char *buffer_S1_B0,unsigned char *buffer_S1_B);
+
+
 extern void Trama_pto_Paralelo(unsigned char *buffer_S1_B0,unsigned char *buffer_S1_B2,unsigned char cmd);
 extern void Trama_pto_Paralelo_P(unsigned char *buffer_S1_B0,unsigned char *buffer_S1_B2,unsigned char cmd);
 extern void analiza_tiempo(char *buffer,unsigned int Val_DctoMinutos);
@@ -112,8 +114,10 @@ Definiciones de sequencias de verificador y expedidor
 #define SEQ_UID						0X18
 #define SEQ_UID_RPTA				0x19
 #define SEQ_POWER_OFF			0X1a
-#define SEQ_POWER_ON			0X1b
-#define SEQ_TIPO_CARD			0X1c
+#define SEQ_POWER_OFF_RPTA			0X1B
+#define SEQ_POWER_ON			0X1C
+#define SEQ_POWER_ON_RPTA		0X1D
+#define SEQ_TIPO_CARD			0X1E
 
 #define SEQ_EXPULSAR_TARJ			0x20
 #define SEQ_EXPULSAR_CHECK 		0x21
@@ -178,7 +182,7 @@ Definicion de la trama Lintech de las respuestas de los cmd
 #define Pos_IniDatMF				0x0a
 #define	Card_type_H					0x0a
 #define	Card_type_L					0x0b
-
+#define Rtype				        0x0A
 /*----------------------------------------------------------------------------
 definicion de recepcion serial 
 ------------------------------------------------------------------------------*/
@@ -211,6 +215,9 @@ msj de lcd tarjeta y lcd serie SALIDA
 #define DIRIJASE_CAJA						90
 #define GRACIAS									91		//0XFF
 #define ACERQUESE_CAJA					0XEB
+#define PRMR_TARJETA_VENCIDA					0XEC
+#define PRMR_MENSUAL_FUERA_HORARIO		0Xb5
+#define PRMR_NO_ROTACION							0XFD
 
 /*MENSAJES INFORMATIVOS*/
 
@@ -218,7 +225,9 @@ msj de lcd tarjeta y lcd serie SALIDA
 #define ERROR_LOOP							171					//0XE0
 #define TARJETA_INVALIDA				172			//0XE1
 #define TARJETA_SIN_FORMATO	    173			//0xDF
-
+#define TARJETA_VENCIDA					180
+#define MENSUAL_FUERA_HORARIO		181
+#define HORARIO_NO_PROG					182
 /*MENSAJES PRINCIPAL ACTIVA RELES*/
 
 #define AUDIO_ENTRADA			0XA0
@@ -296,12 +305,14 @@ MF_LSB_POR_DNR=3		DESCUENTO POR DINERO
 #define		MF_EXPIRA_MES			0X09
 #define		MF_EXPIRA_DIA			0X0A
 
+
+#define OPERATE_FAIL					0X6F
 /*----------------------------------------------------------------------------
 define posiciones de memoria EEPROM
 ------------------------------------------------------------------------------*/
 #define	EE_DCTO_PASA_CAJA			0X000F
 #define EE_CPRCN_ACTIVA				0x000C
-
+#define	EE_HABILITA_APB_MENSUAL 0X0015
 
 enum Hora_Minutos_addr{
 	Hora_High_addr_Desde = 7, Hora_Low_addr_Desde = 8, Minutos_High_addr_Desde = 9, Minutos_Low_addr_Desde = 10,
@@ -344,12 +355,24 @@ enum expedidor {
  Expira_dia
  
 };
+/*tipos de APB antipassback*/
+enum Tipos_MF_APB{
+	
+	APB_INICIADO,				
+	APB_INT,							
+	APB_OUT,							
+	APB_NO							
+};
+enum EE_AntiPassBack{
+	APB_INHABILITADO_SOFT,
+	APB_HABILITADO_SOFT
+};
 /*comandos pto paralelo*/
 enum CMD_Trama_Pto_Paralelo{
 	STX=02,
 	CMD_PTO_PARALELO_EXPEDIDOR='a',
 //	ETX= 03,
-	NULL=0,
+	//NULL=0,
 	CMD_MONITOR_EXPEDIDOR='E',
 	CMD_PTO_PARALELO_EXPEDIDOR_MENSUAL='M'
 };
@@ -671,7 +694,7 @@ unsigned char Horarios(unsigned char Horario)
 		{
 			
 			Estado_Horario= False;
-		//	PantallaLCD(HORARIO_NO_PROG);
+			PantallaLCD(HORARIO_NO_PROG);
 			Debug_txt_Tibbo((unsigned char *) "INHABILITADO HORARIO \r\n");
 			
 		}
@@ -715,14 +738,14 @@ unsigned char En_Horario(unsigned int HoraNow, unsigned int Hora_Prog,unsigned i
 	
 		if( HoraNow <= Hora_Prog)
 		{
-			//send_portERR(PRMR_MENSUAL_FUERA_HORARIO);
+			send_portERR(PRMR_MENSUAL_FUERA_HORARIO);
 			Debug_txt_Tibbo((unsigned char *) "EN HORARIO PROGRAMADO\r\n");
 			Estado_Horario = True;
 		}
 		else
 		{
-			//send_portERR(PRMR_MENSUAL_FUERA_HORARIO);
-			//PantallaLCD(MENSUAL_FUERA_HORARIO);
+			send_portERR(PRMR_MENSUAL_FUERA_HORARIO);
+			PantallaLCD(MENSUAL_FUERA_HORARIO);
 			Debug_txt_Tibbo((unsigned char *) "DESPUES DEL HORARIO PROGRAMADO\r\n");
 			Estado_Horario = False;
 		}
@@ -730,8 +753,8 @@ unsigned char En_Horario(unsigned int HoraNow, unsigned int Hora_Prog,unsigned i
 	}
 	else
 	{
-				//send_portERR(PRMR_MENSUAL_FUERA_HORARIO);
-				//PantallaLCD(MENSUAL_FUERA_HORARIO);
+				send_portERR(PRMR_MENSUAL_FUERA_HORARIO);
+				PantallaLCD(MENSUAL_FUERA_HORARIO);
 				Debug_txt_Tibbo((unsigned char *) "ANTES DEL HORARIO PROGRAMADO\r\n");
 				Estado_Horario = False;
 			
@@ -770,8 +793,8 @@ unsigned Bloque_Horario(unsigned int addr)
 			}
 			else
 			{
-//				send_portERR(PRMR_MENSUAL_FUERA_HORARIO);
-	//			PantallaLCD(MENSUAL_FUERA_HORARIO);
+				send_portERR(PRMR_MENSUAL_FUERA_HORARIO);
+				PantallaLCD(MENSUAL_FUERA_HORARIO);
 				Estado_Horario = False;
 			}
 	}
@@ -782,6 +805,7 @@ unsigned char  Responde_Lectura_Tarjeta_Sector1_Bloque1 (unsigned char *Atributo
 {
 	unsigned char temp;
 	unsigned char Estado_expedidor;
+	static unsigned char falla=0;
 	
 	Debug_txt_Tibbo((unsigned char *) "SEQ_RD_S1B1 OK\r\n");															/* trama OK CARGA LA EEPROM Y LA VERIFICA*/
 																
@@ -815,22 +839,38 @@ unsigned char  Responde_Lectura_Tarjeta_Sector1_Bloque1 (unsigned char *Atributo
 						*(Atributos_Expedidor + Expira_ano) = buffer_S_B [MF_EXPIRA_ANO];
 						*(Atributos_Expedidor + Expira_mes) = buffer_S_B [MF_EXPIRA_MES];
 						*(Atributos_Expedidor + Expira_dia) = buffer_S_B [MF_EXPIRA_DIA];
-																																							
+						falla=0;																																	
 							Estado_expedidor=SEQ_RD_S1B2;
 					
 					}
 					else
 					{
+						falla=0;
 						send_portERR(0XE5);
 						PantallaLCD(ERROR_COD_PARK);																												/*envio el msj por la pantalla lcd o la raspberry*/
-						g_cEstadoComSeqMF=SEQ_EXPULSAR_TARJ;																								/* codigo de parqueo erro expulso la tarjeta */		
+						Estado_expedidor=SEQ_EXPULSAR_TARJ;																								/* codigo de parqueo erro expulso la tarjeta */		
 					}
 			}
 			else
 			{
-				send_portERR(0XDF);
-				PantallaLCD(TARJETA_SIN_FORMATO);																												/*envio el msj por la pantalla lcd o la raspberry*/
-				Estado_expedidor=SEQ_EXPULSAR_TARJ;
+				if ((Buffer_Rta_Lintech[Rtype]) == OPERATE_FAIL)
+				{
+					falla++;
+				}
+				 if (falla <= 2)
+					
+				{
+					Debug_txt_Tibbo((unsigned char *) "ERROR OPERATE FAIL\r\n");
+					Estado_expedidor = SEQ_POWER_ON;
+															
+				}
+				else
+				{
+					falla=0;
+					send_portERR(0XDF);
+					PantallaLCD(TARJETA_SIN_FORMATO);																												/*envio el msj por la pantalla lcd o la raspberry*/
+					Estado_expedidor=SEQ_EXPULSAR_TARJ;
+				}
 			}
 			return Estado_expedidor;
 }			
@@ -866,49 +906,64 @@ unsigned char Responde_Lectura_Tarjeta_Sector1_Bloque2 (unsigned char *Atributos
 			*(Atributos_Expedidor + Apb)=		buffer_S_B [MF_APB] ;
 			/*tipo de tarjeta*/
 			*(Atributos_Expedidor + Type_Vehiculo	) = buffer_S_B [MF_TIPO_VEHICULO]& 0x0f;
-		//	Estado_expedidor=SEQ_TIPO_TARJETAS;
-			 /*------------------------------------------------------------------------------	
-			APB
-			------------------------------------------------------------------------------*/
-				//if (*(Atributos_Expedidor + Tipo_Tarjeta) == MENSUALIDAD)
-				//{
-				//	*(Atributos_Expedidor + Apb)=	3;
-				//}
-				if((*(Atributos_Expedidor + Apb) == 02)||(*(Atributos_Expedidor + Apb) == 0) )															/*Pregunto por el antipasban si es 02 ya salio y no posee entrada*/
-				{																																																							/*00 inhabilitada la tarjeta*/
-				Debug_txt_Tibbo((unsigned char *) "ERROR: SIN INGRESO\r\n");
-				send_portERR(0xA2);																															/*error audio*/	
-				send_portERR(0XE6);
-				PantallaLCD(SIN_INGRESO);
-				Estado_expedidor=SEQ_EXPULSAR_TARJ;
-				
-				}
-				else
-				{
-				
+						
 			 /*------------------------------------------------------------------------------	
 				tipo de tarjeta
 				------------------------------------------------------------------------------*/
 
 				if 	(*(Atributos_Expedidor + Tipo_Tarjeta) ==ROTACION)					
 				{
-					Debug_txt_Tibbo((unsigned char *) "TIPO DE TARJETA ROTACION\r\n");
-					Estado_expedidor=SEQ_ROTACION;
-					
+						if((*(Atributos_Expedidor + Apb) == 02)||(*(Atributos_Expedidor + Apb) == 0) )															/*Pregunto por el antipasban si es 02 ya salio y no posee entrada*/
+						{
+							Debug_txt_Tibbo((unsigned char *) "ERROR: SIN INGRESO\r\n");
+							send_portERR(0xA2);																															/*error audio*/	
+							send_portERR(0XE6);
+							PantallaLCD(SIN_INGRESO);
+							Estado_expedidor=SEQ_EXPULSAR_TARJ;
+						}
+						else
+						{
+							Debug_txt_Tibbo((unsigned char *) "TIPO DE TARJETA ROTACION\r\n");
+							Estado_expedidor=SEQ_ROTACION;
+						
+						}
+	
 				}
 				else if (*(Atributos_Expedidor + Tipo_Tarjeta)== MENSUALIDAD)	
 				{
-					Debug_txt_Tibbo((unsigned char *) "TIPO DE TARJETA MENSUALIDAD\r\n ");
-					Estado_expedidor=SEQ_MENSUAL;
-					
+					if(	(rd_eeprom(0xa8,EE_HABILITA_APB_MENSUAL) == APB_HABILITADO_SOFT) )
+					{
+						Debug_txt_Tibbo((unsigned char *) "ANTIPASSBACK HABILITADO MENSUAL \r\n");
+						if((*(Atributos_Expedidor + Apb) == APB_OUT)||(*(Atributos_Expedidor + Apb) == APB_INICIADO) ) 
+						{
+							Debug_txt_Tibbo((unsigned char *) "ERROR: SIN INGRESO MENSUAL\r\n");
+							send_portERR(0xA2);																															/*error audio*/	
+							send_portERR(0XE6);
+							PantallaLCD(SIN_INGRESO);
+							Estado_expedidor=SEQ_EXPULSAR_TARJ;
+						
+						}
+						else
+						{
+							Debug_txt_Tibbo((unsigned char *) "TIPO DE TARJETA MENSUALIDAD\r\n ");
+							Estado_expedidor=SEQ_MENSUAL;
+						}
+					}
+					else
+					{
+						Debug_txt_Tibbo((unsigned char *) "ANTIPASSBACK INHABILITADO MENSUAL \r\n");
+						Debug_txt_Tibbo((unsigned char *) "TIPO DE TARJETA MENSUALIDAD\r\n ");
+						Estado_expedidor = SEQ_MENSUAL;
+					}
 				}
 				else
 				{
 					Debug_txt_Tibbo((unsigned char *) "TIPO NUEVO DE TARJETA SIN DEFINIR\r\n");
-				  Estado_expedidor=SEQ_EXPULSAR_TARJ;
+				  send_portERR(PRMR_NO_ROTACION);
+					Estado_expedidor=SEQ_EXPULSAR_TARJ;
 				  
 				}
-			 }
+			 
 		}
 	else
 		 {
@@ -922,7 +977,7 @@ unsigned char Responde_Lectura_Tarjeta_Sector1_Bloque0 (unsigned char *Atributos
 {
 	unsigned char temp;
 	unsigned char Estado_expedidor;
-	unsigned char buffer_S1_B0[17];
+	static unsigned char buffer_S1_B0[17];
 	if (Buffer_Rta_Lintech[Pos_Length] >=0x18)
 		 {
 	Debug_txt_Tibbo((unsigned char *) "SEQ_RD_S1B0 OK\r\n");															/* trama OK CARGA numero de ticket*/
@@ -942,6 +997,7 @@ unsigned char Responde_Lectura_Tarjeta_Sector1_Bloque0 (unsigned char *Atributos
 			Debug_txt_Tibbo(buffer_S1_B0);
 			Debug_txt_Tibbo((unsigned char *) "\r\n");
 			
+		
 			/*transmito pto paralelo*/	
 			if (*(Atributos_Expedidor + Tipo_Tarjeta)!= MENSUALIDAD)	
 			{
@@ -955,14 +1011,16 @@ unsigned char Responde_Lectura_Tarjeta_Sector1_Bloque0 (unsigned char *Atributos
 			}
 			if(USE_LPR)
 			{
+				
 				/*envio datos a Monitor*/
 				if (*(Atributos_Expedidor + Tipo_Tarjeta)!= MENSUALIDAD)	
 				{
-				Cmd_LPR_Salida(buffer_S1_B0,buffer_S_B);	
+				
+				Cmd_LPR_Salida(Atributos_Expedidor,buffer_S1_B0);	
 				}
 				else
 				{
-				Cmd_LPR_Salida(Atributos_Expedidor,buffer_S_B);	
+				Cmd_LPR_Salida(Atributos_Expedidor,buffer_S1_B0);	
 				}
 			}
 			
@@ -1023,7 +1081,7 @@ void Armar_Trama_Pto_Paralelo_Expedidor_Mensual(unsigned char *Atributos_Expedid
 	}
 	
 	buffer[18]= ETX;
-	buffer[19]= NULL;
+	buffer[19]= 0;
 	ready=0;
 			while(busy==0);
 		send_port(buffer,19);													/*trama transmitida pto paralelo*/
@@ -1461,63 +1519,8 @@ ANALIZO LO LEIDO  Mf en el  sector 1 bloque 2
 		else
 		{
 		 g_cEstadoComSeqMF = Responde_Lectura_Tarjeta_Sector1_Bloque2 (Atributos_Expedidor);
-		// if (Buffer_Rta_Lintech[Pos_Length] >=0x18)
-		 //{
-				
-	//		Debug_txt_Tibbo((unsigned char *) "SEQ_RD_S1B2 OK\r\n");															/* trama OK CARGA LA EEPROM Y LA VERIFICA*/
-			//DebugBufferMF(Buffer_Rta_Lintech,g_cContByteRx,RESPUESTA);																/*imprimo la trama recibida*/	
-		//	for (temp=0; temp<16; temp++)
-		//	{
-		//		buffer_S1_B2[temp]=Buffer_Rta_Lintech[Pos_IniDatMF+temp];															/*almaceno la informacion de MF en un arreglo*/
-		//	}
-		//	DebugBufferMF(buffer_S1_B2,16,RESPUESTA);	
-				/*------------------------------------------------------------------------------	
-			APB
-			------------------------------------------------------------------------------*/
-		
-		//	if((buffer_S1_B2[MF_APB]==02)||(buffer_S1_B2[MF_APB]==0) )															/*Pregunto por el antipasban si es 02 ya salio y no posee entrada*/
-		//	{																																																							/*00 inhabilitada la tarjeta*/
-		//	Debug_txt_Tibbo((unsigned char *) "ERROR: SIN INGRESO\r\n");
-		//	send_portERR(0xA2);																															/*error audio*/	
-		//	send_portERR(0XE6);
-		//	PantallaLCD(SIN_INGRESO);
-		//	g_cEstadoComSeqMF=SEQ_EXPULSAR_TARJ;
-				
-		//	}
-		//	else
-		//	{
-				
-			 /*------------------------------------------------------------------------------	
-				tipo de tarjeta
-				------------------------------------------------------------------------------*/
-		
-			//	if 	((buffer_S1_B1[MF_TIPO_TARJETA]==ROTACION))					
-			//	{
-				//	Debug_txt_Tibbo((unsigned char *) "TIPO DE TARJETA ROTACION\r\n");
-				//	g_cEstadoComSeqMF=SEQ_ROTACION;
-					
-			//	}
-			//	else if ((buffer_S1_B1[MF_TIPO_TARJETA]== MENSUALIDAD))	
-			//	{
-			//		Debug_txt_Tibbo((unsigned char *) "TIPO DE TARJETA MENSUALIDAD\r\n ");
-			//		g_cEstadoComSeqMF=SEQ_MENSUAL;
-					
-			//	}
-			//	else
-			//	{
-			//		Debug_txt_Tibbo((unsigned char *) "TIPO NUEVO DE TARJETA SIN DEFINIR\r\n");
-			//	  g_cEstadoComSeqMF=SEQ_EXPULSAR_TARJ;
-				  
-			//	}
-		//	}
-		//	break;
-		// }
-		// else
-		//{
-			//g_cEstadoComSeqMF=SEQ_RD_S1B2;
-			
-	//	}
-	}
+	
+		}
 		break;
 	case SEQ_ROTACION:
 		
@@ -1670,15 +1673,15 @@ ANALIZO LO LEIDO  Mf en el  sector 1 bloque 2
 				
 					Debug_txt_Tibbo((unsigned char *) "MENSUAL AL DIA\r\n");	
 				
-				//	Armar_Trama_Tarjeta_Sector1_Bloque2(Atributos_Expedidor,Buffer_Write_MF);
+				
 					g_cEstadoComSeqMF=SEQ_RD_S1B0;	
 				
 			}
 				else 
 			{
-				//send_portERR(PRMR_TARJETA_VENCIDA);	
+				send_portERR(PRMR_TARJETA_VENCIDA);	
 						
-//				PantallaLCD(TARJETA_VENCIDA);
+				PantallaLCD(TARJETA_VENCIDA);
 				Debug_txt_Tibbo((unsigned char *) "MENSUAL EXPIRA\r\n");
 				g_cEstadoComSeqMF = SEQ_EXPULSAR_TARJ;
 				
@@ -2033,11 +2036,79 @@ LA tarjeta no tiene pago
 		break;
 	case SEQ_POWER_OFF:
 		Power_off();
-		g_cEstadoComSeqMF=SEQ_UID;
+		g_cEstadoComSeqMF=SEQ_POWER_OFF_RPTA;
+		break;
+	case SEQ_POWER_OFF_RPTA:
+		if((temp=Trama_Validacion_P_N())!=0)
+		{
+			if(temp==2)
+			{
+			g_cEstadoComSeqMF=SEQ_POWER_OFF_RPTA;																												/*no ha respondido*/
+			}	
+			else if (temp==3)
+			{
+			Debug_txt_Tibbo((unsigned char *) "SEQ_POWER_OFF_RPTA  FALLO\r\n");											/* trama no valida*/
+			DebugBufferMF(Buffer_Rta_Lintech,g_cContByteRx,1);																					/*imprimo la trama recibida*/
+			g_cEstadoComSeqMF=SEQ_POWER_OFF;																													/* (3) Trama invalida cmd (N)*/	
+			}			
+			else
+			{
+				
+				/*Dispensador No Responde PTO SERIE ...*/
+		
+				if(temp=error_rx_pto()==0)
+				{
+					g_cEstadoComSeqMF=SEQ_POWER_OFF_RPTA;
+				}
+				else if(temp=error_rx_pto()==1)
+				{
+					g_cEstadoComSeqMF=SEQ_POWER_OFF;
+				}
+			
+			}
+		}
+		else
+		{
+			g_cEstadoComSeqMF=SEQ_UID;
+		}
 		break;
 	case SEQ_POWER_ON:
 		Power_off();
-	g_cEstadoComSeqMF = SEQ_LOAD_PASSWORD;
+	g_cEstadoComSeqMF = SEQ_POWER_ON_RPTA;
+		break;
+	case SEQ_POWER_ON_RPTA:
+			if((temp=Trama_Validacion_P_N())!=0)
+		{
+			if(temp==2)
+			{
+			g_cEstadoComSeqMF=SEQ_POWER_ON_RPTA;																												/*no ha respondido*/
+			}	
+			else if (temp==3)
+			{
+			Debug_txt_Tibbo((unsigned char *) "SEQ_POWER_ON_RPTA  FALLO\r\n");											/* trama no valida*/
+			DebugBufferMF(Buffer_Rta_Lintech,g_cContByteRx,1);																					/*imprimo la trama recibida*/
+			g_cEstadoComSeqMF=SEQ_POWER_ON;																													/* (3) Trama invalida cmd (N)*/	
+			}			
+			else
+			{
+				
+				/*Dispensador No Responde PTO SERIE ...*/
+		
+				if(temp=error_rx_pto()==0)
+				{
+					g_cEstadoComSeqMF=SEQ_POWER_ON_RPTA;
+				}
+				else if(temp=error_rx_pto()==1)
+				{
+					g_cEstadoComSeqMF=SEQ_POWER_ON;
+				}
+			
+			}
+		}
+		else
+		{
+			g_cEstadoComSeqMF=SEQ_LOAD_PASSWORD;
+		}
 		break;
 	case SEQ_TIPO_CARD:
 		Aut_Card_check_Status();
@@ -2059,11 +2130,31 @@ expulsa la tarjeta por que no pertenece a MF50
 			if(temp==2)
 			{
 			g_cEstadoComSeqMF=SEQ_EXPULSAR_CHECK;																												/*no ha respondido*/
-			}	
-			else	g_cEstadoComSeqMF=SEQ_INICIO;																													/* respuesta incorrecta*/																									
+			}
+			else if (temp==3)
+			{
+				
+					g_cEstadoComSeqMF=SEQ_INICIO;																															/* (3) Trama invalida cmd (N)*/	
+			}				
+			else
+			{	
+						/*Dispensador No Responde PTO SERIE ...*/
+		
+				if(temp=error_rx_pto()==0)
+				{
+					g_cEstadoComSeqMF=SEQ_EXPULSAR_CHECK;
+				}
+				else if(temp=error_rx_pto()==1)
+				{
+					g_cEstadoComSeqMF=SEQ_EXPULSAR_TARJ;
+				}					
+																					
+			}
+																																					
 		}
 		else
 		{
+			lock=0;
 			g_cEstadoComSeqMF=SEQ_EXPULSAR;																															/*respuesta ok inicia clave verificada*/
 		}		
 		

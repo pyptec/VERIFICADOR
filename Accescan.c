@@ -32,6 +32,7 @@ extern unsigned char Tipo_Vehiculo;
 extern unsigned char ValTimeOutCom;
 
 extern unsigned char  Debug_Tibbo;
+extern unsigned char buffer_S_B[17];
 sbit rx_ip = P0^0;				
 sbit lock = P1^7;						//Relevo 
 sbit Atascado = P0^3;				//Rele de on/off del verificador o transporte
@@ -409,19 +410,19 @@ void Cmd_LPR_Salida_wiegand(unsigned char *buffer)
 /*------------------------------------------------------------------------------
 
 ------------------------------------------------------------------------------*/
-void Cmd_LPR_Salida(unsigned char *buffer_S1_B0,unsigned char *buffer_S1_B2)
+void Cmd_LPR_Salida(unsigned char *buffer_S1_B0,unsigned char *buffer_S1_B)
 {
 	
 	
 	unsigned char Buffer_Lpr[30];
-	unsigned temp;
 	unsigned char j=3;
 	Buffer_Lpr[0]=STX;																/*inicio de cmd STx*/
 	Buffer_Lpr[1]=Dir_board();												/*direccion de la tarjeta*/
 	Buffer_Lpr[2]='S';																/*numero de digitos de transmicion NO IMPORTA NO ES VALIDADO EN PRINCIPAL*/
 
 	/*Tipo de vehiculo*/
-		if(*(buffer_S1_B2+8)!=0)												
+	
+		if(buffer_S_B[8] != 0)												
 		{
 			Buffer_Lpr[j++]='M';													/*moto*/
 		}
@@ -429,7 +430,7 @@ void Cmd_LPR_Salida(unsigned char *buffer_S1_B0,unsigned char *buffer_S1_B2)
 		{
 			Buffer_Lpr[j++]='C';													/*carro*/
 		}
-	if(*(buffer_S1_B0 + Tipo_Tarjeta )== MENSUALIDAD)
+	if(*(buffer_S1_B0 + Tipo_Tarjeta) == MENSUALIDAD)
 	{
 		ByteHex_Decimal(Buffer_Lpr+4,*(buffer_S1_B0 + Uid_2));
 		j=strlen(Buffer_Lpr);
@@ -442,40 +443,28 @@ void Cmd_LPR_Salida(unsigned char *buffer_S1_B0,unsigned char *buffer_S1_B2)
 	else
 	{
 	/*ticket o consecutivo*/
+	
 		do
 		{
-		Buffer_Lpr[j++]=*buffer_S1_B0;									/*ticket o consecutivo*/
-		buffer_S1_B0++;
-		}while (*buffer_S1_B0!=0);
+		
+		Buffer_Lpr[j++]=*buffer_S1_B;									/*ticket o consecutivo*/
+		buffer_S1_B++;
+		}while (*buffer_S1_B != 0);
+		
+		Buffer_Lpr[j++]=0;
 	}
 	
 		j=strlen(Buffer_Lpr);
 	
 	
 		Buffer_Lpr[j]=':';														/*separador de la fecha de entrada*/
-
-		temp=hex_bcd(*(buffer_S1_B2+0));								/*año a ascii*/
-		Buffer_Lpr[j++]=((temp & 0xf0)>>4)| 0x30;
-		Buffer_Lpr[j++]=((temp & 0x0f))| 0x30;
 		
-		temp=hex_bcd(*(buffer_S1_B2+1));								/*mes a ascii*/
-		Buffer_Lpr[j++]=((temp & 0xf0)>>4)| 0x30;
-		Buffer_Lpr[j++]=((temp & 0x0f))| 0x30;
-	
-		temp=hex_bcd(*(buffer_S1_B2+2));								/*Dia a ascii*/
-		Buffer_Lpr[j++]=((temp & 0xf0)>>4)| 0x30;
-		Buffer_Lpr[j++]=((temp & 0x0f))| 0x30;
-	
-		temp=hex_bcd(*(buffer_S1_B2+3));								/*Hora a ascii*/
-		Buffer_Lpr[j++]=((temp & 0xf0)>>4)| 0x30;
-		Buffer_Lpr[j++]=((temp & 0x0f))| 0x30;
-	
-		temp=hex_bcd(*(buffer_S1_B2+4));								/*Minutos a ascii*/
-		Buffer_Lpr[j++]=((temp & 0xf0)>>4)| 0x30;
-		Buffer_Lpr[j++]=((temp & 0x0f))| 0x30;
-	
+	/*fecha de entrada*/
 		
-	
+		Block_read_clock_ascii(Buffer_Lpr+j+1);			//leo la fecha de entrada
+			
+		j=strlen(Buffer_Lpr);
+		
 		Buffer_Lpr[j++]=':';														/*separador tipo fecha*/
 																										/**/
 				
@@ -483,7 +472,6 @@ void Cmd_LPR_Salida(unsigned char *buffer_S1_B0,unsigned char *buffer_S1_B2)
 	
 		Monitor_chr(Buffer_Lpr,j);												/*rutina de envio de la trama a monitor*/
 }
-//void Cmd_LPR_Salida_Mensual(unsigned char *buffer_S1_B0,unsigned char *buffer_S1_B2)
-//{}
+
 	
 	

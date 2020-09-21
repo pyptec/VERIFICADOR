@@ -403,7 +403,7 @@ void Two_ByteHex_Decimal(unsigned char *buffer,unsigned char id_h,unsigned char 
 	buffer++;
 	*buffer=numero|0x30;
 	buffer++;
-	*buffer=00;
+	*buffer=0;
 	
 }
 /*------------------------------------------------------------------------------

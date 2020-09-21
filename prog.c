@@ -37,7 +37,9 @@ unsigned char validacion [9]={"admin"};	//usuario
 #define EE_CPRCN_ACTIVA				0x000C
 #define EE_TIPO_PANTALLA			0X000E
 #define	EE_DCTO_PASA_CAJA			0X000F
+#define EE_ADDRESS_HIGH_BOARD		0X0012
 #define EE_JUST_ONE_TIME_CLAVE	0X0013
+#define	EE_HABILITA_APB_MENSUAL 0X0015
 #define EE_HORARIO_1						0X0019
 #define EE_HORARIO_2						0x0032
 #define EE_HORARIO_3						0x004b
@@ -53,7 +55,7 @@ unsigned char validacion [9]={"admin"};	//usuario
 #define EE_FECHA_VENCIMIENTO		0X0350
 /* Definicion del tamaño de comando y longitud de cmd*/
 
-#define 	NUMCOMMAND 14
+#define 	NUMCOMMAND 16
 #define 	LONGSIZE 3
 
 
@@ -92,11 +94,13 @@ char comandos[NUMCOMMAND][LONGSIZE]=
 	"6",//COMPARACION_ACTIVA
 	"7",			//TIPO_PANTALLA
 	"8",			//DCTO por caja
-	"9",			// prog horario
-	"10",			// ver cmd programados
-	"11",     //AYUDA Ayuda!muestra todos los comandos
-	"12",		//SALIRSalir de programacion
-	"13"		////cmd escondido fecha de vencimiento password
+	"9",		// habilita apb para mensual
+	"10",		// direccion logico
+	"11",			// prog horario
+	"12",			// ver cmd programados
+	"13",     //AYUDA Ayuda!muestra todos los comandos
+	"14",		//SALIRSalir de programacion
+	"15"		////cmd escondido fecha de vencimiento password
 };
 
 /*------------------------------------------------------------------------------
@@ -119,6 +123,7 @@ unsigned char *hash_id(unsigned char *clave)
 	if (check_fechaOut_2(vencimiento_password) != True)
 		
 	{
+		printf("\n CONTRASEÑA ACTUAL VENCIDA DEBE RENOVAR FECHA VENCIMIENTO \n");	
 		strcpy(aleatorio,"@#!$`Fb^&*");
 	}
 	else
@@ -579,6 +584,72 @@ void dcto_caja()
 	else
 	{
 		printf("\r\n\n APLICA DESCUENTO=%s\r\n\n",buffer);			
+	}
+}
+void Prog_Apb_Mensual()
+{
+	unsigned char buffer[10];
+	unsigned int dataee;
+
+	
+	dataee=rd_eeprom(0xa8,EE_HABILITA_APB_MENSUAL);																					/*se lee el id_cliente actual */
+	sprintf(buffer,"%d",dataee);																									/*se convierte  un entero a un string*/
+	if(dataee==0)
+	{
+		printf("\r\n\n ACTUAL ANTIPASSBACK MENSUAL INHABILITADO=%s\r\n\n",buffer);														/*se muestra el id_cliente actual en pantalla*/
+	}
+	else
+	{
+		printf("\r\n\n ACTUAL ANTIPASSBACK MENSUAL HABILITADO=%s\r\n\n",buffer);			
+	}
+	
+	printf("\r\n\n DIGITE EL NUEVO ESTADO DE ANTIPASSBACK MENSUAL=");																	/*digite el nuevo id_cliente*/
+	IngresaDato(buffer,0);																												/*trae el dato digitado*/
+	dataee=atoi(buffer);																													/*lo convierto a un dato hex*/
+	wr_eeprom(0xa8,EE_HABILITA_APB_MENSUAL,dataee);																					/*grabo el dato en la eeprom*/
+	
+	dataee=rd_eeprom(0xa8,EE_HABILITA_APB_MENSUAL);																				/*leo el dato grabado*/
+	sprintf(buffer,"%d",dataee);	
+	if(dataee==0)
+	{
+		printf("\r\n\n ACTUAL ANTIPASSBACK MENSUAL INHABILITADO=%s\r\n\n",buffer);														/*se muestra el id_cliente actual en pantalla*/
+	}
+	else
+	{
+		printf("\r\n\n ACTUAL ANTIPASSBACK  MENSUAL HABILITADO=%s\r\n\n",buffer);			
+	}
+}
+void Prog_Address_High_Board()
+{
+	unsigned char buffer[10];
+	unsigned int dataee;
+
+	
+	dataee=rd_eeprom(0xa8,EE_ADDRESS_HIGH_BOARD);																					/*se lee el id_cliente actual */
+	sprintf(buffer,"%d",dataee);																									/*se convierte  un entero a un string*/
+	if(dataee==0)
+	{
+		printf("\r\n\n ACTUAL ADDRESS_HIGH_BOARD=%s\r\n\n",buffer);														/*se muestra el id_cliente actual en pantalla*/
+	}
+	else
+	{
+		printf("\r\n\n ACTUAL ADDRESS_HIGH_BOARD=%s\r\n\n",buffer);			
+	}
+	
+	printf("\r\n\n DIGITE LA NUEVA ADDRESS_HIGH_BOARD=");																	/*digite el nuevo id_cliente*/
+	IngresaDato(buffer,0);																												/*trae el dato digitado*/
+	dataee=atoi(buffer);																													/*lo convierto a un dato hex*/
+	wr_eeprom(0xa8,EE_ADDRESS_HIGH_BOARD,dataee);																					/*grabo el dato en la eeprom*/
+	
+	dataee=rd_eeprom(0xa8,EE_ADDRESS_HIGH_BOARD);																				/*leo el dato grabado*/
+	sprintf(buffer,"%d",dataee);	
+	if(dataee==0)
+	{
+		printf("\r\n\n ACTUAL ADDRESS_HIGH_BOARD=%s\r\n\n",buffer);														/*se muestra el id_cliente actual en pantalla*/
+	}
+	else
+	{
+		printf("\r\n\n ACTUAL ADDRESS_HIGH_BOARD=%s\r\n\n",buffer);			
 	}
 }
 unsigned char *Addr_Horarios()
@@ -1120,6 +1191,25 @@ void Ver_Prog()
 	{
 		printf("\r\n\n APLICA DESCUENTO=%s\r\n\n",buffer);			
 	}
+	/*APB MENSUAL*/
+	dataee=rd_eeprom(0xa8,EE_HABILITA_APB_MENSUAL);																					/*se lee el id_cliente actual */
+	sprintf(buffer,"%d",dataee);																									/*se convierte  un entero a un string*/
+	if(dataee==0)
+	{
+		printf("\r\n\n  ANTIPASSBACK MENSUAL = OFF\r\n");														/*se muestra el id_cliente actual en pantalla*/
+	}
+	else
+	{
+		printf("\r\n\n  ANTIPASSBACK MENSUAL = ON\r\n");			
+	}	
+	/*ADDRESS HIGH*/
+	dataee=rd_eeprom(0xa8,EE_ADDRESS_HIGH_BOARD);																					/*se lee el id_cliente actual */
+	sprintf(buffer,"%d",dataee);																									/*se convierte  un entero a un string*/
+	if(dataee==0)
+	{
+		printf("ACTUAL ADDRESS_HIGH_BOARD PROGRAMADA = %s\r\n",buffer);														/*se muestra el id_cliente actual en pantalla*/
+	}
+
 	
 	/*horarios Programados*/
 	 Ver_Horario();
@@ -1144,10 +1234,12 @@ void Show()
    printf("\r\n COMPARACION_ACTIVA --- CMD 6 Habilitar = 1, Inhabilitar = 0");
 	 printf("\r\n TIPO_PANTALLA     --- CMD 7 (0) pantalla lcd  serie (1) raspberry o bluetooth");
 	 printf("\r\n DCTO_PASA_CAJA     --- CMD 8 (0) pasa por caja (1) aplica el descuento");
-	 printf("\r\n HORARIO            --- CMD 9 Progama 10 horarios del 1 al 10");
-	 printf("\r\n VER_PROGRAMACION   --- CMD 10 Muestra la programacion");
-	 printf("\r\n AYUDA         --- CMD 11 Muestra los comandos");
-   printf("\r\n SALIR         --- CMD 12 Salir de programacion");
+	 printf("\r\n USE_APB_MENSUAL    --- CMD 9 Habilitar = 1, Inhabilitar = 0");
+	 printf("\r\n ADDRESS_HIGH_BOARD --- CMD 10 La direccion alta del board del numero 5 al 9 sino se usa debe ir en 0");
+   printf("\r\n HORARIO            --- CMD 11 Progama 10 horarios del 1 al 10");
+	 printf("\r\n VER_PROGRAMACION   --- CMD 12 Muestra la programacion");
+	 printf("\r\n AYUDA         --- CMD 13 Muestra los comandos");
+   printf("\r\n SALIR         --- CMD 14 Salir de programacion");
 
 }
 /*------------------------------------------------------------------------------
@@ -1162,8 +1254,8 @@ void  First_Clave()
 		clave[10] = 0;
 		strcpy (validacion,hash_id(clave));
 		EscribirMemoria(EE_ID_REGISTER,validacion);
-		validacion[0]=0x14;
-		validacion[0]=0x0B;
+		validacion[0]=0x14;		//año
+		validacion[0]=0x0B;		//mes
 		validacion[0]=0x14;
 		validacion[0]=0;
 		
@@ -1194,8 +1286,7 @@ if(rd_eeprom(0xa8,EE_JUST_ONE_TIME_CLAVE) != False)
 	
 	}
  
-	
-	
+
 	do{
 	printf("\r\n\n/>Id Registro:");
 	LeerMemoria(EE_ID_REGISTER,buffer);
@@ -1206,23 +1297,13 @@ if(rd_eeprom(0xa8,EE_JUST_ONE_TIME_CLAVE) != False)
 	
 		/*para pruebas*/
 //	printf("\r\n\%s ", validacion);
-		
+	
 	IngresaDato(buffer,1);					//ingreso el password por teclado 
 	cmd = GetCMD(buffer);					//quita el carri return	
 	EscribirMemoria(EE_ID_REGISTER,validacion);
 }while(ValidarClave(cmd)!=0);				//validamos el usuario
 
-/*
-  do{
-printf("\r\n\n/>Password:");
 
-	IngresaDato(buffer,1);					//ingreso el password por teclado 
-	cmd = GetCMD(buffer);					//quita el carri return	
-	strcpy (validacion,"123456");
-	//strcpy (validacion,usuario);		/*valida el valor encriptado*/
-/*
-	}while(ValidarClave(cmd)!=0);				//
-*/
 	
 	Show();
 	while(1)
@@ -1296,21 +1377,28 @@ printf("\r\n\n/>Password:");
 						dcto_caja();
 						  break;
 						case 9:		//cmd configuracion los horarios
+							Prog_Apb_Mensual();
+            break;
+						case 10:		//cmd configuracion de la direccion del board
+							Prog_Address_High_Board();
+            break;
+						case 11:		//cmd configuracion los horarios
 							Prog_Horarios();
             break;
-						case 10:  //help me
+						
+						case 12:  //help me
            
 							Ver_Prog();
                break;
-						case 11:  //help me
+						case 13:  //help me
            
 							Show();
                break;
-						case 12:  //salir
+						case 14:  //salir
 						return;
 
                break;
-           	case 13:
+           	case 15:
 							Prog_fecha_vencimiento();
 							break;
 		
