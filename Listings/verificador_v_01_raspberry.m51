@@ -1,4 +1,4 @@
-BL51 BANKED LINKER/LOCATER V6.22.2.0                                                    09/21/2020  13:31:53  PAGE 1
+BL51 BANKED LINKER/LOCATER V6.22.2.0                                                    09/28/2020  11:10:44  PAGE 1
 
 
 BL51 BANKED LINKER/LOCATER V6.22.2.0, INVOKED BY:
@@ -59,7 +59,7 @@ INPUT MODULES INCLUDED:
   C:\KEIL_V5\C51\LIB\C51L.LIB (?C?LSTXDATA)
   C:\KEIL_V5\C51\LIB\C51L.LIB (?C?LSTKXDATA)
   C:\KEIL_V5\C51\LIB\C51L.LIB (?C?PLDIXDATA)
-BL51 BANKED LINKER/LOCATER V6.22.2.0                                                  09/21/2020  13:31:53  PAGE 2
+BL51 BANKED LINKER/LOCATER V6.22.2.0                                                  09/28/2020  11:10:44  PAGE 2
 
 
   C:\KEIL_V5\C51\LIB\C51L.LIB (?C?PSTXDATA)
@@ -119,7 +119,7 @@ LINK MAP OF MODULE:  .\Objects\verificador_v_01_raspberry (MAIN)
             CODE    000BH     0003H     ABSOLUTE     
             CODE    000EH     0015H     UNIT         ?PR?_STRLEN?STRLEN
             CODE    0023H     0003H     ABSOLUTE     
-BL51 BANKED LINKER/LOCATER V6.22.2.0                                                  09/21/2020  13:31:53  PAGE 3
+BL51 BANKED LINKER/LOCATER V6.22.2.0                                                  09/28/2020  11:10:44  PAGE 3
 
 
             CODE    0026H     116CH     UNIT         ?CO?PROG
@@ -179,7 +179,7 @@ LINK MAP OF MODULE:  .\Objects\verificador_v_01_raspberry (MAIN)
             CODE    83A6H     00C4H     UNIT         ?PR?_BLOCK_READ_CLOCK?CLOCK
             CODE    846AH     00C3H     UNIT         ?PR?_RD_MF?LINTECH
             CODE    852DH     00BDH     UNIT         ?PR?PROG_COD_PARK?PROG
-BL51 BANKED LINKER/LOCATER V6.22.2.0                                                  09/21/2020  13:31:53  PAGE 4
+BL51 BANKED LINKER/LOCATER V6.22.2.0                                                  09/28/2020  11:10:44  PAGE 4
 
 
             CODE    85EAH     00BDH     UNIT         ?PR?PROG_TIEMPO_GRACIA?PROG
@@ -239,7 +239,7 @@ LINK MAP OF MODULE:  .\Objects\verificador_v_01_raspberry (MAIN)
             CODE    A1B1H     0046H     UNIT         ?PR?_LCD_TXT_NUM_CHAR?PANTALLAS
             CODE    A1F7H     0046H     UNIT         ?PR?_DEBUG_HEXDEC?TIBBO
             CODE    A23DH     0044H     UNIT         ?PR?_LCD_TXT?PANTALLAS
-BL51 BANKED LINKER/LOCATER V6.22.2.0                                                  09/21/2020  13:31:53  PAGE 5
+BL51 BANKED LINKER/LOCATER V6.22.2.0                                                  09/28/2020  11:10:44  PAGE 5
 
 
             CODE    A281H     0044H     UNIT         ?PR?_DEBUG_TXT_TIBBO?TIBBO
@@ -278,32 +278,33 @@ LINK MAP OF MODULE:  .\Objects\verificador_v_01_raspberry (MAIN)
             CODE    A855H     0014H     UNIT         ?PR?_ISSPACE?ISSPACE
             CODE    A869H     0012H     UNIT         ?PR?_DELAY_20US?DELAY
             CODE    A87BH     0012H     UNIT         ?PR?START?EEPROM
-            CODE    A88DH     0012H     UNIT         ?PR?PULSO_BUS?PTO_PARALELO
-            CODE    A89FH     0012H     UNIT         ?PR?COM_RBUFLEN?UART
-            CODE    A8B1H     0012H     UNIT         ?PR?COM_TBUFLEN?UART
-            CODE    A8C3H     0010H     UNIT         ?PR?INI_TIMER?MAIN
-            CODE    A8D3H     0010H     UNIT         ?PR?INICIA_BOARD?MAIN
-            CODE    A8E3H     000FH     UNIT         ?PR?_ISDIGIT?ISDIGIT
-            CODE    A8F2H     000CH     UNIT         ?PR?_GETKEY?MAIN
-            CODE    A8FEH     000AH     UNIT         ?PR?COND_INI_PTO?PTO_PARALELO
-            CODE    A908H     0009H     UNIT         ?PR?STOP?EEPROM
-            CODE    A911H     0009H     UNIT         ?PR?DEBUG_DIVIDIR_TEXTO?TIBBO
-            CODE    A91AH     0007H     UNIT         ?PR?COND_INI_CLOCK?CLOCK
-            CODE    A921H     0007H     UNIT         ?PR?SEL_FUNCION?IO_SENSORES
-            CODE    A928H     0007H     UNIT         ?PR?SEL_AUTO?IO_SENSORES
-            CODE    A92FH     0007H     UNIT         ?PR?SEL_SENSOR2?IO_SENSORES
-            CODE    A936H     0007H     UNIT         ?PR?SEL_SENSOR1?IO_SENSORES
-            CODE    A93DH     0007H     UNIT         ?PR?SEL_DIR1?IO_SENSORES
-            CODE    A944H     0007H     UNIT         ?PR?SEL_DIR2?IO_SENSORES
-            CODE    A94BH     0006H     UNIT         ?PR?P_ME?EEPROM
-            CODE    A951H     0005H     UNIT         ?PR?ON_TIMER0_INTERRUP?MAIN
-            CODE    A956H     0005H     UNIT         ?CO?ACCESCAN
-            CODE    A95BH     0005H     UNIT         ?PR?COND_INI_TIBBO?TIBBO
-BL51 BANKED LINKER/LOCATER V6.22.2.0                                                  09/21/2020  13:31:53  PAGE 6
+            CODE    A88DH     0012H     UNIT         ?PR?DIR_BOARD_MONITOR?IO_SENSORES
+            CODE    A89FH     0012H     UNIT         ?PR?PULSO_BUS?PTO_PARALELO
+            CODE    A8B1H     0012H     UNIT         ?PR?COM_RBUFLEN?UART
+            CODE    A8C3H     0012H     UNIT         ?PR?COM_TBUFLEN?UART
+            CODE    A8D5H     0010H     UNIT         ?PR?INI_TIMER?MAIN
+            CODE    A8E5H     0010H     UNIT         ?PR?INICIA_BOARD?MAIN
+            CODE    A8F5H     000FH     UNIT         ?PR?_ISDIGIT?ISDIGIT
+            CODE    A904H     000CH     UNIT         ?PR?_GETKEY?MAIN
+            CODE    A910H     000AH     UNIT         ?PR?COND_INI_PTO?PTO_PARALELO
+            CODE    A91AH     0009H     UNIT         ?PR?STOP?EEPROM
+            CODE    A923H     0009H     UNIT         ?PR?DEBUG_DIVIDIR_TEXTO?TIBBO
+            CODE    A92CH     0007H     UNIT         ?PR?COND_INI_CLOCK?CLOCK
+            CODE    A933H     0007H     UNIT         ?PR?SEL_FUNCION?IO_SENSORES
+            CODE    A93AH     0007H     UNIT         ?PR?SEL_AUTO?IO_SENSORES
+            CODE    A941H     0007H     UNIT         ?PR?SEL_SENSOR2?IO_SENSORES
+            CODE    A948H     0007H     UNIT         ?PR?SEL_SENSOR1?IO_SENSORES
+            CODE    A94FH     0007H     UNIT         ?PR?SEL_DIR1?IO_SENSORES
+            CODE    A956H     0007H     UNIT         ?PR?SEL_DIR2?IO_SENSORES
+            CODE    A95DH     0006H     UNIT         ?PR?P_ME?EEPROM
+            CODE    A963H     0005H     UNIT         ?PR?ON_TIMER0_INTERRUP?MAIN
+            CODE    A968H     0005H     UNIT         ?CO?ACCESCAN
+BL51 BANKED LINKER/LOCATER V6.22.2.0                                                  09/28/2020  11:10:44  PAGE 6
 
 
-            CODE    A960H     0003H     UNIT         ?PR?OFF_TIMER0_INTERRUP?MAIN
-            CODE    A963H     0001H     UNIT         ?PR?DELAY?DELAY
+            CODE    A96DH     0005H     UNIT         ?PR?COND_INI_TIBBO?TIBBO
+            CODE    A972H     0003H     UNIT         ?PR?OFF_TIMER0_INTERRUP?MAIN
+            CODE    A975H     0001H     UNIT         ?PR?DELAY?DELAY
 
 
 
@@ -358,10 +359,10 @@ SEGMENT                                             BIT_GROUP          DATA_GROU
   +--> ?PR?_LEERMEMORIA?EEPROM
   +--> ?PR?_HASH_ID?PROG
   +--> ?PR?_INGRESADATO?PROG
+BL51 BANKED LINKER/LOCATER V6.22.2.0                                                  09/28/2020  11:10:44  PAGE 7
+
+
   +--> ?PR?_GETCMD?PROG
-BL51 BANKED LINKER/LOCATER V6.22.2.0                                                  09/21/2020  13:31:53  PAGE 7
-
-
   +--> ?PR?_ESCRIBIRMEMORIA?EEPROM
   +--> ?PR?_VALIDARCLAVE?PROG
   +--> ?PR?DISPLAYCURSOR?PROG
@@ -418,8 +419,8 @@ SEGMENT                                             BIT_GROUP          DATA_GROU
 
 ?PR?_BLOCK_READ_CLOCK_ASCII?CLOCK                -----    -----      -----    -----      0065H    0003H
   +--> ?PR?_LEE_CLK?CLOCK
+BL51 BANKED LINKER/LOCATER V6.22.2.0                                                  09/28/2020  11:10:44  PAGE 8
 
-BL51 BANKED LINKER/LOCATER V6.22.2.0                                                  09/21/2020  13:31:53  PAGE 8
 
 
 ?PR?_LEE_CLK?CLOCK                               -----    -----      -----    -----      00C5H    0003H
@@ -478,10 +479,10 @@ SEGMENT                                             BIT_GROUP          DATA_GROU
 
 ?PR?_GETCMD?PROG                                 -----    -----      -----    -----      0071H    0007H
   +--> ?CO?PROG
+BL51 BANKED LINKER/LOCATER V6.22.2.0                                                  09/28/2020  11:10:44  PAGE 9
+
+
   +--> ?PR?_STRTOK?STRTOK
-BL51 BANKED LINKER/LOCATER V6.22.2.0                                                  09/21/2020  13:31:53  PAGE 9
-
-
 
 ?PR?_STRTOK?STRTOK                               -----    -----      -----    -----      0078H    0006H
   +--> ?PR?_STRSPN?STRSPN
@@ -538,10 +539,10 @@ SEGMENT                                             BIT_GROUP          DATA_GROU
   +--> ?CO?PROG
   +--> ?PR?PRINTF?PRINTF
   +--> ?PR?_INGRESADATO?PROG
+BL51 BANKED LINKER/LOCATER V6.22.2.0                                                  09/28/2020  11:10:44  PAGE 10
+
+
   +--> ?PR?_ATOI?ATOI
-BL51 BANKED LINKER/LOCATER V6.22.2.0                                                  09/21/2020  13:31:53  PAGE 10
-
-
   +--> ?PR?_WR_EEPROM?EEPROM
 
 ?PR?PROG_DEBUG?PROG                              -----    -----      -----    -----      005AH    000CH
@@ -598,10 +599,10 @@ SEGMENT                                             BIT_GROUP          DATA_GROU
   +--> ?PR?PRINTF?PRINTF
   +--> ?PR?_INGRESADATO?PROG
   +--> ?PR?_ATOI?ATOI
+BL51 BANKED LINKER/LOCATER V6.22.2.0                                                  09/28/2020  11:10:44  PAGE 11
+
+
   +--> ?PR?_WR_EEPROM?EEPROM
-BL51 BANKED LINKER/LOCATER V6.22.2.0                                                  09/21/2020  13:31:53  PAGE 11
-
-
 
 ?PR?PROG_HORARIOS?PROG                           -----    -----      -----    -----      005AH    001BH
   +--> ?PR?ADDR_HORARIOS?PROG
@@ -658,10 +659,10 @@ SEGMENT                                             BIT_GROUP          DATA_GROU
 ?PR?_VER_HORARIO_DIAS?PROG                       -----    -----      -----    -----      0088H    0003H
   +--> ?PR?_RD_EEPROM?EEPROM
   +--> ?CO?PROG
+BL51 BANKED LINKER/LOCATER V6.22.2.0                                                  09/28/2020  11:10:44  PAGE 12
+
+
   +--> ?PR?PRINTF?PRINTF
-BL51 BANKED LINKER/LOCATER V6.22.2.0                                                  09/21/2020  13:31:53  PAGE 12
-
-
 
 ?PR?_VER_HORARIO_DESDE_HASTA?PROG                -----    -----      -----    -----      0088H    0002H
   +--> ?CO?PROG
@@ -718,10 +719,10 @@ SEGMENT                                             BIT_GROUP          DATA_GROU
 ?PR?_DEBUG_CHR_TIBBO?TIBBO                       -----    -----      -----    -----      -----    -----
   +--> ?PR?_TX_AUX?TIBBO
 
+BL51 BANKED LINKER/LOCATER V6.22.2.0                                                  09/28/2020  11:10:44  PAGE 13
+
+
 ?PR?_ESCRIBIRCADENASOFT_BUFFER?MAIN              -----    -----      -----    -----      0034H    0006H
-BL51 BANKED LINKER/LOCATER V6.22.2.0                                                  09/21/2020  13:31:53  PAGE 13
-
-
   +--> ?PR?_PUTCHAR?MAIN
 
 ?PR?DWLOAD_EEPROM?LINTECH                        -----    -----      -----    -----      0002H    0016H
@@ -778,10 +779,10 @@ SEGMENT                                             BIT_GROUP          DATA_GROU
   +--> ?PR?_ESCRIBIRCADENASOFT_BUFFER?MAIN
 
 ?PR?ERROR_RX_PTO?VERIFICADOR                     -----    -----      -----    -----      000EH    0001H
+BL51 BANKED LINKER/LOCATER V6.22.2.0                                                  09/28/2020  11:10:44  PAGE 14
+
+
   +--> ?CO?VERIFICADOR
-BL51 BANKED LINKER/LOCATER V6.22.2.0                                                  09/21/2020  13:31:53  PAGE 14
-
-
   +--> ?PR?_DEBUG_TXT_TIBBO?TIBBO
   +--> ?PR?_DEBUG_CHR_TIBBO?TIBBO
   +--> ?PR?_DELAY_10MS?DELAY
@@ -838,10 +839,10 @@ SEGMENT                                             BIT_GROUP          DATA_GROU
   +--> ?CO?VERIFICADOR
   +--> ?PR?_DEBUG_TXT_TIBBO?TIBBO
   +--> ?PR?_DEBUGBUFFERMF?TIBBO
+BL51 BANKED LINKER/LOCATER V6.22.2.0                                                  09/28/2020  11:10:44  PAGE 15
+
+
   +--> ?PR?_DEBUG_HEXDEC?TIBBO
-BL51 BANKED LINKER/LOCATER V6.22.2.0                                                  09/21/2020  13:31:53  PAGE 15
-
-
   +--> ?PR?_DEBUG_CHR_TIBBO?TIBBO
   +--> ?PR?_SEND_PORTERR?PTO_PARALELO
   +--> ?PR?_PANTALLALCD?PANTALLAS
@@ -898,10 +899,10 @@ SEGMENT                                             BIT_GROUP          DATA_GROU
 
 ?PR?_HORA_MAXIMA?VERIFICADOR                     -----    -----      -----    -----      002BH    0008H
   +--> ?PR?_RD_EEPROM?EEPROM
+BL51 BANKED LINKER/LOCATER V6.22.2.0                                                  09/28/2020  11:10:44  PAGE 16
+
+
   +--> ?PR?_DEBUG_CHR_TIBBO?TIBBO
-BL51 BANKED LINKER/LOCATER V6.22.2.0                                                  09/21/2020  13:31:53  PAGE 16
-
-
   +--> ?CO?VERIFICADOR
   +--> ?PR?_DEBUG_TXT_TIBBO?TIBBO
 
@@ -940,16 +941,14 @@ SEGMENT                                             BIT_GROUP          DATA_GROU
   +--> ?PR?_DEBUGBUFFERMF?TIBBO
 
 ?PR?_CMD_LPR_SALIDA?ACCESCAN                     -----    -----      -----    -----      0012H    0025H
-  +--> ?PR?DIR_BOARD?IO_SENSORES
+  +--> ?PR?DIR_BOARD_MONITOR?IO_SENSORES
   +--> ?PR?_BYTEHEX_DECIMAL?CLOCK
   +--> ?PR?_STRLEN?STRLEN
   +--> ?PR?_TWO_BYTEHEX_DECIMAL?CLOCK
   +--> ?PR?_BLOCK_READ_CLOCK_ASCII?CLOCK
   +--> ?PR?_MONITOR_CHR?ACCESCAN
 
-?PR?DIR_BOARD?IO_SENSORES                        -----    -----      -----    -----      0037H    0001H
-  +--> ?PR?SEL_DIR1?IO_SENSORES
-  +--> ?PR?SEL_DIR2?IO_SENSORES
+?PR?DIR_BOARD_MONITOR?IO_SENSORES                -----    -----      -----    -----      -----    -----
   +--> ?PR?_RD_EEPROM?EEPROM
 
 ?PR?_BYTEHEX_DECIMAL?CLOCK                       -----    -----      -----    -----      0037H    0001H
@@ -959,10 +958,10 @@ SEGMENT                                             BIT_GROUP          DATA_GROU
 
 ?PR?_POW?POW                                     -----    -----      -----    -----      0043H    000AH
   +--> ?PR?LOG?LOG
-BL51 BANKED LINKER/LOCATER V6.22.2.0                                                  09/21/2020  13:31:53  PAGE 17
-
-
   +--> ?PR?EXP?EXP
+BL51 BANKED LINKER/LOCATER V6.22.2.0                                                  09/28/2020  11:10:44  PAGE 17
+
+
 
 ?PR?LOG?LOG                                      0020H.0  0000H.1    -----    -----      004DH    0004H
 
@@ -976,6 +975,11 @@ SEGMENT                                             BIT_GROUP          DATA_GROU
   +--> ?PR?DIR_BOARD?IO_SENSORES
   +--> ?PR?_DEBUGBUFFERMF?TIBBO
   +--> ?PR?_ESCRIBIRCADENASOFT_BUFFER?MAIN
+
+?PR?DIR_BOARD?IO_SENSORES                        -----    -----      -----    -----      0034H    0001H
+  +--> ?PR?SEL_DIR1?IO_SENSORES
+  +--> ?PR?SEL_DIR2?IO_SENSORES
+  +--> ?PR?_RD_EEPROM?EEPROM
 
 ?PR?_MOV_CARD?LINTECH                            -----    -----      -----    -----      000EH    000CH
   +--> ?CO?LINTECH
@@ -1015,13 +1019,13 @@ SEGMENT                                             BIT_GROUP          DATA_GROU
   +--> ?PR?_DEBUG_TXT_TIBBO?TIBBO
   +--> ?PR?_DEBUGBUFFERMF?TIBBO
   +--> ?PR?_ESCRIBIRCADENASOFT_BUFFER?MAIN
+BL51 BANKED LINKER/LOCATER V6.22.2.0                                                  09/28/2020  11:10:44  PAGE 18
+
+
 
 ?PR?AUT_CARD_CHECK_STATUS?LINTECH                -----    -----      -----    -----      000EH    000BH
   +--> ?CO?LINTECH
   +--> ?PR?_DEBUG_TXT_TIBBO?TIBBO
-BL51 BANKED LINKER/LOCATER V6.22.2.0                                                  09/21/2020  13:31:53  PAGE 18
-
-
   +--> ?PR?_DEBUGBUFFERMF?TIBBO
   +--> ?PR?_ESCRIBIRCADENASOFT_BUFFER?MAIN
 
@@ -1064,7 +1068,7 @@ SEGMENT                                             BIT_GROUP          DATA_GROU
   +--> ?PR?_TX_CHRLCD?PANTALLAS
 
 ?PR?_CMD_LPR_SALIDA_WIEGAND?ACCESCAN             -----    -----      -----    -----      0010H    0022H
-  +--> ?PR?DIR_BOARD?IO_SENSORES
+  +--> ?PR?DIR_BOARD_MONITOR?IO_SENSORES
   +--> ?PR?_BLOCK_READ_CLOCK_ASCII?CLOCK
   +--> ?PR?_MONITOR_CHR?ACCESCAN
 
@@ -1075,13 +1079,13 @@ SEGMENT                                             BIT_GROUP          DATA_GROU
   +--> ?PR?_TX_CHRLCD?PANTALLAS
   +--> ?PR?_STRCAT?STRCAT
   +--> ?PR?_RASPBERRY_DATA?PANTALLAS
+BL51 BANKED LINKER/LOCATER V6.22.2.0                                                  09/28/2020  11:10:44  PAGE 19
+
+
 
 ?PR?_DEBUG_PTO_PARALELO?TIBBO                    -----    -----      -----    -----      0001H    0004H
   +--> ?CO?TIBBO
   +--> ?PR?_DEBUG_TXT_TIBBO?TIBBO
-BL51 BANKED LINKER/LOCATER V6.22.2.0                                                  09/21/2020  13:31:53  PAGE 19
-
-
   +--> ?PR?_DEBUGBUFFERMF?TIBBO
   +--> ?PR?_DEBUG_CHR_TIBBO?TIBBO
   +--> ?PR?DEBUG_DIVIDIR_TEXTO?TIBBO
@@ -1117,7 +1121,7 @@ SYMBOL TABLE OF MODULE:  .\Objects\verificador_v_01_raspberry (MAIN)
   C:A578H         PUBLIC        timer0_int
   D:00B0H         PUBLIC        P3
   B:00A8H.7       PUBLIC        EA
-  C:A960H         PUBLIC        off_Timer0_Interrup
+  C:A972H         PUBLIC        off_Timer0_Interrup
   X:010CH         PUBLIC        ValTimeOutCom
   X:010DH         PUBLIC        Buffer_Rta_Lintech
   X:013FH         PUBLIC        Timer_wait
@@ -1128,20 +1132,20 @@ SYMBOL TABLE OF MODULE:  .\Objects\verificador_v_01_raspberry (MAIN)
   X:0141H         PUBLIC        Timer_tivo
   B:0090H.7       PUBLIC        lock
   I:0022H         PUBLIC        rbuf
-  C:A951H         PUBLIC        on_Timer0_Interrup
+  C:A963H         PUBLIC        on_Timer0_Interrup
   I:0054H         PUBLIC        tbuf
   B:0090H.1       PUBLIC        DataIn
   D:0089H         PUBLIC        TMOD
   X:0143H         PUBLIC        Debug_Tibbo
   B:0021H.1       PUBLIC        prto_ready
   X:0144H         PUBLIC        Raspberry
+BL51 BANKED LINKER/LOCATER V6.22.2.0                                                  09/28/2020  11:10:44  PAGE 20
+
+
   X:0145H         PUBLIC        SIN_COBRO
   X:0147H         PUBLIC        Tipo_Vehiculo
   B:00B0H.3       PUBLIC        busy
-  C:A8C3H         PUBLIC        ini_timer
-BL51 BANKED LINKER/LOCATER V6.22.2.0                                                  09/21/2020  13:31:53  PAGE 20
-
-
+  C:A8D5H         PUBLIC        ini_timer
   B:00A8H.1       PUBLIC        ET0
   B:0088H.5       PUBLIC        TF0
   X:0148H         PUBLIC        COMPARACION_ACTIVA
@@ -1150,12 +1154,12 @@ SYMBOL TABLE OF MODULE:  .\Objects\verificador_v_01_raspberry (MAIN)
   X:014AH         PUBLIC        g_cEstadoComSoft
   D:008AH         PUBLIC        TL0
   B:0088H.4       PUBLIC        TR0
-  C:A8D3H         PUBLIC        inicia_board
+  C:A8E5H         PUBLIC        inicia_board
   X:014BH         PUBLIC        T_GRACIA
   X:014DH         PUBLIC        COD_PARK
   B:0080H.7       PUBLIC        sel_com
   X:014FH         PUBLIC        STX_LINTECH
-  C:A8F2H         PUBLIC        _getkey
+  C:A904H         PUBLIC        _getkey
   X:0150H         PUBLIC        g_cEstadoComSeqMF
   X:0151H         PUBLIC        ETX
   X:0152H         PUBLIC        ID_CLIENTE
@@ -1179,42 +1183,42 @@ SYMBOL TABLE OF MODULE:  .\Objects\verificador_v_01_raspberry (MAIN)
   C:A5A8H         LINE#         27
   -------         ENDPROC       TIMER0_INT
   -------         PROC          INI_TIMER
-  C:A8C3H         LINE#         30
-  C:A8C3H         LINE#         31
-  C:A8C3H         LINE#         33
-  C:A8CBH         LINE#         35
-  C:A8CEH         LINE#         36
-  C:A8D0H         LINE#         37
-  C:A8D2H         LINE#         39
+  C:A8D5H         LINE#         30
+  C:A8D5H         LINE#         31
+  C:A8D5H         LINE#         33
+  C:A8DDH         LINE#         35
+  C:A8E0H         LINE#         36
+  C:A8E2H         LINE#         37
+  C:A8E4H         LINE#         39
   -------         ENDPROC       INI_TIMER
   -------         PROC          ON_TIMER0_INTERRUP
-  C:A951H         LINE#         42
-  C:A951H         LINE#         43
-  C:A951H         LINE#         44
-  C:A953H         LINE#         45
-  C:A955H         LINE#         47
+  C:A963H         LINE#         42
+  C:A963H         LINE#         43
+  C:A963H         LINE#         44
+  C:A965H         LINE#         45
+  C:A967H         LINE#         47
   -------         ENDPROC       ON_TIMER0_INTERRUP
   -------         PROC          OFF_TIMER0_INTERRUP
-  C:A960H         LINE#         50
-  C:A960H         LINE#         51
-  C:A960H         LINE#         52
-  C:A962H         LINE#         54
-BL51 BANKED LINKER/LOCATER V6.22.2.0                                                  09/21/2020  13:31:53  PAGE 21
+BL51 BANKED LINKER/LOCATER V6.22.2.0                                                  09/28/2020  11:10:44  PAGE 21
 
 
+  C:A972H         LINE#         50
+  C:A972H         LINE#         51
+  C:A972H         LINE#         52
+  C:A974H         LINE#         54
   -------         ENDPROC       OFF_TIMER0_INTERRUP
   -------         PROC          _GETKEY
   -------         DO            
   D:0006H         SYMBOL        k
   -------         ENDDO         
-  C:A8F2H         LINE#         62
-  C:A8F2H         LINE#         63
-  C:A8F2H         LINE#         67
-  C:A8F2H         LINE#         68
-  C:A8F5H         LINE#         69
-  C:A8F5H         LINE#         70
-  C:A8FDH         LINE#         72
-  C:A8FDH         LINE#         73
+  C:A904H         LINE#         62
+  C:A904H         LINE#         63
+  C:A904H         LINE#         67
+  C:A904H         LINE#         68
+  C:A907H         LINE#         69
+  C:A907H         LINE#         70
+  C:A90FH         LINE#         72
+  C:A90FH         LINE#         73
   -------         ENDPROC       _GETKEY
   -------         PROC          _PUTCHAR
   X:00E0H         SYMBOL        c
@@ -1249,19 +1253,19 @@ SYMBOL TABLE OF MODULE:  .\Objects\verificador_v_01_raspberry (MAIN)
   C:A1B0H         LINE#         102
   -------         ENDPROC       _ESCRIBIRCADENASOFT_BUFFER
   -------         PROC          INICIA_BOARD
-  C:A8D3H         LINE#         139
-  C:A8D3H         LINE#         140
-  C:A8D3H         LINE#         141
-  C:A8D6H         LINE#         142
-  C:A8D9H         LINE#         143
-  C:A8DCH         LINE#         144
-  C:A8DEH         LINE#         145
-  C:A8E0H         LINE#         146
-  C:A8E2H         LINE#         148
+  C:A8E5H         LINE#         139
+  C:A8E5H         LINE#         140
+  C:A8E5H         LINE#         141
+  C:A8E8H         LINE#         142
+  C:A8EBH         LINE#         143
+  C:A8EEH         LINE#         144
+BL51 BANKED LINKER/LOCATER V6.22.2.0                                                  09/28/2020  11:10:44  PAGE 22
+
+
+  C:A8F0H         LINE#         145
+  C:A8F2H         LINE#         146
+  C:A8F4H         LINE#         148
   -------         ENDPROC       INICIA_BOARD
-BL51 BANKED LINKER/LOCATER V6.22.2.0                                                  09/21/2020  13:31:53  PAGE 22
-
-
   -------         PROC          MAIN
   -------         DO            
   X:00E4H         SYMBOL        buffer
@@ -1315,13 +1319,13 @@ SYMBOL TABLE OF MODULE:  .\Objects\verificador_v_01_raspberry (MAIN)
   C:0000H         SYMBOL        _ICE_DUMMY_
   D:0080H         PUBLIC        P0
   D:0090H         PUBLIC        P1
+BL51 BANKED LINKER/LOCATER V6.22.2.0                                                  09/28/2020  11:10:44  PAGE 23
+
+
   I:0011H         PUBLIC        placa
   B:0080H.2       PUBLIC        led_err_imp
   C:A34AH         PUBLIC        _Monitor_chr
   C:5C36H         PUBLIC        _Cmd_LPR_Salida
-BL51 BANKED LINKER/LOCATER V6.22.2.0                                                  09/21/2020  13:31:53  PAGE 23
-
-
   B:0080H.3       PUBLIC        Atascado
   B:0080H.0       PUBLIC        rx_ip
   B:0090H.7       PUBLIC        lock
@@ -1338,115 +1342,115 @@ SYMBOL TABLE OF MODULE:  .\Objects\verificador_v_01_raspberry (MAIN)
   X:0235H         SYMBOL        cont
   X:0005H         SYMBOL        buff
   -------         ENDDO         
-  C:451DH         LINE#         121
-  C:452BH         LINE#         122
-  C:452BH         LINE#         126
-  C:4539H         LINE#         128
-  C:4570H         LINE#         129
+  C:451DH         LINE#         122
+  C:452BH         LINE#         123
+  C:452BH         LINE#         127
+  C:4539H         LINE#         129
   C:4570H         LINE#         130
-  C:4585H         LINE#         131
+  C:4570H         LINE#         131
   C:4585H         LINE#         132
-  C:4598H         LINE#         134
-  C:459BH         LINE#         136
-  C:459BH         LINE#         138
-  C:459BH         LINE#         140
-  C:45ADH         LINE#         141
+  C:4585H         LINE#         133
+  C:4598H         LINE#         135
+  C:459BH         LINE#         137
+  C:459BH         LINE#         139
+  C:459BH         LINE#         141
   C:45ADH         LINE#         142
-  C:45B3H         LINE#         143
-  C:45C0H         LINE#         144
+  C:45ADH         LINE#         143
+  C:45B3H         LINE#         144
   C:45C0H         LINE#         145
-  C:45C5H         LINE#         146
-  C:45C7H         LINE#         147
-  C:45CCH         LINE#         148
-  C:45CEH         LINE#         149
-  C:45D0H         LINE#         150
-  C:45D4H         LINE#         151
+  C:45C0H         LINE#         146
+  C:45C5H         LINE#         147
+  C:45C7H         LINE#         148
+  C:45CCH         LINE#         149
+  C:45CEH         LINE#         150
+  C:45D0H         LINE#         151
   C:45D4H         LINE#         152
-  C:45D5H         LINE#         154
-  C:45EDH         LINE#         155
-  C:45EDH         LINE#         157
-  C:45FAH         LINE#         158
+  C:45D4H         LINE#         153
+  C:45D5H         LINE#         155
+  C:45EDH         LINE#         156
+  C:45EDH         LINE#         158
   C:45FAH         LINE#         159
-  C:45FCH         LINE#         160
-  C:45FEH         LINE#         161
-  C:4600H         LINE#         162
-  C:4602H         LINE#         163
-  C:4602H         LINE#         165
-  C:4628H         LINE#         166
+  C:45FAH         LINE#         160
+  C:45FCH         LINE#         161
+  C:45FEH         LINE#         162
+  C:4600H         LINE#         163
+  C:4602H         LINE#         164
+  C:4602H         LINE#         166
   C:4628H         LINE#         167
-  C:462CH         LINE#         168
-  C:4631H         LINE#         169
-  C:463AH         LINE#         170
-  C:463FH         LINE#         171
-  C:463FH         LINE#         174
-BL51 BANKED LINKER/LOCATER V6.22.2.0                                                  09/21/2020  13:31:53  PAGE 24
+  C:4628H         LINE#         168
+  C:462CH         LINE#         169
+BL51 BANKED LINKER/LOCATER V6.22.2.0                                                  09/28/2020  11:10:44  PAGE 24
 
 
-  C:4640H         LINE#         177
-  C:4652H         LINE#         178
+  C:4631H         LINE#         170
+  C:463AH         LINE#         171
+  C:463FH         LINE#         172
+  C:463FH         LINE#         175
+  C:4640H         LINE#         178
   C:4652H         LINE#         179
-  C:4654H         LINE#         180
-  C:4657H         LINE#         182
-  C:4669H         LINE#         183
+  C:4652H         LINE#         180
+  C:4654H         LINE#         181
+  C:4657H         LINE#         183
   C:4669H         LINE#         184
-  C:466BH         LINE#         185
-  C:466EH         LINE#         187
-  C:4688H         LINE#         188
+  C:4669H         LINE#         185
+  C:466BH         LINE#         186
+  C:466EH         LINE#         188
   C:4688H         LINE#         189
-  C:468AH         LINE#         190
-  C:468DH         LINE#         193
-  C:46A7H         LINE#         194
+  C:4688H         LINE#         190
+  C:468AH         LINE#         191
+  C:468DH         LINE#         194
   C:46A7H         LINE#         195
-  C:46A9H         LINE#         196
-  C:46ABH         LINE#         199
-  C:46C5H         LINE#         200
+  C:46A7H         LINE#         196
+  C:46A9H         LINE#         197
+  C:46ABH         LINE#         200
   C:46C5H         LINE#         201
-  C:46C7H         LINE#         202
-  C:46C9H         LINE#         206
-  C:46E3H         LINE#         207
+  C:46C5H         LINE#         202
+  C:46C7H         LINE#         203
+  C:46C9H         LINE#         207
   C:46E3H         LINE#         208
-  C:46E5H         LINE#         209
-  C:46E7H         LINE#         212
-  C:4701H         LINE#         213
+  C:46E3H         LINE#         209
+  C:46E5H         LINE#         210
+  C:46E7H         LINE#         213
   C:4701H         LINE#         214
-  C:4703H         LINE#         215
-  C:4705H         LINE#         217
-  C:471FH         LINE#         218
+  C:4701H         LINE#         215
+  C:4703H         LINE#         216
+  C:4705H         LINE#         218
   C:471FH         LINE#         219
-  C:4724H         LINE#         220
-  C:4724H         LINE#         222
-  C:4754H         LINE#         223
+  C:471FH         LINE#         220
+  C:4724H         LINE#         221
+  C:4724H         LINE#         223
   C:4754H         LINE#         224
-  C:4762H         LINE#         225
-  C:4765H         LINE#         228
-  C:47A8H         LINE#         229
-  C:47A8H         LINE#         231
-  C:47BDH         LINE#         232
-  C:47C3H         LINE#         233
-  C:47EDH         LINE#         236
-  C:47F5H         LINE#         237
-  C:47F5H         LINE#         240
-  C:47FCH         LINE#         241
+  C:4754H         LINE#         225
+  C:4762H         LINE#         226
+  C:4765H         LINE#         229
+  C:47A8H         LINE#         230
+  C:47A8H         LINE#         232
+  C:47BDH         LINE#         233
+  C:47C3H         LINE#         234
+  C:47EDH         LINE#         237
+  C:47F5H         LINE#         238
+  C:47F5H         LINE#         241
   C:47FCH         LINE#         242
-  C:4801H         LINE#         243
+  C:47FCH         LINE#         243
   C:4801H         LINE#         244
-  C:4803H         LINE#         246
+  C:4801H         LINE#         245
   C:4803H         LINE#         247
-  C:480CH         LINE#         248
-  C:4814H         LINE#         249
-  C:4814H         LINE#         254
-  C:4816H         LINE#         257
-  C:4816H         LINE#         260
-  C:481DH         LINE#         261
+  C:4803H         LINE#         248
+  C:480CH         LINE#         249
+  C:4814H         LINE#         250
+  C:4814H         LINE#         255
+BL51 BANKED LINKER/LOCATER V6.22.2.0                                                  09/28/2020  11:10:44  PAGE 25
+
+
+  C:4816H         LINE#         258
+  C:4816H         LINE#         261
   C:481DH         LINE#         262
-BL51 BANKED LINKER/LOCATER V6.22.2.0                                                  09/21/2020  13:31:53  PAGE 25
-
-
-  C:4822H         LINE#         263
+  C:481DH         LINE#         263
   C:4822H         LINE#         264
-  C:482DH         LINE#         268
+  C:4822H         LINE#         265
   C:482DH         LINE#         269
-  C:482DH         LINE#         271
+  C:482DH         LINE#         270
+  C:482DH         LINE#         272
   -------         ENDPROC       _VALIDA_TRAMA_PTO
   -------         PROC          _RECIBE_CMD_MONITOR
   X:0001H         SYMBOL        buffer_cmd
@@ -1457,34 +1461,34 @@ SYMBOL TABLE OF MODULE:  .\Objects\verificador_v_01_raspberry (MAIN)
   X:0006H         SYMBOL        MaxChrRx
   D:0006H         SYMBOL        contador
   -------         ENDDO         
-  C:8FF1H         LINE#         277
-  C:8FFCH         LINE#         278
-  C:8FFCH         LINE#         282
-  C:9001H         LINE#         283
-  C:9005H         LINE#         285
-  C:900DH         LINE#         286
+  C:8FF1H         LINE#         278
+  C:8FFCH         LINE#         279
+  C:8FFCH         LINE#         283
+  C:9001H         LINE#         284
+  C:9005H         LINE#         286
   C:900DH         LINE#         287
-  C:901EH         LINE#         288
+  C:900DH         LINE#         288
   C:901EH         LINE#         289
-  C:9021H         LINE#         290
-  C:9022H         LINE#         291
-  C:9028H         LINE#         292
+  C:901EH         LINE#         290
+  C:9021H         LINE#         291
+  C:9022H         LINE#         292
   C:9028H         LINE#         293
-  C:902DH         LINE#         294
-  C:9036H         LINE#         295
+  C:9028H         LINE#         294
+  C:902DH         LINE#         295
   C:9036H         LINE#         296
-  C:9038H         LINE#         297
-  C:9040H         LINE#         298
+  C:9036H         LINE#         297
+  C:9038H         LINE#         298
   C:9040H         LINE#         299
-  C:9042H         LINE#         300
-  C:9047H         LINE#         301
-  C:904DH         LINE#         302
-  C:905FH         LINE#         303
-  C:9069H         LINE#         304
-  C:9071H         LINE#         306
-  C:9080H         LINE#         309
+  C:9040H         LINE#         300
+  C:9042H         LINE#         301
+  C:9047H         LINE#         302
+  C:904DH         LINE#         303
+  C:905FH         LINE#         304
+  C:9069H         LINE#         305
+  C:9071H         LINE#         307
   C:9080H         LINE#         310
-  C:9085H         LINE#         311
+  C:9080H         LINE#         311
+  C:9085H         LINE#         312
   -------         ENDPROC       _RECIBE_CMD_MONITOR
   -------         PROC          _VALIDA_TRAMA_MONITOR
   X:0229H         SYMBOL        buffer
@@ -1493,48 +1497,48 @@ SYMBOL TABLE OF MODULE:  .\Objects\verificador_v_01_raspberry (MAIN)
   D:0007H         SYMBOL        j
   D:0006H         SYMBOL        p
   -------         ENDDO         
-  C:9086H         LINE#         316
-  C:9091H         LINE#         317
+  C:9086H         LINE#         317
   C:9091H         LINE#         318
-  C:9093H         LINE#         319
-  C:9095H         LINE#         320
+BL51 BANKED LINKER/LOCATER V6.22.2.0                                                  09/28/2020  11:10:44  PAGE 26
+
+
+  C:9091H         LINE#         319
+  C:9093H         LINE#         320
   C:9095H         LINE#         321
-BL51 BANKED LINKER/LOCATER V6.22.2.0                                                  09/21/2020  13:31:53  PAGE 26
-
-
-  C:90B3H         LINE#         322
+  C:9095H         LINE#         322
   C:90B3H         LINE#         323
-  C:90B5H         LINE#         324
-  C:90BAH         LINE#         325
-  C:90BBH         LINE#         326
-  C:90D0H         LINE#         327
-  C:90D0H         LINE#         330
+  C:90B3H         LINE#         324
+  C:90B5H         LINE#         325
+  C:90BAH         LINE#         326
+  C:90BBH         LINE#         327
+  C:90D0H         LINE#         328
   C:90D0H         LINE#         331
-  C:90EAH         LINE#         332
-  C:90EBH         LINE#         333
-  C:90ECH         LINE#         334
-  C:90F8H         LINE#         335
-  C:910CH         LINE#         336
-  C:9112H         LINE#         337
-  C:9114H         LINE#         338
-  C:911AH         LINE#         341
+  C:90D0H         LINE#         332
+  C:90EAH         LINE#         333
+  C:90EBH         LINE#         334
+  C:90ECH         LINE#         335
+  C:90F8H         LINE#         336
+  C:910CH         LINE#         337
+  C:9112H         LINE#         338
+  C:9114H         LINE#         339
   C:911AH         LINE#         342
   C:911AH         LINE#         343
-  C:911AH         LINE#         345
+  C:911AH         LINE#         344
   C:911AH         LINE#         346
+  C:911AH         LINE#         347
   -------         ENDPROC       _VALIDA_TRAMA_MONITOR
   -------         PROC          CLEAR_PLACA
   -------         DO            
   D:0007H         SYMBOL        i
   -------         ENDDO         
-  C:A80FH         LINE#         350
   C:A80FH         LINE#         351
-  C:A80FH         LINE#         353
-  C:A81BH         LINE#         354
+  C:A80FH         LINE#         352
+  C:A80FH         LINE#         354
   C:A81BH         LINE#         355
-  C:A821H         LINE#         356
-  C:A824H         LINE#         357
-  C:A826H         LINE#         358
+  C:A81BH         LINE#         356
+  C:A821H         LINE#         357
+  C:A824H         LINE#         358
+  C:A826H         LINE#         359
   -------         ENDPROC       CLEAR_PLACA
   -------         PROC          _MONITOR_CHR
   X:0037H         SYMBOL        str
@@ -1542,47 +1546,47 @@ SYMBOL TABLE OF MODULE:  .\Objects\verificador_v_01_raspberry (MAIN)
   -------         DO            
   X:003BH         SYMBOL        j
   -------         ENDDO         
-  C:A34AH         LINE#         363
-  C:A358H         LINE#         364
-  C:A358H         LINE#         366
-  C:A366H         LINE#         367
+  C:A34AH         LINE#         364
+  C:A358H         LINE#         365
+  C:A358H         LINE#         367
   C:A366H         LINE#         368
-  C:A378H         LINE#         369
-  C:A382H         LINE#         370
-  C:A38AH         LINE#         371
+  C:A366H         LINE#         369
+  C:A378H         LINE#         370
+  C:A382H         LINE#         371
+  C:A38AH         LINE#         372
   -------         ENDPROC       _MONITOR_CHR
   -------         PROC          _CMD_LPR_SALIDA_WIEGAND
   X:0010H         SYMBOL        buffer
   -------         DO            
   X:0013H         SYMBOL        Buffer_Lpr
+BL51 BANKED LINKER/LOCATER V6.22.2.0                                                  09/28/2020  11:10:44  PAGE 27
+
+
   X:0031H         SYMBOL        j
   -------         ENDDO         
-  C:82D0H         LINE#         376
-  C:82DBH         LINE#         377
-BL51 BANKED LINKER/LOCATER V6.22.2.0                                                  09/21/2020  13:31:53  PAGE 27
-
-
-  C:82DBH         LINE#         379
-  C:82E1H         LINE#         380
-  C:82E6H         LINE#         381
-  C:82EEH         LINE#         382
-  C:82F2H         LINE#         383
-  C:82FBH         LINE#         384
+  C:82D0H         LINE#         377
+  C:82DBH         LINE#         378
+  C:82DBH         LINE#         380
+  C:82E1H         LINE#         381
+  C:82E6H         LINE#         382
+  C:82EEH         LINE#         383
+  C:82F2H         LINE#         384
   C:82FBH         LINE#         385
-  C:830CH         LINE#         386
-  C:830EH         LINE#         388
+  C:82FBH         LINE#         386
+  C:830CH         LINE#         387
   C:830EH         LINE#         389
-  C:831FH         LINE#         390
-  C:831FH         LINE#         394
-  C:8336H         LINE#         395
+  C:830EH         LINE#         390
+  C:831FH         LINE#         391
+  C:831FH         LINE#         395
   C:8336H         LINE#         396
-  C:8345H         LINE#         397
-  C:834FH         LINE#         399
-  C:8357H         LINE#         400
-  C:836BH         LINE#         402
-  C:837BH         LINE#         403
-  C:838CH         LINE#         404
-  C:8399H         LINE#         408
+  C:8336H         LINE#         397
+  C:8345H         LINE#         398
+  C:834FH         LINE#         400
+  C:8357H         LINE#         401
+  C:836BH         LINE#         403
+  C:837BH         LINE#         404
+  C:838CH         LINE#         405
+  C:8399H         LINE#         409
   -------         ENDPROC       _CMD_LPR_SALIDA_WIEGAND
   -------         PROC          _CMD_LPR_SALIDA
   X:0012H         SYMBOL        buffer_S1_B0
@@ -1591,45 +1595,45 @@ SYMBOL TABLE OF MODULE:  .\Objects\verificador_v_01_raspberry (MAIN)
   X:0018H         SYMBOL        Buffer_Lpr
   X:0036H         SYMBOL        j
   -------         ENDDO         
-  C:5C36H         LINE#         413
-  C:5C41H         LINE#         414
-  C:5C41H         LINE#         418
-  C:5C47H         LINE#         419
-  C:5C4CH         LINE#         420
-  C:5C54H         LINE#         421
-  C:5C58H         LINE#         425
-  C:5C61H         LINE#         426
+  C:5C36H         LINE#         414
+  C:5C41H         LINE#         415
+  C:5C41H         LINE#         419
+  C:5C47H         LINE#         420
+  C:5C4CH         LINE#         421
+  C:5C54H         LINE#         422
+  C:5C58H         LINE#         426
   C:5C61H         LINE#         427
-  C:5C72H         LINE#         428
-  C:5C74H         LINE#         430
+  C:5C61H         LINE#         428
+  C:5C72H         LINE#         429
   C:5C74H         LINE#         431
-  C:5C85H         LINE#         432
+  C:5C74H         LINE#         432
   C:5C85H         LINE#         433
-  C:5C9DH         LINE#         434
+  C:5C85H         LINE#         434
   C:5C9DH         LINE#         435
-  C:5CB2H         LINE#         436
-  C:5CC0H         LINE#         437
-  C:5CCEH         LINE#         438
-  C:5CDAH         LINE#         439
-  C:5CE8H         LINE#         440
-  C:5D21H         LINE#         442
-  C:5D23H         LINE#         444
-  C:5D23H         LINE#         448
-  C:5D23H         LINE#         450
-  C:5D45H         LINE#         451
-  C:5D4FH         LINE#         452
-  C:5D5FH         LINE#         454
-BL51 BANKED LINKER/LOCATER V6.22.2.0                                                  09/21/2020  13:31:53  PAGE 28
+  C:5C9DH         LINE#         436
+  C:5CB2H         LINE#         437
+  C:5CC0H         LINE#         438
+  C:5CCEH         LINE#         439
+  C:5CDAH         LINE#         440
+  C:5CE8H         LINE#         441
+  C:5D21H         LINE#         443
+  C:5D23H         LINE#         445
+  C:5D23H         LINE#         449
+BL51 BANKED LINKER/LOCATER V6.22.2.0                                                  09/28/2020  11:10:44  PAGE 28
 
 
-  C:5D72H         LINE#         455
-  C:5D72H         LINE#         457
-  C:5D80H         LINE#         460
-  C:5D8EH         LINE#         464
-  C:5D9BH         LINE#         466
-  C:5DA9H         LINE#         468
-  C:5DBAH         LINE#         471
-  C:5DCEH         LINE#         473
+  C:5D23H         LINE#         451
+  C:5D45H         LINE#         452
+  C:5D4FH         LINE#         453
+  C:5D5FH         LINE#         455
+  C:5D72H         LINE#         456
+  C:5D72H         LINE#         458
+  C:5D80H         LINE#         461
+  C:5D8EH         LINE#         465
+  C:5D9BH         LINE#         467
+  C:5DA9H         LINE#         469
+  C:5DBAH         LINE#         472
+  C:5DCEH         LINE#         474
   -------         ENDPROC       _CMD_LPR_SALIDA
   -------         ENDMOD        ACCESCAN
 
@@ -1645,7 +1649,7 @@ SYMBOL TABLE OF MODULE:  .\Objects\verificador_v_01_raspberry (MAIN)
   C:8762H         PUBLIC        _check_fechaOut_2
   C:911BH         PUBLIC        _hex_ascii
   X:0237H         PUBLIC        data_clk
-  C:A91AH         PUBLIC        cond_ini_clock
+  C:A92CH         PUBLIC        cond_ini_clock
   C:83A6H         PUBLIC        _Block_read_Clock
   B:0090H.4       PUBLIC        sck
   C:8C32H         PUBLIC        _Block_read_Clock_Hex
@@ -1675,13 +1679,13 @@ SYMBOL TABLE OF MODULE:  .\Objects\verificador_v_01_raspberry (MAIN)
   -------         ENDDO         
   C:A40CH         LINE#         47
   C:A411H         LINE#         49
+BL51 BANKED LINKER/LOCATER V6.22.2.0                                                  09/28/2020  11:10:44  PAGE 29
+
+
   C:A416H         LINE#         50
   C:A416H         LINE#         51
   C:A41FH         LINE#         52
   C:A422H         LINE#         53
-BL51 BANKED LINKER/LOCATER V6.22.2.0                                                  09/21/2020  13:31:53  PAGE 29
-
-
   C:A422H         LINE#         54
   C:A424H         LINE#         55
   C:A426H         LINE#         57
@@ -1735,13 +1739,13 @@ SYMBOL TABLE OF MODULE:  .\Objects\verificador_v_01_raspberry (MAIN)
   C:A643H         LINE#         94
   C:A64AH         LINE#         95
   C:A652H         LINE#         96
+BL51 BANKED LINKER/LOCATER V6.22.2.0                                                  09/28/2020  11:10:44  PAGE 30
+
+
   C:A65BH         LINE#         97
   C:A65EH         LINE#         98
   C:A660H         LINE#         100
   -------         ENDPROC       _WR_CLK
-BL51 BANKED LINKER/LOCATER V6.22.2.0                                                  09/21/2020  13:31:53  PAGE 30
-
-
   C:A38BH         SYMBOL        L?0174
   C:A3A9H         SYMBOL        L?0175
   -------         PROC          L?0173
@@ -1795,13 +1799,13 @@ SYMBOL TABLE OF MODULE:  .\Objects\verificador_v_01_raspberry (MAIN)
   C:7246H         LINE#         142
   C:7246H         LINE#         143
   C:7256H         LINE#         144
+BL51 BANKED LINKER/LOCATER V6.22.2.0                                                  09/28/2020  11:10:44  PAGE 31
+
+
   C:7256H         LINE#         145
   C:7256H         LINE#         146
   C:7256H         LINE#         147
   C:7257H         LINE#         149
-BL51 BANKED LINKER/LOCATER V6.22.2.0                                                  09/21/2020  13:31:53  PAGE 31
-
-
   C:7257H         LINE#         150
   C:7259H         LINE#         151
   C:7259H         LINE#         152
@@ -1855,13 +1859,13 @@ SYMBOL TABLE OF MODULE:  .\Objects\verificador_v_01_raspberry (MAIN)
   C:9403H         LINE#         233
   C:940DH         LINE#         234
   C:9417H         LINE#         235
+BL51 BANKED LINKER/LOCATER V6.22.2.0                                                  09/28/2020  11:10:44  PAGE 32
+
+
   C:9421H         LINE#         236
   C:9421H         LINE#         237
   C:9421H         LINE#         238
   C:9421H         LINE#         240
-BL51 BANKED LINKER/LOCATER V6.22.2.0                                                  09/21/2020  13:31:53  PAGE 32
-
-
   C:942BH         LINE#         241
   C:942BH         LINE#         242
   C:942BH         LINE#         243
@@ -1915,13 +1919,13 @@ SYMBOL TABLE OF MODULE:  .\Objects\verificador_v_01_raspberry (MAIN)
   -------         ENDDO         
   C:A4A5H         LINE#         285
   C:A4A5H         LINE#         286
+BL51 BANKED LINKER/LOCATER V6.22.2.0                                                  09/28/2020  11:10:44  PAGE 33
+
+
   C:A4A5H         LINE#         291
   C:A4A7H         LINE#         292
   C:A4A8H         LINE#         294
   C:A4AEH         LINE#         295
-BL51 BANKED LINKER/LOCATER V6.22.2.0                                                  09/21/2020  13:31:53  PAGE 33
-
-
   C:A4AEH         LINE#         296
   C:A4AFH         LINE#         297
   C:A4B4H         LINE#         298
@@ -1975,13 +1979,13 @@ SYMBOL TABLE OF MODULE:  .\Objects\verificador_v_01_raspberry (MAIN)
   X:003CH         SYMBOL        valor
   D:0006H         SYMBOL        numero
   X:003EH         SYMBOL        temp
+BL51 BANKED LINKER/LOCATER V6.22.2.0                                                  09/28/2020  11:10:44  PAGE 34
+
+
   X:003FH         SYMBOL        dmil
   X:0040H         SYMBOL        mil
   X:0041H         SYMBOL        centena
   X:0042H         SYMBOL        decena
-BL51 BANKED LINKER/LOCATER V6.22.2.0                                                  09/21/2020  13:31:53  PAGE 34
-
-
   -------         ENDDO         
   C:482EH         LINE#         346
   C:483CH         LINE#         347
@@ -2035,13 +2039,13 @@ SYMBOL TABLE OF MODULE:  .\Objects\verificador_v_01_raspberry (MAIN)
   C:4AC8H         LINE#         403
   C:4AD2H         LINE#         404
   C:4AE5H         LINE#         405
+BL51 BANKED LINKER/LOCATER V6.22.2.0                                                  09/28/2020  11:10:44  PAGE 35
+
+
   C:4AEFH         LINE#         406
   -------         ENDPROC       _TWO_BYTEHEX_DECIMAL
   -------         PROC          _BLOCK_READ_CLOCK_ASCII
   X:0065H         SYMBOL        datos_clock
-BL51 BANKED LINKER/LOCATER V6.22.2.0                                                  09/21/2020  13:31:53  PAGE 35
-
-
   -------         DO            
   D:0007H         SYMBOL        dato
   -------         ENDDO         
@@ -2095,13 +2099,13 @@ SYMBOL TABLE OF MODULE:  .\Objects\verificador_v_01_raspberry (MAIN)
   -------         DO            
   D:0007H         SYMBOL        dato
   -------         ENDDO         
+BL51 BANKED LINKER/LOCATER V6.22.2.0                                                  09/28/2020  11:10:44  PAGE 36
+
+
   C:911BH         LINE#         476
   C:9126H         LINE#         477
   C:9126H         LINE#         481
   C:9129H         LINE#         482
-BL51 BANKED LINKER/LOCATER V6.22.2.0                                                  09/21/2020  13:31:53  PAGE 36
-
-
   C:9141H         LINE#         483
   C:9156H         LINE#         484
   C:9156H         LINE#         486
@@ -2132,12 +2136,12 @@ SYMBOL TABLE OF MODULE:  .\Objects\verificador_v_01_raspberry (MAIN)
   C:845BH         LINE#         542
   -------         ENDPROC       _BLOCK_READ_CLOCK
   -------         PROC          COND_INI_CLOCK
-  C:A91AH         LINE#         545
-  C:A91AH         LINE#         546
-  C:A91AH         LINE#         547
-  C:A91CH         LINE#         548
-  C:A91EH         LINE#         549
-  C:A920H         LINE#         550
+  C:A92CH         LINE#         545
+  C:A92CH         LINE#         546
+  C:A92CH         LINE#         547
+  C:A92EH         LINE#         548
+  C:A930H         LINE#         549
+  C:A932H         LINE#         550
   -------         ENDPROC       COND_INI_CLOCK
   -------         PROC          _CHECK_FECHAOUT
   X:000EH         SYMBOL        buffer
@@ -2155,13 +2159,13 @@ SYMBOL TABLE OF MODULE:  .\Objects\verificador_v_01_raspberry (MAIN)
   C:6132H         LINE#         575
   C:6132H         LINE#         577
   C:613BH         LINE#         579
+BL51 BANKED LINKER/LOCATER V6.22.2.0                                                  09/28/2020  11:10:44  PAGE 37
+
+
   C:6143H         LINE#         580
   C:6143H         LINE#         581
   C:614CH         LINE#         583
   C:614CH         LINE#         586
-BL51 BANKED LINKER/LOCATER V6.22.2.0                                                  09/21/2020  13:31:53  PAGE 37
-
-
   C:616FH         LINE#         587
   C:616FH         LINE#         588
   C:616FH         LINE#         589
@@ -2215,13 +2219,13 @@ SYMBOL TABLE OF MODULE:  .\Objects\verificador_v_01_raspberry (MAIN)
   X:00B7H         SYMBOL        fecha_fin
   X:00BBH         SYMBOL        datos_clk
   X:00C1H         SYMBOL        temp
+BL51 BANKED LINKER/LOCATER V6.22.2.0                                                  09/28/2020  11:10:44  PAGE 38
+
+
   -------         ENDDO         
   C:8762H         LINE#         644
   C:876DH         LINE#         645
   C:876DH         LINE#         651
-BL51 BANKED LINKER/LOCATER V6.22.2.0                                                  09/21/2020  13:31:53  PAGE 38
-
-
   C:8776H         LINE#         652
   C:87A5H         LINE#         653
   C:87EAH         LINE#         656
@@ -2275,13 +2279,13 @@ SYMBOL TABLE OF MODULE:  .\Objects\verificador_v_01_raspberry (MAIN)
   C:30AAH         LINE#         711
   C:30B7H         LINE#         712
   C:30C3H         LINE#         713
+BL51 BANKED LINKER/LOCATER V6.22.2.0                                                  09/28/2020  11:10:44  PAGE 39
+
+
   C:30C3H         LINE#         714
   C:30CDH         LINE#         715
   C:30DBH         LINE#         717
   C:30E8H         LINE#         718
-BL51 BANKED LINKER/LOCATER V6.22.2.0                                                  09/21/2020  13:31:53  PAGE 39
-
-
   C:311DH         LINE#         719
   C:311DH         LINE#         720
   C:312AH         LINE#         721
@@ -2335,13 +2339,13 @@ SYMBOL TABLE OF MODULE:  .\Objects\verificador_v_01_raspberry (MAIN)
   C:3278H         LINE#         821
   C:3278H         LINE#         822
   C:3286H         LINE#         823
+BL51 BANKED LINKER/LOCATER V6.22.2.0                                                  09/28/2020  11:10:44  PAGE 40
+
+
   C:3286H         LINE#         824
   C:328AH         LINE#         825
   C:329CH         LINE#         826
   C:329CH         LINE#         827
-BL51 BANKED LINKER/LOCATER V6.22.2.0                                                  09/21/2020  13:31:53  PAGE 40
-
-
   C:329EH         LINE#         829
   C:329EH         LINE#         830
   C:32A3H         LINE#         831
@@ -2395,13 +2399,13 @@ SYMBOL TABLE OF MODULE:  .\Objects\verificador_v_01_raspberry (MAIN)
   C:33EAH         LINE#         888
   C:33EEH         LINE#         889
   C:33F1H         LINE#         891
+BL51 BANKED LINKER/LOCATER V6.22.2.0                                                  09/28/2020  11:10:44  PAGE 41
+
+
   C:33F1H         LINE#         892
   C:33F2H         LINE#         893
   C:33F2H         LINE#         894
   C:33F2H         LINE#         895
-BL51 BANKED LINKER/LOCATER V6.22.2.0                                                  09/21/2020  13:31:53  PAGE 41
-
-
   C:33F5H         LINE#         896
   C:340DH         LINE#         897
   C:340DH         LINE#         898
@@ -2455,18 +2459,18 @@ SYMBOL TABLE OF MODULE:  .\Objects\verificador_v_01_raspberry (MAIN)
   C:34E5H         LINE#         988
   C:34EFH         LINE#         990
   C:34EFH         LINE#         993
+BL51 BANKED LINKER/LOCATER V6.22.2.0                                                  09/28/2020  11:10:44  PAGE 42
+
+
   -------         ENDPROC       _ANALIZA_TIEMPO
   -------         ENDMOD        CLOCK
 
   -------         MODULE        DELAY
-BL51 BANKED LINKER/LOCATER V6.22.2.0                                                  09/21/2020  13:31:53  PAGE 42
-
-
   C:0000H         SYMBOL        _ICE_DUMMY_
   C:A53EH         PUBLIC        _Delay_10ms
   C:A869H         PUBLIC        _Delay_20us
   C:A7F4H         PUBLIC        _Delay_1ms
-  C:A963H         PUBLIC        Delay
+  C:A975H         PUBLIC        Delay
   -------         PROC          _DELAY_20US
   D:0006H         SYMBOL        cnt
   -------         DO            
@@ -2499,8 +2503,8 @@ SYMBOL TABLE OF MODULE:  .\Objects\verificador_v_01_raspberry (MAIN)
   C:A577H         LINE#         58
   -------         ENDPROC       _DELAY_10MS
   -------         PROC          DELAY
-  C:A963H         LINE#         60
-  C:A963H         LINE#         62
+  C:A975H         LINE#         60
+  C:A975H         LINE#         62
   -------         ENDPROC       DELAY
   -------         ENDMOD        DELAY
 
@@ -2512,17 +2516,17 @@ SYMBOL TABLE OF MODULE:  .\Objects\verificador_v_01_raspberry (MAIN)
   C:A71FH         PUBLIC        ackd
   B:0021H.6       PUBLIC        memory_flag
   B:00D0H.7       PUBLIC        CY
-  C:A94BH         PUBLIC        p_me
+  C:A95DH         PUBLIC        p_me
   C:9FA6H         PUBLIC        variable_inicio
   C:A883H         PUBLIC        start
+BL51 BANKED LINKER/LOCATER V6.22.2.0                                                  09/28/2020  11:10:44  PAGE 43
+
+
   B:0090H.2       PUBLIC        sda
   C:A73FH         PUBLIC        ack_lect
   B:0090H.3       PUBLIC        scl
   C:A4CAH         PUBLIC        _rd_eeprom
-BL51 BANKED LINKER/LOCATER V6.22.2.0                                                  09/21/2020  13:31:53  PAGE 43
-
-
-  C:A908H         PUBLIC        stop
+  C:A91AH         PUBLIC        stop
   X:022DH         PUBLIC        l_data_eeprom
   C:9F67H         PUBLIC        _wr_eeprom
   C:9D78H         PUBLIC        _LeerMemoria
@@ -2575,17 +2579,17 @@ SYMBOL TABLE OF MODULE:  .\Objects\verificador_v_01_raspberry (MAIN)
   C:A750H         LINE#         81
   C:A750H         LINE#         82
   C:A75BH         LINE#         83
+BL51 BANKED LINKER/LOCATER V6.22.2.0                                                  09/28/2020  11:10:44  PAGE 44
+
+
   -------         ENDPROC       ACK_LECT
   -------         PROC          P_ME
-  C:A94BH         LINE#         85
-  C:A94BH         LINE#         86
-BL51 BANKED LINKER/LOCATER V6.22.2.0                                                  09/21/2020  13:31:53  PAGE 44
-
-
-  C:A94BH         LINE#         87
-  C:A94DH         LINE#         88
-  C:A94EH         LINE#         89
-  C:A950H         LINE#         90
+  C:A95DH         LINE#         85
+  C:A95DH         LINE#         86
+  C:A95DH         LINE#         87
+  C:A95FH         LINE#         88
+  C:A960H         LINE#         89
+  C:A962H         LINE#         90
   -------         ENDPROC       P_ME
   -------         PROC          _E_D_M
   D:0007H         SYMBOL        a_serial_eeprom
@@ -2622,26 +2626,26 @@ SYMBOL TABLE OF MODULE:  .\Objects\verificador_v_01_raspberry (MAIN)
   C:A88CH         LINE#         120
   -------         ENDPROC       START
   -------         PROC          STOP
-  C:A908H         LINE#         122
-  C:A908H         LINE#         123
-  C:A908H         LINE#         124
-  C:A90AH         LINE#         125
-  C:A90CH         LINE#         126
-  C:A90EH         LINE#         127
-  C:A910H         LINE#         129
+  C:A91AH         LINE#         122
+  C:A91AH         LINE#         123
+  C:A91AH         LINE#         124
+  C:A91CH         LINE#         125
+  C:A91EH         LINE#         126
+  C:A920H         LINE#         127
+  C:A922H         LINE#         129
   -------         ENDPROC       STOP
   -------         PROC          L_D_M
   -------         DO            
   D:0003H         SYMBOL        nbits
   -------         ENDDO         
   C:9FFCH         LINE#         131
+BL51 BANKED LINKER/LOCATER V6.22.2.0                                                  09/28/2020  11:10:44  PAGE 45
+
+
   C:9FFCH         LINE#         132
   C:9FFCH         LINE#         134
   C:A009H         LINE#         135
   C:A009H         LINE#         136
-BL51 BANKED LINKER/LOCATER V6.22.2.0                                                  09/21/2020  13:31:53  PAGE 45
-
-
   C:A00BH         LINE#         137
   C:A00EH         LINE#         138
   C:A00EH         LINE#         139
@@ -2695,13 +2699,13 @@ SYMBOL TABLE OF MODULE:  .\Objects\verificador_v_01_raspberry (MAIN)
   C:9F8DH         LINE#         185
   C:9F94H         LINE#         187
   C:9F96H         LINE#         188
+BL51 BANKED LINKER/LOCATER V6.22.2.0                                                  09/28/2020  11:10:44  PAGE 46
+
+
   C:9F98H         LINE#         189
   C:9F9FH         LINE#         190
   -------         ENDPROC       _WR_EEPROM
   C:A4C6H         SYMBOL        L?0047
-BL51 BANKED LINKER/LOCATER V6.22.2.0                                                  09/21/2020  13:31:53  PAGE 46
-
-
   -------         PROC          L?0046
   -------         ENDPROC       L?0046
   C:A4C6H         SYMBOL        L?0047
@@ -2755,13 +2759,13 @@ SYMBOL TABLE OF MODULE:  .\Objects\verificador_v_01_raspberry (MAIN)
   -------         DO            
   D:0007H         SYMBOL        i
   -------         ENDDO         
+BL51 BANKED LINKER/LOCATER V6.22.2.0                                                  09/28/2020  11:10:44  PAGE 47
+
+
   C:9D78H         LINE#         274
   C:9D89H         LINE#         275
   C:9D89H         LINE#         277
   C:9D89H         LINE#         278
-BL51 BANKED LINKER/LOCATER V6.22.2.0                                                  09/21/2020  13:31:53  PAGE 47
-
-
   C:9DA5H         LINE#         279
   C:9DB4H         LINE#         280
   C:9DC2H         LINE#         281
@@ -2792,70 +2796,71 @@ SYMBOL TABLE OF MODULE:  .\Objects\verificador_v_01_raspberry (MAIN)
   D:00B0H         PUBLIC        P3
   C:A2C5H         PUBLIC        Dir_board
   B:0090H.1       PUBLIC        DataIn
-  C:A928H         PUBLIC        sel_Auto
+  C:A88DH         PUBLIC        Dir_Board_Monitor
+  C:A93AH         PUBLIC        sel_Auto
   C:9BB8H         PUBLIC        ValidaSensoresPaso
   B:00B0H.3       PUBLIC        busy
   C:A77BH         PUBLIC        ValidaSensores_Out
   C:A75CH         PUBLIC        ValidaSensor
-  C:A936H         PUBLIC        sel_Sensor1
-  C:A92FH         PUBLIC        sel_Sensor2
+  C:A948H         PUBLIC        sel_Sensor1
+  C:A941H         PUBLIC        sel_Sensor2
   B:00B0H.5       PUBLIC        sel_A
   B:00B0H.6       PUBLIC        sel_B
   B:00B0H.7       PUBLIC        sel_C
   C:993CH         PUBLIC        msj_lcd_informativo
-  C:A93DH         PUBLIC        sel_Dir1
-  C:A944H         PUBLIC        sel_Dir2
-  C:A921H         PUBLIC        sel_Funcion
+  C:A94FH         PUBLIC        sel_Dir1
+  C:A956H         PUBLIC        sel_Dir2
+  C:A933H         PUBLIC        sel_Funcion
   -------         PROC          SEL_FUNCION
-  C:A921H         LINE#         31
-  C:A921H         LINE#         32
-  C:A921H         LINE#         33
-  C:A923H         LINE#         34
-  C:A925H         LINE#         35
-  C:A927H         LINE#         36
+  C:A933H         LINE#         31
+  C:A933H         LINE#         32
+  C:A933H         LINE#         33
+  C:A935H         LINE#         34
+  C:A937H         LINE#         35
+  C:A939H         LINE#         36
   -------         ENDPROC       SEL_FUNCION
+BL51 BANKED LINKER/LOCATER V6.22.2.0                                                  09/28/2020  11:10:44  PAGE 48
+
+
   -------         PROC          SEL_AUTO
-  C:A928H         LINE#         38
-  C:A928H         LINE#         39
-  C:A928H         LINE#         40
-  C:A92AH         LINE#         41
-BL51 BANKED LINKER/LOCATER V6.22.2.0                                                  09/21/2020  13:31:53  PAGE 48
-
-
-  C:A92CH         LINE#         42
-  C:A92EH         LINE#         43
+  C:A93AH         LINE#         38
+  C:A93AH         LINE#         39
+  C:A93AH         LINE#         40
+  C:A93CH         LINE#         41
+  C:A93EH         LINE#         42
+  C:A940H         LINE#         43
   -------         ENDPROC       SEL_AUTO
   -------         PROC          SEL_SENSOR2
-  C:A92FH         LINE#         54
-  C:A92FH         LINE#         55
-  C:A92FH         LINE#         56
-  C:A931H         LINE#         57
-  C:A933H         LINE#         58
-  C:A935H         LINE#         59
+  C:A941H         LINE#         54
+  C:A941H         LINE#         55
+  C:A941H         LINE#         56
+  C:A943H         LINE#         57
+  C:A945H         LINE#         58
+  C:A947H         LINE#         59
   -------         ENDPROC       SEL_SENSOR2
   -------         PROC          SEL_SENSOR1
-  C:A936H         LINE#         61
-  C:A936H         LINE#         62
-  C:A936H         LINE#         63
-  C:A938H         LINE#         64
-  C:A93AH         LINE#         65
-  C:A93CH         LINE#         66
+  C:A948H         LINE#         61
+  C:A948H         LINE#         62
+  C:A948H         LINE#         63
+  C:A94AH         LINE#         64
+  C:A94CH         LINE#         65
+  C:A94EH         LINE#         66
   -------         ENDPROC       SEL_SENSOR1
   -------         PROC          SEL_DIR1
-  C:A93DH         LINE#         68
-  C:A93DH         LINE#         69
-  C:A93DH         LINE#         70
-  C:A93FH         LINE#         71
-  C:A941H         LINE#         72
-  C:A943H         LINE#         73
+  C:A94FH         LINE#         68
+  C:A94FH         LINE#         69
+  C:A94FH         LINE#         70
+  C:A951H         LINE#         71
+  C:A953H         LINE#         72
+  C:A955H         LINE#         73
   -------         ENDPROC       SEL_DIR1
   -------         PROC          SEL_DIR2
-  C:A944H         LINE#         75
-  C:A944H         LINE#         76
-  C:A944H         LINE#         77
-  C:A946H         LINE#         78
-  C:A948H         LINE#         79
-  C:A94AH         LINE#         80
+  C:A956H         LINE#         75
+  C:A956H         LINE#         76
+  C:A956H         LINE#         77
+  C:A958H         LINE#         78
+  C:A95AH         LINE#         79
+  C:A95CH         LINE#         80
   -------         ENDPROC       SEL_DIR2
   -------         PROC          VALIDASENSOR
   -------         DO            
@@ -2874,15 +2879,15 @@ SYMBOL TABLE OF MODULE:  .\Objects\verificador_v_01_raspberry (MAIN)
   C:A776H         LINE#         92
   C:A778H         LINE#         93
   C:A778H         LINE#         94
+BL51 BANKED LINKER/LOCATER V6.22.2.0                                                  09/28/2020  11:10:44  PAGE 49
+
+
   C:A77AH         LINE#         95
   C:A77AH         LINE#         96
   -------         ENDPROC       VALIDASENSOR
   -------         PROC          DIR_BOARD
   -------         DO            
-BL51 BANKED LINKER/LOCATER V6.22.2.0                                                  09/21/2020  13:31:53  PAGE 49
-
-
-  X:0037H         SYMBOL        Board
+  X:0034H         SYMBOL        Board
   D:0007H         SYMBOL        Board_High
   -------         ENDDO         
   C:A2C5H         LINE#         100
@@ -2913,133 +2918,153 @@ SYMBOL TABLE OF MODULE:  .\Objects\verificador_v_01_raspberry (MAIN)
   C:A300H         LINE#         128
   C:A307H         LINE#         129
   -------         ENDPROC       DIR_BOARD
+  -------         PROC          DIR_BOARD_MONITOR
+  -------         DO            
+  D:0007H         SYMBOL        Board_High
+  -------         ENDDO         
+  C:A88DH         LINE#         130
+  C:A88DH         LINE#         131
+  C:A88DH         LINE#         134
+  C:A896H         LINE#         135
+  C:A899H         LINE#         136
+  C:A899H         LINE#         137
+  C:A89CH         LINE#         138
+  C:A89CH         LINE#         139
+  C:A89EH         LINE#         140
+  C:A89EH         LINE#         141
+  C:A89EH         LINE#         142
+  C:A89EH         LINE#         143
+  -------         ENDPROC       DIR_BOARD_MONITOR
   -------         PROC          VALIDASENSORESPASO
-  C:9BB8H         LINE#         137
-  C:9BB8H         LINE#         138
-  C:9BB8H         LINE#         140
-  C:9BBBH         LINE#         141
-  C:9BBEH         LINE#         142
-  C:9BBEH         LINE#         143
-  C:9BCCH         LINE#         144
-  C:9BCCH         LINE#         145
-  C:9BCFH         LINE#         146
-  C:9BD2H         LINE#         147
-  C:9BD5H         LINE#         148
-  C:9BDAH         LINE#         149
-  C:9BDAH         LINE#         150
-  C:9BE1H         LINE#         151
-  C:9BE5H         LINE#         152
-  C:9BE7H         LINE#         154
-  C:9BE7H         LINE#         156
-  C:9BE7H         LINE#         157
-  C:9BEEH         LINE#         158
-  C:9BF3H         LINE#         159
-  C:9BF5H         LINE#         160
-  C:9BF5H         LINE#         163
-  C:9BF5H         LINE#         165
-  C:9BF8H         LINE#         166
-  C:9BFDH         LINE#         167
-BL51 BANKED LINKER/LOCATER V6.22.2.0                                                  09/21/2020  13:31:53  PAGE 50
+  C:9BB8H         LINE#         151
+  C:9BB8H         LINE#         152
+  C:9BB8H         LINE#         154
+BL51 BANKED LINKER/LOCATER V6.22.2.0                                                  09/28/2020  11:10:44  PAGE 50
 
 
-  C:9BFDH         LINE#         169
-  C:9C04H         LINE#         170
-  C:9C0AH         LINE#         171
-  C:9C0DH         LINE#         172
-  C:9C0DH         LINE#         174
-  C:9C0DH         LINE#         175
-  C:9C11H         LINE#         176
-  C:9C13H         LINE#         177
-  C:9C13H         LINE#         180
-  C:9C13H         LINE#         181
-  C:9C13H         LINE#         183
-  C:9C13H         LINE#         184
-  C:9C1CH         LINE#         185
-  C:9C1FH         LINE#         186
-  C:9C1FH         LINE#         187
-  C:9C1FH         LINE#         188
-  C:9C1FH         LINE#         189
-  C:9C28H         LINE#         190
-  C:9C2AH         LINE#         191
-  C:9C2AH         LINE#         193
+  C:9BBBH         LINE#         155
+  C:9BBEH         LINE#         156
+  C:9BBEH         LINE#         157
+  C:9BCCH         LINE#         158
+  C:9BCCH         LINE#         159
+  C:9BCFH         LINE#         160
+  C:9BD2H         LINE#         161
+  C:9BD5H         LINE#         162
+  C:9BDAH         LINE#         163
+  C:9BDAH         LINE#         164
+  C:9BE1H         LINE#         165
+  C:9BE5H         LINE#         166
+  C:9BE7H         LINE#         168
+  C:9BE7H         LINE#         170
+  C:9BE7H         LINE#         171
+  C:9BEEH         LINE#         172
+  C:9BF3H         LINE#         173
+  C:9BF5H         LINE#         174
+  C:9BF5H         LINE#         177
+  C:9BF5H         LINE#         179
+  C:9BF8H         LINE#         180
+  C:9BFDH         LINE#         181
+  C:9BFDH         LINE#         183
+  C:9C04H         LINE#         184
+  C:9C0AH         LINE#         185
+  C:9C0DH         LINE#         186
+  C:9C0DH         LINE#         188
+  C:9C0DH         LINE#         189
+  C:9C11H         LINE#         190
+  C:9C13H         LINE#         191
+  C:9C13H         LINE#         194
+  C:9C13H         LINE#         195
+  C:9C13H         LINE#         197
+  C:9C13H         LINE#         198
+  C:9C1CH         LINE#         199
+  C:9C1FH         LINE#         200
+  C:9C1FH         LINE#         201
+  C:9C1FH         LINE#         202
+  C:9C1FH         LINE#         203
+  C:9C28H         LINE#         204
+  C:9C2AH         LINE#         205
+  C:9C2AH         LINE#         207
   -------         ENDPROC       VALIDASENSORESPASO
   -------         PROC          VALIDASENSORES_OUT
   -------         DO            
   D:0006H         SYMBOL        valido
   -------         ENDDO         
-  C:A77BH         LINE#         195
-  C:A77BH         LINE#         196
-  C:A77BH         LINE#         197
-  C:A77DH         LINE#         199
-  C:A780H         LINE#         200
-  C:A783H         LINE#         201
-  C:A783H         LINE#         202
-  C:A792H         LINE#         203
-  C:A792H         LINE#         204
-  C:A792H         LINE#         205
-  C:A794H         LINE#         206
-  C:A794H         LINE#         208
-  C:A794H         LINE#         209
-  C:A794H         LINE#         210
-  C:A797H         LINE#         211
-  C:A797H         LINE#         212
-  C:A797H         LINE#         214
-  C:A797H         LINE#         215
-  C:A797H         LINE#         216
-  C:A799H         LINE#         217
-  C:A799H         LINE#         218
+  C:A77BH         LINE#         209
+  C:A77BH         LINE#         210
+  C:A77BH         LINE#         211
+  C:A77DH         LINE#         213
+  C:A780H         LINE#         214
+  C:A783H         LINE#         215
+  C:A783H         LINE#         216
+  C:A792H         LINE#         217
+  C:A792H         LINE#         218
+  C:A792H         LINE#         219
+BL51 BANKED LINKER/LOCATER V6.22.2.0                                                  09/28/2020  11:10:44  PAGE 51
+
+
+  C:A794H         LINE#         220
+  C:A794H         LINE#         222
+  C:A794H         LINE#         223
+  C:A794H         LINE#         224
+  C:A797H         LINE#         225
+  C:A797H         LINE#         226
+  C:A797H         LINE#         228
+  C:A797H         LINE#         229
+  C:A797H         LINE#         230
+  C:A799H         LINE#         231
+  C:A799H         LINE#         232
   -------         ENDPROC       VALIDASENSORES_OUT
   -------         PROC          MSJ_LCD_INFORMATIVO
   -------         DO            
   X:0001H         SYMBOL        info
   X:0238H         SYMBOL        toggle
   -------         ENDDO         
-  C:993CH         LINE#         225
-  C:993CH         LINE#         226
-  C:993CH         LINE#         227
-  C:9941H         LINE#         229
-  C:9944H         LINE#         230
-BL51 BANKED LINKER/LOCATER V6.22.2.0                                                  09/21/2020  13:31:53  PAGE 51
+  C:993CH         LINE#         239
+  C:993CH         LINE#         240
+  C:993CH         LINE#         241
+  C:9941H         LINE#         243
+  C:9944H         LINE#         244
+  C:9947H         LINE#         245
+  C:9947H         LINE#         246
+  C:9953H         LINE#         247
+  C:9953H         LINE#         248
+  C:9956H         LINE#         249
+  C:9956H         LINE#         250
+  C:9958H         LINE#         251
+  C:995BH         LINE#         252
+  C:9961H         LINE#         253
+  C:9961H         LINE#         254
+  C:9963H         LINE#         255
+  C:9971H         LINE#         256
+  C:9971H         LINE#         257
+  C:9974H         LINE#         258
+  C:9974H         LINE#         259
+  C:9976H         LINE#         260
+  C:9979H         LINE#         261
+  C:997FH         LINE#         262
+  C:997FH         LINE#         263
+  C:9981H         LINE#         264
+  C:998FH         LINE#         265
+  C:998FH         LINE#         266
+  C:9992H         LINE#         267
+  C:9992H         LINE#         268
+  C:9994H         LINE#         269
+  C:99A2H         LINE#         270
+  C:99A2H         LINE#         271
+  C:99A4H         LINE#         272
+  C:99ABH         LINE#         274
+  C:99B0H         LINE#         275
+  C:99B0H         LINE#         277
+  C:99B0H         LINE#         279
+  C:99B0H         LINE#         281
+  C:99B3H         LINE#         282
+  C:99B6H         LINE#         283
+BL51 BANKED LINKER/LOCATER V6.22.2.0                                                  09/28/2020  11:10:44  PAGE 52
 
 
-  C:9947H         LINE#         231
-  C:9947H         LINE#         232
-  C:9953H         LINE#         233
-  C:9953H         LINE#         234
-  C:9956H         LINE#         235
-  C:9956H         LINE#         236
-  C:9958H         LINE#         237
-  C:995BH         LINE#         238
-  C:9961H         LINE#         239
-  C:9961H         LINE#         240
-  C:9963H         LINE#         241
-  C:9971H         LINE#         242
-  C:9971H         LINE#         243
-  C:9974H         LINE#         244
-  C:9974H         LINE#         245
-  C:9976H         LINE#         246
-  C:9979H         LINE#         247
-  C:997FH         LINE#         248
-  C:997FH         LINE#         249
-  C:9981H         LINE#         250
-  C:998FH         LINE#         251
-  C:998FH         LINE#         252
-  C:9992H         LINE#         253
-  C:9992H         LINE#         254
-  C:9994H         LINE#         255
-  C:99A2H         LINE#         256
-  C:99A2H         LINE#         257
-  C:99A4H         LINE#         258
-  C:99ABH         LINE#         260
-  C:99B0H         LINE#         261
-  C:99B0H         LINE#         263
-  C:99B0H         LINE#         265
-  C:99B0H         LINE#         267
-  C:99B3H         LINE#         268
-  C:99B6H         LINE#         269
-  C:99B6H         LINE#         270
-  C:99BBH         LINE#         271
-  C:99BBH         LINE#         273
+  C:99B6H         LINE#         284
+  C:99BBH         LINE#         285
+  C:99BBH         LINE#         287
   -------         ENDPROC       MSJ_LCD_INFORMATIVO
   -------         ENDMOD        IO_SENSORES
 
@@ -3059,9 +3084,6 @@ SYMBOL TABLE OF MODULE:  .\Objects\verificador_v_01_raspberry (MAIN)
   B:0098H.4       PUBLIC        REN
   B:0080H.7       PUBLIC        sel_com
   C:A689H         SYMBOL        L?0115
-BL51 BANKED LINKER/LOCATER V6.22.2.0                                                  09/21/2020  13:31:53  PAGE 52
-
-
   C:A68CH         SYMBOL        L?0116
   -------         PROC          L?0114
   -------         ENDPROC       L?0114
@@ -3097,6 +3119,9 @@ SYMBOL TABLE OF MODULE:  .\Objects\verificador_v_01_raspberry (MAIN)
   -------         ENDPROC       _LCD_TXT
   -------         PROC          _LCD_TXT_NUM_CHAR
   X:001DH         SYMBOL        msg
+BL51 BANKED LINKER/LOCATER V6.22.2.0                                                  09/28/2020  11:10:44  PAGE 53
+
+
   X:0020H         SYMBOL        length_char
   X:0021H         SYMBOL        enable_char_add
   -------         DO            
@@ -3119,9 +3144,6 @@ SYMBOL TABLE OF MODULE:  .\Objects\verificador_v_01_raspberry (MAIN)
   -------         ENDDO         
   C:9E9EH         LINE#         102
   C:9EA9H         LINE#         103
-BL51 BANKED LINKER/LOCATER V6.22.2.0                                                  09/21/2020  13:31:53  PAGE 53
-
-
   C:9EA9H         LINE#         108
   C:9EB1H         LINE#         113
   C:9ECFH         LINE#         114
@@ -3157,6 +3179,9 @@ SYMBOL TABLE OF MODULE:  .\Objects\verificador_v_01_raspberry (MAIN)
   -------         ENDPROC       RELOJ_PANTALLA_LCD
   -------         PROC          _PANTALLALCD
   X:002BH         SYMBOL        cod_msg
+BL51 BANKED LINKER/LOCATER V6.22.2.0                                                  09/28/2020  11:10:44  PAGE 54
+
+
   -------         DO            
   X:002CH         SYMBOL        Ini_LCD_Line_one
   X:0032H         SYMBOL        num_chr
@@ -3179,9 +3204,6 @@ SYMBOL TABLE OF MODULE:  .\Objects\verificador_v_01_raspberry (MAIN)
   C:421FH         LINE#         189
   C:421FH         LINE#         191
   C:422DH         LINE#         192
-BL51 BANKED LINKER/LOCATER V6.22.2.0                                                  09/21/2020  13:31:53  PAGE 54
-
-
   C:4233H         LINE#         193
   C:4236H         LINE#         194
   C:423CH         LINE#         195
@@ -3217,6 +3239,9 @@ SYMBOL TABLE OF MODULE:  .\Objects\verificador_v_01_raspberry (MAIN)
   C:42DCH         LINE#         228
   C:42DFH         LINE#         229
   C:42DFH         LINE#         235
+BL51 BANKED LINKER/LOCATER V6.22.2.0                                                  09/28/2020  11:10:44  PAGE 55
+
+
   C:42DFH         LINE#         236
   C:42EDH         LINE#         237
   C:42F3H         LINE#         238
@@ -3239,9 +3264,6 @@ SYMBOL TABLE OF MODULE:  .\Objects\verificador_v_01_raspberry (MAIN)
   C:434DH         LINE#         257
   C:4353H         LINE#         258
   C:4356H         LINE#         259
-BL51 BANKED LINKER/LOCATER V6.22.2.0                                                  09/21/2020  13:31:53  PAGE 55
-
-
   C:435CH         LINE#         260
   C:435FH         LINE#         265
   C:435FH         LINE#         267
@@ -3277,6 +3299,9 @@ SYMBOL TABLE OF MODULE:  .\Objects\verificador_v_01_raspberry (MAIN)
   C:43FCH         LINE#         303
   C:440AH         LINE#         304
   C:4410H         LINE#         305
+BL51 BANKED LINKER/LOCATER V6.22.2.0                                                  09/28/2020  11:10:44  PAGE 56
+
+
   C:4413H         LINE#         306
   C:441EH         LINE#         307
   C:441EH         LINE#         308
@@ -3299,9 +3324,6 @@ SYMBOL TABLE OF MODULE:  .\Objects\verificador_v_01_raspberry (MAIN)
   C:4485H         LINE#         333
   C:4488H         LINE#         334
   C:4488H         LINE#         335
-BL51 BANKED LINKER/LOCATER V6.22.2.0                                                  09/21/2020  13:31:53  PAGE 56
-
-
   C:448EH         LINE#         336
   C:4491H         LINE#         337
   C:4491H         LINE#         338
@@ -3337,6 +3359,9 @@ SYMBOL TABLE OF MODULE:  .\Objects\verificador_v_01_raspberry (MAIN)
   C:44E1H         LINE#         379
   C:44E7H         LINE#         381
   C:44E9H         LINE#         382
+BL51 BANKED LINKER/LOCATER V6.22.2.0                                                  09/28/2020  11:10:44  PAGE 57
+
+
   C:44E9H         LINE#         384
   C:44EFH         LINE#         385
   C:44F1H         LINE#         386
@@ -3359,9 +3384,6 @@ SYMBOL TABLE OF MODULE:  .\Objects\verificador_v_01_raspberry (MAIN)
   C:451AH         LINE#         408
   C:451AH         LINE#         409
   C:451CH         LINE#         410
-BL51 BANKED LINKER/LOCATER V6.22.2.0                                                  09/21/2020  13:31:53  PAGE 57
-
-
   C:451CH         LINE#         414
   -------         ENDPROC       _PANTALLALCD
   -------         PROC          _PANTALLALCD_LINEA_2
@@ -3397,6 +3419,9 @@ SYMBOL TABLE OF MODULE:  .\Objects\verificador_v_01_raspberry (MAIN)
   C:65BFH         LINE#         448
   C:65C5H         LINE#         449
   C:65D0H         LINE#         450
+BL51 BANKED LINKER/LOCATER V6.22.2.0                                                  09/28/2020  11:10:44  PAGE 58
+
+
   C:65E0H         LINE#         451
   C:65E0H         LINE#         452
   C:65E0H         LINE#         454
@@ -3419,9 +3444,6 @@ SYMBOL TABLE OF MODULE:  .\Objects\verificador_v_01_raspberry (MAIN)
   C:6626H         LINE#         476
   C:6640H         LINE#         477
   C:665EH         LINE#         478
-BL51 BANKED LINKER/LOCATER V6.22.2.0                                                  09/21/2020  13:31:53  PAGE 58
-
-
   C:6675H         LINE#         479
   C:667EH         LINE#         480
   C:667EH         LINE#         481
@@ -3457,6 +3479,9 @@ SYMBOL TABLE OF MODULE:  .\Objects\verificador_v_01_raspberry (MAIN)
   C:1166H         SYMBOL        _?ix1001
   C:1176H         SYMBOL        _?ix1002
   C:1186H         SYMBOL        _?ix1003
+BL51 BANKED LINKER/LOCATER V6.22.2.0                                                  09/28/2020  11:10:44  PAGE 59
+
+
   C:67E2H         PUBLIC        Prog_Horarios
   C:118AH         SYMBOL        _?ix1004
   C:118EH         SYMBOL        _?ix1005
@@ -3479,9 +3504,6 @@ SYMBOL TABLE OF MODULE:  .\Objects\verificador_v_01_raspberry (MAIN)
   X:0071H         SYMBOL        clave
   -------         DO            
   X:0074H         SYMBOL        len_clave
-BL51 BANKED LINKER/LOCATER V6.22.2.0                                                  09/21/2020  13:31:53  PAGE 59
-
-
   X:0075H         SYMBOL        i
   X:01BAH         SYMBOL        temp
   X:01BCH         SYMBOL        temp1
@@ -3517,6 +3539,9 @@ SYMBOL TABLE OF MODULE:  .\Objects\verificador_v_01_raspberry (MAIN)
   C:53C8H         LINE#         143
   C:53ECH         LINE#         144
   C:53F4H         LINE#         145
+BL51 BANKED LINKER/LOCATER V6.22.2.0                                                  09/28/2020  11:10:44  PAGE 60
+
+
   C:53F4H         LINE#         146
   C:53F9H         LINE#         147
   C:53F9H         LINE#         148
@@ -3539,9 +3564,6 @@ SYMBOL TABLE OF MODULE:  .\Objects\verificador_v_01_raspberry (MAIN)
   C:5496H         LINE#         167
   C:549FH         LINE#         168
   C:54A4H         LINE#         169
-BL51 BANKED LINKER/LOCATER V6.22.2.0                                                  09/21/2020  13:31:53  PAGE 60
-
-
   C:54AAH         LINE#         170
   -------         ENDPROC       _HASH_ID
   -------         PROC          _LISTACOMANDOS
@@ -3577,6 +3599,9 @@ SYMBOL TABLE OF MODULE:  .\Objects\verificador_v_01_raspberry (MAIN)
   C:A349H         LINE#         206
   -------         ENDPROC       _VALIDARCLAVE
   -------         PROC          L?0255
+BL51 BANKED LINKER/LOCATER V6.22.2.0                                                  09/28/2020  11:10:44  PAGE 61
+
+
   -------         ENDPROC       L?0255
   -------         PROC          _GETCMD
   X:0071H         SYMBOL        in
@@ -3599,9 +3624,6 @@ SYMBOL TABLE OF MODULE:  .\Objects\verificador_v_01_raspberry (MAIN)
   C:9371H         LINE#         222
   C:937CH         LINE#         223
   C:937CH         LINE#         224
-BL51 BANKED LINKER/LOCATER V6.22.2.0                                                  09/21/2020  13:31:53  PAGE 61
-
-
   C:938FH         LINE#         225
   C:93A2H         LINE#         228
   C:93B4H         LINE#         229
@@ -3637,6 +3659,9 @@ SYMBOL TABLE OF MODULE:  .\Objects\verificador_v_01_raspberry (MAIN)
   C:9A07H         LINE#         264
   C:9A0CH         LINE#         265
   C:9A0CH         LINE#         266
+BL51 BANKED LINKER/LOCATER V6.22.2.0                                                  09/28/2020  11:10:44  PAGE 62
+
+
   C:9A1DH         LINE#         267
   C:9A27H         LINE#         268
   C:9A36H         LINE#         270
@@ -3659,9 +3684,6 @@ SYMBOL TABLE OF MODULE:  .\Objects\verificador_v_01_raspberry (MAIN)
   C:888DH         LINE#         306
   C:889FH         LINE#         307
   C:88BCH         LINE#         308
-BL51 BANKED LINKER/LOCATER V6.22.2.0                                                  09/21/2020  13:31:53  PAGE 62
-
-
   -------         ENDPROC       PROG_ID_CLIENTE
   -------         PROC          PROG_COD_PARK
   -------         DO            
@@ -3697,6 +3719,9 @@ SYMBOL TABLE OF MODULE:  .\Objects\verificador_v_01_raspberry (MAIN)
   C:8656H         LINE#         348
   C:8660H         LINE#         350
   C:8673H         LINE#         351
+BL51 BANKED LINKER/LOCATER V6.22.2.0                                                  09/28/2020  11:10:44  PAGE 63
+
+
   C:8690H         LINE#         352
   -------         ENDPROC       PROG_TIEMPO_GRACIA
   -------         PROC          PROG_SIN_COBRO
@@ -3719,9 +3744,6 @@ SYMBOL TABLE OF MODULE:  .\Objects\verificador_v_01_raspberry (MAIN)
   C:6AD7H         LINE#         376
   C:6AD7H         LINE#         377
   C:6AEEH         LINE#         378
-BL51 BANKED LINKER/LOCATER V6.22.2.0                                                  09/21/2020  13:31:53  PAGE 63
-
-
   C:6AEEH         LINE#         380
   C:6AF7H         LINE#         381
   C:6B02H         LINE#         382
@@ -3757,6 +3779,9 @@ SYMBOL TABLE OF MODULE:  .\Objects\verificador_v_01_raspberry (MAIN)
   C:77E3H         LINE#         419
   C:77E3H         LINE#         420
   C:77FAH         LINE#         421
+BL51 BANKED LINKER/LOCATER V6.22.2.0                                                  09/28/2020  11:10:44  PAGE 64
+
+
   C:77FAH         LINE#         423
   C:7803H         LINE#         424
   C:780EH         LINE#         425
@@ -3779,9 +3804,6 @@ SYMBOL TABLE OF MODULE:  .\Objects\verificador_v_01_raspberry (MAIN)
   -------         ENDDO         
   C:7890H         LINE#         443
   C:7890H         LINE#         444
-BL51 BANKED LINKER/LOCATER V6.22.2.0                                                  09/21/2020  13:31:53  PAGE 64
-
-
   C:7890H         LINE#         449
   C:78A3H         LINE#         450
   C:78C0H         LINE#         451
@@ -3817,6 +3839,9 @@ SYMBOL TABLE OF MODULE:  .\Objects\verificador_v_01_raspberry (MAIN)
   C:799FH         LINE#         486
   C:79BCH         LINE#         487
   C:79C6H         LINE#         488
+BL51 BANKED LINKER/LOCATER V6.22.2.0                                                  09/28/2020  11:10:44  PAGE 65
+
+
   C:79C6H         LINE#         489
   C:79D9H         LINE#         490
   C:79DBH         LINE#         492
@@ -3839,9 +3864,6 @@ SYMBOL TABLE OF MODULE:  .\Objects\verificador_v_01_raspberry (MAIN)
   -------         ENDPROC       PROG_COMPARACION_ACTIVA
   -------         PROC          TIPO_PANTALLA
   -------         DO            
-BL51 BANKED LINKER/LOCATER V6.22.2.0                                                  09/21/2020  13:31:53  PAGE 65
-
-
   X:005AH         SYMBOL        buffer
   X:0064H         SYMBOL        dataee
   -------         ENDDO         
@@ -3877,6 +3899,9 @@ SYMBOL TABLE OF MODULE:  .\Objects\verificador_v_01_raspberry (MAIN)
   X:0064H         SYMBOL        dataee
   -------         ENDDO         
   C:7B84H         LINE#         556
+BL51 BANKED LINKER/LOCATER V6.22.2.0                                                  09/28/2020  11:10:44  PAGE 66
+
+
   C:7B84H         LINE#         557
   C:7B84H         LINE#         562
   C:7B97H         LINE#         563
@@ -3899,9 +3924,6 @@ SYMBOL TABLE OF MODULE:  .\Objects\verificador_v_01_raspberry (MAIN)
   C:7C66H         LINE#         583
   C:7C68H         LINE#         585
   C:7C68H         LINE#         586
-BL51 BANKED LINKER/LOCATER V6.22.2.0                                                  09/21/2020  13:31:53  PAGE 66
-
-
   C:7C7FH         LINE#         587
   C:7C7FH         LINE#         588
   -------         ENDPROC       DCTO_CAJA
@@ -3937,6 +3959,9 @@ SYMBOL TABLE OF MODULE:  .\Objects\verificador_v_01_raspberry (MAIN)
   C:7D7BH         LINE#         621
   -------         ENDPROC       PROG_APB_MENSUAL
   -------         PROC          PROG_ADDRESS_HIGH_BOARD
+BL51 BANKED LINKER/LOCATER V6.22.2.0                                                  09/28/2020  11:10:44  PAGE 67
+
+
   -------         DO            
   X:005AH         SYMBOL        buffer
   X:0064H         SYMBOL        dataee
@@ -3959,9 +3984,6 @@ SYMBOL TABLE OF MODULE:  .\Objects\verificador_v_01_raspberry (MAIN)
   C:80C6H         LINE#         644
   C:80D9H         LINE#         645
   C:80F6H         LINE#         646
-BL51 BANKED LINKER/LOCATER V6.22.2.0                                                  09/21/2020  13:31:53  PAGE 67
-
-
   C:8100H         LINE#         647
   C:8100H         LINE#         648
   C:8104H         LINE#         649
@@ -3997,6 +4019,9 @@ SYMBOL TABLE OF MODULE:  .\Objects\verificador_v_01_raspberry (MAIN)
   X:0081H         SYMBOL        dataee
   X:0083H         SYMBOL        habilitado
   -------         ENDDO         
+BL51 BANKED LINKER/LOCATER V6.22.2.0                                                  09/28/2020  11:10:44  PAGE 68
+
+
   C:6F2DH         LINE#         672
   C:6F37H         LINE#         673
   C:6F37H         LINE#         676
@@ -4019,9 +4044,6 @@ SYMBOL TABLE OF MODULE:  .\Objects\verificador_v_01_raspberry (MAIN)
   C:700EH         LINE#         695
   C:7011H         LINE#         696
   C:7024H         LINE#         697
-BL51 BANKED LINKER/LOCATER V6.22.2.0                                                  09/21/2020  13:31:53  PAGE 68
-
-
   C:7026H         LINE#         699
   C:7026H         LINE#         700
   C:702BH         LINE#         701
@@ -4057,6 +4079,9 @@ SYMBOL TABLE OF MODULE:  .\Objects\verificador_v_01_raspberry (MAIN)
   C:55B8H         LINE#         732
   C:55C1H         LINE#         734
   C:55D9H         LINE#         735
+BL51 BANKED LINKER/LOCATER V6.22.2.0                                                  09/28/2020  11:10:44  PAGE 69
+
+
   C:55ECH         LINE#         736
   C:55FAH         LINE#         737
   C:5612H         LINE#         738
@@ -4079,9 +4104,6 @@ SYMBOL TABLE OF MODULE:  .\Objects\verificador_v_01_raspberry (MAIN)
   C:7058H         LINE#         751
   C:706BH         LINE#         752
   C:7079H         LINE#         753
-BL51 BANKED LINKER/LOCATER V6.22.2.0                                                  09/21/2020  13:31:53  PAGE 69
-
-
   C:708CH         LINE#         754
   C:709AH         LINE#         755
   C:70ADH         LINE#         756
@@ -4117,6 +4139,9 @@ SYMBOL TABLE OF MODULE:  .\Objects\verificador_v_01_raspberry (MAIN)
   C:4E2BH         LINE#         789
   C:4E2BH         LINE#         790
   C:4E34H         LINE#         792
+BL51 BANKED LINKER/LOCATER V6.22.2.0                                                  09/28/2020  11:10:44  PAGE 70
+
+
   C:4E49H         LINE#         793
   C:4E61H         LINE#         794
   C:4E6EH         LINE#         795
@@ -4139,9 +4164,6 @@ SYMBOL TABLE OF MODULE:  .\Objects\verificador_v_01_raspberry (MAIN)
   C:4F36H         LINE#         815
   C:4F3FH         LINE#         816
   C:4F54H         LINE#         817
-BL51 BANKED LINKER/LOCATER V6.22.2.0                                                  09/21/2020  13:31:53  PAGE 70
-
-
   C:4F6CH         LINE#         818
   C:4F79H         LINE#         819
   C:4F79H         LINE#         821
@@ -4177,6 +4199,9 @@ SYMBOL TABLE OF MODULE:  .\Objects\verificador_v_01_raspberry (MAIN)
   C:6E0DH         LINE#         848
   C:6E0DH         LINE#         851
   C:6E1DH         LINE#         852
+BL51 BANKED LINKER/LOCATER V6.22.2.0                                                  09/28/2020  11:10:44  PAGE 71
+
+
   C:6E23H         LINE#         853
   C:6E23H         LINE#         854
   C:6E27H         LINE#         855
@@ -4199,9 +4224,6 @@ SYMBOL TABLE OF MODULE:  .\Objects\verificador_v_01_raspberry (MAIN)
   C:6E7FH         LINE#         879
   C:6E7FH         LINE#         880
   C:6E86H         LINE#         881
-BL51 BANKED LINKER/LOCATER V6.22.2.0                                                  09/21/2020  13:31:53  PAGE 71
-
-
   C:6E86H         LINE#         883
   C:6E9EH         LINE#         884
   C:6EA4H         LINE#         885
@@ -4237,6 +4259,9 @@ SYMBOL TABLE OF MODULE:  .\Objects\verificador_v_01_raspberry (MAIN)
   C:6F2CH         LINE#         923
   -------         ENDPROC       _VER_HORARIO_DIAS
   -------         PROC          PROG_HORARIOS
+BL51 BANKED LINKER/LOCATER V6.22.2.0                                                  09/28/2020  11:10:44  PAGE 72
+
+
   -------         DO            
   X:005AH         SYMBOL        buffer
   X:0064H         SYMBOL        ee_addr_horario
@@ -4259,9 +4284,6 @@ SYMBOL TABLE OF MODULE:  .\Objects\verificador_v_01_raspberry (MAIN)
   C:6843H         LINE#         954
   C:6852H         LINE#         955
   C:6866H         LINE#         956
-BL51 BANKED LINKER/LOCATER V6.22.2.0                                                  09/21/2020  13:31:53  PAGE 72
-
-
   C:6866H         LINE#         957
   C:687AH         LINE#         958
   C:6882H         LINE#         960
@@ -4297,6 +4319,9 @@ SYMBOL TABLE OF MODULE:  .\Objects\verificador_v_01_raspberry (MAIN)
   C:56E0H         LINE#         1001
   C:56E9H         LINE#         1002
   C:56F6H         LINE#         1003
+BL51 BANKED LINKER/LOCATER V6.22.2.0                                                  09/28/2020  11:10:44  PAGE 73
+
+
   C:570DH         LINE#         1004
   C:571FH         LINE#         1005
   C:5728H         LINE#         1010
@@ -4319,9 +4344,6 @@ SYMBOL TABLE OF MODULE:  .\Objects\verificador_v_01_raspberry (MAIN)
   C:57F0H         LINE#         1033
   C:5801H         LINE#         1034
   C:5810H         LINE#         1035
-BL51 BANKED LINKER/LOCATER V6.22.2.0                                                  09/21/2020  13:31:53  PAGE 73
-
-
   C:5818H         LINE#         1036
   C:5820H         LINE#         1037
   C:5823H         LINE#         1038
@@ -4357,6 +4379,9 @@ SYMBOL TABLE OF MODULE:  .\Objects\verificador_v_01_raspberry (MAIN)
   C:6C38H         LINE#         1075
   C:6C41H         LINE#         1077
   C:6C4AH         LINE#         1078
+BL51 BANKED LINKER/LOCATER V6.22.2.0                                                  09/28/2020  11:10:44  PAGE 74
+
+
   C:6C5AH         LINE#         1079
   C:6C5DH         LINE#         1081
   C:6C68H         LINE#         1082
@@ -4379,9 +4404,6 @@ SYMBOL TABLE OF MODULE:  .\Objects\verificador_v_01_raspberry (MAIN)
   -------         ENDPROC       VER_HORARIO
   -------         PROC          VER_PROG
   -------         DO            
-BL51 BANKED LINKER/LOCATER V6.22.2.0                                                  09/21/2020  13:31:53  PAGE 74
-
-
   X:005AH         SYMBOL        buffer
   X:0064H         SYMBOL        dataee
   X:0066H         SYMBOL        fecha
@@ -4417,6 +4439,9 @@ SYMBOL TABLE OF MODULE:  .\Objects\verificador_v_01_raspberry (MAIN)
   C:3F72H         LINE#         1147
   C:3F79H         LINE#         1148
   C:3F79H         LINE#         1150
+BL51 BANKED LINKER/LOCATER V6.22.2.0                                                  09/28/2020  11:10:44  PAGE 75
+
+
   C:3F8CH         LINE#         1151
   C:3FA9H         LINE#         1152
   C:3FB5H         LINE#         1153
@@ -4439,9 +4464,6 @@ SYMBOL TABLE OF MODULE:  .\Objects\verificador_v_01_raspberry (MAIN)
   C:403BH         LINE#         1175
   C:4047H         LINE#         1176
   C:4047H         LINE#         1177
-BL51 BANKED LINKER/LOCATER V6.22.2.0                                                  09/21/2020  13:31:53  PAGE 75
-
-
   C:404BH         LINE#         1178
   C:404DH         LINE#         1180
   C:404DH         LINE#         1181
@@ -4477,6 +4499,9 @@ SYMBOL TABLE OF MODULE:  .\Objects\verificador_v_01_raspberry (MAIN)
   -------         ENDPROC       VER_PROG
   -------         PROC          SHOW
   C:972BH         LINE#         1226
+BL51 BANKED LINKER/LOCATER V6.22.2.0                                                  09/28/2020  11:10:44  PAGE 76
+
+
   C:972BH         LINE#         1227
   C:972BH         LINE#         1228
   C:9734H         LINE#         1229
@@ -4499,9 +4524,6 @@ SYMBOL TABLE OF MODULE:  .\Objects\verificador_v_01_raspberry (MAIN)
   X:005AH         SYMBOL        clave
   -------         ENDDO         
   C:A094H         LINE#         1248
-BL51 BANKED LINKER/LOCATER V6.22.2.0                                                  09/21/2020  13:31:53  PAGE 76
-
-
   C:A094H         LINE#         1249
   C:A094H         LINE#         1253
   C:A09DH         LINE#         1254
@@ -4537,6 +4559,9 @@ SYMBOL TABLE OF MODULE:  .\Objects\verificador_v_01_raspberry (MAIN)
   C:50D5H         LINE#         1295
   C:50E7H         LINE#         1296
   C:50F0H         LINE#         1301
+BL51 BANKED LINKER/LOCATER V6.22.2.0                                                  09/28/2020  11:10:44  PAGE 77
+
+
   C:50FBH         LINE#         1302
   C:5109H         LINE#         1303
   C:5116H         LINE#         1304
@@ -4559,9 +4584,6 @@ SYMBOL TABLE OF MODULE:  .\Objects\verificador_v_01_raspberry (MAIN)
   C:51CAH         LINE#         1332
   C:51CAH         LINE#         1338
   C:51DDH         LINE#         1339
-BL51 BANKED LINKER/LOCATER V6.22.2.0                                                  09/21/2020  13:31:53  PAGE 77
-
-
   C:51DDH         LINE#         1340
   C:5220H         LINE#         1341
   C:5220H         LINE#         1342
@@ -4597,6 +4619,9 @@ SYMBOL TABLE OF MODULE:  .\Objects\verificador_v_01_raspberry (MAIN)
   C:525CH         LINE#         1382
   C:525CH         LINE#         1383
   C:525FH         LINE#         1384
+BL51 BANKED LINKER/LOCATER V6.22.2.0                                                  09/28/2020  11:10:44  PAGE 78
+
+
   C:5262H         LINE#         1385
   C:5262H         LINE#         1386
   C:5265H         LINE#         1387
@@ -4619,9 +4644,6 @@ SYMBOL TABLE OF MODULE:  .\Objects\verificador_v_01_raspberry (MAIN)
   C:529BH         LINE#         1411
   C:529BH         LINE#         1412
   -------         ENDPROC       MENU
-BL51 BANKED LINKER/LOCATER V6.22.2.0                                                  09/21/2020  13:31:53  PAGE 78
-
-
   -------         ENDMOD        PROG
 
   -------         MODULE        PTO_PARALELO
@@ -4634,7 +4656,7 @@ SYMBOL TABLE OF MODULE:  .\Objects\verificador_v_01_raspberry (MAIN)
   C:8EBBH         PUBLIC        _recibe_port
   B:00B0H.2       PUBLIC        ready
   B:0080H.6       PUBLIC        rx_in_data
-  C:A88DH         PUBLIC        Pulso_Bus
+  C:A89FH         PUBLIC        Pulso_Bus
   C:9593H         PUBLIC        _send_portERR
   B:00B0H.3       PUBLIC        busy
   C:A5E3H         PUBLIC        load_and_send_info_reloj
@@ -4642,7 +4664,7 @@ SYMBOL TABLE OF MODULE:  .\Objects\verificador_v_01_raspberry (MAIN)
   B:00B0H.4       PUBLIC        port_clk
   C:4AFEH         PUBLIC        _Trama_pto_Paralelo_new
   C:7597H         PUBLIC        _Trama_pto_Paralelo_P
-  C:A8FEH         PUBLIC        cond_ini_pto
+  C:A910H         PUBLIC        cond_ini_pto
   -------         PROC          _RECIBE_PORT
   X:0001H         SYMBOL        buffer_port
   -------         DO            
@@ -4657,6 +4679,9 @@ SYMBOL TABLE OF MODULE:  .\Objects\verificador_v_01_raspberry (MAIN)
   C:8EC6H         LINE#         51
   C:8ECFH         LINE#         52
   C:8ED2H         LINE#         55
+BL51 BANKED LINKER/LOCATER V6.22.2.0                                                  09/28/2020  11:10:44  PAGE 79
+
+
   C:8ED5H         LINE#         56
   C:8ED5H         LINE#         58
   C:8ED8H         LINE#         59
@@ -4679,9 +4704,6 @@ SYMBOL TABLE OF MODULE:  .\Objects\verificador_v_01_raspberry (MAIN)
   C:8F03H         LINE#         80
   C:8F10H         LINE#         81
   C:8F10H         LINE#         83
-BL51 BANKED LINKER/LOCATER V6.22.2.0                                                  09/21/2020  13:31:53  PAGE 79
-
-
   C:8F13H         LINE#         84
   C:8F13H         LINE#         86
   C:8F19H         LINE#         88
@@ -4717,6 +4739,9 @@ SYMBOL TABLE OF MODULE:  .\Objects\verificador_v_01_raspberry (MAIN)
   C:88E7H         LINE#         122
   C:88E9H         LINE#         123
   C:88EBH         LINE#         124
+BL51 BANKED LINKER/LOCATER V6.22.2.0                                                  09/28/2020  11:10:44  PAGE 80
+
+
   C:88F0H         LINE#         125
   C:88F2H         LINE#         126
   C:88FCH         LINE#         128
@@ -4739,9 +4764,6 @@ SYMBOL TABLE OF MODULE:  .\Objects\verificador_v_01_raspberry (MAIN)
   C:896EH         LINE#         150
   C:8974H         LINE#         151
   C:8977H         LINE#         153
-BL51 BANKED LINKER/LOCATER V6.22.2.0                                                  09/21/2020  13:31:53  PAGE 80
-
-
   C:8977H         LINE#         154
   C:897AH         LINE#         155
   C:897CH         LINE#         156
@@ -4777,6 +4799,9 @@ SYMBOL TABLE OF MODULE:  .\Objects\verificador_v_01_raspberry (MAIN)
   C:7648H         LINE#         262
   C:7648H         LINE#         263
   C:7659H         LINE#         264
+BL51 BANKED LINKER/LOCATER V6.22.2.0                                                  09/28/2020  11:10:44  PAGE 81
+
+
   C:765BH         LINE#         266
   C:765BH         LINE#         267
   C:766CH         LINE#         268
@@ -4799,9 +4824,6 @@ SYMBOL TABLE OF MODULE:  .\Objects\verificador_v_01_raspberry (MAIN)
   C:4AFEH         LINE#         288
   C:4B04H         LINE#         290
   C:4B08H         LINE#         291
-BL51 BANKED LINKER/LOCATER V6.22.2.0                                                  09/21/2020  13:31:53  PAGE 81
-
-
   C:4B10H         LINE#         294
   C:4B10H         LINE#         295
   C:4B27H         LINE#         296
@@ -4837,6 +4859,9 @@ SYMBOL TABLE OF MODULE:  .\Objects\verificador_v_01_raspberry (MAIN)
   C:4D10H         LINE#         334
   C:4D34H         LINE#         338
   C:4D48H         LINE#         341
+BL51 BANKED LINKER/LOCATER V6.22.2.0                                                  09/28/2020  11:10:44  PAGE 82
+
+
   C:4D5EH         LINE#         342
   C:4D5EH         LINE#         343
   C:4D6FH         LINE#         344
@@ -4853,15 +4878,12 @@ SYMBOL TABLE OF MODULE:  .\Objects\verificador_v_01_raspberry (MAIN)
   C:4DC8H         LINE#         359
   -------         ENDPROC       _TRAMA_PTO_PARALELO_NEW
   -------         PROC          PULSO_BUS
-  C:A88DH         LINE#         367
-  C:A88DH         LINE#         368
-  C:A88DH         LINE#         369
-  C:A88FH         LINE#         370
-  C:A896H         LINE#         371
-  C:A898H         LINE#         372
-BL51 BANKED LINKER/LOCATER V6.22.2.0                                                  09/21/2020  13:31:53  PAGE 82
-
-
+  C:A89FH         LINE#         367
+  C:A89FH         LINE#         368
+  C:A89FH         LINE#         369
+  C:A8A1H         LINE#         370
+  C:A8A8H         LINE#         371
+  C:A8AAH         LINE#         372
   -------         ENDPROC       PULSO_BUS
   -------         PROC          _SEND_PORTERR
   X:002BH         SYMBOL        cod_err
@@ -4897,14 +4919,17 @@ SYMBOL TABLE OF MODULE:  .\Objects\verificador_v_01_raspberry (MAIN)
   C:960DH         LINE#         408
   C:9614H         LINE#         409
   -------         ENDPROC       _SEND_PORTERR
+BL51 BANKED LINKER/LOCATER V6.22.2.0                                                  09/28/2020  11:10:44  PAGE 83
+
+
   -------         PROC          COND_INI_PTO
-  C:A8FEH         LINE#         415
-  C:A8FEH         LINE#         416
-  C:A8FEH         LINE#         418
-  C:A900H         LINE#         419
-  C:A902H         LINE#         420
-  C:A904H         LINE#         421
-  C:A907H         LINE#         422
+  C:A910H         LINE#         415
+  C:A910H         LINE#         416
+  C:A910H         LINE#         418
+  C:A912H         LINE#         419
+  C:A914H         LINE#         420
+  C:A916H         LINE#         421
+  C:A919H         LINE#         422
   -------         ENDPROC       COND_INI_PTO
   -------         PROC          LOAD_AND_SEND_INFO_RELOJ
   -------         DO            
@@ -4919,9 +4944,6 @@ SYMBOL TABLE OF MODULE:  .\Objects\verificador_v_01_raspberry (MAIN)
   C:A600H         LINE#         437
   C:A604H         LINE#         441
   -------         ENDPROC       LOAD_AND_SEND_INFO_RELOJ
-BL51 BANKED LINKER/LOCATER V6.22.2.0                                                  09/21/2020  13:31:53  PAGE 83
-
-
   -------         PROC          LOAD_AND_SEND_ID_COD
   -------         DO            
   X:0002H         SYMBOL        buffer_info
@@ -4957,6 +4979,9 @@ SYMBOL TABLE OF MODULE:  .\Objects\verificador_v_01_raspberry (MAIN)
   C:737CH         LINE#         483
   -------         ENDPROC       LOAD_AND_SEND_ID_COD
   -------         ENDMOD        PTO_PARALELO
+BL51 BANKED LINKER/LOCATER V6.22.2.0                                                  09/28/2020  11:10:44  PAGE 84
+
+
 
   -------         MODULE        TIBBO
   C:0000H         SYMBOL        _ICE_DUMMY_
@@ -4969,8 +4994,8 @@ SYMBOL TABLE OF MODULE:  .\Objects\verificador_v_01_raspberry (MAIN)
   B:00A8H.7       PUBLIC        EA
   C:A04CH         PUBLIC        _tx_aux
   B:0080H.0       PUBLIC        rx_ip
-  C:A911H         PUBLIC        Debug_Dividir_texto
-  C:A95BH         PUBLIC        cond_ini_tibbo
+  C:A923H         PUBLIC        Debug_Dividir_texto
+  C:A96DH         PUBLIC        cond_ini_tibbo
   C:A83EH         PUBLIC        time_mbit
   C:961BH         PUBLIC        rx_Data
   C:A7A0H         PUBLIC        time_bit
@@ -4979,9 +5004,6 @@ SYMBOL TABLE OF MODULE:  .\Objects\verificador_v_01_raspberry (MAIN)
   C:A124H         PUBLIC        _Debug_chr_Tibbo
   C:A79AH         SYMBOL        L?0066
   -------         PROC          L?0065
-BL51 BANKED LINKER/LOCATER V6.22.2.0                                                  09/21/2020  13:31:53  PAGE 84
-
-
   -------         ENDPROC       L?0065
   C:A79AH         SYMBOL        L?0066
   -------         PROC          TIME_BIT
@@ -5017,6 +5039,9 @@ SYMBOL TABLE OF MODULE:  .\Objects\verificador_v_01_raspberry (MAIN)
   C:A84CH         LINE#         48
   C:A84DH         LINE#         49
   C:A84EH         LINE#         50
+BL51 BANKED LINKER/LOCATER V6.22.2.0                                                  09/28/2020  11:10:44  PAGE 85
+
+
   C:A84FH         LINE#         51
   C:A850H         LINE#         52
   C:A851H         LINE#         53
@@ -5039,9 +5064,6 @@ SYMBOL TABLE OF MODULE:  .\Objects\verificador_v_01_raspberry (MAIN)
   C:A055H         LINE#         67
   C:A056H         LINE#         68
   C:A057H         LINE#         69
-BL51 BANKED LINKER/LOCATER V6.22.2.0                                                  09/21/2020  13:31:53  PAGE 85
-
-
   C:A059H         LINE#         70
   C:A05DH         LINE#         71
   C:A05FH         LINE#         72
@@ -5077,6 +5099,9 @@ SYMBOL TABLE OF MODULE:  .\Objects\verificador_v_01_raspberry (MAIN)
   D:0006H         SYMBOL        centena
   D:0003H         SYMBOL        decena
   D:0002H         SYMBOL        unidad
+BL51 BANKED LINKER/LOCATER V6.22.2.0                                                  09/28/2020  11:10:44  PAGE 86
+
+
   -------         ENDDO         
   C:A1F7H         LINE#         102
   C:A1F7H         LINE#         103
@@ -5099,9 +5124,6 @@ SYMBOL TABLE OF MODULE:  .\Objects\verificador_v_01_raspberry (MAIN)
   C:A22BH         LINE#         124
   C:A22DH         LINE#         125
   C:A231H         LINE#         126
-BL51 BANKED LINKER/LOCATER V6.22.2.0                                                  09/21/2020  13:31:53  PAGE 86
-
-
   C:A235H         LINE#         127
   C:A23CH         LINE#         129
   C:A23CH         LINE#         130
@@ -5137,6 +5159,9 @@ SYMBOL TABLE OF MODULE:  .\Objects\verificador_v_01_raspberry (MAIN)
   C:9C39H         LINE#         164
   C:9C41H         LINE#         165
   C:9C41H         LINE#         167
+BL51 BANKED LINKER/LOCATER V6.22.2.0                                                  09/28/2020  11:10:44  PAGE 87
+
+
   C:9C50H         LINE#         168
   C:9C50H         LINE#         169
   C:9C54H         LINE#         170
@@ -5159,9 +5184,6 @@ SYMBOL TABLE OF MODULE:  .\Objects\verificador_v_01_raspberry (MAIN)
   -------         ENDDO         
   C:A287H         LINE#         187
   C:A292H         LINE#         188
-BL51 BANKED LINKER/LOCATER V6.22.2.0                                                  09/21/2020  13:31:53  PAGE 87
-
-
   C:A292H         LINE#         190
   C:A295H         LINE#         193
   C:A29DH         LINE#         194
@@ -5173,9 +5195,9 @@ SYMBOL TABLE OF MODULE:  .\Objects\verificador_v_01_raspberry (MAIN)
   C:A2C4H         LINE#         201
   -------         ENDPROC       _DEBUG_TXT_TIBBO
   -------         PROC          DEBUG_DIVIDIR_TEXTO
-  C:A911H         LINE#         203
-  C:A911H         LINE#         204
-  C:A911H         LINE#         205
+  C:A923H         LINE#         203
+  C:A923H         LINE#         204
+  C:A923H         LINE#         205
   -------         ENDPROC       DEBUG_DIVIDIR_TEXTO
   -------         PROC          RX_DATA
   -------         DO            
@@ -5197,6 +5219,9 @@ SYMBOL TABLE OF MODULE:  .\Objects\verificador_v_01_raspberry (MAIN)
   C:964DH         LINE#         233
   C:9650H         LINE#         235
   C:965CH         LINE#         236
+BL51 BANKED LINKER/LOCATER V6.22.2.0                                                  09/28/2020  11:10:44  PAGE 88
+
+
   C:965CH         LINE#         238
   C:965FH         LINE#         240
   C:966BH         LINE#         241
@@ -5219,9 +5244,6 @@ SYMBOL TABLE OF MODULE:  .\Objects\verificador_v_01_raspberry (MAIN)
   X:0018H         SYMBOL        buffer
   C:8CD8H         LINE#         264
   C:8CE3H         LINE#         265
-BL51 BANKED LINKER/LOCATER V6.22.2.0                                                  09/21/2020  13:31:53  PAGE 88
-
-
   C:8CE3H         LINE#         266
   C:8CECH         LINE#         267
   C:8D01H         LINE#         268
@@ -5235,11 +5257,11 @@ SYMBOL TABLE OF MODULE:  .\Objects\verificador_v_01_raspberry (MAIN)
   C:8D75H         LINE#         276
   -------         ENDPROC       _DEBUG_FECHA_ACTUAL
   -------         PROC          COND_INI_TIBBO
-  C:A95BH         LINE#         281
-  C:A95BH         LINE#         282
-  C:A95BH         LINE#         284
-  C:A95DH         LINE#         285
-  C:A95FH         LINE#         286
+  C:A96DH         LINE#         281
+  C:A96DH         LINE#         282
+  C:A96DH         LINE#         284
+  C:A96FH         LINE#         285
+  C:A971H         LINE#         286
   -------         ENDPROC       COND_INI_TIBBO
   -------         PROC          _DEBUG_PTO_PARALELO
   X:0001H         SYMBOL        buffer
@@ -5257,10 +5279,13 @@ SYMBOL TABLE OF MODULE:  .\Objects\verificador_v_01_raspberry (MAIN)
   -------         ENDMOD        TIBBO
 
   -------         MODULE        UART
+BL51 BANKED LINKER/LOCATER V6.22.2.0                                                  09/28/2020  11:10:44  PAGE 89
+
+
   C:0000H         SYMBOL        _ICE_DUMMY_
   C:A6B0H         PUBLIC        com_getchar
-  C:A89FH         PUBLIC        com_rbuflen
-  C:A8B1H         PUBLIC        com_tbuflen
+  C:A8B1H         PUBLIC        com_rbuflen
+  C:A8C3H         PUBLIC        com_tbuflen
   B:00A8H.4       PUBLIC        ES
   B:0098H.0       PUBLIC        RI
   C:A503H         PUBLIC        _com_putchar
@@ -5279,9 +5304,6 @@ SYMBOL TABLE OF MODULE:  .\Objects\verificador_v_01_raspberry (MAIN)
   D:008DH         PUBLIC        TH1
   B:0098H.7       PUBLIC        SM0
   B:0098H.6       PUBLIC        SM1
-BL51 BANKED LINKER/LOCATER V6.22.2.0                                                  09/21/2020  13:31:53  PAGE 89
-
-
   D:008BH         PUBLIC        TL1
   B:0098H.5       PUBLIC        SM2
   B:0088H.6       PUBLIC        TR1
@@ -5317,6 +5339,9 @@ SYMBOL TABLE OF MODULE:  .\Objects\verificador_v_01_raspberry (MAIN)
   C:5AEFH         LINE#         131
   C:5AFEH         LINE#         132
   C:5AFEH         LINE#         133
+BL51 BANKED LINKER/LOCATER V6.22.2.0                                                  09/28/2020  11:10:44  PAGE 90
+
+
   C:5B00H         LINE#         134
   C:5B08H         LINE#         135
   C:5B0DH         LINE#         137
@@ -5339,9 +5364,6 @@ SYMBOL TABLE OF MODULE:  .\Objects\verificador_v_01_raspberry (MAIN)
   C:5B47H         LINE#         163
   C:5B4DH         LINE#         164
   C:5B60H         LINE#         165
-BL51 BANKED LINKER/LOCATER V6.22.2.0                                                  09/21/2020  13:31:53  PAGE 90
-
-
   C:5B60H         LINE#         166
   C:5B63H         LINE#         168
   C:5B63H         LINE#         169
@@ -5377,6 +5399,9 @@ SYMBOL TABLE OF MODULE:  .\Objects\verificador_v_01_raspberry (MAIN)
   C:5BF7H         LINE#         209
   C:5BF9H         LINE#         211
   C:5BF9H         LINE#         212
+BL51 BANKED LINKER/LOCATER V6.22.2.0                                                  09/28/2020  11:10:44  PAGE 91
+
+
   C:5BFFH         LINE#         213
   C:5BFFH         LINE#         215
   C:5C01H         LINE#         220
@@ -5399,9 +5424,6 @@ SYMBOL TABLE OF MODULE:  .\Objects\verificador_v_01_raspberry (MAIN)
   C:5C23H         LINE#         243
   C:5C23H         LINE#         245
   -------         ENDPROC       COM_ISR
-BL51 BANKED LINKER/LOCATER V6.22.2.0                                                  09/21/2020  13:31:53  PAGE 91
-
-
   -------         PROC          COM_INITIALIZE
   C:A60FH         LINE#         261
   C:A616H         LINE#         262
@@ -5437,6 +5459,9 @@ SYMBOL TABLE OF MODULE:  .\Objects\verificador_v_01_raspberry (MAIN)
   C:A684H         LINE#         320
   -------         ENDPROC       COM_BAUDRATE
   -------         PROC          _COM_PUTCHAR
+BL51 BANKED LINKER/LOCATER V6.22.2.0                                                  09/28/2020  11:10:44  PAGE 92
+
+
   X:00E3H         SYMBOL        c
   C:A503H         LINE#         326
   C:A50FH         LINE#         328
@@ -5459,21 +5484,18 @@ SYMBOL TABLE OF MODULE:  .\Objects\verificador_v_01_raspberry (MAIN)
   C:A6BDH         LINE#         358
   C:A6C3H         LINE#         360
   C:A6D1H         LINE#         361
-BL51 BANKED LINKER/LOCATER V6.22.2.0                                                  09/21/2020  13:31:53  PAGE 92
-
-
   -------         ENDPROC       COM_GETCHAR
   -------         PROC          COM_RBUFLEN
-  C:A89FH         LINE#         367
-  C:A8A6H         LINE#         368
-  C:A8A6H         LINE#         369
-  C:A8ACH         LINE#         370
+  C:A8B1H         LINE#         367
+  C:A8B8H         LINE#         368
+  C:A8B8H         LINE#         369
+  C:A8BEH         LINE#         370
   -------         ENDPROC       COM_RBUFLEN
   -------         PROC          COM_TBUFLEN
-  C:A8B1H         LINE#         376
-  C:A8B8H         LINE#         377
-  C:A8B8H         LINE#         378
-  C:A8BEH         LINE#         379
+  C:A8C3H         LINE#         376
+  C:A8CAH         LINE#         377
+  C:A8CAH         LINE#         378
+  C:A8D0H         LINE#         379
   -------         ENDPROC       COM_TBUFLEN
   -------         ENDMOD        UART
 
@@ -5497,6 +5519,9 @@ SYMBOL TABLE OF MODULE:  .\Objects\verificador_v_01_raspberry (MAIN)
   C:1192H         PUBLIC        SecuenciaExpedidor
   B:00B0H.3       PUBLIC        busy
   C:7D7CH         PUBLIC        _Horarios
+BL51 BANKED LINKER/LOCATER V6.22.2.0                                                  09/28/2020  11:10:44  PAGE 93
+
+
   C:8A36H         PUBLIC        _Hora_Maxima
   X:01A8H         PUBLIC        buffer_S_B
   X:01B9H         SYMBOL        Estado
@@ -5519,9 +5544,6 @@ SYMBOL TABLE OF MODULE:  .\Objects\verificador_v_01_raspberry (MAIN)
   C:A6F2H         LINE#         416
   C:A6F3H         LINE#         417
   C:A6F4H         LINE#         418
-BL51 BANKED LINKER/LOCATER V6.22.2.0                                                  09/21/2020  13:31:53  PAGE 93
-
-
   C:A6F4H         LINE#         420
   C:A6F4H         LINE#         422
   C:A6F4H         LINE#         424
@@ -5557,6 +5579,9 @@ SYMBOL TABLE OF MODULE:  .\Objects\verificador_v_01_raspberry (MAIN)
   C:89CCH         LINE#         476
   C:89D3H         LINE#         477
   C:89D8H         LINE#         478
+BL51 BANKED LINKER/LOCATER V6.22.2.0                                                  09/28/2020  11:10:44  PAGE 94
+
+
   C:89DEH         LINE#         479
   C:89E2H         LINE#         480
   C:89E4H         LINE#         481
@@ -5579,9 +5604,6 @@ SYMBOL TABLE OF MODULE:  .\Objects\verificador_v_01_raspberry (MAIN)
   C:8A23H         LINE#         500
   C:8A25H         LINE#         502
   C:8A25H         LINE#         503
-BL51 BANKED LINKER/LOCATER V6.22.2.0                                                  09/21/2020  13:31:53  PAGE 94
-
-
   C:8A26H         LINE#         504
   C:8A2AH         LINE#         505
   C:8A30H         LINE#         506
@@ -5617,6 +5639,9 @@ SYMBOL TABLE OF MODULE:  .\Objects\verificador_v_01_raspberry (MAIN)
   C:699CH         LINE#         554
   C:699CH         LINE#         555
   C:699EH         LINE#         557
+BL51 BANKED LINKER/LOCATER V6.22.2.0                                                  09/28/2020  11:10:44  PAGE 95
+
+
   C:699EH         LINE#         559
   C:69A5H         LINE#         560
   C:69ABH         LINE#         561
@@ -5639,9 +5664,6 @@ SYMBOL TABLE OF MODULE:  .\Objects\verificador_v_01_raspberry (MAIN)
   C:69EDH         LINE#         598
   C:69F9H         LINE#         599
   C:69F9H         LINE#         600
-BL51 BANKED LINKER/LOCATER V6.22.2.0                                                  09/21/2020  13:31:53  PAGE 95
-
-
   C:69FFH         LINE#         601
   C:6A01H         LINE#         602
   C:6A09H         LINE#         603
@@ -5677,6 +5699,9 @@ SYMBOL TABLE OF MODULE:  .\Objects\verificador_v_01_raspberry (MAIN)
   X:0010H         SYMBOL        Addr_horarios
   X:001BH         SYMBOL        dia_semana
   X:001CH         SYMBOL        EE_dia_semana
+BL51 BANKED LINKER/LOCATER V6.22.2.0                                                  09/28/2020  11:10:44  PAGE 96
+
+
   X:001DH         SYMBOL        addr
   -------         ENDDO         
   C:7D7CH         LINE#         651
@@ -5699,9 +5724,6 @@ SYMBOL TABLE OF MODULE:  .\Objects\verificador_v_01_raspberry (MAIN)
   C:7E2BH         LINE#         682
   C:7E2BH         LINE#         684
   C:7E39H         LINE#         685
-BL51 BANKED LINKER/LOCATER V6.22.2.0                                                  09/21/2020  13:31:53  PAGE 96
-
-
   C:7E3BH         LINE#         687
   C:7E3BH         LINE#         689
   C:7E44H         LINE#         690
@@ -5737,6 +5759,9 @@ SYMBOL TABLE OF MODULE:  .\Objects\verificador_v_01_raspberry (MAIN)
   C:8A90H         LINE#         720
   C:8AB0H         LINE#         721
   C:8AB8H         LINE#         722
+BL51 BANKED LINKER/LOCATER V6.22.2.0                                                  09/28/2020  11:10:44  PAGE 97
+
+
   C:8AC0H         LINE#         723
   C:8AC9H         LINE#         725
   C:8AE1H         LINE#         726
@@ -5759,9 +5784,6 @@ SYMBOL TABLE OF MODULE:  .\Objects\verificador_v_01_raspberry (MAIN)
   C:9551H         LINE#         741
   C:9554H         LINE#         742
   C:955DH         LINE#         743
-BL51 BANKED LINKER/LOCATER V6.22.2.0                                                  09/21/2020  13:31:53  PAGE 97
-
-
   C:9563H         LINE#         744
   C:9565H         LINE#         746
   C:9565H         LINE#         747
@@ -5797,6 +5819,9 @@ SYMBOL TABLE OF MODULE:  .\Objects\verificador_v_01_raspberry (MAIN)
   C:74F5H         LINE#         782
   C:750AH         LINE#         783
   C:7522H         LINE#         784
+BL51 BANKED LINKER/LOCATER V6.22.2.0                                                  09/28/2020  11:10:44  PAGE 98
+
+
   C:7524H         LINE#         785
   C:7524H         LINE#         788
   C:753CH         LINE#         789
@@ -5819,9 +5844,6 @@ SYMBOL TABLE OF MODULE:  .\Objects\verificador_v_01_raspberry (MAIN)
   D:0007H         SYMBOL        temp
   X:0011H         SYMBOL        Estado_expedidor
   X:0156H         SYMBOL        falla
-BL51 BANKED LINKER/LOCATER V6.22.2.0                                                  09/21/2020  13:31:53  PAGE 98
-
-
   -------         ENDDO         
   C:5DDCH         LINE#         804
   C:5DE7H         LINE#         805
@@ -5857,6 +5879,9 @@ SYMBOL TABLE OF MODULE:  .\Objects\verificador_v_01_raspberry (MAIN)
   C:5F0CH         LINE#         850
   C:5F0EH         LINE#         851
   C:5F0EH         LINE#         852
+BL51 BANKED LINKER/LOCATER V6.22.2.0                                                  09/28/2020  11:10:44  PAGE 99
+
+
   C:5F0EH         LINE#         853
   C:5F10H         LINE#         855
   C:5F10H         LINE#         856
@@ -5879,9 +5904,6 @@ SYMBOL TABLE OF MODULE:  .\Objects\verificador_v_01_raspberry (MAIN)
   C:5F56H         LINE#         876
   -------         ENDPROC       _RESPONDE_LECTURA_TARJETA_SECTOR1_BLOQUE1
   -------         PROC          _RESPONDE_LECTURA_TARJETA_SECTOR1_BLOQUE2
-BL51 BANKED LINKER/LOCATER V6.22.2.0                                                  09/21/2020  13:31:53  PAGE 99
-
-
   X:000EH         SYMBOL        Atributos_Expedidor
   -------         DO            
   D:0007H         SYMBOL        temp
@@ -5917,6 +5939,9 @@ SYMBOL TABLE OF MODULE:  .\Objects\verificador_v_01_raspberry (MAIN)
   C:59D5H         LINE#         919
   C:59D5H         LINE#         920
   C:59D5H         LINE#         921
+BL51 BANKED LINKER/LOCATER V6.22.2.0                                                  09/28/2020  11:10:44  PAGE 100
+
+
   C:59D5H         LINE#         922
   C:59D5H         LINE#         923
   C:59D7H         LINE#         925
@@ -5939,9 +5964,6 @@ SYMBOL TABLE OF MODULE:  .\Objects\verificador_v_01_raspberry (MAIN)
   C:5A45H         LINE#         945
   C:5A47H         LINE#         953
   C:5A47H         LINE#         954
-BL51 BANKED LINKER/LOCATER V6.22.2.0                                                  09/21/2020  13:31:53  PAGE 100
-
-
   C:5A50H         LINE#         955
   C:5A59H         LINE#         956
   C:5A5FH         LINE#         957
@@ -5977,6 +5999,9 @@ SYMBOL TABLE OF MODULE:  .\Objects\verificador_v_01_raspberry (MAIN)
   C:73DAH         LINE#         991
   C:73DAH         LINE#         992
   C:73DAH         LINE#         993
+BL51 BANKED LINKER/LOCATER V6.22.2.0                                                  09/28/2020  11:10:44  PAGE 101
+
+
   C:73DAH         LINE#         994
   C:73DDH         LINE#         996
   C:73E6H         LINE#         997
@@ -5999,9 +6024,6 @@ SYMBOL TABLE OF MODULE:  .\Objects\verificador_v_01_raspberry (MAIN)
   C:7467H         LINE#         1023
   C:7480H         LINE#         1024
   C:7480H         LINE#         1025
-BL51 BANKED LINKER/LOCATER V6.22.2.0                                                  09/21/2020  13:31:53  PAGE 101
-
-
   C:7480H         LINE#         1029
   C:7486H         LINE#         1031
   C:7488H         LINE#         1032
@@ -6037,6 +6059,9 @@ SYMBOL TABLE OF MODULE:  .\Objects\verificador_v_01_raspberry (MAIN)
   C:7736H         LINE#         1069
   C:773AH         LINE#         1070
   C:773EH         LINE#         1072
+BL51 BANKED LINKER/LOCATER V6.22.2.0                                                  09/28/2020  11:10:44  PAGE 102
+
+
   C:773EH         LINE#         1074
   C:7754H         LINE#         1075
   C:7754H         LINE#         1076
@@ -6059,9 +6084,6 @@ SYMBOL TABLE OF MODULE:  .\Objects\verificador_v_01_raspberry (MAIN)
   -------         DO            
   X:0011H         SYMBOL        Estado_expedidor
   D:0007H         SYMBOL        temp
-BL51 BANKED LINKER/LOCATER V6.22.2.0                                                  09/21/2020  13:31:53  PAGE 102
-
-
   -------         ENDDO         
   C:81F9H         LINE#         1094
   C:8204H         LINE#         1095
@@ -6097,6 +6119,9 @@ SYMBOL TABLE OF MODULE:  .\Objects\verificador_v_01_raspberry (MAIN)
   X:0002H         SYMBOL        tiempo
   X:0004H         SYMBOL        Estado_Tiempo
   X:0184H         SYMBOL        Atributos_Expedidor
+BL51 BANKED LINKER/LOCATER V6.22.2.0                                                  09/28/2020  11:10:44  PAGE 103
+
+
   X:0196H         SYMBOL        buffer_S1_B0
   X:0008H         SYMBOL        clock_temp
   X:01A7H         SYMBOL        contador
@@ -6119,9 +6144,6 @@ SYMBOL TABLE OF MODULE:  .\Objects\verificador_v_01_raspberry (MAIN)
   C:122FH         LINE#         1168
   C:122FH         LINE#         1169
   C:1237H         LINE#         1170
-BL51 BANKED LINKER/LOCATER V6.22.2.0                                                  09/21/2020  13:31:53  PAGE 103
-
-
   C:1237H         LINE#         1171
   C:123CH         LINE#         1172
   C:123DH         LINE#         1173
@@ -6157,6 +6179,9 @@ SYMBOL TABLE OF MODULE:  .\Objects\verificador_v_01_raspberry (MAIN)
   C:129CH         LINE#         1223
   C:129CH         LINE#         1225
   C:12A6H         LINE#         1226
+BL51 BANKED LINKER/LOCATER V6.22.2.0                                                  09/28/2020  11:10:44  PAGE 104
+
+
   C:12A6H         LINE#         1227
   C:12AEH         LINE#         1228
   C:12AEH         LINE#         1229
@@ -6179,9 +6204,6 @@ SYMBOL TABLE OF MODULE:  .\Objects\verificador_v_01_raspberry (MAIN)
   C:12F1H         LINE#         1251
   C:12F1H         LINE#         1252
   C:12F4H         LINE#         1254
-BL51 BANKED LINKER/LOCATER V6.22.2.0                                                  09/21/2020  13:31:53  PAGE 104
-
-
   C:12F4H         LINE#         1255
   C:12FDH         LINE#         1256
   C:1311H         LINE#         1257
@@ -6217,6 +6239,9 @@ SYMBOL TABLE OF MODULE:  .\Objects\verificador_v_01_raspberry (MAIN)
   C:1398H         LINE#         1296
   C:139FH         LINE#         1299
   C:13A5H         LINE#         1300
+BL51 BANKED LINKER/LOCATER V6.22.2.0                                                  09/28/2020  11:10:44  PAGE 105
+
+
   C:13A6H         LINE#         1302
   C:13A6H         LINE#         1303
   C:13ADH         LINE#         1304
@@ -6239,9 +6264,6 @@ SYMBOL TABLE OF MODULE:  .\Objects\verificador_v_01_raspberry (MAIN)
   C:13DBH         LINE#         1339
   C:13EFH         LINE#         1340
   C:13F5H         LINE#         1342
-BL51 BANKED LINKER/LOCATER V6.22.2.0                                                  09/21/2020  13:31:53  PAGE 105
-
-
   C:13F6H         LINE#         1344
   C:13F6H         LINE#         1345
   C:13FDH         LINE#         1346
@@ -6277,6 +6299,9 @@ SYMBOL TABLE OF MODULE:  .\Objects\verificador_v_01_raspberry (MAIN)
   C:1470H         LINE#         1383
   C:1470H         LINE#         1385
   C:1470H         LINE#         1387
+BL51 BANKED LINKER/LOCATER V6.22.2.0                                                  09/28/2020  11:10:44  PAGE 106
+
+
   C:1473H         LINE#         1395
   C:1473H         LINE#         1397
   C:147DH         LINE#         1398
@@ -6299,9 +6324,6 @@ SYMBOL TABLE OF MODULE:  .\Objects\verificador_v_01_raspberry (MAIN)
   C:14B7H         LINE#         1417
   C:14C0H         LINE#         1418
   C:14D4H         LINE#         1420
-BL51 BANKED LINKER/LOCATER V6.22.2.0                                                  09/21/2020  13:31:53  PAGE 106
-
-
   C:14D4H         LINE#         1421
   C:14D4H         LINE#         1424
   C:14D6H         LINE#         1430
@@ -6337,6 +6359,9 @@ SYMBOL TABLE OF MODULE:  .\Objects\verificador_v_01_raspberry (MAIN)
   C:1544H         LINE#         1474
   C:1544H         LINE#         1475
   C:1547H         LINE#         1480
+BL51 BANKED LINKER/LOCATER V6.22.2.0                                                  09/28/2020  11:10:44  PAGE 107
+
+
   C:1547H         LINE#         1482
   C:154EH         LINE#         1483
   C:154EH         LINE#         1484
@@ -6359,9 +6384,6 @@ SYMBOL TABLE OF MODULE:  .\Objects\verificador_v_01_raspberry (MAIN)
   C:1586H         LINE#         1510
   C:158CH         LINE#         1511
   C:158DH         LINE#         1512
-BL51 BANKED LINKER/LOCATER V6.22.2.0                                                  09/21/2020  13:31:53  PAGE 107
-
-
   C:15A5H         LINE#         1513
   C:15A5H         LINE#         1514
   C:15ABH         LINE#         1515
@@ -6397,6 +6419,9 @@ SYMBOL TABLE OF MODULE:  .\Objects\verificador_v_01_raspberry (MAIN)
   C:161BH         LINE#         1558
   C:161EH         LINE#         1559
   C:161EH         LINE#         1562
+BL51 BANKED LINKER/LOCATER V6.22.2.0                                                  09/28/2020  11:10:44  PAGE 108
+
+
   C:161EH         LINE#         1563
   C:161EH         LINE#         1568
   C:1627H         LINE#         1569
@@ -6419,9 +6444,6 @@ SYMBOL TABLE OF MODULE:  .\Objects\verificador_v_01_raspberry (MAIN)
   C:16C4H         LINE#         1592
   C:16CDH         LINE#         1593
   C:16D6H         LINE#         1595
-BL51 BANKED LINKER/LOCATER V6.22.2.0                                                  09/21/2020  13:31:53  PAGE 108
-
-
   C:16D8H         LINE#         1597
   C:16D8H         LINE#         1598
   C:16E4H         LINE#         1599
@@ -6457,6 +6479,9 @@ SYMBOL TABLE OF MODULE:  .\Objects\verificador_v_01_raspberry (MAIN)
   C:176DH         LINE#         1641
   C:1770H         LINE#         1642
   C:177AH         LINE#         1643
+BL51 BANKED LINKER/LOCATER V6.22.2.0                                                  09/28/2020  11:10:44  PAGE 109
+
+
   C:177AH         LINE#         1644
   C:1781H         LINE#         1645
   C:1786H         LINE#         1646
@@ -6479,9 +6504,6 @@ SYMBOL TABLE OF MODULE:  .\Objects\verificador_v_01_raspberry (MAIN)
   C:17C3H         LINE#         1679
   C:17C5H         LINE#         1681
   C:17C5H         LINE#         1682
-BL51 BANKED LINKER/LOCATER V6.22.2.0                                                  09/21/2020  13:31:53  PAGE 109
-
-
   C:17CAH         LINE#         1684
   C:17CFH         LINE#         1685
   C:17D8H         LINE#         1686
@@ -6517,6 +6539,9 @@ SYMBOL TABLE OF MODULE:  .\Objects\verificador_v_01_raspberry (MAIN)
   C:183CH         LINE#         1729
   C:183CH         LINE#         1730
   C:1842H         LINE#         1731
+BL51 BANKED LINKER/LOCATER V6.22.2.0                                                  09/28/2020  11:10:44  PAGE 110
+
+
   C:1842H         LINE#         1732
   C:1842H         LINE#         1733
   C:1843H         LINE#         1735
@@ -6539,9 +6564,6 @@ SYMBOL TABLE OF MODULE:  .\Objects\verificador_v_01_raspberry (MAIN)
   C:1878H         LINE#         1766
   C:187EH         LINE#         1767
   C:187EH         LINE#         1768
-BL51 BANKED LINKER/LOCATER V6.22.2.0                                                  09/21/2020  13:31:53  PAGE 110
-
-
   C:187EH         LINE#         1769
   C:1881H         LINE#         1771
   C:1881H         LINE#         1775
@@ -6577,6 +6599,9 @@ SYMBOL TABLE OF MODULE:  .\Objects\verificador_v_01_raspberry (MAIN)
   C:1908H         LINE#         1814
   C:1908H         LINE#         1815
   C:1908H         LINE#         1816
+BL51 BANKED LINKER/LOCATER V6.22.2.0                                                  09/28/2020  11:10:44  PAGE 111
+
+
   C:190BH         LINE#         1818
   C:190BH         LINE#         1821
   C:191EH         LINE#         1822
@@ -6599,9 +6624,6 @@ SYMBOL TABLE OF MODULE:  .\Objects\verificador_v_01_raspberry (MAIN)
   C:197BH         LINE#         1846
   C:1989H         LINE#         1847
   C:1989H         LINE#         1849
-BL51 BANKED LINKER/LOCATER V6.22.2.0                                                  09/21/2020  13:31:53  PAGE 111
-
-
   C:1989H         LINE#         1850
   C:198BH         LINE#         1858
   C:198BH         LINE#         1860
@@ -6637,6 +6659,9 @@ SYMBOL TABLE OF MODULE:  .\Objects\verificador_v_01_raspberry (MAIN)
   C:1A06H         LINE#         1911
   C:1A06H         LINE#         1915
   C:1A06H         LINE#         1916
+BL51 BANKED LINKER/LOCATER V6.22.2.0                                                  09/28/2020  11:10:44  PAGE 112
+
+
   C:1A07H         LINE#         1918
   C:1A07H         LINE#         1920
   C:1A09H         LINE#         1921
@@ -6659,9 +6684,6 @@ SYMBOL TABLE OF MODULE:  .\Objects\verificador_v_01_raspberry (MAIN)
   C:1A4FH         LINE#         1953
   C:1A51H         LINE#         1954
   C:1A57H         LINE#         1955
-BL51 BANKED LINKER/LOCATER V6.22.2.0                                                  09/21/2020  13:31:53  PAGE 112
-
-
   C:1A57H         LINE#         1956
   C:1A60H         LINE#         1957
   C:1A74H         LINE#         1958
@@ -6697,6 +6719,9 @@ SYMBOL TABLE OF MODULE:  .\Objects\verificador_v_01_raspberry (MAIN)
   C:1B2FH         LINE#         1997
   C:1B2FH         LINE#         1998
   C:1B31H         LINE#         1999
+BL51 BANKED LINKER/LOCATER V6.22.2.0                                                  09/28/2020  11:10:44  PAGE 113
+
+
   C:1B31H         LINE#         2000
   C:1B3BH         LINE#         2001
   C:1B3BH         LINE#         2002
@@ -6719,9 +6744,6 @@ SYMBOL TABLE OF MODULE:  .\Objects\verificador_v_01_raspberry (MAIN)
   C:1B9DH         LINE#         2023
   C:1B9DH         LINE#         2024
   C:1B9DH         LINE#         2026
-BL51 BANKED LINKER/LOCATER V6.22.2.0                                                  09/21/2020  13:31:53  PAGE 113
-
-
   C:1B9DH         LINE#         2027
   C:1BA0H         LINE#         2029
   C:1BA0H         LINE#         2030
@@ -6757,6 +6779,9 @@ SYMBOL TABLE OF MODULE:  .\Objects\verificador_v_01_raspberry (MAIN)
   C:1C29H         LINE#         2064
   C:1C29H         LINE#         2065
   C:1C2FH         LINE#         2066
+BL51 BANKED LINKER/LOCATER V6.22.2.0                                                  09/28/2020  11:10:44  PAGE 114
+
+
   C:1C2FH         LINE#         2068
   C:1C2FH         LINE#         2069
   C:1C30H         LINE#         2071
@@ -6779,9 +6804,6 @@ SYMBOL TABLE OF MODULE:  .\Objects\verificador_v_01_raspberry (MAIN)
   C:1C56H         LINE#         2088
   C:1C5FH         LINE#         2089
   C:1C73H         LINE#         2090
-BL51 BANKED LINKER/LOCATER V6.22.2.0                                                  09/21/2020  13:31:53  PAGE 114
-
-
   C:1C73H         LINE#         2091
   C:1C75H         LINE#         2093
   C:1C75H         LINE#         2097
@@ -6817,6 +6839,9 @@ SYMBOL TABLE OF MODULE:  .\Objects\verificador_v_01_raspberry (MAIN)
   C:1CE0H         LINE#         2135
   C:1CE0H         LINE#         2137
   C:1CE0H         LINE#         2138
+BL51 BANKED LINKER/LOCATER V6.22.2.0                                                  09/28/2020  11:10:44  PAGE 115
+
+
   C:1CE2H         LINE#         2140
   C:1CE2H         LINE#         2143
   C:1CF5H         LINE#         2144
@@ -6839,9 +6864,6 @@ SYMBOL TABLE OF MODULE:  .\Objects\verificador_v_01_raspberry (MAIN)
   C:1D2CH         LINE#         2167
   C:1D2CH         LINE#         2168
   C:1D36H         LINE#         2169
-BL51 BANKED LINKER/LOCATER V6.22.2.0                                                  09/21/2020  13:31:53  PAGE 115
-
-
   C:1D36H         LINE#         2170
   C:1D3BH         LINE#         2171
   C:1D3BH         LINE#         2172
@@ -6877,6 +6899,9 @@ SYMBOL TABLE OF MODULE:  .\Objects\verificador_v_01_raspberry (MAIN)
   X:0002H         SYMBOL        TipoMovimiento
   -------         DO            
   D:0003H         SYMBOL        j
+BL51 BANKED LINKER/LOCATER V6.22.2.0                                                  09/28/2020  11:10:44  PAGE 116
+
+
   X:0003H         SYMBOL        bcc
   X:0004H         SYMBOL        g_scArrTxComSoft
   -------         ENDDO         
@@ -6899,9 +6924,6 @@ SYMBOL TABLE OF MODULE:  .\Objects\verificador_v_01_raspberry (MAIN)
   C:8E74H         LINE#         153
   C:8E88H         LINE#         154
   C:8E8BH         LINE#         155
-BL51 BANKED LINKER/LOCATER V6.22.2.0                                                  09/21/2020  13:31:53  PAGE 116
-
-
   C:8E93H         LINE#         156
   C:8E95H         LINE#         157
   C:8E9AH         LINE#         158
@@ -6937,6 +6959,9 @@ SYMBOL TABLE OF MODULE:  .\Objects\verificador_v_01_raspberry (MAIN)
   C:9B90H         LINE#         192
   C:9B92H         LINE#         193
   C:9B97H         LINE#         194
+BL51 BANKED LINKER/LOCATER V6.22.2.0                                                  09/28/2020  11:10:44  PAGE 117
+
+
   C:9BA6H         LINE#         195
   C:9BB1H         LINE#         196
   C:9BB7H         LINE#         197
@@ -6959,9 +6984,6 @@ SYMBOL TABLE OF MODULE:  .\Objects\verificador_v_01_raspberry (MAIN)
   C:91C8H         LINE#         217
   C:91CFH         LINE#         218
   C:91D5H         LINE#         220
-BL51 BANKED LINKER/LOCATER V6.22.2.0                                                  09/21/2020  13:31:53  PAGE 117
-
-
   C:91D5H         LINE#         222
   C:91D7H         LINE#         224
   C:91DDH         LINE#         225
@@ -6997,6 +7019,9 @@ SYMBOL TABLE OF MODULE:  .\Objects\verificador_v_01_raspberry (MAIN)
   C:7E9AH         LINE#         263
   C:7EA1H         LINE#         264
   C:7EA1H         LINE#         265
+BL51 BANKED LINKER/LOCATER V6.22.2.0                                                  09/28/2020  11:10:44  PAGE 118
+
+
   C:7EA7H         LINE#         266
   C:7EA9H         LINE#         267
   C:7EB0H         LINE#         268
@@ -7019,9 +7044,6 @@ SYMBOL TABLE OF MODULE:  .\Objects\verificador_v_01_raspberry (MAIN)
   C:7EEFH         LINE#         286
   C:7EF1H         LINE#         287
   C:7EF5H         LINE#         288
-BL51 BANKED LINKER/LOCATER V6.22.2.0                                                  09/21/2020  13:31:53  PAGE 118
-
-
   C:7EF9H         LINE#         289
   C:7EFDH         LINE#         290
   C:7F05H         LINE#         291
@@ -7057,6 +7079,9 @@ SYMBOL TABLE OF MODULE:  .\Objects\verificador_v_01_raspberry (MAIN)
   C:9A61H         LINE#         324
   C:9A65H         LINE#         325
   C:9A69H         LINE#         326
+BL51 BANKED LINKER/LOCATER V6.22.2.0                                                  09/28/2020  11:10:44  PAGE 119
+
+
   C:9A75H         LINE#         327
   C:9A75H         LINE#         328
   C:9A89H         LINE#         329
@@ -7079,9 +7104,6 @@ SYMBOL TABLE OF MODULE:  .\Objects\verificador_v_01_raspberry (MAIN)
   C:8AE2H         LINE#         346
   C:8AE7H         LINE#         347
   C:8AF0H         LINE#         349
-BL51 BANKED LINKER/LOCATER V6.22.2.0                                                  09/21/2020  13:31:53  PAGE 119
-
-
   C:8AF6H         LINE#         350
   C:8AF9H         LINE#         351
   C:8AFBH         LINE#         352
@@ -7117,6 +7139,9 @@ SYMBOL TABLE OF MODULE:  .\Objects\verificador_v_01_raspberry (MAIN)
   D:0003H         SYMBOL        j
   X:000EH         SYMBOL        bcc
   X:000FH         SYMBOL        g_scArrTxComSoft
+BL51 BANKED LINKER/LOCATER V6.22.2.0                                                  09/28/2020  11:10:44  PAGE 120
+
+
   -------         ENDDO         
   C:923DH         LINE#         385
   C:923DH         LINE#         386
@@ -7139,9 +7164,6 @@ SYMBOL TABLE OF MODULE:  .\Objects\verificador_v_01_raspberry (MAIN)
   C:9287H         LINE#         410
   C:9287H         LINE#         411
   C:929BH         LINE#         412
-BL51 BANKED LINKER/LOCATER V6.22.2.0                                                  09/21/2020  13:31:53  PAGE 120
-
-
   C:929EH         LINE#         413
   C:92A6H         LINE#         414
   C:92A8H         LINE#         415
@@ -7177,6 +7199,9 @@ SYMBOL TABLE OF MODULE:  .\Objects\verificador_v_01_raspberry (MAIN)
   C:84BEH         LINE#         449
   C:84C2H         LINE#         450
   C:84CAH         LINE#         451
+BL51 BANKED LINKER/LOCATER V6.22.2.0                                                  09/28/2020  11:10:44  PAGE 121
+
+
   C:84D2H         LINE#         452
   C:84D6H         LINE#         453
   C:84DAH         LINE#         455
@@ -7199,9 +7224,6 @@ SYMBOL TABLE OF MODULE:  .\Objects\verificador_v_01_raspberry (MAIN)
   X:0013H         SYMBOL        j
   X:0014H         SYMBOL        bcc
   X:0015H         SYMBOL        g_scArrTxComSoft
-BL51 BANKED LINKER/LOCATER V6.22.2.0                                                  09/21/2020  13:31:53  PAGE 121
-
-
   -------         ENDDO         
   C:5F57H         LINE#         475
   C:5F68H         LINE#         477
@@ -7237,6 +7259,9 @@ SYMBOL TABLE OF MODULE:  .\Objects\verificador_v_01_raspberry (MAIN)
   C:5FFAH         LINE#         526
   C:5FFAH         LINE#         527
   C:5FFBH         LINE#         528
+BL51 BANKED LINKER/LOCATER V6.22.2.0                                                  09/28/2020  11:10:44  PAGE 122
+
+
   C:5FFDH         LINE#         530
   C:5FFDH         LINE#         531
   C:6012H         LINE#         532
@@ -7259,9 +7284,6 @@ SYMBOL TABLE OF MODULE:  .\Objects\verificador_v_01_raspberry (MAIN)
   C:6058H         LINE#         563
   C:6058H         LINE#         564
   C:6064H         LINE#         565
-BL51 BANKED LINKER/LOCATER V6.22.2.0                                                  09/21/2020  13:31:53  PAGE 122
-
-
   C:606CH         LINE#         566
   C:606CH         LINE#         571
   C:6072H         LINE#         573
@@ -7297,6 +7319,9 @@ SYMBOL TABLE OF MODULE:  .\Objects\verificador_v_01_raspberry (MAIN)
   C:96D0H         LINE#         607
   C:96D4H         LINE#         608
   C:96D8H         LINE#         609
+BL51 BANKED LINKER/LOCATER V6.22.2.0                                                  09/28/2020  11:10:44  PAGE 123
+
+
   C:96E4H         LINE#         610
   C:96E4H         LINE#         611
   C:96F8H         LINE#         612
@@ -7319,9 +7344,6 @@ SYMBOL TABLE OF MODULE:  .\Objects\verificador_v_01_raspberry (MAIN)
   C:9ABCH         LINE#         624
   C:9AC1H         LINE#         626
   C:9ACAH         LINE#         628
-BL51 BANKED LINKER/LOCATER V6.22.2.0                                                  09/21/2020  13:31:53  PAGE 123
-
-
   C:9AD0H         LINE#         629
   C:9AD3H         LINE#         630
   C:9AD5H         LINE#         631
@@ -7357,6 +7379,9 @@ SYMBOL TABLE OF MODULE:  .\Objects\verificador_v_01_raspberry (MAIN)
   C:1F51H         PUBLIC        ?C?FCASTI
   C:1F4CH         PUBLIC        ?C?FCASTL
   -------         ENDMOD        ?C?FCAST
+BL51 BANKED LINKER/LOCATER V6.22.2.0                                                  09/28/2020  11:10:44  PAGE 124
+
+
 
   -------         MODULE        ?C?CASTF
   C:1F8AH         PUBLIC        ?C?CASTF
@@ -7379,9 +7404,6 @@ SYMBOL TABLE OF MODULE:  .\Objects\verificador_v_01_raspberry (MAIN)
   -------         ENDMOD        ?C?CHKFLOAT
 
   -------         MODULE        ?C?FPCMP
-BL51 BANKED LINKER/LOCATER V6.22.2.0                                                  09/21/2020  13:31:53  PAGE 124
-
-
   C:2027H         PUBLIC        ?C?FPCMP
   C:2025H         PUBLIC        ?C?FPCMP3
   -------         ENDMOD        ?C?FPCMP
@@ -7417,6 +7439,9 @@ SYMBOL TABLE OF MODULE:  .\Objects\verificador_v_01_raspberry (MAIN)
 
   -------         MODULE        ?C?COPY
   C:241EH         PUBLIC        ?C?COPY
+BL51 BANKED LINKER/LOCATER V6.22.2.0                                                  09/28/2020  11:10:44  PAGE 125
+
+
   -------         ENDMOD        ?C?COPY
 
   -------         MODULE        ?C?CLDPTR
@@ -7438,9 +7463,6 @@ SYMBOL TABLE OF MODULE:  .\Objects\verificador_v_01_raspberry (MAIN)
   -------         MODULE        ?C?IMUL
   C:24BEH         PUBLIC        ?C?IMUL
   -------         ENDMOD        ?C?IMUL
-
-BL51 BANKED LINKER/LOCATER V6.22.2.0                                                  09/21/2020  13:31:53  PAGE 125
-
 
   -------         MODULE        ?C?UIDIV
   C:24D0H         PUBLIC        ?C?UIDIV
@@ -7477,6 +7499,9 @@ SYMBOL TABLE OF MODULE:  .\Objects\verificador_v_01_raspberry (MAIN)
   -------         MODULE        ?C?LSTKXDATA
   C:2592H         PUBLIC        ?C?LSTKXDATA
   -------         ENDMOD        ?C?LSTKXDATA
+BL51 BANKED LINKER/LOCATER V6.22.2.0                                                  09/28/2020  11:10:44  PAGE 126
+
+
 
   -------         MODULE        ?C?PLDIXDATA
   C:25C3H         PUBLIC        ?C?PLDIXDATA
@@ -7498,9 +7523,6 @@ SYMBOL TABLE OF MODULE:  .\Objects\verificador_v_01_raspberry (MAIN)
   -------         MODULE        ?C?STRCMP
   C:2787H         PUBLIC        ?C?STRCMP
   -------         ENDMOD        ?C?STRCMP
-
-BL51 BANKED LINKER/LOCATER V6.22.2.0                                                  09/21/2020  13:31:53  PAGE 126
-
 
   -------         MODULE        ?C?STRCPY
   C:2870H         PUBLIC        ?C?STRCPY
@@ -7524,7 +7546,7 @@ SYMBOL TABLE OF MODULE:  .\Objects\verificador_v_01_raspberry (MAIN)
   -------         ENDMOD        ?C?ILDIX
 
   -------         MODULE        ISDIGIT
-  C:A8E3H         PUBLIC        _isdigit
+  C:A8F5H         PUBLIC        _isdigit
   -------         ENDMOD        ISDIGIT
 
   -------         MODULE        ISSPACE
@@ -7537,6 +7559,9 @@ SYMBOL TABLE OF MODULE:  .\Objects\verificador_v_01_raspberry (MAIN)
   -------         ENDMOD        STRSPN
 
   -------         MODULE        STRPBRK
+BL51 BANKED LINKER/LOCATER V6.22.2.0                                                  09/28/2020  11:10:44  PAGE 127
+
+
   X:007EH         PUBLIC        ?_strpbrk?BYTE
   C:98BBH         PUBLIC        _strpbrk
   -------         ENDMOD        STRPBRK
@@ -7547,5 +7572,5 @@ SYMBOL TABLE OF MODULE:  .\Objects\verificador_v_01_raspberry (MAIN)
 *** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
     SEGMENT: ?PR?CLEAR_PLACA?ACCESCAN
 
-Program Size: data=128.7 xdata=570 code=43364
+Program Size: data=128.7 xdata=570 code=43382
 LINK/LOCATE RUN COMPLETE.  2 WARNING(S),  0 ERROR(S)

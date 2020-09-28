@@ -127,6 +127,20 @@ unsigned char Dir_board()
 	}
 	return (Board+0x30);
 }
+unsigned char Dir_Board_Monitor()
+{
+		unsigned char Board_High;
+		
+		Board_High=rd_eeprom(0xa8,EE_ADDRESS_HIGH_BOARD);
+		if(Board_High != 0)
+		{
+			if(Board_High == 0xff)
+			{
+				Board_High=0x01;
+			}
+		}
+		return  Board_High;
+}
 /*------------------------------------------------------------------------------
 Detecto la activacion de los sensores de salida
 si retorna 0xff el sensor activo

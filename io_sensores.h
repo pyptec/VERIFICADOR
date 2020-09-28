@@ -23,5 +23,6 @@ unsigned char  ValidaSensoresPaso(void);
 char ValidaSensor(void);
 void msj_lcd_informativo();
 unsigned char  ValidaSensores_Out(void);
+unsigned char Dir_Board_Monitor();
 
 #endif	/* _IO_SENSORES_H_ */

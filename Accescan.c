@@ -24,6 +24,7 @@ extern void  send_port(unsigned char *buffer_port, unsigned char length_char);
 extern unsigned char validar_clk(unsigned char *datos_clock);
 extern void Debug_chr_Tibbo(unsigned char Dat);
 extern unsigned char rd_eeprom (unsigned char control,unsigned int Dir); 
+extern unsigned char Dir_Board_Monitor();
 
 
 extern unsigned int Timer_tivo;
@@ -378,7 +379,7 @@ void Cmd_LPR_Salida_wiegand(unsigned char *buffer)
 	unsigned char Buffer_Lpr[30];
 	unsigned char j=3;
 	Buffer_Lpr[0]=STX;																			/*inicio de cmd STx*/
-	Buffer_Lpr[1]=Dir_board();															/*direccion de la tarjeta*/
+	Buffer_Lpr[1]=Dir_Board_Monitor();											//Dir_board();															/*direccion de la tarjeta*/
 	Buffer_Lpr[2]='S';																			/*cmd S que salida wiegand*/
 	if(Tipo_Vehiculo!=0)																		/*Tipo de vehiculo*/
 		{
@@ -417,7 +418,7 @@ void Cmd_LPR_Salida(unsigned char *buffer_S1_B0,unsigned char *buffer_S1_B)
 	unsigned char Buffer_Lpr[30];
 	unsigned char j=3;
 	Buffer_Lpr[0]=STX;																/*inicio de cmd STx*/
-	Buffer_Lpr[1]=Dir_board();												/*direccion de la tarjeta*/
+	Buffer_Lpr[1]=Dir_Board_Monitor();									//Dir_board();												/*direccion de la tarjeta*/
 	Buffer_Lpr[2]='S';																/*numero de digitos de transmicion NO IMPORTA NO ES VALIDADO EN PRINCIPAL*/
 
 	/*Tipo de vehiculo*/

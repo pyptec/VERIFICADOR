@@ -624,7 +624,7 @@ void Prog_Address_High_Board()
 	unsigned char buffer[10];
 	unsigned int dataee;
 
-	
+	/*solo para monitor*/
 	dataee=rd_eeprom(0xa8,EE_ADDRESS_HIGH_BOARD);																					/*se lee el id_cliente actual */
 	sprintf(buffer,"%d",dataee);																									/*se convierte  un entero a un string*/
 	if(dataee==0)

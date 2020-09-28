@@ -1,4 +1,4 @@
-C51 COMPILER V9.59.0.0   PANTALLAS                                                         09/21/2020 13:31:52 PAGE 1   
+C51 COMPILER V9.59.0.0   PANTALLAS                                                         09/28/2020 11:10:43 PAGE 1   
 
 
 C51 COMPILER V9.59.0.0, COMPILATION OF MODULE PANTALLAS
@@ -62,7 +62,7 @@ line level    source
   52          #define INFO2                   'i'
   53          
   54          /*variables externas */
-C51 COMPILER V9.59.0.0   PANTALLAS                                                         09/21/2020 13:31:52 PAGE 2   
+C51 COMPILER V9.59.0.0   PANTALLAS                                                         09/28/2020 11:10:43 PAGE 2   
 
   55          extern unsigned char  Raspberry;
   56          /*------------------------------------------------------------------------------
@@ -126,7 +126,7 @@ line level    source
  114   1        {
  115   2          d=putchar(*msg);
  116   2          msg++;
-C51 COMPILER V9.59.0.0   PANTALLAS                                                         09/21/2020 13:31:52 PAGE 3   
+C51 COMPILER V9.59.0.0   PANTALLAS                                                         09/28/2020 11:10:43 PAGE 3   
 
  117   2        
  118   2        
@@ -190,7 +190,7 @@ line level    source
  175   1          if (Raspberry==0)
  176   1          {
  177   2            LCD_txt (Ini_LCD_Line_one,0);
-C51 COMPILER V9.59.0.0   PANTALLAS                                                         09/21/2020 13:31:52 PAGE 4   
+C51 COMPILER V9.59.0.0   PANTALLAS                                                         09/28/2020 11:10:43 PAGE 4   
 
  178   2            
  179   2            switch (cod_msg)
@@ -254,7 +254,7 @@ line level    source
  234   3                    break;
  235   3              case EXPIRO:
  236   3                    num_chr=strlen((unsigned char  *) "MENSUALIDAD VENCIDA ");
-C51 COMPILER V9.59.0.0   PANTALLAS                                                         09/21/2020 13:31:52 PAGE 5   
+C51 COMPILER V9.59.0.0   PANTALLAS                                                         09/28/2020 11:10:43 PAGE 5   
 
  237   3                    tx_chrlcd(0x00,0);
  238   3                    tx_chrlcd(num_chr*2,0);
@@ -318,7 +318,7 @@ line level    source
  296   3                    num_chr=strlen((unsigned char *) "FUERA DE LINEA ");
  297   3                    tx_chrlcd(0x00,0);
  298   3                    tx_chrlcd(num_chr*2,0);
-C51 COMPILER V9.59.0.0   PANTALLAS                                                         09/21/2020 13:31:52 PAGE 6   
+C51 COMPILER V9.59.0.0   PANTALLAS                                                         09/28/2020 11:10:43 PAGE 6   
 
  299   3                    LCD_txt((unsigned char *)        "FUERA DE LINEA ",1);
  300   3                    break;
@@ -382,7 +382,7 @@ line level    source
  355   3                 case EXCEDE_HORARIO:
  356   3                        Raspberry_data((unsigned char  *) "a;95;MENSUALIDAD EXCEDE HORARIO ACERQUESE A CAJA\n\r\0");
  357   3                        break;
-C51 COMPILER V9.59.0.0   PANTALLAS                                                         09/21/2020 13:31:52 PAGE 7   
+C51 COMPILER V9.59.0.0   PANTALLAS                                                         09/28/2020 11:10:43 PAGE 7   
 
  358   3                         
  359   3                 case NO_MENSUAL_NI_PREPAGO:
@@ -446,7 +446,7 @@ line level    source
  417   1        
  418   1      unsigned char Ini_LCD_Line_one   []={0xaa,0x80,0x18,0x01,0x02,0x00} ;
  419   1      
-C51 COMPILER V9.59.0.0   PANTALLAS                                                         09/21/2020 13:31:52 PAGE 8   
+C51 COMPILER V9.59.0.0   PANTALLAS                                                         09/28/2020 11:10:43 PAGE 8   
 
  420   1      
  421   1      unsigned char num_chr;
@@ -510,7 +510,7 @@ line level    source
  476   3                  *(buffer+(num_chr-1))=0;
  477   3                  strcat(buf,buffer);
  478   3                  strcat(buf,"\n\d");
-C51 COMPILER V9.59.0.0   PANTALLAS                                                         09/21/2020 13:31:52 PAGE 9   
+C51 COMPILER V9.59.0.0   PANTALLAS                                                         09/28/2020 11:10:43 PAGE 9   
 
  479   3                  Raspberry_data((unsigned char  *) buf); 
  480   3                  break;

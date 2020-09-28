@@ -1,4 +1,4 @@
-C51 COMPILER V9.59.0.0   ACCESCAN                                                          09/21/2020 13:31:51 PAGE 1   
+C51 COMPILER V9.59.0.0   ACCESCAN                                                          09/28/2020 11:10:43 PAGE 1   
 
 
 C51 COMPILER V9.59.0.0, COMPILATION OF MODULE ACCESCAN
@@ -35,512 +35,513 @@ line level    source
   24          extern unsigned char validar_clk(unsigned char *datos_clock);
   25          extern void Debug_chr_Tibbo(unsigned char Dat);
   26          extern unsigned char rd_eeprom (unsigned char control,unsigned int Dir); 
-  27          
+  27          extern unsigned char Dir_Board_Monitor();
   28          
-  29          extern unsigned int Timer_tivo;
-  30          extern unsigned char Timer_wait;
-  31          extern unsigned char Tipo_Vehiculo;
-  32          extern unsigned char ValTimeOutCom;
-  33          
-  34          extern unsigned char  Debug_Tibbo;
-  35          extern unsigned char buffer_S_B[17];
-  36          sbit rx_ip = P0^0;        
-  37          sbit lock = P1^7;           //Relevo 
-  38          sbit Atascado = P0^3;       //Rele de on/off del verificador o transporte
-  39          sbit led_err_imp = P0^2;      //Error   
-  40          
+  29          
+  30          extern unsigned int Timer_tivo;
+  31          extern unsigned char Timer_wait;
+  32          extern unsigned char Tipo_Vehiculo;
+  33          extern unsigned char ValTimeOutCom;
+  34          
+  35          extern unsigned char  Debug_Tibbo;
+  36          extern unsigned char buffer_S_B[17];
+  37          sbit rx_ip = P0^0;        
+  38          sbit lock = P1^7;           //Relevo 
+  39          sbit Atascado = P0^3;       //Rele de on/off del verificador o transporte
+  40          sbit led_err_imp = P0^2;      //Error   
   41          
-  42          #define STX                     02 
-  43          #define ETX                     03 
-  44          
-  45          /*MENSAJES PRIMARIO CON CMD DE MSJ*/
-  46          #define PRMR_ON_LINE                0xB7
-  47          #define PRMR_OFF_LINE               0xb6
-  48          #define PRMR_BIENVENIDO             0X02    //FE
-  49          #define PRMR_SIN_PAGO               0XE7
-  50          #define PRMR_NO_IN_PARK             0XB2
-  51          #define PRMR_GRACIAS                'V'
-  52          #define PRMR_ERROR_LOOP             06          //0XE0
-  53          #define PRMR_EXPIRO                 0XB4
-C51 COMPILER V9.59.0.0   ACCESCAN                                                          09/21/2020 13:31:51 PAGE 2   
+  42          
+  43          #define STX                     02 
+  44          #define ETX                     03 
+  45          
+  46          /*MENSAJES PRIMARIO CON CMD DE MSJ*/
+  47          #define PRMR_ON_LINE                0xB7
+  48          #define PRMR_OFF_LINE               0xb6
+  49          #define PRMR_BIENVENIDO             0X02    //FE
+  50          #define PRMR_SIN_PAGO               0XE7
+  51          #define PRMR_NO_IN_PARK             0XB2
+  52          #define PRMR_GRACIAS                'V'
+  53          #define PRMR_ERROR_LOOP             06          //0XE0
+C51 COMPILER V9.59.0.0   ACCESCAN                                                          09/28/2020 11:10:43 PAGE 2   
 
-  54          #define PRMR_EXCEDE_HORARIO         0X07
-  55          #define PRMR_NO_MENSUAL             0XB1
-  56          #define PRMR_DIREJASE_A_CAJA        0XA1
-  57          #define PRMR_MENSUAL_NO_PAGO        0X08
-  58          #define PRMR_UN_MOMENTO             0X09
-  59          #define PRMR_SOLICITA_EVN           0XAA
-  60          /*mensaje de mensual*/
-  61          #define GRACIAS                 91            //0XFF,01
-  62          #define LECTURA_WIEGAND         92//0xB0
-  63          #define NO_IN_PARK              93  
-  64          #define EXPIRO                  94            //B4
-  65          #define EXCEDE_HORARIO          95
-  66          #define NO_MENSUAL_NI_PREPAGO   96
-  67          #define DIREJASE_A_CAJA         90
-  68          #define MENSUAL_NO_PAGO         97
-  69          /*mensaje informativo DE PANTALLAS*/
-  70          #define ERROR_LOOP              171         //0XE0
-  71          #define OFF_LINE                174
-  72          #define UN_MOMENTO              175
-  73          /*direcciones de eeprom*/
-  74          #define EE_USE_LPR            0x000A
-  75          #define EE_DEBUG              0x0008
-  76          /*define variables de esta funcion*/
-  77           unsigned char USE_LPR;
-  78           idata unsigned char placa[]={0x30,0x30,0x30,0x30,0x30,0x30,0x0,0x0,0x0};
-  79           
-  80           /*externos bits*/
-  81          
-  82          extern bit placa_ready;
-  83           enum Tipos_MF_TIPO_TARJETA{
-  84            INACTIVA,         
-  85            ROTACION,           
-  86            MENSUALIDAD,
-  87            PREPAGO,
-  88            CORTESIA,
-  89            LOCATARIO,
-  90            TARJETA_PERDIDA = 0X10,
-  91            INHABILITADA = 0X11
-  92          };
-  93           enum expedidor {
-  94           fecha_Int_Ano,
-  95           fecha_Int_Mes, 
-  96           fecha_Int_Dia, 
-  97           fecha_Int_Hora,
-  98           fecha_Int_Min,   
-  99           Tipo_Tarjeta,
- 100           Apb,
- 101           Horario,
- 102           Pico_Placa,
- 103           Type_Vehiculo,
- 104           Uid_0,
- 105           Uid_1,
- 106           Uid_2,
- 107           Uid_3,
- 108           Expira_ano,
- 109           Expira_mes,
- 110           Expira_dia
- 111           
- 112          };
- 113          
- 114          //unsigned char S1_B2[]={0x13, 0x03, 0x1D, 0x0B, 0x0E, 00, 00, 00, 00, 00, 0x01, 0x13, 0x03, 0x1D, 0x0E, 0
+  54          #define PRMR_EXPIRO                 0XB4
+  55          #define PRMR_EXCEDE_HORARIO         0X07
+  56          #define PRMR_NO_MENSUAL             0XB1
+  57          #define PRMR_DIREJASE_A_CAJA        0XA1
+  58          #define PRMR_MENSUAL_NO_PAGO        0X08
+  59          #define PRMR_UN_MOMENTO             0X09
+  60          #define PRMR_SOLICITA_EVN           0XAA
+  61          /*mensaje de mensual*/
+  62          #define GRACIAS                 91            //0XFF,01
+  63          #define LECTURA_WIEGAND         92//0xB0
+  64          #define NO_IN_PARK              93  
+  65          #define EXPIRO                  94            //B4
+  66          #define EXCEDE_HORARIO          95
+  67          #define NO_MENSUAL_NI_PREPAGO   96
+  68          #define DIREJASE_A_CAJA         90
+  69          #define MENSUAL_NO_PAGO         97
+  70          /*mensaje informativo DE PANTALLAS*/
+  71          #define ERROR_LOOP              171         //0XE0
+  72          #define OFF_LINE                174
+  73          #define UN_MOMENTO              175
+  74          /*direcciones de eeprom*/
+  75          #define EE_USE_LPR            0x000A
+  76          #define EE_DEBUG              0x0008
+  77          /*define variables de esta funcion*/
+  78           unsigned char USE_LPR;
+  79           idata unsigned char placa[]={0x30,0x30,0x30,0x30,0x30,0x30,0x0,0x0,0x0};
+  80           
+  81           /*externos bits*/
+  82          
+  83          extern bit placa_ready;
+  84           enum Tipos_MF_TIPO_TARJETA{
+  85            INACTIVA,         
+  86            ROTACION,           
+  87            MENSUALIDAD,
+  88            PREPAGO,
+  89            CORTESIA,
+  90            LOCATARIO,
+  91            TARJETA_PERDIDA = 0X10,
+  92            INHABILITADA = 0X11
+  93          };
+  94           enum expedidor {
+  95           fecha_Int_Ano,
+  96           fecha_Int_Mes, 
+  97           fecha_Int_Dia, 
+  98           fecha_Int_Hora,
+  99           fecha_Int_Min,   
+ 100           Tipo_Tarjeta,
+ 101           Apb,
+ 102           Horario,
+ 103           Pico_Placa,
+ 104           Type_Vehiculo,
+ 105           Uid_0,
+ 106           Uid_1,
+ 107           Uid_2,
+ 108           Uid_3,
+ 109           Expira_ano,
+ 110           Expira_mes,
+ 111           Expira_dia
+ 112           
+ 113          };
+ 114          
+ 115          //unsigned char S1_B2[]={0x13, 0x03, 0x1D, 0x0B, 0x0E, 00, 00, 00, 00, 00, 0x01, 0x13, 0x03, 0x1D, 0x0E, 0
+C51 COMPILER V9.59.0.0   ACCESCAN                                                          09/28/2020 11:10:43 PAGE 3   
+
              -x1D};
-C51 COMPILER V9.59.0.0   ACCESCAN                                                          09/21/2020 13:31:51 PAGE 3   
-
- 115          //unsigned char S1_B0[]={0x32, 0x31, 0x30, 0x37, 0x31, 0x35, 00, 00, 00, 00, 00, 00, 00, 00, 00, 01};
- 116          //unsigned char S_B[]={0xE7, 00, 00, 00, 00, 00, 00, 00, 00, 00, 01};
- 117          /*------------------------------------------------------------------------------
- 118          Rutina q valida los cmd del pto paralelo
- 119          temp= usado para contar 20 fuera de linea y mostralo en la pantalla
- 120          ------------------------------------------------------------------------------*/
- 121          void Valida_Trama_Pto(unsigned char *buffer, unsigned char length_trama)
- 122          {
- 123   1        
- 124   1         static unsigned char cont;
- 125   1         unsigned char buff[11];
- 126   1        USE_LPR=rd_eeprom(0xa8,EE_USE_LPR);
- 127   1        /*-------------------------------CMD H reloj para el board y la pantalla lcd-----------------------------
+ 116          //unsigned char S1_B0[]={0x32, 0x31, 0x30, 0x37, 0x31, 0x35, 00, 00, 00, 00, 00, 00, 00, 00, 00, 01};
+ 117          //unsigned char S_B[]={0xE7, 00, 00, 00, 00, 00, 00, 00, 00, 00, 01};
+ 118          /*------------------------------------------------------------------------------
+ 119          Rutina q valida los cmd del pto paralelo
+ 120          temp= usado para contar 20 fuera de linea y mostralo en la pantalla
+ 121          ------------------------------------------------------------------------------*/
+ 122          void Valida_Trama_Pto(unsigned char *buffer, unsigned char length_trama)
+ 123          {
+ 124   1        
+ 125   1         static unsigned char cont;
+ 126   1         unsigned char buff[11];
+ 127   1        USE_LPR=rd_eeprom(0xa8,EE_USE_LPR);
+ 128   1        /*-------------------------------CMD H reloj para el board y la pantalla lcd-----------------------------
              --------------*/
- 128   1          if((length_trama==25)&&(*buffer==STX)&&(*(buffer+2)=='H')&&*(buffer+(length_trama-1))==ETX)                         
+ 129   1          if((length_trama==25)&&(*buffer==STX)&&(*(buffer+2)=='H')&&*(buffer+(length_trama-1))==ETX)                         
              -/*cmd de Accescan que me envia el reloj actualizado*/
- 129   1          { 
- 130   2            if(validar_clk(buffer+3)==0)
- 131   2            {
- 132   3            Block_write_clock_ascii(buffer+3);                                                                                /* se escribe el reloj de har
+ 130   1          { 
+ 131   2            if(validar_clk(buffer+3)==0)
+ 132   2            {
+ 133   3            Block_write_clock_ascii(buffer+3);                                                                                /* se escribe el reloj de har
              -dware*/
- 133   3          
- 134   3            Reloj_Pantalla_Lcd();                                                                                             /* Escribo el reloj en la pantalla 
+ 134   3          
+ 135   3            Reloj_Pantalla_Lcd();                                                                                             /* Escribo el reloj en la pantalla 
              -lcd*/
- 135   3            
- 136   3            } 
- 137   2            
- 138   2          }
- 139   1          /*-------------------------------CMD B6 fuera de linea -------------------------------------------------
+ 136   3            
+ 137   3            } 
+ 138   2            
+ 139   2          }
+ 140   1          /*-------------------------------CMD B6 fuera de linea -------------------------------------------------
              -------------*/
- 140   1          else if(*buffer==PRMR_OFF_LINE)                                                                                   /*cmd de Accescan que dice q es
+ 141   1          else if(*buffer==PRMR_OFF_LINE)                                                                                   /*cmd de Accescan que dice q es
              -ta fuera de linea*/
- 141   1          {
- 142   2              cont++;
- 143   2              if (cont>4)     /* con un tiempo de retardo =((1/(22118400/12)*65535)*30)*/
- 144   2              {
- 145   3              PantallaLCD(OFF_LINE);
- 146   3              led_err_imp=0;                                                                                                  /*error led on*/
- 147   3              Timer_wait=0;
- 148   3              lock=0;                                                                                                         /*relevo off despues de 1 minuto*/
- 149   3              Atascado=0; 
- 150   3              cont=0;
- 151   3              }
- 152   2          }
- 153   1          /*-------------------------------CMD B7 en linea (AA) NO SE SABE  --------------------------------------
+ 142   1          {
+ 143   2              cont++;
+ 144   2              if (cont>4)     /* con un tiempo de retardo =((1/(22118400/12)*65535)*30)*/
+ 145   2              {
+ 146   3              PantallaLCD(OFF_LINE);
+ 147   3              led_err_imp=0;                                                                                                  /*error led on*/
+ 148   3              Timer_wait=0;
+ 149   3              lock=0;                                                                                                         /*relevo off despues de 1 minuto*/
+ 150   3              Atascado=0; 
+ 151   3              cont=0;
+ 152   3              }
+ 153   2          }
+ 154   1          /*-------------------------------CMD B7 en linea (AA) NO SE SABE  --------------------------------------
              -----------------------------*/
- 154   1          else if ((*buffer==PRMR_ON_LINE)  ||(*buffer==PRMR_SOLICITA_EVN) )                                                                              
+ 155   1          else if ((*buffer==PRMR_ON_LINE)  ||(*buffer==PRMR_SOLICITA_EVN) )                                                                              
              -      /*en linea*/
- 155   1          {   
- 156   2            
- 157   2            if (Timer_wait>=20)                                                                                               /* se envia el msj fuera de linea*/
- 158   2            { 
- 159   3              Timer_wait=0;                                                                                                   /*se inicia el timer*/
- 160   3              lock=0;
- 161   3              led_err_imp=1;                                                                                                  /*relevo off despues de 1 minuto*/
- 162   3              Atascado=0; 
- 163   3            } 
- 164   2            
- 165   2            if ((Debug_Tibbo==0)&&(USE_LPR==1)&& (Timer_tivo>=600))
- 166   2            {
- 167   3              Timer_tivo=0;
- 168   3              Debug_Tibbo=1;
-C51 COMPILER V9.59.0.0   ACCESCAN                                                          09/21/2020 13:31:51 PAGE 4   
+ 156   1          {   
+ 157   2            
+ 158   2            if (Timer_wait>=20)                                                                                               /* se envia el msj fuera de linea*/
+ 159   2            { 
+ 160   3              Timer_wait=0;                                                                                                   /*se inicia el timer*/
+ 161   3              lock=0;
+ 162   3              led_err_imp=1;                                                                                                  /*relevo off despues de 1 minuto*/
+ 163   3              Atascado=0; 
+ 164   3            } 
+ 165   2            
+ 166   2            if ((Debug_Tibbo==0)&&(USE_LPR==1)&& (Timer_tivo>=600))
+ 167   2            {
+ 168   3              Timer_tivo=0;
+C51 COMPILER V9.59.0.0   ACCESCAN                                                          09/28/2020 11:10:43 PAGE 4   
 
- 169   3              Debug_txt_Tibbo((unsigned char *) "LIVE");
- 170   3              Debug_Tibbo=0;
- 171   3            }
- 172   2            
+ 169   3              Debug_Tibbo=1;
+ 170   3              Debug_txt_Tibbo((unsigned char *) "LIVE");
+ 171   3              Debug_Tibbo=0;
+ 172   3            }
  173   2            
- 174   2          } 
- 175   1          
- 176   1            /*-------------------------------CMD B1 PRMR_NO_MENSUAL_NI PREPAGO ------------------------------------
+ 174   2            
+ 175   2          } 
+ 176   1          
+ 177   1            /*-------------------------------CMD B1 PRMR_NO_MENSUAL_NI PREPAGO ------------------------------------
              ------------------------------*/
- 177   1          else if ((*buffer==PRMR_NO_MENSUAL) )                                                                                   /*en linea*/
- 178   1          {
- 179   2            PantallaLCD(NO_MENSUAL_NI_PREPAGO);                                                                                           /*MSJ MENSUAL NO EN PA
+ 178   1          else if ((*buffer==PRMR_NO_MENSUAL) )                                                                                   /*en linea*/
+ 179   1          {
+ 180   2            PantallaLCD(NO_MENSUAL_NI_PREPAGO);                                                                                           /*MSJ MENSUAL NO EN PA
              -RQUEADERO*/
- 180   2          }   
- 181   1            /*-------------------------------CMD B2 PRMR_NO_IN_PARK   ---------------------------------------------
+ 181   2          }   
+ 182   1            /*-------------------------------CMD B2 PRMR_NO_IN_PARK   ---------------------------------------------
              ---------------------*/
- 182   1          else if ((*buffer==PRMR_NO_IN_PARK) )                                                                                   /*en linea*/
- 183   1          {
- 184   2            PantallaLCD(NO_IN_PARK);                                                                                            /*MSJ MENSUAL NO EN PARQUEADERO*/
- 185   2          }   
- 186   1            /*-------------------------------CMD A1    DIREJASE_A_CAJA                ------------------------------
+ 183   1          else if ((*buffer==PRMR_NO_IN_PARK) )                                                                                   /*en linea*/
+ 184   1          {
+ 185   2            PantallaLCD(NO_IN_PARK);                                                                                            /*MSJ MENSUAL NO EN PARQUEADERO*/
+ 186   2          }   
+ 187   1            /*-------------------------------CMD A1    DIREJASE_A_CAJA                ------------------------------
              -------------------------------------*/
- 187   1          else if ((length_trama==1)&&(*buffer==PRMR_DIREJASE_A_CAJA  ))                                                                        /*cmd 0
+ 188   1          else if ((length_trama==1)&&(*buffer==PRMR_DIREJASE_A_CAJA  ))                                                                        /*cmd 0
              -xA1 audio caja que es igual a no registra pago */
- 188   1          {
- 189   2               PantallaLCD(DIREJASE_A_CAJA);
- 190   2          }
- 191   1          
- 192   1            /*-------------------------------CMD 06  error de loop    ---------------------------------------------
+ 189   1          {
+ 190   2               PantallaLCD(DIREJASE_A_CAJA);
+ 191   2          }
+ 192   1          
+ 193   1            /*-------------------------------CMD 06  error de loop    ---------------------------------------------
              ----------------------*/
- 193   1          else if ((length_trama==1)&&(*buffer==PRMR_ERROR_LOOP))                                                                   /*cmd 0xA1 audi
+ 194   1          else if ((length_trama==1)&&(*buffer==PRMR_ERROR_LOOP))                                                                   /*cmd 0xA1 audi
              -o caja que es igual a no registra pago */
- 194   1          {
- 195   2               PantallaLCD(ERROR_LOOP);
- 196   2          }
- 197   1          
- 198   1              /*-------------------------------CMD 07  EXCEDE_HORARIO   --------------------------------------------
+ 195   1          {
+ 196   2               PantallaLCD(ERROR_LOOP);
+ 197   2          }
+ 198   1          
+ 199   1              /*-------------------------------CMD 07  EXCEDE_HORARIO   --------------------------------------------
              -----------------------*/
- 199   1          else if ((length_trama==1)&&(*buffer==PRMR_EXCEDE_HORARIO))                                                                   /*cmd 0xA1 
+ 200   1          else if ((length_trama==1)&&(*buffer==PRMR_EXCEDE_HORARIO))                                                                   /*cmd 0xA1 
              -audio caja que es igual a no registra pago */
- 200   1          {
- 201   2               PantallaLCD(EXCEDE_HORARIO);
- 202   2          }
- 203   1          
- 204   1      
- 205   1              /*-------------------------------CMD 08 MENSUAL_NO_PAGO   --------------------------------------------
+ 201   1          {
+ 202   2               PantallaLCD(EXCEDE_HORARIO);
+ 203   2          }
+ 204   1          
+ 205   1      
+ 206   1              /*-------------------------------CMD 08 MENSUAL_NO_PAGO   --------------------------------------------
              -----------------------*/
- 206   1          else if ((length_trama==1)&&(*buffer==PRMR_MENSUAL_NO_PAGO))                                                                    /*cmd 0xA1
+ 207   1          else if ((length_trama==1)&&(*buffer==PRMR_MENSUAL_NO_PAGO))                                                                    /*cmd 0xA1
              - audio caja que es igual a no registra pago */
- 207   1          {
- 208   2               PantallaLCD(MENSUAL_NO_PAGO);
- 209   2          } 
- 210   1        
- 211   1          /*-------------------------------CMD 09 UN_MOMENTO     --------------------------------------------------
+ 208   1          {
+ 209   2               PantallaLCD(MENSUAL_NO_PAGO);
+ 210   2          } 
+ 211   1        
+ 212   1          /*-------------------------------CMD 09 UN_MOMENTO     --------------------------------------------------
              -----------------*/
- 212   1          else if ((length_trama==1)&&(*buffer==PRMR_UN_MOMENTO ))                                                                    /*cmd 0xA1 aud
+ 213   1          else if ((length_trama==1)&&(*buffer==PRMR_UN_MOMENTO ))                                                                    /*cmd 0xA1 aud
              -io caja que es igual a no registra pago */
- 213   1          {
- 214   2               PantallaLCD(UN_MOMENTO );
- 215   2          }     
- 216   1            /*-------------------------------CMD B4  EXPIRO mensualidad vencida -----------------------------------
+ 214   1          {
+ 215   2               PantallaLCD(UN_MOMENTO );
+ 216   2          }     
+ 217   1            /*-------------------------------CMD B4  EXPIRO mensualidad vencida -----------------------------------
+C51 COMPILER V9.59.0.0   ACCESCAN                                                          09/28/2020 11:10:43 PAGE 5   
+
              ------------------------*/
-C51 COMPILER V9.59.0.0   ACCESCAN                                                          09/21/2020 13:31:51 PAGE 5   
-
- 217   1          else if ((length_trama==1)&&(*buffer==PRMR_EXPIRO))                                                                   /*cmd 0xA1 audio ca
+ 218   1          else if ((length_trama==1)&&(*buffer==PRMR_EXPIRO))                                                                   /*cmd 0xA1 audio ca
              -ja que es igual a no registra pago */
- 218   1          {
- 219   2               PantallaLCD(EXPIRO);                                                                                             /*mesualidad vencida*/
- 220   2          }
- 221   1          /*-------------------------------CMD 'V'=PRMR_GRACIAS  msj Gracias y nombre del mensual-----------------
+ 219   1          {
+ 220   2               PantallaLCD(EXPIRO);                                                                                             /*mesualidad vencida*/
+ 221   2          }
+ 222   1          /*-------------------------------CMD 'V'=PRMR_GRACIAS  msj Gracias y nombre del mensual-----------------
              -------------------------*/
- 222   1          else if ((length_trama==19)&& (*(buffer+1)==PRMR_GRACIAS)&&*(buffer+(length_trama-1))==ETX)                         
+ 223   1          else if ((length_trama==19)&& (*(buffer+1)==PRMR_GRACIAS)&&*(buffer+(length_trama-1))==ETX)                         
              -/*cmd 0xA1 audio caja que es igual a no registra pago */
- 223   1          {
- 224   2               PantallaLCD_LINEA_2(GRACIAS,buffer+2);                                                                     /*SE ENVIA EL MSJ GRACIAS lo
+ 224   1          {
+ 225   2               PantallaLCD_LINEA_2(GRACIAS,buffer+2);                                                                     /*SE ENVIA EL MSJ GRACIAS lo
              - q envia el software*/
- 225   2          }
- 226   1          
- 227   1          /*-------------------------------CMD de wiegand---------------------------------------------------*/
- 228   1          else if ((length_trama==6)&&(*buffer==STX)&&(*(buffer+1)=='W')&&*(buffer+(length_trama-1))==ETX)                
+ 226   2          }
+ 227   1          
+ 228   1          /*-------------------------------CMD de wiegand---------------------------------------------------*/
+ 229   1          else if ((length_trama==6)&&(*buffer==STX)&&(*(buffer+1)=='W')&&*(buffer+(length_trama-1))==ETX)                
              -    /* cmd q comunica con monitor por wiegand*/
- 229   1          {
- 230   2              /*-------------------------------se covierte el numero serie de la tarjeta----------------------------
+ 230   1          {
+ 231   2              /*-------------------------------se covierte el numero serie de la tarjeta----------------------------
              ---*/
- 231   2                    ByteHex_Decimal(buff,*(buffer+2));                                                                        /*convierto el primer byte_he
+ 232   2                    ByteHex_Decimal(buff,*(buffer+2));                                                                        /*convierto el primer byte_he
              -x a decimal    */
- 232   2                    buff[3]=' ';
- 233   2                    Two_ByteHex_Decimal(buff+4,*(buffer+3),*(buffer+4)) ;                                                     /*convierto un byte
+ 233   2                    buff[3]=' ';
+ 234   2                    Two_ByteHex_Decimal(buff+4,*(buffer+3),*(buffer+4)) ;                                                     /*convierto un byte
              - de 16 bits a decimal*/   
- 234   2              /*----------------------------------------------------------------------------------------------------
+ 235   2              /*----------------------------------------------------------------------------------------------------
              ---*/
- 235   2                
- 236   2            if (USE_LPR==1)
- 237   2              {
- 238   3                    /*-------------------------------mensaje en la pantalla -------------------------------------------
+ 236   2                
+ 237   2            if (USE_LPR==1)
+ 238   2              {
+ 239   3                    /*-------------------------------mensaje en la pantalla -------------------------------------------
              --*/
- 239   3                    /*ValidaSensoresPaso=0 no hay presencia  ValidaSensoresPaso=0xff  hay presencia*/
- 240   3                    if (ValidaSensoresPaso()!= 0xff)
- 241   3                    {               
- 242   4                      PantallaLCD(ERROR_LOOP);
- 243   4                      PantallaLCD_LINEA_2(LECTURA_WIEGAND,buff);                                                                /*msj rasberry*/
- 244   4                    }
- 245   3                    else
- 246   3                    {
- 247   4                      Cmd_LPR_Salida_wiegand(buff);
- 248   4                      PantallaLCD_LINEA_2(LECTURA_WIEGAND,buff);                                                                /*msj rasberry*/
- 249   4                    }
- 250   3                
- 251   3                    
- 252   3                                                                                                                              /*transmito el codigo de la tarjeta a la panta
+ 240   3                    /*ValidaSensoresPaso=0 no hay presencia  ValidaSensoresPaso=0xff  hay presencia*/
+ 241   3                    if (ValidaSensoresPaso()!= 0xff)
+ 242   3                    {               
+ 243   4                      PantallaLCD(ERROR_LOOP);
+ 244   4                      PantallaLCD_LINEA_2(LECTURA_WIEGAND,buff);                                                                /*msj rasberry*/
+ 245   4                    }
+ 246   3                    else
+ 247   3                    {
+ 248   4                      Cmd_LPR_Salida_wiegand(buff);
+ 249   4                      PantallaLCD_LINEA_2(LECTURA_WIEGAND,buff);                                                                /*msj rasberry*/
+ 250   4                    }
+ 251   3                
+ 252   3                    
+ 253   3                                                                                                                              /*transmito el codigo de la tarjeta a la panta
              -lla lcd*/
- 253   3                                
- 254   3              }                                                                             
- 255   2              
- 256   2              else
- 257   2              {
- 258   3                 /*-------------------------------mensaje en la pantalla---------------------------------------------
+ 254   3                                
+ 255   3              }                                                                             
+ 256   2              
+ 257   2              else
+ 258   2              {
+ 259   3                 /*-------------------------------mensaje en la pantalla---------------------------------------------
              -------*/
- 259   3                                                                    
- 260   3                    if (ValidaSensoresPaso()!= 0xff)
- 261   3                    {               
- 262   4                      PantallaLCD(ERROR_LOOP);
- 263   4                    }
- 264   3                    PantallaLCD_LINEA_2(LECTURA_WIEGAND,buff);                                                                /*transmito el codigo de 
+ 260   3                                                                    
+ 261   3                    if (ValidaSensoresPaso()!= 0xff)
+ 262   3                    {               
+ 263   4                      PantallaLCD(ERROR_LOOP);
+ 264   4                    }
+ 265   3                    PantallaLCD_LINEA_2(LECTURA_WIEGAND,buff);                                                                /*transmito el codigo de 
              -la tarjeta a la pantalla lcd*/
- 265   3                                                                                                          
-C51 COMPILER V9.59.0.0   ACCESCAN                                                          09/21/2020 13:31:51 PAGE 6   
+C51 COMPILER V9.59.0.0   ACCESCAN                                                          09/28/2020 11:10:43 PAGE 6   
 
- 266   3                /*---------------------------------------------------------------------------------------------------
+ 266   3                                                                                                          
+ 267   3                /*---------------------------------------------------------------------------------------------------
              ------*/  
- 267   3              
- 268   3              }
- 269   2          }
- 270   1          
- 271   1      }
- 272          /*------------------------------------------------------------------------------
- 273          Rutina q recibe  los cmd de Monitor por el tibbo
- 274          return el num de caracteres recibidos
- 275          y almacena la trama en un apuntador
- 276          ------------------------------------------------------------------------------*/
- 277          unsigned char recibe_cmd_Monitor(unsigned char *buffer_cmd)
- 278          {
- 279   1        unsigned char j, NumDatos,time_out,MaxChrRx;
- 280   1        unsigned int contador;
- 281   1        
- 282   1          NumDatos=0;
- 283   1          MaxChrRx=11;
- 284   1      
- 285   1        if (USE_LPR==1)
- 286   1        {
- 287   2            for (j=0; j<MaxChrRx; j++)
- 288   2            {
- 289   3              contador=0;
- 290   3              time_out=0;
- 291   3              while ((rx_ip==1)&&(time_out==0))
- 292   3              {
- 293   4                contador++;
- 294   4                if (contador>20000)
- 295   4                {
- 296   5                  time_out=1;
- 297   5                  j=MaxChrRx;
- 298   5                }       
- 299   4              }
- 300   3              if(time_out==1)break;
- 301   3                NumDatos++;
- 302   3                *buffer_cmd=rx_Data();
- 303   3                  buffer_cmd++;
- 304   3            }
- 305   2      
- 306   2            *buffer_cmd=0;
- 307   2            
- 308   2      
- 309   2        }
- 310   1        return  NumDatos;
- 311   1      } 
- 312          /*------------------------------------------------------------------------------
- 313          Rutina q valida los cmd de Monitor
- 314          ------------------------------------------------------------------------------*/
- 315          
- 316          void Valida_Trama_Monitor(unsigned char *buffer, unsigned char length_trama)
- 317          {   
- 318   1        unsigned char j=0;
- 319   1        unsigned char p=2;
- 320   1        length_trama=1;
- 321   1          if  ((*(buffer+2)==ETX)&&(*(buffer+1)=='P'))                                                                            /* APERTURA DE BARRETA
+ 268   3              
+ 269   3              }
+ 270   2          }
+ 271   1          
+ 272   1      }
+ 273          /*------------------------------------------------------------------------------
+ 274          Rutina q recibe  los cmd de Monitor por el tibbo
+ 275          return el num de caracteres recibidos
+ 276          y almacena la trama en un apuntador
+ 277          ------------------------------------------------------------------------------*/
+ 278          unsigned char recibe_cmd_Monitor(unsigned char *buffer_cmd)
+ 279          {
+ 280   1        unsigned char j, NumDatos,time_out,MaxChrRx;
+ 281   1        unsigned int contador;
+ 282   1        
+ 283   1          NumDatos=0;
+ 284   1          MaxChrRx=11;
+ 285   1      
+ 286   1        if (USE_LPR==1)
+ 287   1        {
+ 288   2            for (j=0; j<MaxChrRx; j++)
+ 289   2            {
+ 290   3              contador=0;
+ 291   3              time_out=0;
+ 292   3              while ((rx_ip==1)&&(time_out==0))
+ 293   3              {
+ 294   4                contador++;
+ 295   4                if (contador>20000)
+ 296   4                {
+ 297   5                  time_out=1;
+ 298   5                  j=MaxChrRx;
+ 299   5                }       
+ 300   4              }
+ 301   3              if(time_out==1)break;
+ 302   3                NumDatos++;
+ 303   3                *buffer_cmd=rx_Data();
+ 304   3                  buffer_cmd++;
+ 305   3            }
+ 306   2      
+ 307   2            *buffer_cmd=0;
+ 308   2            
+ 309   2      
+ 310   2        }
+ 311   1        return  NumDatos;
+ 312   1      } 
+ 313          /*------------------------------------------------------------------------------
+ 314          Rutina q valida los cmd de Monitor
+ 315          ------------------------------------------------------------------------------*/
+ 316          
+ 317          void Valida_Trama_Monitor(unsigned char *buffer, unsigned char length_trama)
+ 318          {   
+ 319   1        unsigned char j=0;
+ 320   1        unsigned char p=2;
+ 321   1        length_trama=1;
+ 322   1          if  ((*(buffer+2)==ETX)&&(*(buffer+1)=='P'))                                                                            /* APERTURA DE BARRETA
              -*/ 
- 322   1              {
- 323   2                lock=1;                                                                                                           /*habilita el relevo ON*/
- 324   2                Timer_wait=0;
- 325   2              }
-C51 COMPILER V9.59.0.0   ACCESCAN                                                          09/21/2020 13:31:51 PAGE 7   
+ 323   1              {
+ 324   2                lock=1;                                                                                                           /*habilita el relevo ON*/
+ 325   2                Timer_wait=0;
+C51 COMPILER V9.59.0.0   ACCESCAN                                                          09/28/2020 11:10:43 PAGE 7   
 
- 326   1            else if (*(buffer+1)=='<')
- 327   1          {
- 328   2            /*placa*/
- 329   2            do
- 330   2            {
- 331   3              placa[j]=*(buffer+p);
- 332   3              p++;
- 333   3              j++;
- 334   3            }while (*(buffer+p) != ETX);
- 335   2            *(buffer+p)=0;
- 336   2              placa[j-1]=0;
- 337   2              placa_ready=1;
- 338   2            ValTimeOutCom=10;
- 339   2            /*placa no play <NO_PLATE>*/ 
- 340   2            
- 341   2          }
- 342   1          else if (*(buffer+1)=='[')
- 343   1          {
- 344   2            /*cancel*/
- 345   2          }
- 346   1      }
- 347          /*------------------------------------------------------------------------------
- 348          
- 349          ------------------------------------------------------------------------------*/
- 350          void clear_placa()
- 351          {
- 352   1        unsigned char i;
- 353   1        for(i=0;i<6;i++)
- 354   1        {
- 355   2         placa[i]=0x30;
- 356   2        }
- 357   1       placa_ready=0;
- 358   1      }
- 359            
- 360          /*------------------------------------------------------------------------------
- 361          Transmito un caracter al software monitor 
- 362          ------------------------------------------------------------------------------*/
- 363          void Monitor_chr (unsigned char *str,unsigned char num_char)
- 364          {
- 365   1        unsigned char j;
- 366   1        for (j=0; j<num_char; j++)
- 367   1          {
- 368   2          tx_aux(*str);
- 369   2          str++;
- 370   2          }
- 371   1      }
- 372            
- 373          /*------------------------------------------------------------------------------
- 374          Transmito CMD de salida wiegand 
- 375          ------------------------------------------------------------------------------*/
- 376          void Cmd_LPR_Salida_wiegand(unsigned char *buffer)
- 377          {
- 378   1        unsigned char Buffer_Lpr[30];
- 379   1        unsigned char j=3;
- 380   1        Buffer_Lpr[0]=STX;                                      /*inicio de cmd STx*/
- 381   1        Buffer_Lpr[1]=Dir_board();                              /*direccion de la tarjeta*/
- 382   1        Buffer_Lpr[2]='S';                                      /*cmd S que salida wiegand*/
- 383   1        if(Tipo_Vehiculo!=0)                                    /*Tipo de vehiculo*/
- 384   1          {
- 385   2            Buffer_Lpr[j++]='M';                                /*moto*/
- 386   2          }
- 387   1          else
-C51 COMPILER V9.59.0.0   ACCESCAN                                                          09/21/2020 13:31:51 PAGE 8   
+ 326   2              }
+ 327   1            else if (*(buffer+1)=='<')
+ 328   1          {
+ 329   2            /*placa*/
+ 330   2            do
+ 331   2            {
+ 332   3              placa[j]=*(buffer+p);
+ 333   3              p++;
+ 334   3              j++;
+ 335   3            }while (*(buffer+p) != ETX);
+ 336   2            *(buffer+p)=0;
+ 337   2              placa[j-1]=0;
+ 338   2              placa_ready=1;
+ 339   2            ValTimeOutCom=10;
+ 340   2            /*placa no play <NO_PLATE>*/ 
+ 341   2            
+ 342   2          }
+ 343   1          else if (*(buffer+1)=='[')
+ 344   1          {
+ 345   2            /*cancel*/
+ 346   2          }
+ 347   1      }
+ 348          /*------------------------------------------------------------------------------
+ 349          
+ 350          ------------------------------------------------------------------------------*/
+ 351          void clear_placa()
+ 352          {
+ 353   1        unsigned char i;
+ 354   1        for(i=0;i<6;i++)
+ 355   1        {
+ 356   2         placa[i]=0x30;
+ 357   2        }
+ 358   1       placa_ready=0;
+ 359   1      }
+ 360            
+ 361          /*------------------------------------------------------------------------------
+ 362          Transmito un caracter al software monitor 
+ 363          ------------------------------------------------------------------------------*/
+ 364          void Monitor_chr (unsigned char *str,unsigned char num_char)
+ 365          {
+ 366   1        unsigned char j;
+ 367   1        for (j=0; j<num_char; j++)
+ 368   1          {
+ 369   2          tx_aux(*str);
+ 370   2          str++;
+ 371   2          }
+ 372   1      }
+ 373            
+ 374          /*------------------------------------------------------------------------------
+ 375          Transmito CMD de salida wiegand 
+ 376          ------------------------------------------------------------------------------*/
+ 377          void Cmd_LPR_Salida_wiegand(unsigned char *buffer)
+ 378          {
+ 379   1        unsigned char Buffer_Lpr[30];
+ 380   1        unsigned char j=3;
+ 381   1        Buffer_Lpr[0]=STX;                                      /*inicio de cmd STx*/
+ 382   1        Buffer_Lpr[1]=Dir_Board_Monitor();                      //Dir_board();                              /*direccion de la tarjeta*/
+ 383   1        Buffer_Lpr[2]='S';                                      /*cmd S que salida wiegand*/
+ 384   1        if(Tipo_Vehiculo!=0)                                    /*Tipo de vehiculo*/
+ 385   1          {
+ 386   2            Buffer_Lpr[j++]='M';                                /*moto*/
+ 387   2          }
+C51 COMPILER V9.59.0.0   ACCESCAN                                                          09/28/2020 11:10:43 PAGE 8   
 
- 388   1          {
- 389   2            Buffer_Lpr[j++]='C';                                /*carro*/
- 390   2          }
- 391   1        
- 392   1          
+ 388   1          else
+ 389   1          {
+ 390   2            Buffer_Lpr[j++]='C';                                /*carro*/
+ 391   2          }
+ 392   1        
  393   1          
- 394   1          for (j=4; *buffer != '\0'; j++)                       /*numero del tab o tarjeta Mf*/
- 395   1            {
- 396   2                Buffer_Lpr[j]=*buffer;
- 397   2                buffer++;
- 398   2              
- 399   2            }
- 400   1            Buffer_Lpr[j++]=':';                                /*separador del tab  o tarjeta MF*/
- 401   1                        
- 402   1            Block_read_clock_ascii(Buffer_Lpr+j);               /*año,mes,dia,hora,minutos,*/
- 403   1            Buffer_Lpr[j+10]=':';                               /*separador fecha*/
- 404   1            Buffer_Lpr[j+11]=ETX;                               /*fin de la trama*/
- 405   1          
- 406   1                
- 407   1          
- 408   1            Monitor_chr(Buffer_Lpr,j+12);                       /*rutina de envio de la trama a monitor*/
- 409   1      }
- 410          /*------------------------------------------------------------------------------
- 411          
- 412          ------------------------------------------------------------------------------*/
- 413          void Cmd_LPR_Salida(unsigned char *buffer_S1_B0,unsigned char *buffer_S1_B)
- 414          {
- 415   1        
+ 394   1          
+ 395   1          for (j=4; *buffer != '\0'; j++)                       /*numero del tab o tarjeta Mf*/
+ 396   1            {
+ 397   2                Buffer_Lpr[j]=*buffer;
+ 398   2                buffer++;
+ 399   2              
+ 400   2            }
+ 401   1            Buffer_Lpr[j++]=':';                                /*separador del tab  o tarjeta MF*/
+ 402   1                        
+ 403   1            Block_read_clock_ascii(Buffer_Lpr+j);               /*año,mes,dia,hora,minutos,*/
+ 404   1            Buffer_Lpr[j+10]=':';                               /*separador fecha*/
+ 405   1            Buffer_Lpr[j+11]=ETX;                               /*fin de la trama*/
+ 406   1          
+ 407   1                
+ 408   1          
+ 409   1            Monitor_chr(Buffer_Lpr,j+12);                       /*rutina de envio de la trama a monitor*/
+ 410   1      }
+ 411          /*------------------------------------------------------------------------------
+ 412          
+ 413          ------------------------------------------------------------------------------*/
+ 414          void Cmd_LPR_Salida(unsigned char *buffer_S1_B0,unsigned char *buffer_S1_B)
+ 415          {
  416   1        
- 417   1        unsigned char Buffer_Lpr[30];
- 418   1        unsigned char j=3;
- 419   1        Buffer_Lpr[0]=STX;                                /*inicio de cmd STx*/
- 420   1        Buffer_Lpr[1]=Dir_board();                        /*direccion de la tarjeta*/
- 421   1        Buffer_Lpr[2]='S';                                /*numero de digitos de transmicion NO IMPORTA NO ES VALIDADO EN PRINCIP
+ 417   1        
+ 418   1        unsigned char Buffer_Lpr[30];
+ 419   1        unsigned char j=3;
+ 420   1        Buffer_Lpr[0]=STX;                                /*inicio de cmd STx*/
+ 421   1        Buffer_Lpr[1]=Dir_Board_Monitor();                  //Dir_board();                        /*direccion de la tarjeta*/
+ 422   1        Buffer_Lpr[2]='S';                                /*numero de digitos de transmicion NO IMPORTA NO ES VALIDADO EN PRINCIP
              -AL*/
- 422   1      
- 423   1        /*Tipo de vehiculo*/
- 424   1        
- 425   1          if(buffer_S_B[8] != 0)                        
- 426   1          {
- 427   2            Buffer_Lpr[j++]='M';                          /*moto*/
- 428   2          }
- 429   1          else
- 430   1          {
- 431   2            Buffer_Lpr[j++]='C';                          /*carro*/
- 432   2          }
- 433   1        if(*(buffer_S1_B0 + Tipo_Tarjeta) == MENSUALIDAD)
- 434   1        {
- 435   2          ByteHex_Decimal(Buffer_Lpr+4,*(buffer_S1_B0 + Uid_2));
- 436   2          j=strlen(Buffer_Lpr);
- 437   2          Buffer_Lpr[j]= ' ';
- 438   2          Buffer_Lpr[j+1]= 0;
- 439   2          j=strlen(Buffer_Lpr);
- 440   2          Two_ByteHex_Decimal(Buffer_Lpr+j,*(buffer_S1_B0 + Uid_1),*(buffer_S1_B0 + Uid_0));
- 441   2            
- 442   2        }
- 443   1        else
- 444   1        {
- 445   2        /*ticket o consecutivo*/
- 446   2        
- 447   2          do
- 448   2          {
-C51 COMPILER V9.59.0.0   ACCESCAN                                                          09/21/2020 13:31:51 PAGE 9   
+ 423   1      
+ 424   1        /*Tipo de vehiculo*/
+ 425   1        
+ 426   1          if(buffer_S_B[8] != 0)                        
+ 427   1          {
+ 428   2            Buffer_Lpr[j++]='M';                          /*moto*/
+ 429   2          }
+ 430   1          else
+ 431   1          {
+ 432   2            Buffer_Lpr[j++]='C';                          /*carro*/
+ 433   2          }
+ 434   1        if(*(buffer_S1_B0 + Tipo_Tarjeta) == MENSUALIDAD)
+ 435   1        {
+ 436   2          ByteHex_Decimal(Buffer_Lpr+4,*(buffer_S1_B0 + Uid_2));
+ 437   2          j=strlen(Buffer_Lpr);
+ 438   2          Buffer_Lpr[j]= ' ';
+ 439   2          Buffer_Lpr[j+1]= 0;
+ 440   2          j=strlen(Buffer_Lpr);
+ 441   2          Two_ByteHex_Decimal(Buffer_Lpr+j,*(buffer_S1_B0 + Uid_1),*(buffer_S1_B0 + Uid_0));
+ 442   2            
+ 443   2        }
+ 444   1        else
+ 445   1        {
+ 446   2        /*ticket o consecutivo*/
+ 447   2        
+ 448   2          do
+C51 COMPILER V9.59.0.0   ACCESCAN                                                          09/28/2020 11:10:43 PAGE 9   
 
- 449   3          
- 450   3          Buffer_Lpr[j++]=*buffer_S1_B;                 /*ticket o consecutivo*/
- 451   3          buffer_S1_B++;
- 452   3          }while (*buffer_S1_B != 0);
- 453   2          
- 454   2          Buffer_Lpr[j++]=0;
- 455   2        }
- 456   1        
- 457   1          j=strlen(Buffer_Lpr);
- 458   1        
+ 449   2          {
+ 450   3          
+ 451   3          Buffer_Lpr[j++]=*buffer_S1_B;                 /*ticket o consecutivo*/
+ 452   3          buffer_S1_B++;
+ 453   3          }while (*buffer_S1_B != 0);
+ 454   2          
+ 455   2          Buffer_Lpr[j++]=0;
+ 456   2        }
+ 457   1        
+ 458   1          j=strlen(Buffer_Lpr);
  459   1        
- 460   1          Buffer_Lpr[j]=':';                            /*separador de la fecha de entrada*/
- 461   1          
- 462   1        /*fecha de entrada*/
- 463   1          
- 464   1          Block_read_clock_ascii(Buffer_Lpr+j+1);     //leo la fecha de entrada
- 465   1            
- 466   1          j=strlen(Buffer_Lpr);
- 467   1          
- 468   1          Buffer_Lpr[j++]=':';                            /*separador tipo fecha*/
- 469   1                                                          /**/
- 470   1              
- 471   1          Buffer_Lpr[j++]=ETX;  
- 472   1        
- 473   1          Monitor_chr(Buffer_Lpr,j);                        /*rutina de envio de la trama a monitor*/
- 474   1      }
- 475          
- 476            
+ 460   1        
+ 461   1          Buffer_Lpr[j]=':';                            /*separador de la fecha de entrada*/
+ 462   1          
+ 463   1        /*fecha de entrada*/
+ 464   1          
+ 465   1          Block_read_clock_ascii(Buffer_Lpr+j+1);     //leo la fecha de entrada
+ 466   1            
+ 467   1          j=strlen(Buffer_Lpr);
+ 468   1          
+ 469   1          Buffer_Lpr[j++]=':';                            /*separador tipo fecha*/
+ 470   1                                                          /**/
+ 471   1              
+ 472   1          Buffer_Lpr[j++]=ETX;  
+ 473   1        
+ 474   1          Monitor_chr(Buffer_Lpr,j);                        /*rutina de envio de la trama a monitor*/
+ 475   1      }
+ 476          
  477            
+ 478            
 
 
 MODULE INFORMATION:   STATIC OVERLAYABLE
