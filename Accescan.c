@@ -313,21 +313,21 @@ unsigned char recibe_cmd_Monitor(unsigned char *buffer_cmd)
 /*------------------------------------------------------------------------------
 Rutina q valida los cmd de Monitor
 ------------------------------------------------------------------------------*/
-
+/*
 void Valida_Trama_Monitor(unsigned char *buffer, unsigned char length_trama)
 {		
 	unsigned char j=0;
 	unsigned char p=2;
 	length_trama=1;
-		if	((*(buffer+2)==ETX)&&(*(buffer+1)=='P')) 																																						/* APERTURA DE BARRETA*/ 
+		if	((*(buffer+2)==ETX)&&(*(buffer+1)=='P')) 																																						// APERTURA DE BARRETA 
 				{
-	 				lock=1;																																																						/*habilita el relevo ON*/
+	 				lock=1;																																																					//habilita el relevo ON
 					Timer_wait=0;
 	 			}
 			else if (*(buffer+1)=='<')
 		{
 			/*placa*/
-			do
+/*			do
 			{
 				placa[j]=*(buffer+p);
 				p++;
@@ -338,16 +338,19 @@ void Valida_Trama_Monitor(unsigned char *buffer, unsigned char length_trama)
 			  placa_ready=1;
 			ValTimeOutCom=10;
 			/*placa no play <NO_PLATE>*/ 
-			
+	/*		
 		}
 		else if (*(buffer+1)=='[')
 		{
 			/*cancel*/
+			/*
 		}
 }
+*/
 /*------------------------------------------------------------------------------
 
 ------------------------------------------------------------------------------*/
+/*
 void clear_placa()
 {
 	unsigned char i;
@@ -357,7 +360,7 @@ void clear_placa()
 	}
  placa_ready=0;
 }
-	
+	*/
 /*------------------------------------------------------------------------------
 Transmito un caracter al software monitor 
 ------------------------------------------------------------------------------*/

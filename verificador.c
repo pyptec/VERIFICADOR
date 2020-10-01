@@ -50,6 +50,7 @@ extern char check_fechaOut_2(unsigned char *buffer);
 extern void Unique_Identifier_UID(void);
 extern void Power_off(void);
 extern void  send_port(unsigned char *buffer_port, unsigned char length_char);
+extern unsigned char bcd_hex (unsigned char l_data);
 
 /*funcion prototipo programacion*/
 extern unsigned char *Addr_Horarios();
@@ -1127,6 +1128,57 @@ unsigned char Analiza_Uid_Card(unsigned char *Atributos_Expedidor )
 			}	
 			return Estado_expedidor;
 }
+
+unsigned char Validar_Pago()
+{
+	unsigned char Estado_expedidor;
+	unsigned char temp;
+		temp=check_fechaOut(buffer_S_B+MF_FECHA_OUT);																					/*se analiza la fecha de salida*/
+				if(temp==1)
+				{
+						Debug_txt_Tibbo((unsigned char *) "TARJETA SIN PAGO\r\n");
+						send_portERR(0xA2);																															/*error audio*/	
+						send_portERR(0XE7);
+						PantallaLCD(SIN_PAGO);																														/*envio el msj por la pantalla lcd o la raspberry*/
+																																							/**leo el ticket*/	
+						Estado_expedidor=SEQ_RD_S1B0_EJECT;					
+												
+				}
+				else if (temp==2)
+				{
+					Debug_txt_Tibbo((unsigned char *) "Excede T.GRACIA\r\n\r\n");
+					send_portERR(0xA2);																																/*error audio*/					
+					send_portERR(0XE8);
+					PantallaLCD(EXCEDE_GRACIA);																												/*envio el msj por la pantalla lcd o la raspberry*/
+					Estado_expedidor=SEQ_EXPULSAR_TARJ;	
+				}
+				else
+				{
+					Debug_txt_Tibbo((unsigned char *) "Salida Autorizada\r\n");
+																																														/* Leo el ticket */
+					Estado_expedidor=SEQ_RD_S1B0;	
+				}
+		return 	Estado_expedidor;
+}	
+unsigned char Valida_Mismo_Dia(unsigned char *Atributos_Expedidor)
+{
+	unsigned char day;
+	unsigned char month;
+	unsigned char year;
+	unsigned char Valida_Mismo_Dia;
+	/*miramos si sale el mismo dia*/
+	Valida_Mismo_Dia = False;
+	year	= bcd_hex(lee_clk(RANO));
+	month = bcd_hex( lee_clk(RMES));
+	day = bcd_hex(lee_clk(RDIA));
+	
+		if (((year == *(Atributos_Expedidor + fecha_Int_Ano)) && (month == *(Atributos_Expedidor + fecha_Int_Mes)) && (day == *(Atributos_Expedidor + fecha_Int_Dia))))
+		{
+			Valida_Mismo_Dia = True;
+		}
+	
+			return Valida_Mismo_Dia ;
+}
 void SecuenciaExpedidor(void)
 {
 	unsigned char temp;
@@ -1628,70 +1680,48 @@ ANALIZO LO LEIDO  Mf en el  sector 1 bloque 2
 		/*------------------------------------------------------------------------------	
 		comun para todos
 		------------------------------------------------------------------------------*/		
-			temp=check_fechaOut(buffer_S_B+MF_FECHA_OUT);																					/*se analiza la fecha de salida*/
-				if(temp==1)
-				{
-						Debug_txt_Tibbo((unsigned char *) "TARJETA SIN PAGO\r\n");
-						send_portERR(0xA2);																															/*error audio*/	
-						send_portERR(0XE7);
-						PantallaLCD(SIN_PAGO);																														/*envio el msj por la pantalla lcd o la raspberry*/
-																																							/**leo el ticket*/	
-						g_cEstadoComSeqMF=SEQ_RD_S1B0_EJECT;					
-												
-				}
-				else if (temp==2)
-				{
-					Debug_txt_Tibbo((unsigned char *) "Excede T.GRACIA\r\n\r\n");
-					send_portERR(0xA2);																																/*error audio*/					
-					send_portERR(0XE8);
-					PantallaLCD(EXCEDE_GRACIA);																												/*envio el msj por la pantalla lcd o la raspberry*/
-					g_cEstadoComSeqMF=SEQ_EXPULSAR_TARJ;	
-				}
-				else
-				{
-					Debug_txt_Tibbo((unsigned char *) "Salida Autorizada\r\n");
-																																														/* Leo el ticket */
-					g_cEstadoComSeqMF=SEQ_RD_S1B0;	
-				}
-			
-		
-	
-			
+			g_cEstadoComSeqMF=Validar_Pago();
 			
 			
 	break;
 	case SEQ_MENSUAL:
-		/*cheque la fecha de expiracion del mensual*/
-	
+		
+	/*valida si esta programdo el horario y si esta en el rango*/
 	if (Horarios(Atributos_Expedidor [Horario]) == True)
 	{
+		/*cheque la fecha de expiracion del mensual*/
 		atributos = &Atributos_Expedidor [Expira_ano];//;buffer_S1_B1[MF_EXPIRA_ANO];
 		
 		if ( check_fechaOut_2(atributos) == True )
 			{
-				/*valida el vehiculo en el loop y en la card*/
-				
+					/*valida que la salida sea el mismo dia*/
+				if(	Valida_Mismo_Dia(Atributos_Expedidor) == True)
+				{
 					Debug_txt_Tibbo((unsigned char *) "MENSUAL AL DIA\r\n");	
-				
-				
-					g_cEstadoComSeqMF=SEQ_RD_S1B0;	
+					g_cEstadoComSeqMF=SEQ_RD_S1B0;
+				}
+				else
+				{
+				Debug_txt_Tibbo((unsigned char *) "SALIDA NO ES EL MISMO DIA \r\n");	
+				g_cEstadoComSeqMF = Validar_Pago();
+				}	
 				
 			}
 				else 
-			{
+				{
 				send_portERR(PRMR_TARJETA_VENCIDA);	
 						
 				PantallaLCD(TARJETA_VENCIDA);
 				Debug_txt_Tibbo((unsigned char *) "MENSUAL EXPIRA\r\n");
 				g_cEstadoComSeqMF = SEQ_EXPULSAR_TARJ;
 				
-			}
+				}
 	}
 	else
-	{
+		{
 		
 		g_cEstadoComSeqMF = SEQ_EXPULSAR_TARJ;
-	}
+		}
 			break;
 	case SEQ_RD_S1B0:
 			

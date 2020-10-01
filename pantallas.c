@@ -106,15 +106,15 @@ void Raspberry_data (unsigned char * msg)
 	unsigned char d;
 	
 	lenth_cadena=strlen(msg);
-	//Debug_chr_Tibbo(lenth_cadena);
-	//Debug_Dividir_texto();	
-	//Debug_txt_Tibbo(msg);	
-	//Debug_Dividir_texto();		
-	for (i=0;  i<lenth_cadena+1 ; i++)
+	
+	for (i=0;  i<lenth_cadena ; i++)
 	{
 		d=putchar(*msg);
 		msg++;
-	
+	   for (d=0; d<100; d++)
+    {
+    /*** DO NOTHING ***/
+    }
 	
  	 
 	}
@@ -320,86 +320,86 @@ unsigned char num_chr;
 							/*msj de entrada*/
 					 
 						case INGRESE:
-									Raspberry_data((unsigned char  *) "a;85;INGRESE TARJETA\n\r\0");										/*cmd 31 es en proceso de ejecucion del firtware*/
+									Raspberry_data((unsigned char  *) "a;85;INGRESE TARJETA\n\0");										/*cmd 31 es en proceso de ejecucion del firtware*/
                   break;
 					 	case SIN_INGRESO:
                
-									Raspberry_data((unsigned char  *) "a;86;TARJETA SIN INGRESO \n\r\0");
+									Raspberry_data((unsigned char  *) "a;86;TARJETA SIN INGRESO \n\0");
                   break;
 						
 						case SIN_PAGO:
                
-									Raspberry_data((unsigned char  *) "a;87;TARJETA NO REGISTRA PAGO\n\r\0");
+									Raspberry_data((unsigned char  *) "a;87;TARJETA NO REGISTRA PAGO\n\0");
                   break;
 						case EXCEDE_GRACIA:
-                	Raspberry_data((unsigned char  *) "a;88;EXCEDE TIEMPO DE GRACIA \n\r\0");
+                	Raspberry_data((unsigned char  *) "a;88;EXCEDE TIEMPO DE GRACIA \n\0");
                   break;	
 						case MENSUAL_NO_PARK:
-									Raspberry_data((unsigned char  *) "a;89;MENSUAL NO ESTA EN PARQUEADERO\n\r\0");										/*cmd 31 es en proceso de ejecucion del firtware*/
+									Raspberry_data((unsigned char  *) "a;89;MENSUAL NO ESTA EN PARQUEADERO\n\0");										/*cmd 31 es en proceso de ejecucion del firtware*/
                   break;
 						case DIRIJASE_CAJA:
-									Raspberry_data((unsigned char  *) "a;90;DIRIJASE A CAJA\n\r\0");										/*cmd 31 es en proceso de ejecucion del firtware*/
+									Raspberry_data((unsigned char  *) "a;90;DIRIJASE A CAJA\n\0");										/*cmd 31 es en proceso de ejecucion del firtware*/
                   break;
 					  case GRACIAS:
                  
-									Raspberry_data((unsigned char  *) "a;91;GRACIAS... \n\r\0");
+									Raspberry_data((unsigned char  *) "a;91;GRACIAS... \n\0");
                   break;
             case NO_IN_PARK:
-									Raspberry_data((unsigned char  *) "a;93;MENSUAL NO ESTA EN PARQUEADERO\n\r\0");
+									Raspberry_data((unsigned char  *) "a;93;MENSUAL NO ESTA EN PARQUEADERO\n\0");
                   break;
 							
 					 case EXPIRO:
-									Raspberry_data((unsigned char  *) "a;94;MENSUALIDAD VENCIDA\n\r\0");
+									Raspberry_data((unsigned char  *) "a;94;MENSUALIDAD VENCIDA\n\0");
                   break;
 					 			 
 					 case EXCEDE_HORARIO:
-									Raspberry_data((unsigned char  *) "a;95;MENSUALIDAD EXCEDE HORARIO ACERQUESE A CAJA\n\r\0");
+									Raspberry_data((unsigned char  *) "a;95;MENSUALIDAD EXCEDE HORARIO ACERQUESE A CAJA\n\0");
                   break;
 					 				 
 					 case NO_MENSUAL_NI_PREPAGO:
-									Raspberry_data((unsigned char  *) "a;96;NO ES MENSUALIDAD NI PREPAGO\n\r\0");
+									Raspberry_data((unsigned char  *) "a;96;NO ES MENSUALIDAD NI PREPAGO\n\0");
                   break;
 					 
 					  case MENSUAL_NO_PAGO:
-									Raspberry_data((unsigned char  *) "a;97;MENSUAL NO PAGO LOCACION HOY\n\r\0");
+									Raspberry_data((unsigned char  *) "a;97;MENSUAL NO PAGO LOCACION HOY\n\0");
                   break;
 					
 						/*msj informativos */
 						
 					 case ERROR_COD_PARK:
                  
-									Raspberry_data((unsigned char  *) "a;98;TARJETA NO ES DEL PARQUEADERO \n\r\0");
+									Raspberry_data((unsigned char  *) "a;98;TARJETA NO ES DEL PARQUEADERO \n\0");
                   break;		 
 					 case ERROR_LOOP:
                
-									Raspberry_data((unsigned char  *) "a;98;SIN PRESENCIA VEHICULAR \n\r\0");
+									Raspberry_data((unsigned char  *) "a;98;SIN PRESENCIA VEHICULAR \n\0");
                   break;
 						case TARJETA_INVALIDA:
                
-									Raspberry_data((unsigned char  *) "a;98;TARJETA INVALIDA \n\r\0");
+									Raspberry_data((unsigned char  *) "a;98;TARJETA INVALIDA \n\0");
                   
                   break;
 					 case TARJETA_SIN_FORMATO:
                 
-									Raspberry_data((unsigned char  *) "a;98;TARJETA SIN FORMATO \n\r\0");
+									Raspberry_data((unsigned char  *) "a;98;TARJETA SIN FORMATO \n\0");
                   break;
 					 case OFF_LINE:
                 
-									Raspberry_data((unsigned char  *) "a;98;FUERA DE LINEA\n\r\0");
+									Raspberry_data((unsigned char  *) "a;98;FUERA DE LINEA\n\0");
                   break;
 					
 					case UN_MOMENTO:
                 
-									Raspberry_data((unsigned char  *) "a;98;UN MOMENTO POR FAVOR\n\r\0");
+									Raspberry_data((unsigned char  *) "a;98;UN MOMENTO POR FAVOR\n\0");
                   break;
 						case TARJETA_VENCIDA:
-							Raspberry_data((unsigned char  *) "a;07;¡ MENSUALIDAD VENCIDA !\n\r\0");
+							Raspberry_data((unsigned char  *) "a;07;¡ MENSUALIDAD VENCIDA !\n\0");
 						  break;	
 						case MENSUAL_FUERA_HORARIO:
-							Raspberry_data((unsigned char  *) "a;06;MENSUAL FUERA DE HORARIO\n\r\0");
+							Raspberry_data((unsigned char  *) "a;06;MENSUAL FUERA DE HORARIO\n\0");
 						   break;
 						case HORARIO_NO_PROG:
-							Raspberry_data((unsigned char  *)  "a;98;HORARIO NO PROGRAMADO\n\r\0");	
+							Raspberry_data((unsigned char  *)  "a;98;HORARIO NO PROGRAMADO\n\0");	
 							break;		
 					
 					default:
@@ -465,7 +465,7 @@ sel_com=0;
 					
 						strcpy(buf,"a;92;WIEGAND:");
 						strcat(buf,buffer);
-						strcat(buf,"\n\d");
+						strcat(buf,"\n");
 						Raspberry_data((unsigned char  *) buf); 
 					
 						break;
@@ -475,7 +475,7 @@ sel_com=0;
 						num_chr=strlen(buffer);
 						*(buffer+(num_chr-1))=0;
 						strcat(buf,buffer);
-						strcat(buf,"\n\d");
+						strcat(buf,"\n");
 						Raspberry_data((unsigned char  *) buf); 
             break;
 				default:

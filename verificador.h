@@ -18,6 +18,8 @@ unsigned char error_rx_pto();
 unsigned Bloque_Horario(unsigned int addr);
 void Armar_Trama_Pto_Paralelo_Expedidor_Mensual(unsigned char *Atributos_Expedidor);
 unsigned char Responde_Lectura_Tarjeta_Sector1_Bloque0 (unsigned char *Atributos_Expedidor);
+unsigned char Validar_Pago();
+unsigned char Valida_Mismo_Dia(unsigned char *Atributos_Expedidor);
 
 #endif	/* _VERIFICADOR_H_ */
 

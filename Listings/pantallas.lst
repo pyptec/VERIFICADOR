@@ -1,4 +1,4 @@
-C51 COMPILER V9.59.0.0   PANTALLAS                                                         09/28/2020 11:10:43 PAGE 1   
+C51 COMPILER V9.59.0.0   PANTALLAS                                                         10/01/2020 11:49:10 PAGE 1   
 
 
 C51 COMPILER V9.59.0.0, COMPILATION OF MODULE PANTALLAS
@@ -62,7 +62,7 @@ line level    source
   52          #define INFO2                   'i'
   53          
   54          /*variables externas */
-C51 COMPILER V9.59.0.0   PANTALLAS                                                         09/28/2020 11:10:43 PAGE 2   
+C51 COMPILER V9.59.0.0   PANTALLAS                                                         10/01/2020 11:49:10 PAGE 2   
 
   55          extern unsigned char  Raspberry;
   56          /*------------------------------------------------------------------------------
@@ -118,17 +118,17 @@ line level    source
  106   1        unsigned char d;
  107   1        
  108   1        lenth_cadena=strlen(msg);
- 109   1        //Debug_chr_Tibbo(lenth_cadena);
- 110   1        //Debug_Dividir_texto();  
- 111   1        //Debug_txt_Tibbo(msg); 
- 112   1        //Debug_Dividir_texto();    
- 113   1        for (i=0;  i<lenth_cadena+1 ; i++)
- 114   1        {
- 115   2          d=putchar(*msg);
- 116   2          msg++;
-C51 COMPILER V9.59.0.0   PANTALLAS                                                         09/28/2020 11:10:43 PAGE 3   
+ 109   1        
+ 110   1        for (i=0;  i<lenth_cadena ; i++)
+ 111   1        {
+ 112   2          d=putchar(*msg);
+ 113   2          msg++;
+ 114   2           for (d=0; d<100; d++)
+ 115   2          {
+ 116   3          /*** DO NOTHING ***/
+C51 COMPILER V9.59.0.0   PANTALLAS                                                         10/01/2020 11:49:10 PAGE 3   
 
- 117   2        
+ 117   3          }
  118   2        
  119   2         
  120   2        }
@@ -190,7 +190,7 @@ line level    source
  175   1          if (Raspberry==0)
  176   1          {
  177   2            LCD_txt (Ini_LCD_Line_one,0);
-C51 COMPILER V9.59.0.0   PANTALLAS                                                         09/28/2020 11:10:43 PAGE 4   
+C51 COMPILER V9.59.0.0   PANTALLAS                                                         10/01/2020 11:49:10 PAGE 4   
 
  178   2            
  179   2            switch (cod_msg)
@@ -254,7 +254,7 @@ line level    source
  234   3                    break;
  235   3              case EXPIRO:
  236   3                    num_chr=strlen((unsigned char  *) "MENSUALIDAD VENCIDA ");
-C51 COMPILER V9.59.0.0   PANTALLAS                                                         09/28/2020 11:10:43 PAGE 5   
+C51 COMPILER V9.59.0.0   PANTALLAS                                                         10/01/2020 11:49:10 PAGE 5   
 
  237   3                    tx_chrlcd(0x00,0);
  238   3                    tx_chrlcd(num_chr*2,0);
@@ -318,7 +318,7 @@ line level    source
  296   3                    num_chr=strlen((unsigned char *) "FUERA DE LINEA ");
  297   3                    tx_chrlcd(0x00,0);
  298   3                    tx_chrlcd(num_chr*2,0);
-C51 COMPILER V9.59.0.0   PANTALLAS                                                         09/28/2020 11:10:43 PAGE 6   
+C51 COMPILER V9.59.0.0   PANTALLAS                                                         10/01/2020 11:49:10 PAGE 6   
 
  299   3                    LCD_txt((unsigned char *)        "FUERA DE LINEA ",1);
  300   3                    break;
@@ -344,91 +344,91 @@ line level    source
  320   3                    /*msj de entrada*/
  321   3                 
  322   3                  case INGRESE:
- 323   3                        Raspberry_data((unsigned char  *) "a;85;INGRESE TARJETA\n\r\0");                    /*cmd 31 es en proceso 
-             -de ejecucion del firtware*/
+ 323   3                        Raspberry_data((unsigned char  *) "a;85;INGRESE TARJETA\n\0");                    /*cmd 31 es en proceso de
+             - ejecucion del firtware*/
  324   3                        break;
  325   3                  case SIN_INGRESO:
  326   3                     
- 327   3                        Raspberry_data((unsigned char  *) "a;86;TARJETA SIN INGRESO \n\r\0");
+ 327   3                        Raspberry_data((unsigned char  *) "a;86;TARJETA SIN INGRESO \n\0");
  328   3                        break;
  329   3                  
  330   3                  case SIN_PAGO:
  331   3                     
- 332   3                        Raspberry_data((unsigned char  *) "a;87;TARJETA NO REGISTRA PAGO\n\r\0");
+ 332   3                        Raspberry_data((unsigned char  *) "a;87;TARJETA NO REGISTRA PAGO\n\0");
  333   3                        break;
  334   3                  case EXCEDE_GRACIA:
- 335   3                        Raspberry_data((unsigned char  *) "a;88;EXCEDE TIEMPO DE GRACIA \n\r\0");
+ 335   3                        Raspberry_data((unsigned char  *) "a;88;EXCEDE TIEMPO DE GRACIA \n\0");
  336   3                        break;  
  337   3                  case MENSUAL_NO_PARK:
- 338   3                        Raspberry_data((unsigned char  *) "a;89;MENSUAL NO ESTA EN PARQUEADERO\n\r\0");                   /*cmd 31
-             - es en proceso de ejecucion del firtware*/
+ 338   3                        Raspberry_data((unsigned char  *) "a;89;MENSUAL NO ESTA EN PARQUEADERO\n\0");                   /*cmd 31 e
+             -s en proceso de ejecucion del firtware*/
  339   3                        break;
  340   3                  case DIRIJASE_CAJA:
- 341   3                        Raspberry_data((unsigned char  *) "a;90;DIRIJASE A CAJA\n\r\0");                    /*cmd 31 es en proceso 
-             -de ejecucion del firtware*/
+ 341   3                        Raspberry_data((unsigned char  *) "a;90;DIRIJASE A CAJA\n\0");                    /*cmd 31 es en proceso de
+             - ejecucion del firtware*/
  342   3                        break;
  343   3                  case GRACIAS:
  344   3                       
- 345   3                        Raspberry_data((unsigned char  *) "a;91;GRACIAS... \n\r\0");
+ 345   3                        Raspberry_data((unsigned char  *) "a;91;GRACIAS... \n\0");
  346   3                        break;
  347   3                  case NO_IN_PARK:
- 348   3                        Raspberry_data((unsigned char  *) "a;93;MENSUAL NO ESTA EN PARQUEADERO\n\r\0");
+ 348   3                        Raspberry_data((unsigned char  *) "a;93;MENSUAL NO ESTA EN PARQUEADERO\n\0");
  349   3                        break;
  350   3                    
  351   3                 case EXPIRO:
- 352   3                        Raspberry_data((unsigned char  *) "a;94;MENSUALIDAD VENCIDA\n\r\0");
+ 352   3                        Raspberry_data((unsigned char  *) "a;94;MENSUALIDAD VENCIDA\n\0");
  353   3                        break;
  354   3                       
  355   3                 case EXCEDE_HORARIO:
- 356   3                        Raspberry_data((unsigned char  *) "a;95;MENSUALIDAD EXCEDE HORARIO ACERQUESE A CAJA\n\r\0");
+ 356   3                        Raspberry_data((unsigned char  *) "a;95;MENSUALIDAD EXCEDE HORARIO ACERQUESE A CAJA\n\0");
  357   3                        break;
-C51 COMPILER V9.59.0.0   PANTALLAS                                                         09/28/2020 11:10:43 PAGE 7   
+C51 COMPILER V9.59.0.0   PANTALLAS                                                         10/01/2020 11:49:10 PAGE 7   
 
  358   3                         
  359   3                 case NO_MENSUAL_NI_PREPAGO:
- 360   3                        Raspberry_data((unsigned char  *) "a;96;NO ES MENSUALIDAD NI PREPAGO\n\r\0");
+ 360   3                        Raspberry_data((unsigned char  *) "a;96;NO ES MENSUALIDAD NI PREPAGO\n\0");
  361   3                        break;
  362   3                 
  363   3                  case MENSUAL_NO_PAGO:
- 364   3                        Raspberry_data((unsigned char  *) "a;97;MENSUAL NO PAGO LOCACION HOY\n\r\0");
+ 364   3                        Raspberry_data((unsigned char  *) "a;97;MENSUAL NO PAGO LOCACION HOY\n\0");
  365   3                        break;
  366   3                
  367   3                  /*msj informativos */
  368   3                  
  369   3                 case ERROR_COD_PARK:
  370   3                       
- 371   3                        Raspberry_data((unsigned char  *) "a;98;TARJETA NO ES DEL PARQUEADERO \n\r\0");
+ 371   3                        Raspberry_data((unsigned char  *) "a;98;TARJETA NO ES DEL PARQUEADERO \n\0");
  372   3                        break;     
  373   3                 case ERROR_LOOP:
  374   3                     
- 375   3                        Raspberry_data((unsigned char  *) "a;98;SIN PRESENCIA VEHICULAR \n\r\0");
+ 375   3                        Raspberry_data((unsigned char  *) "a;98;SIN PRESENCIA VEHICULAR \n\0");
  376   3                        break;
  377   3                  case TARJETA_INVALIDA:
  378   3                     
- 379   3                        Raspberry_data((unsigned char  *) "a;98;TARJETA INVALIDA \n\r\0");
+ 379   3                        Raspberry_data((unsigned char  *) "a;98;TARJETA INVALIDA \n\0");
  380   3                        
  381   3                        break;
  382   3                 case TARJETA_SIN_FORMATO:
  383   3                      
- 384   3                        Raspberry_data((unsigned char  *) "a;98;TARJETA SIN FORMATO \n\r\0");
+ 384   3                        Raspberry_data((unsigned char  *) "a;98;TARJETA SIN FORMATO \n\0");
  385   3                        break;
  386   3                 case OFF_LINE:
  387   3                      
- 388   3                        Raspberry_data((unsigned char  *) "a;98;FUERA DE LINEA\n\r\0");
+ 388   3                        Raspberry_data((unsigned char  *) "a;98;FUERA DE LINEA\n\0");
  389   3                        break;
  390   3                
  391   3                case UN_MOMENTO:
  392   3                      
- 393   3                        Raspberry_data((unsigned char  *) "a;98;UN MOMENTO POR FAVOR\n\r\0");
+ 393   3                        Raspberry_data((unsigned char  *) "a;98;UN MOMENTO POR FAVOR\n\0");
  394   3                        break;
  395   3                  case TARJETA_VENCIDA:
- 396   3                    Raspberry_data((unsigned char  *) "a;07;¡ MENSUALIDAD VENCIDA !\n\r\0");
+ 396   3                    Raspberry_data((unsigned char  *) "a;07;¡ MENSUALIDAD VENCIDA !\n\0");
  397   3                    break;  
  398   3                  case MENSUAL_FUERA_HORARIO:
- 399   3                    Raspberry_data((unsigned char  *) "a;06;MENSUAL FUERA DE HORARIO\n\r\0");
+ 399   3                    Raspberry_data((unsigned char  *) "a;06;MENSUAL FUERA DE HORARIO\n\0");
  400   3                     break;
  401   3                  case HORARIO_NO_PROG:
- 402   3                    Raspberry_data((unsigned char  *)  "a;98;HORARIO NO PROGRAMADO\n\r\0"); 
+ 402   3                    Raspberry_data((unsigned char  *)  "a;98;HORARIO NO PROGRAMADO\n\0"); 
  403   3                    break;    
  404   3                
  405   3                default:
@@ -446,7 +446,7 @@ line level    source
  417   1        
  418   1      unsigned char Ini_LCD_Line_one   []={0xaa,0x80,0x18,0x01,0x02,0x00} ;
  419   1      
-C51 COMPILER V9.59.0.0   PANTALLAS                                                         09/28/2020 11:10:43 PAGE 8   
+C51 COMPILER V9.59.0.0   PANTALLAS                                                         10/01/2020 11:49:10 PAGE 8   
 
  420   1      
  421   1      unsigned char num_chr;
@@ -499,7 +499,7 @@ line level    source
  465   3                
  466   3                  strcpy(buf,"a;92;WIEGAND:");
  467   3                  strcat(buf,buffer);
- 468   3                  strcat(buf,"\n\d");
+ 468   3                  strcat(buf,"\n");
  469   3                  Raspberry_data((unsigned char  *) buf); 
  470   3                
  471   3                  break;
@@ -509,8 +509,8 @@ line level    source
  475   3                  num_chr=strlen(buffer);
  476   3                  *(buffer+(num_chr-1))=0;
  477   3                  strcat(buf,buffer);
- 478   3                  strcat(buf,"\n\d");
-C51 COMPILER V9.59.0.0   PANTALLAS                                                         09/28/2020 11:10:43 PAGE 9   
+ 478   3                  strcat(buf,"\n");
+C51 COMPILER V9.59.0.0   PANTALLAS                                                         10/01/2020 11:49:10 PAGE 9   
 
  479   3                  Raspberry_data((unsigned char  *) buf); 
  480   3                  break;
@@ -526,9 +526,9 @@ line level    source
 
 
 MODULE INFORMATION:   STATIC OVERLAYABLE
-   CODE SIZE        =   1617    ----
-   CONSTANT SIZE    =   1168    ----
-   XDATA SIZE       =      1      81
+   CODE SIZE        =   1615    ----
+   CONSTANT SIZE    =   1146    ----
+   XDATA SIZE       =      1      80
    PDATA SIZE       =   ----    ----
    DATA SIZE        =   ----    ----
    IDATA SIZE       =   ----    ----

@@ -1,4 +1,4 @@
-C51 COMPILER V9.59.0.0   IO_SENSORES                                                       09/28/2020 11:10:43 PAGE 1   
+C51 COMPILER V9.59.0.0   IO_SENSORES                                                       10/01/2020 11:49:09 PAGE 1   
 
 
 C51 COMPILER V9.59.0.0, COMPILATION OF MODULE IO_SENSORES
@@ -62,7 +62,7 @@ line level    source
   52          */
   53          //***************************************************************************************************
   54          void sel_Sensor2(void)
-C51 COMPILER V9.59.0.0   IO_SENSORES                                                       09/28/2020 11:10:43 PAGE 2   
+C51 COMPILER V9.59.0.0   IO_SENSORES                                                       10/01/2020 11:49:09 PAGE 2   
 
   55          {
   56   1        sel_A=0;
@@ -126,7 +126,7 @@ line level    source
  114   1        if(Board == 0x01)
  115   1        { 
  116   2        Board_High=rd_eeprom(0xa8,EE_ADDRESS_HIGH_BOARD);
-C51 COMPILER V9.59.0.0   IO_SENSORES                                                       09/28/2020 11:10:43 PAGE 3   
+C51 COMPILER V9.59.0.0   IO_SENSORES                                                       10/01/2020 11:49:09 PAGE 3   
 
  117   2        
  118   2          if(Board_High != 0)
@@ -190,7 +190,7 @@ line level    source
  175   4                  
  176   4                  
  177   4              }
-C51 COMPILER V9.59.0.0   IO_SENSORES                                                       09/28/2020 11:10:43 PAGE 4   
+C51 COMPILER V9.59.0.0   IO_SENSORES                                                       10/01/2020 11:49:09 PAGE 4   
 
  178   3              else
  179   3              {   sel_Auto();
@@ -254,7 +254,7 @@ line level    source
  237          toggle=2    envia ID y COD_PARK   por el pto paralelo STX, cmd (D), ID_CLIENTE, COD_CLIENTE, ETX  
  238          ------------------------------------------------------------------------------*/
  239           void msj_lcd_informativo()
-C51 COMPILER V9.59.0.0   IO_SENSORES                                                       09/28/2020 11:10:43 PAGE 5   
+C51 COMPILER V9.59.0.0   IO_SENSORES                                                       10/01/2020 11:49:09 PAGE 5   
 
  240           {
  241   1       unsigned char info=0;
