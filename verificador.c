@@ -703,7 +703,9 @@ unsigned char Horarios(unsigned char Horario)
 	}
 	else
 	{
-		Estado_Horario = True;
+		
+		/*es mensual sin horarios*/
+		Estado_Horario = False;				//True;
 	
 		Debug_txt_Tibbo((unsigned char *) "NO TIENE HORARIO PROGRAMADO\r\n");
 	}
@@ -934,11 +936,11 @@ unsigned char Responde_Lectura_Tarjeta_Sector1_Bloque2 (unsigned char *Atributos
 				{
 					if(	(rd_eeprom(0xa8,EE_HABILITA_APB_MENSUAL) == APB_HABILITADO_SOFT) )
 					{
-						Debug_txt_Tibbo((unsigned char *) "ANTIPASSBACK HABILITADO MENSUAL \r\n");
+						Debug_txt_Tibbo((unsigned char *) "ANTIPASSBACK SOFTWARE HABILITADO MENSUAL \r\n");
 						if((*(Atributos_Expedidor + Apb) == APB_OUT)||(*(Atributos_Expedidor + Apb) == APB_INICIADO) ) 
 						{
 							Debug_txt_Tibbo((unsigned char *) "ERROR: SIN INGRESO MENSUAL\r\n");
-							send_portERR(0xA2);																															/*error audio*/	
+							//send_portERR(0xA2);																															/*error audio*/	
 							send_portERR(0XE6);
 							PantallaLCD(SIN_INGRESO);
 							Estado_expedidor=SEQ_EXPULSAR_TARJ;
@@ -952,7 +954,7 @@ unsigned char Responde_Lectura_Tarjeta_Sector1_Bloque2 (unsigned char *Atributos
 					}
 					else
 					{
-						Debug_txt_Tibbo((unsigned char *) "ANTIPASSBACK INHABILITADO MENSUAL \r\n");
+						Debug_txt_Tibbo((unsigned char *) "ANTIPASSBACK SOFTWARE INHABILITADO MENSUAL \r\n");
 						Debug_txt_Tibbo((unsigned char *) "TIPO DE TARJETA MENSUALIDAD\r\n ");
 						Estado_expedidor = SEQ_MENSUAL;
 					}
@@ -1719,8 +1721,27 @@ ANALIZO LO LEIDO  Mf en el  sector 1 bloque 2
 	}
 	else
 		{
-		
-		g_cEstadoComSeqMF = SEQ_EXPULSAR_TARJ;
+			if(Horarios(Atributos_Expedidor [Horario])==0)
+			{
+				/*cheque la fecha de expiracion del mensual*/
+				atributos = &Atributos_Expedidor [Expira_ano];//;buffer_S1_B1[MF_EXPIRA_ANO];
+				if ( check_fechaOut_2(atributos) == True )
+				{
+				Debug_txt_Tibbo((unsigned char *) "MENSUAL AL DIA HORARIO 0\r\n");	
+				g_cEstadoComSeqMF=SEQ_RD_S1B0;
+				}
+				else
+				{
+				send_portERR(PRMR_TARJETA_VENCIDA);	
+				PantallaLCD(TARJETA_VENCIDA);
+				Debug_txt_Tibbo((unsigned char *) "MENSUAL EXPIRA\r\n");
+				g_cEstadoComSeqMF = SEQ_EXPULSAR_TARJ;
+				}
+		}
+		else
+			{
+			g_cEstadoComSeqMF = SEQ_EXPULSAR_TARJ;
+			}
 		}
 			break;
 	case SEQ_RD_S1B0:

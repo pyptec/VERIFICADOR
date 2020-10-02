@@ -1,6 +1,7 @@
 #include<pantallas.h>
 #include <reg51.h>
 #include <string.h>
+#include <stdlib.h>
 
 sbit sel_com = P0^7;				//Micro switch		
 
@@ -14,6 +15,7 @@ extern void clean_tx();
 extern void Debug_txt_Tibbo(unsigned char * str);
 extern void          _nop_     (void);
 extern void Debug_chr_Tibbo(unsigned char Dat);
+extern void Block_read_Clock_Rasberry(unsigned char *datos_clock);
 
 /*mensajes de salida desde 85 a 169*/
 
@@ -53,110 +55,8 @@ extern void Debug_chr_Tibbo(unsigned char Dat);
 
 /*variables externas */
 extern unsigned char 	Raspberry;
-/*------------------------------------------------------------------------------
-transmite el caracter pto serie
-data_com = al caracter a escribir
-enable_char_add = si esta en (1) envia un null (0) adicional, si es (0) no envia caracter adicional
-------------------------------------------------------------------------------*/
-void tx_chrlcd (unsigned char data_com, unsigned char enable_char_add)
-{
-	unsigned char d;
-	d=putchar(data_com);
-	if (enable_char_add != 0)	d=putchar(0x00);
-	
-}
+unsigned char xdata malloc_memoria[0x50];
 
-/*------------------------------------------------------------------------------
-envia un msj asta null(0)
-msg= apuntador del msj
-enable_char_add = si esta en (1) envia un null (0) adicional, si es (0) no envia caracter adicional
-------------------------------------------------------------------------------*/
-void LCD_txt (unsigned char * msg,unsigned char enable_char_add )
-{
-	unsigned char i;
-	 
-	for (i=0; msg[i] != '\0'; i++)
-	{
- 	 	tx_chrlcd(msg[i],enable_char_add);
-	}
-}
-/*------------------------------------------------------------------------------
-Escribo el reloj en ascii en bloque 
-msg= apuntador del msj
-length_char longitud de la tram
-enable_char_add = si esta en (1) envia un null (0) adicional, si es (0) no envia caracter adicional
-------------------------------------------------------------------------------*/
-void LCD_txt_num_char(unsigned char * msg,unsigned char length_char, unsigned char enable_char_add)
-{
-	unsigned char i;
-	 
-	for (i=0; i<length_char; i++)
-	{
- 	 	tx_chrlcd(msg[i],enable_char_add);
-	}
-}
-/*------------------------------------------------------------------------------
-Transmite una trama por el pto serie con el protocolo para  raspberry
-msg= es el apuntador del msj
-------------------------------------------------------------------------------*/
-void Raspberry_data (unsigned char * msg)
-{
-	static unsigned char i;
-	unsigned char lenth_cadena;
-	unsigned char d;
-	
-	lenth_cadena=strlen(msg);
-	
-	for (i=0;  i<lenth_cadena ; i++)
-	{
-		d=putchar(*msg);
-		msg++;
-	   for (d=0; d<100; d++)
-    {
-    /*** DO NOTHING ***/
-    }
-	
- 	 
-	}
-	
-	
-	
-}
-
-
-/*------------------------------------------------------------------------------
-Escribo el reloj en ascii en bloque 
-AA 80 28 trama de inicio de configuracion de la pantalla
-07 numero de caracteres de la trama de reloj
-20 19 03 26 09 21 20  el dato del reloj
-------------------------------------------------------------------------------*/
-void Reloj_Pantalla_Lcd()
-{
-
- unsigned char Ini_Clock_LCD   []={0xaa,0x80,0x28,0x07,0x20,0x00,0,0,0,0,20,0,0} ;
-					if (Raspberry==0)
-					{	
-					sel_com=0;																																			/*switch del pto serie a la pantalla*/
-					Block_read_Clock(Ini_Clock_LCD+5);																							/*Leo el reloj programado*/
-					//Debug_Dividir_texto();																													/*lineas de separacion del texto*/
-					//DebugBufferMF(Ini_Clock_LCD,12,0);																							/*muestra la trama por debug*/
-					//Debug_Dividir_texto();																													/*linea de separacion de texto*/
-					REN = 0;																																				/*inhabilita recepcion de datos*/
-					LCD_txt_num_char(Ini_Clock_LCD,13,0);																						/*cmd de inicializacion del reloj del lcd*/
-																											
-					REN = 1;																																				/*habilita recepcion de datos*/
-					sel_com=1;	
-						/*switch pto serie a verificador o expedidor */
-					}
-					else
-					{
-						sel_com=0;
-						Ini_Clock_LCD [0]=0;
-						Block_read_Clock(Ini_Clock_LCD);
-						Raspberry_data((unsigned char  *) "d;hora");
-						sel_com=1;	
-					}
-}
 /*------------------------------------------------------------------------------
 Rutina de msj de pantalla
 ------------------------------------------------------------------------------*/
@@ -168,7 +68,10 @@ unsigned char Ini_LCD_Line_one   []={0xaa,0x80,0x18,0x01,0x02,0x00} ;
 //unsigned char Ini_Off_Line []={0xaa,0x80,0x18,0x01,0x03,0x00} ;
 	
 unsigned char num_chr;
+unsigned char xdata  *msjpantalla;
 
+	init_mempool(malloc_memoria,40);
+	msjpantalla=malloc(40);
  	
 		sel_com=0;
 	
@@ -320,7 +223,8 @@ unsigned char num_chr;
 							/*msj de entrada*/
 					 
 						case INGRESE:
-									Raspberry_data((unsigned char  *) "a;85;INGRESE TARJETA\n\0");										/*cmd 31 es en proceso de ejecucion del firtware*/
+								strcpy(msjpantalla,"a;85;INGRESE TARJETA\n\0");
+								Raspberry_data(msjpantalla);										/*cmd 31 es en proceso de ejecucion del firtware*/
                   break;
 					 	case SIN_INGRESO:
                
@@ -406,6 +310,8 @@ unsigned char num_chr;
 			
 					break;	
          }
+				  free(msjpantalla);
+				 msjpantalla=0;
          sel_com=1;   
       }
       
@@ -486,4 +392,114 @@ sel_com=0;
 		}
 		
 	
+}
+/*------------------------------------------------------------------------------
+transmite el caracter pto serie
+data_com = al caracter a escribir
+enable_char_add = si esta en (1) envia un null (0) adicional, si es (0) no envia caracter adicional
+------------------------------------------------------------------------------*/
+void tx_chrlcd (unsigned char data_com, unsigned char enable_char_add)
+{
+	unsigned char d;
+	d=putchar(data_com);
+	if (enable_char_add != 0)	d=putchar(0x00);
+	
+}
+
+/*------------------------------------------------------------------------------
+envia un msj asta null(0)
+msg= apuntador del msj
+enable_char_add = si esta en (1) envia un null (0) adicional, si es (0) no envia caracter adicional
+------------------------------------------------------------------------------*/
+void LCD_txt (unsigned char * msg,unsigned char enable_char_add )
+{
+	unsigned char i;
+	 
+	for (i=0; msg[i] != '\0'; i++)
+	{
+ 	 	tx_chrlcd(msg[i],enable_char_add);
+	}
+}
+/*------------------------------------------------------------------------------
+Escribo el reloj en ascii en bloque 
+msg= apuntador del msj
+length_char longitud de la tram
+enable_char_add = si esta en (1) envia un null (0) adicional, si es (0) no envia caracter adicional
+------------------------------------------------------------------------------*/
+void LCD_txt_num_char(unsigned char * msg,unsigned char length_char, unsigned char enable_char_add)
+{
+	unsigned char i;
+	 
+	for (i=0; i<length_char; i++)
+	{
+ 	 	tx_chrlcd(msg[i],enable_char_add);
+	}
+}
+/*------------------------------------------------------------------------------
+Transmite una trama por el pto serie con el protocolo para  raspberry
+msg= es el apuntador del msj
+------------------------------------------------------------------------------*/
+void Raspberry_data (unsigned char * msg)
+{
+	static unsigned char i;
+	unsigned char lenth_cadena;
+	unsigned char d;
+	
+	lenth_cadena=strlen(msg);
+	
+	for (i=0;  i<lenth_cadena ; i++)
+	{
+		d=putchar(*msg);
+		msg++;
+	   for (d=0; d<200; d++)
+    {
+    /*** DO NOTHING ***/
+    }
+	
+ 	 
+	}
+	
+	
+	
+}
+
+
+/*------------------------------------------------------------------------------
+Escribo el reloj en ascii en bloque 
+AA 80 28 trama de inicio de configuracion de la pantalla
+07 numero de caracteres de la trama de reloj
+20 19 03 26 09 21 20  el dato del reloj
+------------------------------------------------------------------------------*/
+void Reloj_Pantalla_Lcd()
+{
+
+ unsigned char Ini_Clock_LCD   [20] ;
+ unsigned char lendtrama;
+
+					if (Raspberry==0)
+					{	
+					sel_com=0;																																			/*switch del pto serie a la pantalla*/
+					Block_read_Clock(Ini_Clock_LCD+5);																							/*Leo el reloj programado*/
+					//Debug_Dividir_texto();																													/*lineas de separacion del texto*/
+					//DebugBufferMF(Ini_Clock_LCD,12,0);																							/*muestra la trama por debug*/
+					//Debug_Dividir_texto();																													/*linea de separacion de texto*/
+					REN = 0;																																				/*inhabilita recepcion de datos*/
+					LCD_txt_num_char(Ini_Clock_LCD,13,0);																						/*cmd de inicializacion del reloj del lcd*/
+																											
+					REN = 1;																																				/*habilita recepcion de datos*/
+					sel_com=1;	
+						/*switch pto serie a verificador o expedidor */
+					}
+					else
+					{
+						sel_com=0;
+						Ini_Clock_LCD [0]=0;
+						 strcpy(Ini_Clock_LCD,"d;xx;");
+						 lendtrama=strlen(Ini_Clock_LCD);
+						/*leo año,mes,dia,hh,mm,año,.,seg*/
+						 Block_read_Clock_Rasberry(&Ini_Clock_LCD[lendtrama]);	
+							strcat(Ini_Clock_LCD,"\n");
+						Raspberry_data(Ini_Clock_LCD);
+						sel_com=1;	
+					}
 }

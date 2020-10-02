@@ -495,27 +495,59 @@ void hex_ascii(unsigned char * datos,unsigned char * fecha_asii)
 			*(fecha_asii+6)=0;
 	
 }
-/*
-void Block_read_Clock_Hex_bcd(unsigned char *datos_clock)
+
+void Block_read_Clock_Rasberry(unsigned char *datos_clock)
 {
 		
-	/*año*/
-	/**datos_clock=hex_bcd(lee_clk(RANO));			
-	 datos_clock++;
+unsigned char dato;
 	/*mes*/
-/*	*datos_clock=hex_bcd(lee_clk(RMES));			
-	 datos_clock++;
-	/*Dia*/
-	/**datos_clock=hex_bcd(lee_clk(RDIA));			
-	 datos_clock++;
-	/*hora*/	
-	/**datos_clock=hex_bcd(lee_clk(RHORA));			
-	 datos_clock++;
-	/*minutos*/	
-/*	*datos_clock=hex_bcd(lee_clk(RMIN));			
-	 datos_clock++;
+		dato=lee_clk(RMES);
+		*datos_clock=((dato&0xf0)>>4)| 0x30;			/*dato parte alta*/
+	  datos_clock++;
+		*datos_clock=(dato&0x0f)| 0x30;						/*dato parte bajo*/
+		datos_clock++;		
+
+		/*dia*/
+	  dato=lee_clk(RDIA);												//;bcd_hex(lee_clk(DIA));
+		*datos_clock=((dato&0xf0)>>4)| 0x30;			/*dato parte alta*/
+	  datos_clock++;
+		*datos_clock=(dato&0x0f)| 0x30;						/*dato parte bajo*/
+		datos_clock++;
+		
+		
+		/*hora*/						
+		dato=lee_clk(RHORA);
+		*datos_clock=((dato&0xf0)>>4)| 0x30;			/*dato parte alta*/
+	  datos_clock++;
+		*datos_clock=(dato&0x0f)| 0x30;						/*dato parte bajo*/
+		datos_clock++;				
+		
+		/*minutos*/					
+		dato=lee_clk(RMIN);
+		*datos_clock=((dato&0xf0)>>4)| 0x30;			/*dato parte alta*/
+	  datos_clock++;
+		*datos_clock=(dato&0x0f)| 0x30;						/*dato parte bajo*/
+		datos_clock++;	
+		
+				/*año*/
+		dato=lee_clk(RANO);
+		*datos_clock=((dato&0xf0)>>4)| 0x30;			/*dato parte alta*/
+	  datos_clock++;
+		*datos_clock=(dato&0x0f)| 0x30;						/*dato parte bajo*/
+		datos_clock++;
+		/*.*/
+		*datos_clock= '.';
+			datos_clock++;
+			/*segundos*/					
+		dato=lee_clk(RSEG);
+		*datos_clock=((dato&0xf0)>>4)| 0x30;			/*dato parte alta*/
+	  datos_clock++;
+		*datos_clock=(dato&0x0f)| 0x30;						/*dato parte bajo*/
+		datos_clock++;	
+		*datos_clock=0;
+			
 }
-*/
+
 /*------------------------------------------------------------------------------
  Lee el dato del reloj en bloque 
 ------------------------------------------------------------------------------*/
