@@ -646,3 +646,50 @@ unsigned char	g_scArrTxComSoft[10];
 
 
 }
+void Clave_Seguridad_S2(void)
+{
+	unsigned char j, bcc;
+	unsigned char	g_scArrTxComSoft[21];
+		  bcc=0;
+	Debug_txt_Tibbo((unsigned char *) "Clave Seguridad S2\r\n");
+
+
+	g_scArrTxComSoft[0]=STX_LINTECH;
+	g_scArrTxComSoft[1]=0X00;
+	g_scArrTxComSoft[2]=0X00;
+	g_scArrTxComSoft[3]=0X0e;	// Numero Datos
+	g_scArrTxComSoft[4]='C';
+	g_scArrTxComSoft[5]=0x60;
+	g_scArrTxComSoft[6]='3';
+	g_scArrTxComSoft[7]=0x00;
+	g_scArrTxComSoft[8]=0x20;
+   	g_scArrTxComSoft[9]=0x00;
+	g_scArrTxComSoft[10]=0x02;
+
+	g_scArrTxComSoft[11]=0x06;
+
+	g_scArrTxComSoft[12]=0x41;
+	g_scArrTxComSoft[13]=0x63;
+	g_scArrTxComSoft[14]=0x53;
+   	g_scArrTxComSoft[15]=0x45;
+	g_scArrTxComSoft[16]=0x76;
+	g_scArrTxComSoft[17]=0x50;
+
+
+	g_scArrTxComSoft[18]=ETX;
+	
+	 	for (j=0; j<19; j++)
+		{
+			bcc=g_scArrTxComSoft[j]^bcc;
+		}
+		g_scArrTxComSoft[19]=bcc;
+		buffer_ready=0;																		/* buffer del pto serie (0) inicia a esperar la trama*/
+		g_cEstadoComSoft=ESPERA_RX;												/* Espera el ASK en el pt o serie para empesar a almacenas*/
+		DebugBufferMF(g_scArrTxComSoft,20,0);								/*muestra la trama enviada al pto serie a debug por tibbo*/
+		EscribirCadenaSoft_buffer(g_scArrTxComSoft,20);		/* envio la trama por el pto serie*/
+		ValTimeOutCom=TIME_CARD;
+	
+
+}
+
+

@@ -1411,10 +1411,17 @@ las demas combinaciones son tomadas como no validas
 							   	{
 										Debug_txt_Tibbo((unsigned char *) "Tarjeta valida MF50\r\n\r\n");							/* trama valida son MF50*/
 										DebugBufferMF(Buffer_Rta_Lintech,g_cContByteRx,1);														/* se muestra la trama*/
-										//LoadVerify_EEprom();  																												// verifico q la clave este cargada en el transporte
+																																																	// verifico q la clave este cargada en el transporte
 										g_cEstadoComSeqMF=SEQ_UID;	//SEQ_MF_LINTECH;																							/* la tarjeta es MF50*/
-										
-								 }else
+									}
+									else if (Buffer_Rta_Lintech[Card_type_L]=='1')	
+									{
+										/*tarjeta MF70*/
+										Debug_txt_Tibbo((unsigned char *) "Tarjeta valida MF70\n");		
+										DebugBufferMF(Buffer_Rta_Lintech,g_cContByteRx,1);														/* se muestra la trama*/
+										g_cEstadoComSeqMF=SEQ_UID;	//SEQ_MF_LINTECH;											
+									}
+									else
 								 	{
 									Debug_txt_Tibbo((unsigned char *) "Tarjeta invalida no es MF50\r\n\r\n");					/* trama no valida */
 									DebugBufferMF(Buffer_Rta_Lintech,g_cContByteRx,1);		
@@ -1841,7 +1848,26 @@ espero la respuesta de la escritura en  la Mf en el  sector 1 bloque 2
 		
 			Debug_txt_Tibbo((unsigned char *) "SEQ_WR_S1B2 OK\r\n\r\n");															/* trama OK CARGA numero de ticket*/
 			DebugBufferMF(Buffer_Rta_Lintech,g_cContByteRx,RESPUESTA);																/*imprimo la trama recibida*/		
-			g_cEstadoComSeqMF=SEQ_WR_S2B0;	
+			//g_cEstadoComSeqMF=SEQ_WR_S2B0;	
+				/*capturo la tarjeta*/
+			lock=1;		
+			Debug_txt_Tibbo((unsigned char *) "SEQ_RTA_S2B0 OK\r\n");															/* trama OK CARGA numero de ticket*/
+			DebugBufferMF(Buffer_Rta_Lintech,g_cContByteRx,RESPUESTA);																/*imprimo la trama recibida*/		
+			send_portERR(0xA1);																																					/*audio gracias*/	
+			send_portERR(0XFF);
+			PantallaLCD(GRACIAS); 
+	
+			Debug_txt_Tibbo((unsigned char *) "ok tarjeta ok...\r\n");															/* pto serie no responde*/
+			
+		if (Atributos_Expedidor [ Tipo_Tarjeta]!= MENSUALIDAD)	
+			{
+						
+			g_cEstadoComSeqMF=SEQ_RTA_CAPTURE;
+			}
+			else
+			{
+				g_cEstadoComSeqMF=SEQ_EXPULSAR_TARJ;		
+			}
 		}
 		break;
 	case SEQ_WR_S2B0:
@@ -2205,7 +2231,7 @@ expulsa la tarjeta por que no pertenece a MF50
 		}
 		else
 		{
-			lock=0;
+			//lock=0;
 			g_cEstadoComSeqMF=SEQ_EXPULSAR;																															/*respuesta ok inicia clave verificada*/
 		}		
 		
@@ -2226,6 +2252,7 @@ expulsa la tarjeta por que no pertenece a MF50
 		}
 		else
 		{
+			lock=0;
 			g_cEstadoComSeqMF=SEQ_INICIO;																																/*respuesta ok inicia clave verificada*/
 		}		
 		
