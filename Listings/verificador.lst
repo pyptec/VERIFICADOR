@@ -1,4 +1,4 @@
-C51 COMPILER V9.59.0.0   VERIFICADOR                                                       10/09/2020 16:27:20 PAGE 1   
+C51 COMPILER V9.59.0.0   VERIFICADOR                                                       11/04/2020 14:30:48 PAGE 1   
 
 
 C51 COMPILER V9.59.0.0, COMPILATION OF MODULE VERIFICADOR
@@ -62,7 +62,7 @@ line level    source
   50          extern void Unique_Identifier_UID(void);
   51          extern void Power_off(void);
   52          extern void  send_port(unsigned char *buffer_port, unsigned char length_char);
-C51 COMPILER V9.59.0.0   VERIFICADOR                                                       10/09/2020 16:27:20 PAGE 2   
+C51 COMPILER V9.59.0.0   VERIFICADOR                                                       11/04/2020 14:30:48 PAGE 2   
 
   53          extern unsigned char bcd_hex (unsigned char l_data);
   54          
@@ -126,7 +126,7 @@ line level    source
  112          #define SEQ_ROTACION      0X15
  113          #define SEQ_MENSUAL       0X16
  114          #define SEQ_LOAD_PASSWORD 0X17
-C51 COMPILER V9.59.0.0   VERIFICADOR                                                       10/09/2020 16:27:20 PAGE 3   
+C51 COMPILER V9.59.0.0   VERIFICADOR                                                       11/04/2020 14:30:48 PAGE 3   
 
  115          #define SEQ_UID           0X18
  116          #define SEQ_UID_RPTA        0x19
@@ -190,7 +190,7 @@ line level    source
  174          /*------------------------------------------------------------------------------
  175          Definicion de la trama Lintech de las respuestas de los cmd
  176          ------------------------------------------------------------------------------*/
-C51 COMPILER V9.59.0.0   VERIFICADOR                                                       10/09/2020 16:27:20 PAGE 4   
+C51 COMPILER V9.59.0.0   VERIFICADOR                                                       11/04/2020 14:30:48 PAGE 4   
 
  177          
  178          #define Pos_TipoResp        4
@@ -254,7 +254,7 @@ line level    source
  236          #define AUDIO_GRACIAS     0XA2
  237          /*----------------------------------------------------------------------------
  238          definiciones para, el debuger. saber si la trama es enviada, o la trama es de respuesta
-C51 COMPILER V9.59.0.0   VERIFICADOR                                                       10/09/2020 16:27:20 PAGE 5   
+C51 COMPILER V9.59.0.0   VERIFICADOR                                                       11/04/2020 14:30:48 PAGE 5   
 
  239          ------------------------------------------------------------------------------*/
  240          
@@ -318,7 +318,7 @@ line level    source
  295          #define   MF_FECHA_OUT      0X0B        /*año,mes,dia,hora,minutos*/
  296          
  297          #define   MF_MENSUAL_ANO      0X05
-C51 COMPILER V9.59.0.0   VERIFICADOR                                                       10/09/2020 16:27:20 PAGE 6   
+C51 COMPILER V9.59.0.0   VERIFICADOR                                                       11/04/2020 14:30:48 PAGE 6   
 
  298          #define   MF_MENSUAL_MES      0X06
  299          #define   MF_MENSUAL_DIA      0X07
@@ -382,7 +382,7 @@ line level    source
  355           Expira_mes,
  356           Expira_dia
  357           
-C51 COMPILER V9.59.0.0   VERIFICADOR                                                       10/09/2020 16:27:20 PAGE 7   
+C51 COMPILER V9.59.0.0   VERIFICADOR                                                       11/04/2020 14:30:48 PAGE 7   
 
  358          };
  359          /*tipos de APB antipassback*/
@@ -446,7 +446,7 @@ line level    source
  417   4                }
  418   3                else if (Buffer_Rta_Lintech[Pos_TipoResp]=='N')
  419   3                {
-C51 COMPILER V9.59.0.0   VERIFICADOR                                                       10/09/2020 16:27:20 PAGE 8   
+C51 COMPILER V9.59.0.0   VERIFICADOR                                                       11/04/2020 14:30:48 PAGE 8   
 
  420   4                  
  421   4                  Trama_Validacion_P_N=3;                                                 /*error de trama*/
@@ -510,7 +510,7 @@ line level    source
  477   3                Delay_10ms(110);
  478   3                error_rx=0;
  479   3                cont_error_rx=0;
-C51 COMPILER V9.59.0.0   VERIFICADOR                                                       10/09/2020 16:27:20 PAGE 9   
+C51 COMPILER V9.59.0.0   VERIFICADOR                                                       11/04/2020 14:30:48 PAGE 9   
 
  480   3                error_rx_pto=0;
  481   3                Atascado=0; 
@@ -574,7 +574,7 @@ line level    source
  537   2            (0) LA RESPUESTA ES OK
  538   2            (1) NO RESPONDE EL PTO SERIE
  539   2            (2) NO RECIBIDO LA TRAMA 
-C51 COMPILER V9.59.0.0   VERIFICADOR                                                       10/09/2020 16:27:20 PAGE 10  
+C51 COMPILER V9.59.0.0   VERIFICADOR                                                       11/04/2020 14:30:48 PAGE 10  
 
  540   2            (3) ERROR DE TRAMA CMD (N)
  541   2      ------------------------------------------------------------------------------*/
@@ -638,7 +638,7 @@ line level    source
  597   2          if((temp=Trama_Validacion_P_N())!=0)
  598   2          {
  599   3            if(temp==2)
-C51 COMPILER V9.59.0.0   VERIFICADOR                                                       10/09/2020 16:27:20 PAGE 11  
+C51 COMPILER V9.59.0.0   VERIFICADOR                                                       11/04/2020 14:30:48 PAGE 11  
 
  600   3            {
  601   4            Estado=SEQ_CAPTURA_OK_EEPROM;                                                         /*no ha respondido*/
@@ -702,7 +702,7 @@ line level    source
  658   1        unsigned int addr;
  659   1        if (Horario != False )
  660   1        {
-C51 COMPILER V9.59.0.0   VERIFICADOR                                                       10/09/2020 16:27:20 PAGE 12  
+C51 COMPILER V9.59.0.0   VERIFICADOR                                                       11/04/2020 14:30:48 PAGE 12  
 
  661   2          /*se Lee la direccion del horario*/
  662   2          strcpy (Addr_horarios,(Addr_Horarios()));
@@ -766,7 +766,7 @@ line level    source
  720   1         Hora_High    = (rd_eeprom(0xa8, (addr + Hora_High_addr_Desde )) - 0x30)  << 4;
  721   1         HoraIni      = Hora_High | ((rd_eeprom(0xa8, (addr + Hora_Low_addr_Desde ))) - 0x30);
  722   1         Minuto_High  = ((rd_eeprom(0xa8, (addr + Minutos_High_addr_Desde ))) - 0x30)  << 4;
-C51 COMPILER V9.59.0.0   VERIFICADOR                                                       10/09/2020 16:27:20 PAGE 13  
+C51 COMPILER V9.59.0.0   VERIFICADOR                                                       11/04/2020 14:30:48 PAGE 13  
 
  723   1         MinutoIni    =  Minuto_High | ((rd_eeprom(0xa8, (addr +  Minutos_Low_addr_Desde ))) - 0x30);
  724   1         Debug_chr_Tibbo(HoraIni);
@@ -830,7 +830,7 @@ line level    source
  782   1        
  783   1        
  784   1        Debug_txt_Tibbo((unsigned char *) "HORA PROGRAMADA DESDE: ");
-C51 COMPILER V9.59.0.0   VERIFICADOR                                                       10/09/2020 16:27:20 PAGE 14  
+C51 COMPILER V9.59.0.0   VERIFICADOR                                                       11/04/2020 14:30:48 PAGE 14  
 
  785   1        Hora_Prog = Hora_Maxima(addr);
  786   1        Estado_Horario=En_Horario(HoraNow,Hora_Prog,addr);
@@ -894,7 +894,7 @@ line level    source
  841   3                  /*fecha de vencimiento de mensual o prepago*/
  842   3                  *(Atributos_Expedidor + Expira_ano) = buffer_S_B [MF_EXPIRA_ANO];
  843   3                  *(Atributos_Expedidor + Expira_mes) = buffer_S_B [MF_EXPIRA_MES];
-C51 COMPILER V9.59.0.0   VERIFICADOR                                                       10/09/2020 16:27:20 PAGE 15  
+C51 COMPILER V9.59.0.0   VERIFICADOR                                                       11/04/2020 14:30:48 PAGE 15  
 
  844   3                  *(Atributos_Expedidor + Expira_dia) = buffer_S_B [MF_EXPIRA_DIA];
  845   3                  falla=0;                                                                  
@@ -958,7 +958,7 @@ line level    source
  898   2            *(Atributos_Expedidor + fecha_Int_Dia) =    buffer_S_B [MF_FECHA_INT+2] ;
  899   2            *(Atributos_Expedidor + fecha_Int_Hora)=    buffer_S_B [MF_FECHA_INT+3] ;
  900   2            *(Atributos_Expedidor + fecha_Int_Min) =    buffer_S_B [MF_FECHA_INT+4] ;
-C51 COMPILER V9.59.0.0   VERIFICADOR                                                       10/09/2020 16:27:20 PAGE 16  
+C51 COMPILER V9.59.0.0   VERIFICADOR                                                       11/04/2020 14:30:48 PAGE 16  
 
  901   2            /*horario*/
  902   2            Debug_txt_Tibbo((unsigned char *) "HORARIO:");
@@ -1022,7 +1022,7 @@ line level    source
  959   4                  Estado_expedidor = SEQ_MENSUAL;
  960   4                }
  961   3              }
-C51 COMPILER V9.59.0.0   VERIFICADOR                                                       10/09/2020 16:27:20 PAGE 17  
+C51 COMPILER V9.59.0.0   VERIFICADOR                                                       11/04/2020 14:30:48 PAGE 17  
 
  962   2              else
  963   2              {
@@ -1086,7 +1086,7 @@ line level    source
 1019   3              if (*(Atributos_Expedidor + Tipo_Tarjeta)!= MENSUALIDAD)  
 1020   3              {
 1021   4              
-C51 COMPILER V9.59.0.0   VERIFICADOR                                                       10/09/2020 16:27:20 PAGE 18  
+C51 COMPILER V9.59.0.0   VERIFICADOR                                                       11/04/2020 14:30:48 PAGE 18  
 
 1022   4              Cmd_LPR_Salida(Atributos_Expedidor,buffer_S1_B0); 
 1023   4              }
@@ -1150,7 +1150,7 @@ line level    source
 1081   1        else
 1082   1        {
 1083   2          buffer[17]= 'M';
-C51 COMPILER V9.59.0.0   VERIFICADOR                                                       10/09/2020 16:27:20 PAGE 19  
+C51 COMPILER V9.59.0.0   VERIFICADOR                                                       11/04/2020 14:30:48 PAGE 19  
 
 1084   2        }
 1085   1        
@@ -1214,7 +1214,7 @@ line level    source
 1142   2                  send_portERR(0xA2);                                                             /*error audio*/ 
 1143   2                  send_portERR(0XE7);
 1144   2                  PantallaLCD(SIN_PAGO);                                                            /*envio el msj por la pantalla lcd o la raspberr
-C51 COMPILER V9.59.0.0   VERIFICADOR                                                       10/09/2020 16:27:20 PAGE 20  
+C51 COMPILER V9.59.0.0   VERIFICADOR                                                       11/04/2020 14:30:48 PAGE 20  
 
              -y*/
 1145   2                                                                                    /**leo el ticket*/  
@@ -1278,7 +1278,7 @@ line level    source
 1201   2            {
 1202   3              
 1203   3              Atascado=0;                                                                       /*activo el rele de reset del verificador*/   
-C51 COMPILER V9.59.0.0   VERIFICADOR                                                       10/09/2020 16:27:20 PAGE 21  
+C51 COMPILER V9.59.0.0   VERIFICADOR                                                       11/04/2020 14:30:48 PAGE 21  
 
 1204   3              Card_Insercion(Habilita);                                                         /* se envia el cmd de inicio insercion por boca*
              -/
@@ -1342,7 +1342,7 @@ line level    source
 1259   2      ------------------------------------------------------------------------------*/      
 1260   2          
 1261   2          case SEQ_CHECK_STATUS:  
-C51 COMPILER V9.59.0.0   VERIFICADOR                                                       10/09/2020 16:27:20 PAGE 22  
+C51 COMPILER V9.59.0.0   VERIFICADOR                                                       11/04/2020 14:30:48 PAGE 22  
 
 1262   2                if (ValTimeOutCom==1)
 1263   2            {       
@@ -1406,7 +1406,7 @@ line level    source
 1316   4                    g_cEstadoComSeqMF=SEQ_CHECK_STATUS;                                                   /*volvemos a preguntar  */          
 1317   4                    if (ValidaSensoresPaso()!=0)                                                        /*pregunto q alla presencia vehicular*/
 1318   4                    {
-C51 COMPILER V9.59.0.0   VERIFICADOR                                                       10/09/2020 16:27:20 PAGE 23  
+C51 COMPILER V9.59.0.0   VERIFICADOR                                                       11/04/2020 14:30:48 PAGE 23  
 
 1319   5                      if(contador==0)                                                                   /*contador si es cero envia el msj a la pantala*/
 1320   5                      { 
@@ -1470,7 +1470,7 @@ line level    source
 1368   2          break;
 1369   2        
 1370   2      
-C51 COMPILER V9.59.0.0   VERIFICADOR                                                       10/09/2020 16:27:20 PAGE 24  
+C51 COMPILER V9.59.0.0   VERIFICADOR                                                       11/04/2020 14:30:48 PAGE 24  
 
 1371   2      /*------------------------------------------------------------------------------
 1372   2      El vehiculo esta ubicado en el loop vengo de preguntar el tipo de tarjeta que esta en el lector
@@ -1534,7 +1534,7 @@ line level    source
 1424   4                        else
 1425   4                        {
 1426   5                        Debug_txt_Tibbo((unsigned char *) "Tarjeta invalida no es MF50\r\n\r\n");         /* trama no valida 
-C51 COMPILER V9.59.0.0   VERIFICADOR                                                       10/09/2020 16:27:20 PAGE 25  
+C51 COMPILER V9.59.0.0   VERIFICADOR                                                       11/04/2020 14:30:48 PAGE 25  
 
              -*/
 1427   5                        DebugBufferMF(Buffer_Rta_Lintech,g_cContByteRx,1);    
@@ -1598,7 +1598,7 @@ line level    source
 1478   3            Debug_txt_Tibbo((unsigned char *) "LOAD VERIFY EEPROM OK\r\n");                       /* trama OK CARGA LA EEPROM 
              -Y LA VERIFICA*/
 1479   3            DebugBufferMF(Buffer_Rta_Lintech,g_cContByteRx,RESPUESTA);                                /*imprimo la trama recibida*/
-C51 COMPILER V9.59.0.0   VERIFICADOR                                                       10/09/2020 16:27:20 PAGE 26  
+C51 COMPILER V9.59.0.0   VERIFICADOR                                                       11/04/2020 14:30:48 PAGE 26  
 
              -  
 1480   3                                                                                                      /*leo MF */
@@ -1662,7 +1662,7 @@ line level    source
 1536   2        break;
 1537   2      /*------------------------------------------------------------------------------
 1538   2      Leo la Mf en el  sector 1 bloque 2
-C51 COMPILER V9.59.0.0   VERIFICADOR                                                       10/09/2020 16:27:20 PAGE 27  
+C51 COMPILER V9.59.0.0   VERIFICADOR                                                       11/04/2020 14:30:48 PAGE 27  
 
 1539   2        Se lee Fecha in, fecha out
 1540   2      ------------------------------------------------------------------------------*/    
@@ -1726,7 +1726,7 @@ line level    source
 1595   3              {
 1596   4                Debug_txt_Tibbo((unsigned char *) "Salida Autorizada\r\n");
 1597   4                                                                                                    
-C51 COMPILER V9.59.0.0   VERIFICADOR                                                       10/09/2020 16:27:20 PAGE 28  
+C51 COMPILER V9.59.0.0   VERIFICADOR                                                       11/04/2020 14:30:48 PAGE 28  
 
 1598   4                g_cEstadoComSeqMF=SEQ_RD_S1B0;                                                                              /*sin cobro*/
 1599   4                break;
@@ -1790,7 +1790,7 @@ line level    source
 1650   4            /*por fecha que es fijar fecha de salida*/
 1651   4                if ((buffer_S_B[MF_IN_PAGO]&0x80)==0)                                                                   /*tipo de descuento por fecha 
              -de salida*/
-C51 COMPILER V9.59.0.0   VERIFICADOR                                                       10/09/2020 16:27:20 PAGE 29  
+C51 COMPILER V9.59.0.0   VERIFICADOR                                                       11/04/2020 14:30:48 PAGE 29  
 
 1652   4                {
 1653   5                Debug_txt_Tibbo((unsigned char *) "DCTO FIJA FECHA DE OUT: ");                                            /**/
@@ -1854,7 +1854,7 @@ line level    source
 1710   5                g_cEstadoComSeqMF=SEQ_RD_S1B0;
 1711   5              }
 1712   4              else
-C51 COMPILER V9.59.0.0   VERIFICADOR                                                       10/09/2020 16:27:20 PAGE 30  
+C51 COMPILER V9.59.0.0   VERIFICADOR                                                       11/04/2020 14:30:48 PAGE 30  
 
 1713   4              {
 1714   5              Debug_txt_Tibbo((unsigned char *) "SALIDA NO ES EL MISMO DIA \r\n");  
@@ -1918,7 +1918,7 @@ line level    source
 1772   3            else if (temp==3)
 1773   3            {
 1774   4            Debug_txt_Tibbo((unsigned char *) "SEQ_RD_S1B0 ERROR\r\n");                           /* trama no valida respuesta i
-C51 COMPILER V9.59.0.0   VERIFICADOR                                                       10/09/2020 16:27:20 PAGE 31  
+C51 COMPILER V9.59.0.0   VERIFICADOR                                                       11/04/2020 14:30:48 PAGE 31  
 
              -ncorrecta el leer el bloque*/
 1775   4            DebugBufferMF(Buffer_Rta_Lintech,g_cContByteRx,RESPUESTA);                                /*imprimo la trama recibida*/
@@ -1982,7 +1982,7 @@ line level    source
 1830   4              
 1831   4                /*Dispensador No Responde PTO SERIE ...*/
 1832   4          
-C51 COMPILER V9.59.0.0   VERIFICADOR                                                       10/09/2020 16:27:20 PAGE 32  
+C51 COMPILER V9.59.0.0   VERIFICADOR                                                       11/04/2020 14:30:48 PAGE 32  
 
 1833   4              if(temp=error_rx_pto()==0)
 1834   4              {
@@ -2046,7 +2046,7 @@ line level    source
 1888   3            else if (temp==3)
 1889   3            {
 1890   4            Debug_txt_Tibbo((unsigned char *) "SEQ_RTA_S2B0 ERROR\r\n");                            /* trama no valida respuesta 
-C51 COMPILER V9.59.0.0   VERIFICADOR                                                       10/09/2020 16:27:20 PAGE 33  
+C51 COMPILER V9.59.0.0   VERIFICADOR                                                       11/04/2020 14:30:48 PAGE 33  
 
              -incorrecta el leer el bloque*/
 1891   4            DebugBufferMF(Buffer_Rta_Lintech,g_cContByteRx,RESPUESTA);                                /*imprimo la trama recibida*/
@@ -2110,7 +2110,7 @@ line level    source
 1946   2            (3) ERROR DE TRAMA CMD (N)
 1947   2      ------------------------------------------------------------------------------*/  
 1948   2      
-C51 COMPILER V9.59.0.0   VERIFICADOR                                                       10/09/2020 16:27:20 PAGE 34  
+C51 COMPILER V9.59.0.0   VERIFICADOR                                                       11/04/2020 14:30:48 PAGE 34  
 
 1949   2        case SEQ_RTA_CAPTURE_RPTA:
 1950   2          
@@ -2174,7 +2174,7 @@ line level    source
 2005   3          }     
 2006   2            
 2007   2      
-C51 COMPILER V9.59.0.0   VERIFICADOR                                                       10/09/2020 16:27:20 PAGE 35  
+C51 COMPILER V9.59.0.0   VERIFICADOR                                                       11/04/2020 14:30:48 PAGE 35  
 
 2008   2          break;
 2009   2          
@@ -2238,7 +2238,7 @@ line level    source
 2062   4              if(Buffer_Rta_Lintech[Pos_IniDatMF+temp]==0)
 2063   4              {
 2064   5                break;
-C51 COMPILER V9.59.0.0   VERIFICADOR                                                       10/09/2020 16:27:20 PAGE 36  
+C51 COMPILER V9.59.0.0   VERIFICADOR                                                       11/04/2020 14:30:48 PAGE 36  
 
 2065   5              }
 2066   4            }
@@ -2302,7 +2302,7 @@ line level    source
 2124   4            } 
 2125   3            else if (temp==3)
 2126   3            {
-C51 COMPILER V9.59.0.0   VERIFICADOR                                                       10/09/2020 16:27:20 PAGE 37  
+C51 COMPILER V9.59.0.0   VERIFICADOR                                                       11/04/2020 14:30:48 PAGE 37  
 
 2127   4            Debug_txt_Tibbo((unsigned char *) "SEQ_POWER_OFF_RPTA  FALLO\r\n");                     /* trama no valida*/
 2128   4            DebugBufferMF(Buffer_Rta_Lintech,g_cContByteRx,1);                                          /*imprimo la trama recibida*/
@@ -2366,7 +2366,7 @@ line level    source
 2186   2          {
 2187   3            g_cEstadoComSeqMF=SEQ_LOAD_PASSWORD;
 2188   3          }
-C51 COMPILER V9.59.0.0   VERIFICADOR                                                       10/09/2020 16:27:20 PAGE 38  
+C51 COMPILER V9.59.0.0   VERIFICADOR                                                       11/04/2020 14:30:48 PAGE 38  
 
 2189   2          break;
 2190   2        case SEQ_TIPO_CARD:
@@ -2430,7 +2430,7 @@ line level    source
 2248   3            {
 2249   4            g_cEstadoComSeqMF=SEQ_EXPULSAR_FROM;                                                        /*no ha respondido*/
 2250   4            } 
-C51 COMPILER V9.59.0.0   VERIFICADOR                                                       10/09/2020 16:27:20 PAGE 39  
+C51 COMPILER V9.59.0.0   VERIFICADOR                                                       11/04/2020 14:30:48 PAGE 39  
 
 2251   3            else  g_cEstadoComSeqMF=SEQ_INICIO;                                                         /* respuesta incorrecta*/                             
              -                    

@@ -139,7 +139,7 @@ unsigned char Dir_Board_Monitor()
 				Board_High=0x01;
 			}
 		}
-		return  Board_High;
+		return  Board_High + 0x30;
 }
 /*------------------------------------------------------------------------------
 Detecto la activacion de los sensores de salida

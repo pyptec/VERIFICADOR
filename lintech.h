@@ -15,4 +15,5 @@ void RD_MF(unsigned char Sector, unsigned char Bloque);
 void WR_MF(unsigned char Sector, unsigned char Bloque,unsigned char *buffer);
 void Unique_Identifier_UID(void);
 void Power_off(void);
+void Clave_Seguridad_S2(void);
 #endif	/* _lintech_H_ */
