@@ -1,4 +1,4 @@
-C51 COMPILER V9.59.0.0   PROG                                                              08/05/2020 11:21:05 PAGE 1   
+C51 COMPILER V9.59.0.0   PROG                                                              07/27/2021 14:31:10 PAGE 1   
 
 
 C51 COMPILER V9.59.0.0, COMPILATION OF MODULE PROG
@@ -62,7 +62,7 @@ line level    source
   52            "8",      //DCTO por caja
   53            "9",     //AYUDA Ayuda!muestra todos los comandos
   54            "10"    //SALIRSalir de programacion
-C51 COMPILER V9.59.0.0   PROG                                                              08/05/2020 11:21:05 PAGE 2   
+C51 COMPILER V9.59.0.0   PROG                                                              07/27/2021 14:31:10 PAGE 2   
 
   55          };
   56          
@@ -126,7 +126,7 @@ line level    source
  112          ------------------------------------------------------------------------------*/
  113          
  114          unsigned char ListaComandos(unsigned char *cmd)
-C51 COMPILER V9.59.0.0   PROG                                                              08/05/2020 11:21:05 PAGE 3   
+C51 COMPILER V9.59.0.0   PROG                                                              07/27/2021 14:31:10 PAGE 3   
 
  115          {
  116   1         unsigned char buf[LONGSIZE];
@@ -190,7 +190,7 @@ line level    source
  174          /*------------------------------------------------------------------------------
  175          Rutina de muestra el cursor
  176          ------------------------------------------------------------------------------*/
-C51 COMPILER V9.59.0.0   PROG                                                              08/05/2020 11:21:05 PAGE 4   
+C51 COMPILER V9.59.0.0   PROG                                                              07/27/2021 14:31:10 PAGE 4   
 
  177          
  178          void DisplayCursor(void)
@@ -254,7 +254,7 @@ line level    source
  236   1        printf("\r\n\n ACTUAL ID_CLIENTE=%s\r\n\n",buffer);                           /*se muestra el id_cliente actual en pan
              -talla*/
  237   1        
-C51 COMPILER V9.59.0.0   PROG                                                              08/05/2020 11:21:05 PAGE 5   
+C51 COMPILER V9.59.0.0   PROG                                                              07/27/2021 14:31:10 PAGE 5   
 
  238   1        printf("\r\n\n DIGITE SU NUEVO ID_CLIENTE=");                                 /*digite el nuevo id_cliente*/
  239   1        IngresaDato(buffer,0);                                                        /*trae el dato digitado*/
@@ -318,7 +318,7 @@ line level    source
  292          Rutina que programa SIN COBRO
  293          SIN_COBRO=0 inhabilitado, SIN_COBRO=1 sin cobro, SIN_COBRO=2 sin cobro y salida el mismo dia");
  294          ------------------------------------------------------------------------------*/
-C51 COMPILER V9.59.0.0   PROG                                                              08/05/2020 11:21:05 PAGE 6   
+C51 COMPILER V9.59.0.0   PROG                                                              07/27/2021 14:31:10 PAGE 6   
 
  295          void Prog_Sin_Cobro()
  296          {
@@ -382,7 +382,7 @@ line level    source
  352   1        {
  353   2          printf("\r\n\n ACTUAL DEBUG INHABILITADO=%s\r\n\n",buffer);                           /*se muestra el id_cliente actu
              -al en pantalla*/
-C51 COMPILER V9.59.0.0   PROG                                                              08/05/2020 11:21:05 PAGE 7   
+C51 COMPILER V9.59.0.0   PROG                                                              07/27/2021 14:31:10 PAGE 7   
 
  354   2        }
  355   1        else
@@ -446,7 +446,7 @@ line level    source
  410   2          printf("\r\n\n ACTUAL USE_LPR HABILITADO=%s\r\n\n",buffer);     
  411   2        }
  412   1      }
-C51 COMPILER V9.59.0.0   PROG                                                              08/05/2020 11:21:05 PAGE 8   
+C51 COMPILER V9.59.0.0   PROG                                                              07/27/2021 14:31:10 PAGE 8   
 
  413          /*------------------------------------------------------------------------------------
  414          Compara la placa de la tarjeta y la del software
@@ -510,7 +510,7 @@ line level    source
  468   2          printf("\r\n\n PANTALLA RASPBERRY  HABILITADA=%s\r\n\n",buffer);      
  469   2        }
  470   1        
-C51 COMPILER V9.59.0.0   PROG                                                              08/05/2020 11:21:05 PAGE 9   
+C51 COMPILER V9.59.0.0   PROG                                                              07/27/2021 14:31:10 PAGE 9   
 
  471   1        printf("\r\n\n DIGITE EL NUEVO ESTADO DE LA PANTALLA =");                                 /*digite el nuevo id_cliente*/
  472   1        IngresaDato(buffer,0);                                                        /*trae el dato digitado*/
@@ -574,7 +574,7 @@ line level    source
  527          Rutina que muestra la lista de comandos
  528          ------------------------------------------------------------------------------*/
  529          void Show()
-C51 COMPILER V9.59.0.0   PROG                                                              08/05/2020 11:21:05 PAGE 10  
+C51 COMPILER V9.59.0.0   PROG                                                              07/27/2021 14:31:10 PAGE 10  
 
  530          {
  531   1         printf("\r\n ID_CLIENTE    --- CMD 0 Identificador del cliente maximo 255");
@@ -638,7 +638,7 @@ line level    source
  589   2      
  590   2      
  591   2          IngresaDato(buffer,0);  
-C51 COMPILER V9.59.0.0   PROG                                                              08/05/2020 11:21:05 PAGE 11  
+C51 COMPILER V9.59.0.0   PROG                                                              07/27/2021 14:31:10 PAGE 11  
 
  592   2          cmd = GetCMD(buffer); 
  593   2          option1 = GetOption(cmd + strlen(cmd) + 1);
@@ -702,7 +702,7 @@ line level    source
  651   4                    break;
  652   4                  
  653   4                  case 8:     //tipo de pantalla
-C51 COMPILER V9.59.0.0   PROG                                                              08/05/2020 11:21:05 PAGE 12  
+C51 COMPILER V9.59.0.0   PROG                                                              07/27/2021 14:31:10 PAGE 12  
 
  654   4                  dcto_caja();
  655   4                    break;

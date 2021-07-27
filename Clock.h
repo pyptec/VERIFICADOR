@@ -32,6 +32,7 @@ void ByteHex_Decimal(unsigned char *buffer,unsigned char valorhex);
 unsigned char bcd_hex (unsigned char l_data);
 unsigned char hex_bcd (unsigned char byte);
 unsigned char validar_clk(unsigned char *datos_clock);
+void Block_read_clock_ascii_rasberry(unsigned char *datos_clock);
 
 
 #endif	/* _CLOCK_H_*/

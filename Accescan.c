@@ -30,6 +30,7 @@ extern unsigned char Timer_wait;
 extern unsigned char Tipo_Vehiculo;
 
 extern unsigned char  Debug_Tibbo;
+extern void Formato_eeprom();
 sbit rx_ip = P0^0;				
 sbit lock = P1^7;						//Relevo 
 sbit Atascado = P0^3;				//Rele de on/off del verificador o transporte
@@ -54,6 +55,7 @@ sbit led_err_imp = P0^2;			//Error
 #define	PRMR_MENSUAL_NO_PAGO				0X08
 #define PRMR_UN_MOMENTO							0X09
 #define PRMR_SOLICITA_EVN						0XAA
+#define PRMR_MSJ_EXCLUSIVO					0X55
 /*mensaje de mensual*/
 #define GRACIAS									91						//0XFF,01
 #define LECTURA_WIEGAND					92//0xB0
@@ -84,18 +86,46 @@ void Valida_Trama_Pto(unsigned char *buffer, unsigned char length_trama)
 {
 	
 	 static unsigned char cont;
+	 unsigned char bcc=0;
+	 unsigned char j; 
 	 unsigned char buff[11];
 	USE_LPR=rd_eeprom(0xa8,EE_USE_LPR);
 	/*-------------------------------CMD H reloj para el board y la pantalla lcd------------------------------------------*/
-		if((length_trama==25)&&(*buffer==STX)&&(*(buffer+2)=='H')&&*(buffer+(length_trama-1))==ETX)													/*cmd de Accescan que me envia el reloj actualizado*/
+		if((length_trama==26)&&(*buffer==STX)&&(*(buffer+2)=='H')&&*(buffer+(length_trama-2))==ETX)													/*cmd de Accescan que me envia el reloj actualizado*/
 		{ 
-			if(validar_clk(buffer+3)==0)
+			Debug_txt_Tibbo((unsigned char *) "primario BCC= ");
+			Debug_chr_Tibbo(*(buffer+25));
+			Debug_txt_Tibbo((unsigned char *) "\r\n");
+			for (j=0; j<length_trama-1; j++)
 			{
-			Block_write_clock_ascii(buffer+3);																																								/* se escribe el reloj de hardware*/
+				bcc=*(buffer+j) ^ bcc;
+			}
+			Debug_txt_Tibbo((unsigned char *) "calculo BCC= ");
+			Debug_chr_Tibbo(bcc);
+			Debug_txt_Tibbo((unsigned char *) "\r\n");
+			if (bcc == *(buffer+25))
+			{
+				if(validar_clk(buffer+3)==0)
+				{
+				Block_write_clock_ascii(buffer+3);																																								/* se escribe el reloj de hardware*/
 		
-			Reloj_Pantalla_Lcd();																																															/* Escribo el reloj en la pantalla lcd*/
-			
+				Reloj_Pantalla_Lcd();																																															/* Escribo el reloj en la pantalla lcd*/
+				}
 			}	
+			else
+			{
+				buff[0]=02;
+				buff[1]=05;
+				buff[2]=03;
+				buff[3]=0;
+				 send_port(buff,4);
+				
+				Debug_txt_Tibbo((unsigned char *) "REENVIAR trama Hora: ");
+				Debug_chr_Tibbo(buff[0]);
+				Debug_chr_Tibbo(buff[1]);
+				Debug_chr_Tibbo(buff[2]);
+				Debug_txt_Tibbo((unsigned char *) "\r\n");
+			}
 			
 		}
 		/*-------------------------------CMD B6 fuera de linea -------------------------------------------------------------*/
@@ -144,7 +174,12 @@ void Valida_Trama_Pto(unsigned char *buffer, unsigned char length_trama)
 		else if ((*buffer==PRMR_NO_IN_PARK)	)																																										/*en linea*/
 		{
 			PantallaLCD(NO_IN_PARK);																																														/*MSJ MENSUAL NO EN PARQUEADERO*/
-		}		
+		}	
+			/*-------------------------------	CMD 55 PRMR_MSJ_EXCLUSIVO  ------------------------------------------------------------------*/
+		else if ((length_trama==3)&&(*(buffer+1)==PRMR_MSJ_EXCLUSIVO)&&*(buffer+(length_trama-1))==ETX)																																				/* */
+		{
+				 Formato_eeprom();																																														/*mesualidad vencida*/
+		}			
 			/*-------------------------------CMD A1    DIREJASE_A_CAJA	              ------------------------------------------------------------------*/
 		else if ((length_trama==1)&&(*buffer==PRMR_DIREJASE_A_CAJA	))																																				/*cmd 0xA1 audio caja que es igual a no registra pago */
 		{

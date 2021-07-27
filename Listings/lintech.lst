@@ -1,4 +1,4 @@
-C51 COMPILER V9.59.0.0   LINTECH                                                           08/05/2020 11:21:06 PAGE 1   
+C51 COMPILER V9.59.0.0   LINTECH                                                           07/27/2021 14:31:11 PAGE 1   
 
 
 C51 COMPILER V9.59.0.0, COMPILATION OF MODULE LINTECH
@@ -62,7 +62,7 @@ line level    source
   52          #define Pos_St1             8
   53          #define Pos_St2             9
   54          #define Pos_IniDatMF        0x0a
-C51 COMPILER V9.59.0.0   LINTECH                                                           08/05/2020 11:21:06 PAGE 2   
+C51 COMPILER V9.59.0.0   LINTECH                                                           07/27/2021 14:31:11 PAGE 2   
 
   55          #define Card_type_H         0x0a
   56          #define Card_type_L         0x0b
@@ -126,7 +126,7 @@ line level    source
  114   2          g_scArrTxComSoft[3]=0X03;
  115   2          g_scArrTxComSoft[4]='C';
  116   2          g_scArrTxComSoft[5]='0';
-C51 COMPILER V9.59.0.0   LINTECH                                                           08/05/2020 11:21:06 PAGE 3   
+C51 COMPILER V9.59.0.0   LINTECH                                                           07/27/2021 14:31:11 PAGE 3   
 
  117   2          g_scArrTxComSoft[6]=TipoMovimiento;
  118   2          g_scArrTxComSoft[7]=ETX;
@@ -190,7 +190,7 @@ line level    source
  176   1        unsigned char g_scArrTxComSoft[10];
  177   1        if (Tipo==Habilita)
  178   1        {
-C51 COMPILER V9.59.0.0   LINTECH                                                           08/05/2020 11:21:06 PAGE 4   
+C51 COMPILER V9.59.0.0   LINTECH                                                           07/27/2021 14:31:11 PAGE 4   
 
  179   2          Debug_txt_Tibbo((unsigned char *) "Habilita Insersion\r\n\r\n");
  180   2          g_scArrTxComSoft[6]=Habilita;
@@ -254,7 +254,7 @@ line level    source
  237   3            Debug_txt_Tibbo((unsigned char *) "Moviendo Tarjeta a IC\r\n\r\n");
  238   3            }
  239   2          else if (Posicion==MovPos_Front)
-C51 COMPILER V9.59.0.0   LINTECH                                                           08/05/2020 11:21:06 PAGE 5   
+C51 COMPILER V9.59.0.0   LINTECH                                                           07/27/2021 14:31:11 PAGE 5   
 
  240   2          {
  241   3            Debug_txt_Tibbo((unsigned char *) "Moviendo Tarjeta a Bezel\r\n\r\n");
@@ -318,7 +318,7 @@ line level    source
  299   1          buffer_ready=0;                                   /* buffer del pto serie (0) inicia a esperar la trama*/
  300   1          g_cEstadoComSoft=ESPERA_RX;                       /* Espera el ASK en el pt o serie para empesar a almacenas*/
  301   1          DebugBufferMF(g_scArrTxComSoft,9,0);                /*muestra la trama enviada al pto serie a debug por tibbo*/
-C51 COMPILER V9.59.0.0   LINTECH                                                           08/05/2020 11:21:06 PAGE 6   
+C51 COMPILER V9.59.0.0   LINTECH                                                           07/27/2021 14:31:11 PAGE 6   
 
  302   1          EscribirCadenaSoft_buffer(g_scArrTxComSoft,9);    /* envio la trama por el pto serie*/
  303   1          ValTimeOutCom=TIME_CARD;
@@ -382,7 +382,7 @@ line level    source
  361   1        g_scArrTxComSoft[0]=0xF2;
  362   1        g_scArrTxComSoft[1]=0X00;
  363   1        g_scArrTxComSoft[2]=0X00;
-C51 COMPILER V9.59.0.0   LINTECH                                                           08/05/2020 11:21:06 PAGE 7   
+C51 COMPILER V9.59.0.0   LINTECH                                                           07/27/2021 14:31:11 PAGE 7   
 
  364   1        g_scArrTxComSoft[3]=0X07;
  365   1        g_scArrTxComSoft[4]='C';
@@ -446,7 +446,7 @@ line level    source
  423   1        for (j=0; j<13; j++)
  424   1        {
  425   2          bcc=g_scArrTxComSoft[j]^bcc;
-C51 COMPILER V9.59.0.0   LINTECH                                                           08/05/2020 11:21:06 PAGE 8   
+C51 COMPILER V9.59.0.0   LINTECH                                                           07/27/2021 14:31:11 PAGE 8   
 
  426   2        }
  427   1        g_scArrTxComSoft[13]=bcc;
@@ -510,7 +510,7 @@ line level    source
  485   2      ------------------------------------------------------------------------------*/
  486   2        g_scArrTxComSoft[17]=0x00;
  487   2        g_scArrTxComSoft[18]=0x00;
-C51 COMPILER V9.59.0.0   LINTECH                                                           08/05/2020 11:21:06 PAGE 9   
+C51 COMPILER V9.59.0.0   LINTECH                                                           07/27/2021 14:31:11 PAGE 9   
 
  488   2        g_scArrTxComSoft[19]=0x00;
  489   2        
@@ -574,7 +574,7 @@ MODULE INFORMATION:   STATIC OVERLAYABLE
    CODE SIZE        =   1626    ----
    CONSTANT SIZE    =    357    ----
    XDATA SIZE       =   ----     150
-C51 COMPILER V9.59.0.0   LINTECH                                                           08/05/2020 11:21:06 PAGE 10  
+C51 COMPILER V9.59.0.0   LINTECH                                                           07/27/2021 14:31:11 PAGE 10  
 
    PDATA SIZE       =   ----    ----
    DATA SIZE        =   ----    ----

@@ -1,4 +1,4 @@
-C51 COMPILER V9.59.0.0   VERIFICADOR                                                       08/05/2020 11:21:06 PAGE 1   
+C51 COMPILER V9.59.0.0   VERIFICADOR                                                       07/27/2021 14:31:10 PAGE 1   
 
 
 C51 COMPILER V9.59.0.0, COMPILATION OF MODULE VERIFICADOR
@@ -62,7 +62,7 @@ line level    source
   50          extern bit aSk;
   51          extern unsigned char g_cEstadoComSoft;
   52          extern unsigned char ValTimeOutCom;
-C51 COMPILER V9.59.0.0   VERIFICADOR                                                       08/05/2020 11:21:06 PAGE 2   
+C51 COMPILER V9.59.0.0   VERIFICADOR                                                       07/27/2021 14:31:10 PAGE 2   
 
   53          extern unsigned char g_cEstadoComSeqMF;
   54          extern unsigned char g_cContByteRx;
@@ -126,7 +126,7 @@ line level    source
  112          
  113          /*----------------------------------------------------------------------------
  114           definiciones de lintech en el comando Check_Status
-C51 COMPILER V9.59.0.0   VERIFICADOR                                                       08/05/2020 11:21:06 PAGE 3   
+C51 COMPILER V9.59.0.0   VERIFICADOR                                                       07/27/2021 14:31:10 PAGE 3   
 
  115          ------------------------------------------------------------------------------*/
  116          
@@ -190,7 +190,7 @@ line level    source
  174          
  175          #define   ETX               03
  176          #define   STX_LINTECH       0xf2
-C51 COMPILER V9.59.0.0   VERIFICADOR                                                       08/05/2020 11:21:06 PAGE 4   
+C51 COMPILER V9.59.0.0   VERIFICADOR                                                       07/27/2021 14:31:10 PAGE 4   
 
  177          
  178          /*----------------------------------------------------------------------------
@@ -254,7 +254,7 @@ line level    source
  236          MF_LSB_POR_CNTJ=2   DESCUENTO POR PORCENTAJE
  237          MF_LSB_POR_DNR=3    DESCUENTO POR DINERO
  238          ------------------------------------------------------------------------------*/
-C51 COMPILER V9.59.0.0   VERIFICADOR                                                       08/05/2020 11:21:06 PAGE 5   
+C51 COMPILER V9.59.0.0   VERIFICADOR                                                       07/27/2021 14:31:10 PAGE 5   
 
  239          
  240          #define   MF_FECHA_INT      0X00        /*año,mes,dia,hora,minutos*/
@@ -318,7 +318,7 @@ line level    source
  295   4                  
  296   4                  Trama_Validacion_P_N=3;                                                 /*error de trama*/
  297   4                  
-C51 COMPILER V9.59.0.0   VERIFICADOR                                                       08/05/2020 11:21:06 PAGE 6   
+C51 COMPILER V9.59.0.0   VERIFICADOR                                                       07/27/2021 14:31:10 PAGE 6   
 
  298   4                }
  299   3                else
@@ -382,7 +382,7 @@ line level    source
  355   3                error_rx_pto=0;
  356   3                Atascado=0; 
  357   3                Delay_10ms(110);                                                                  /*On el rele de reset del verificador*/   
-C51 COMPILER V9.59.0.0   VERIFICADOR                                                       08/05/2020 11:21:06 PAGE 7   
+C51 COMPILER V9.59.0.0   VERIFICADOR                                                       07/27/2021 14:31:10 PAGE 7   
 
  358   3                ValTimeOutCom=TIME_CARD;
  359   3              }
@@ -446,7 +446,7 @@ line level    source
  415   2            (3) ERROR DE TRAMA CMD (N)
  416   2      ------------------------------------------------------------------------------*/
  417   2            
-C51 COMPILER V9.59.0.0   VERIFICADOR                                                       08/05/2020 11:21:06 PAGE 8   
+C51 COMPILER V9.59.0.0   VERIFICADOR                                                       07/27/2021 14:31:10 PAGE 8   
 
  418   2          case SEQ_CAPTURE_DATOS_INI:
  419   2      
@@ -510,7 +510,7 @@ line level    source
  475   3            {
  476   4            Estado=SEQ_CAPTURA_OK_EEPROM;                                                         /*no ha respondido*/
  477   4            }
-C51 COMPILER V9.59.0.0   VERIFICADOR                                                       08/05/2020 11:21:06 PAGE 9   
+C51 COMPILER V9.59.0.0   VERIFICADOR                                                       07/27/2021 14:31:10 PAGE 9   
 
  478   3            else if (temp==3)
  479   3            {
@@ -574,7 +574,7 @@ line level    source
  536   1        unsigned char clock_temp[6];
  537   1        static unsigned char contador=0;
  538   1        switch (g_cEstadoComSeqMF)
-C51 COMPILER V9.59.0.0   VERIFICADOR                                                       08/05/2020 11:21:06 PAGE 10  
+C51 COMPILER V9.59.0.0   VERIFICADOR                                                       07/27/2021 14:31:10 PAGE 10  
 
  539   1        {
  540   2      //***********************************************************************************************
@@ -638,7 +638,7 @@ line level    source
              -/
  595   3            DebugBufferMF(Buffer_Rta_Lintech,g_cContByteRx,RESPUESTA);                            /*imprimo la trama recibida*/
  596   3            g_cEstadoComSeqMF=SEQ_CHECK_STATUS;                                                   /*respuesta ok*/
-C51 COMPILER V9.59.0.0   VERIFICADOR                                                       08/05/2020 11:21:06 PAGE 11  
+C51 COMPILER V9.59.0.0   VERIFICADOR                                                       07/27/2021 14:31:10 PAGE 11  
 
  597   3          }     
  598   2            
@@ -702,7 +702,7 @@ line level    source
              - */
  654   3            DebugBufferMF(Buffer_Rta_Lintech,g_cContByteRx,RESPUESTA);                                    /*imprimo la trama recibida
              -*/
-C51 COMPILER V9.59.0.0   VERIFICADOR                                                       08/05/2020 11:21:06 PAGE 12  
+C51 COMPILER V9.59.0.0   VERIFICADOR                                                       07/27/2021 14:31:10 PAGE 12  
 
  655   3              if (Buffer_Rta_Lintech[Pos_St0]=='0')                                                       /* CANAL LIBRE    no tiene tarjetas en
              - el mecanismo*/
@@ -766,7 +766,7 @@ line level    source
  703   5                      PantallaLCD(ERROR_LOOP);                                                          /*envio el msj por la pantalla lcd o la raspb
              -erry*/
  704   5                      g_cEstadoComSeqMF=SEQ_EXPULSAR_TARJ;                                                /*volvemos a preguntar  */  
-C51 COMPILER V9.59.0.0   VERIFICADOR                                                       08/05/2020 11:21:06 PAGE 13  
+C51 COMPILER V9.59.0.0   VERIFICADOR                                                       07/27/2021 14:31:10 PAGE 13  
 
  705   5                      
  706   5                    }
@@ -830,7 +830,7 @@ line level    source
  758   5                          LoadVerify_EEprom();                                                          // verifico q la clave este cargada en el tran
              -sporte
  759   5                          g_cEstadoComSeqMF=SEQ_MF_LINTECH;                                             /* la tarjeta es MF50*/
-C51 COMPILER V9.59.0.0   VERIFICADOR                                                       08/05/2020 11:21:06 PAGE 14  
+C51 COMPILER V9.59.0.0   VERIFICADOR                                                       07/27/2021 14:31:10 PAGE 14  
 
  760   5                          
  761   5                       }else
@@ -894,7 +894,7 @@ line level    source
  811   4            }
  812   3          }
  813   2          else
-C51 COMPILER V9.59.0.0   VERIFICADOR                                                       08/05/2020 11:21:06 PAGE 15  
+C51 COMPILER V9.59.0.0   VERIFICADOR                                                       07/27/2021 14:31:10 PAGE 15  
 
  814   2          {
  815   3            Debug_txt_Tibbo((unsigned char *) "LOAD VERIFY EEPROM OK\r\n\r\n");                       /* trama OK CARGA LA EEP
@@ -958,7 +958,7 @@ line level    source
  869   2          else
  870   2          {
  871   3            Debug_txt_Tibbo((unsigned char *) "SEQ_RD_S1B1 OK\r\n\r\n");                              /* trama OK CARGA LA EEPROM 
-C51 COMPILER V9.59.0.0   VERIFICADOR                                                       08/05/2020 11:21:06 PAGE 16  
+C51 COMPILER V9.59.0.0   VERIFICADOR                                                       07/27/2021 14:31:10 PAGE 16  
 
              -Y LA VERIFICA*/
  872   3            DebugBufferMF(Buffer_Rta_Lintech,g_cContByteRx,RESPUESTA);                                /*imprimo la trama recibida*/
@@ -1022,7 +1022,7 @@ line level    source
  923   4            }
  924   3            
  925   3          }     
-C51 COMPILER V9.59.0.0   VERIFICADOR                                                       08/05/2020 11:21:06 PAGE 17  
+C51 COMPILER V9.59.0.0   VERIFICADOR                                                       07/27/2021 14:31:10 PAGE 17  
 
  926   2        break;
  927   2      /*------------------------------------------------------------------------------
@@ -1086,7 +1086,7 @@ line level    source
              -i es 02 ya salio y no posee entrada*/
  980   3            {                                                                                                             /*00 inhabilitada la tarjeta*/
  981   4            Debug_txt_Tibbo((unsigned char *) "ERROR: SIN INGRESO\r\n\r\n");
-C51 COMPILER V9.59.0.0   VERIFICADOR                                                       08/05/2020 11:21:06 PAGE 18  
+C51 COMPILER V9.59.0.0   VERIFICADOR                                                       07/27/2021 14:31:10 PAGE 18  
 
  982   4            send_portERR(0xA2);                                                             /*error audio*/ 
  983   4            send_portERR(0XE6);
@@ -1150,7 +1150,7 @@ line level    source
 1036   5              Debug_txt_Tibbo((unsigned char *) "\r\n\r\n");  
 1037   5              /*parte alta del tiempo libre*/
 1038   5              temp=(buffer_S1_B2[MF_IN_PAGO]&0x70)>>4 ;                                                                   /*se lee la parte alta del 
-C51 COMPILER V9.59.0.0   VERIFICADOR                                                       08/05/2020 11:21:06 PAGE 19  
+C51 COMPILER V9.59.0.0   VERIFICADOR                                                       07/27/2021 14:31:10 PAGE 19  
 
              -tiempo libre y se rotsa 4 bits a la derecha*/
 1039   5              tiempo=temp;                                                                                                /*se carga en un entero*/
@@ -1214,7 +1214,7 @@ line level    source
 1093   3              {
 1094   4                  Debug_txt_Tibbo((unsigned char *) "TARJETA SIN PAGO\r\n\r\n");
 1095   4                  send_portERR(0xA2);                                                             /*error audio*/ 
-C51 COMPILER V9.59.0.0   VERIFICADOR                                                       08/05/2020 11:21:06 PAGE 20  
+C51 COMPILER V9.59.0.0   VERIFICADOR                                                       07/27/2021 14:31:10 PAGE 20  
 
 1096   4                  send_portERR(0XE7);
 1097   4                  PantallaLCD(SIN_PAGO);                                                            /*envio el msj por la pantalla lcd o la raspberr
@@ -1278,7 +1278,7 @@ line level    source
 1151   4              if(temp=error_rx_pto()==0)
 1152   4              {
 1153   5                g_cEstadoComSeqMF=SEQ_RD_S1B0_RPTA;
-C51 COMPILER V9.59.0.0   VERIFICADOR                                                       08/05/2020 11:21:06 PAGE 21  
+C51 COMPILER V9.59.0.0   VERIFICADOR                                                       07/27/2021 14:31:10 PAGE 21  
 
 1154   5              }
 1155   4              else if(temp=error_rx_pto()==1)
@@ -1342,7 +1342,7 @@ line level    source
 1210   2        case SEQ_WR_S1B2_RPTA:
 1211   2          if((temp=Trama_Validacion_P_N())!=0)
 1212   2          {
-C51 COMPILER V9.59.0.0   VERIFICADOR                                                       08/05/2020 11:21:06 PAGE 22  
+C51 COMPILER V9.59.0.0   VERIFICADOR                                                       07/27/2021 14:31:10 PAGE 22  
 
 1213   3            if(temp==2)
 1214   3            {
@@ -1406,7 +1406,7 @@ line level    source
 1267   4            DebugBufferMF(Buffer_Rta_Lintech,g_cContByteRx,RESPUESTA);                                /*imprimo la trama recibida*/
              -  
 1268   4            g_cEstadoComSeqMF=SEQ_INICIO;                                                             /* (3) Trama invalida cmd (N)*/ 
-C51 COMPILER V9.59.0.0   VERIFICADOR                                                       08/05/2020 11:21:06 PAGE 23  
+C51 COMPILER V9.59.0.0   VERIFICADOR                                                       07/27/2021 14:31:10 PAGE 23  
 
 1269   4            }       
 1270   3            else
@@ -1470,7 +1470,7 @@ line level    source
 1326   4                if (ValidaSensores_Out()==1)
 1327   4              {
 1328   5                lock=0;
-C51 COMPILER V9.59.0.0   VERIFICADOR                                                       08/05/2020 11:21:06 PAGE 24  
+C51 COMPILER V9.59.0.0   VERIFICADOR                                                       07/27/2021 14:31:10 PAGE 24  
 
 1329   5                Debug_txt_Tibbo((unsigned char *) "rele off\r\n\r\n");                          /* trama ok la tarjeta fue ejectad
              -a*/
@@ -1534,7 +1534,7 @@ line level    source
 1384   2          g_cEstadoComSeqMF=SEQ_RD_S1B0_EJECT_RPTA; 
 1385   2        break;  
 1386   2      /*------------------------------------------------------------------------------
-C51 COMPILER V9.59.0.0   VERIFICADOR                                                       08/05/2020 11:21:06 PAGE 25  
+C51 COMPILER V9.59.0.0   VERIFICADOR                                                       07/27/2021 14:31:10 PAGE 25  
 
 1387   2      Leo la Mf en el  sector 1 bloque 0 leo el ticket
 1388   2      LA tarjeta no tiene pago    
@@ -1598,7 +1598,7 @@ line level    source
 1441   2        
 1442   2      /*------------------------------------------------------------------------------
 1443   2      expulsa la tarjeta por que no pertenece a MF50
-C51 COMPILER V9.59.0.0   VERIFICADOR                                                       08/05/2020 11:21:06 PAGE 26  
+C51 COMPILER V9.59.0.0   VERIFICADOR                                                       07/27/2021 14:31:10 PAGE 26  
 
 1444   2      ------------------------------------------------------------------------------*/    
 1445   2        
@@ -1662,7 +1662,7 @@ line level    source
 
 
 MODULE INFORMATION:   STATIC OVERLAYABLE
-C51 COMPILER V9.59.0.0   VERIFICADOR                                                       08/05/2020 11:21:06 PAGE 27  
+C51 COMPILER V9.59.0.0   VERIFICADOR                                                       07/27/2021 14:31:10 PAGE 27  
 
    CODE SIZE        =   3544    ----
    CONSTANT SIZE    =   1163    ----
