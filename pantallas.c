@@ -16,6 +16,7 @@ extern void Debug_txt_Tibbo(unsigned char * str);
 extern void          _nop_     (void);
 extern void Debug_chr_Tibbo(unsigned char Dat);
 extern void Block_read_Clock_Rasberry(unsigned char *datos_clock);
+extern void Block_read_clock_ascii_rasberry(unsigned char *datos_clock);
 
 /*mensajes de salida desde 85 a 169*/
 
@@ -325,7 +326,7 @@ unsigned char Ini_LCD_Line_one   []={0xaa,0x80,0x18,0x01,0x02,0x00} ;
 
 
 unsigned char num_chr;
-unsigned char buf[31];
+unsigned char buf[40]={0};
 
 	
 sel_com=0;
@@ -377,9 +378,9 @@ sel_com=0;
 						break;
 				 
 				  case GRACIAS:
+						//Debug_txt_Tibbo((unsigned char *) "msjpantalla= ");
+						//Debug_txt_Tibbo((unsigned char *) buffer);
             strcpy(buf,"a;91;GRACIAS ");
-						num_chr=strlen(buffer);
-						*(buffer+(num_chr-1))=0;
 						strcat(buf,buffer);
 						strcat(buf,"\n");
 						Raspberry_data((unsigned char  *) buf); 
@@ -474,7 +475,7 @@ void Reloj_Pantalla_Lcd()
 {
 
  unsigned char Ini_Clock_LCD   [20] ;
- unsigned char lendtrama;
+ 
 
 					if (Raspberry==0)
 					{	
@@ -494,12 +495,12 @@ void Reloj_Pantalla_Lcd()
 					{
 						sel_com=0;
 						Ini_Clock_LCD [0]=0;
-						 strcpy(Ini_Clock_LCD,"d;xx;");
-						 lendtrama=strlen(Ini_Clock_LCD);
+						 strcpy(Ini_Clock_LCD,"d;");
+						
 						/*leo año,mes,dia,hh,mm,año,.,seg*/
-						 Block_read_Clock_Rasberry(&Ini_Clock_LCD[lendtrama]);	
-							strcat(Ini_Clock_LCD,"\n");
-						Raspberry_data(Ini_Clock_LCD);
+						Block_read_clock_ascii_rasberry(Ini_Clock_LCD+2);
+						strcat(Ini_Clock_LCD,"\n\0");
+					  Raspberry_data (Ini_Clock_LCD);
 						sel_com=1;	
 					}
 }

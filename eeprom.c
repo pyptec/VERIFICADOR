@@ -7,7 +7,7 @@ extern void          _nop_     (void);
 extern void Delay (void);
 extern void Delay_20us(unsigned int cnt);
 extern void Delay_1ms(unsigned int cnt);
-
+void Formato_eeprom();
 //******************************************************************************************
 // 		RUTINAS DE EEPROM 24FC1025
 //******************************************************************************************
@@ -28,7 +28,7 @@ unsigned char l_chr;
 #define EE_USE_LPR						0x000A
 #define EE_CPRCN_ACTIVA				0x000C
 #define EE_TIPO_PANTALLA			0X000E
-
+#define EE_FECHA_VENCIMIENTO		0X0350
 
 extern int ID_CLIENTE;						
 extern int COD_PARK;
@@ -298,4 +298,13 @@ while(*res !='\0'){
 		res++;
   wr_eeprom(0xa8,addres,0);
 
+}
+	void Formato_eeprom()
+{
+unsigned char dato=0xff;
+unsigned int i;
+	for(i=0; i< EE_FECHA_VENCIMIENTO; i++)
+	{
+			wr_eeprom(0xa8,i,dato);
+	}
 }

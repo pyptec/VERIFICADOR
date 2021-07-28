@@ -202,7 +202,7 @@ void Debug_txt_Tibbo(unsigned char * str)
 
 void Debug_Dividir_texto()
 {
-	Debug_txt_Tibbo((unsigned char *) "/*---------------------------------------*/\n\r");
+	Debug_txt_Tibbo((unsigned char *) "/*---------------------------------------*/\n");
 }
 
 /*------------------------------------------------------------------------------
@@ -273,7 +273,7 @@ void Debug_Fecha_actual(unsigned char *buffer)
 			Debug_chr_Tibbo(hex_bcd(*(buffer+3)));												/*hora*/
 			tx_aux(':');
 			Debug_chr_Tibbo(hex_bcd(*(buffer+4)));												/*minutos*/
-			Debug_txt_Tibbo((unsigned char *) "\n\r\n\r");
+			Debug_txt_Tibbo((unsigned char *) "\n");
 }
 /*------------------------------------------------------------------------------
 Condiciones iniciales de los pines
@@ -289,10 +289,10 @@ void Debug_pto_paralelo(unsigned char *buffer, unsigned char Length_trama )
 	
 	Debug_txt_Tibbo((unsigned char *) "Recibe trama pto paral= ");					/*trama recibida pto paralelo */
 	DebugBufferMF(buffer,Length_trama,1);																/*imprimo la trama recibida*/
-	Debug_txt_Tibbo((unsigned char *) "\n\r");
+	Debug_txt_Tibbo((unsigned char *) "\n");
 	Debug_txt_Tibbo((unsigned char *) "longitud de la trama: ");		/*msj longitud de la trama */
 	Debug_chr_Tibbo(Length_trama);																			/*numero de caracteres recibidos*/
-	Debug_txt_Tibbo((unsigned char *) "\n\r");
+	Debug_txt_Tibbo((unsigned char *) "\n");
 	Debug_Dividir_texto();																							/*divido el texto*/
 			
 }	
