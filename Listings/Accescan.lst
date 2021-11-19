@@ -1,4 +1,4 @@
-C51 COMPILER V9.59.0.0   ACCESCAN                                                          07/28/2021 11:20:15 PAGE 1   
+C51 COMPILER V9.59.0.0   ACCESCAN                                                          11/19/2021 12:02:55 PAGE 1   
 
 
 C51 COMPILER V9.59.0.0, COMPILATION OF MODULE ACCESCAN
@@ -62,7 +62,7 @@ line level    source
   51          #define PRMR_SIN_PAGO               0XE7
   52          #define PRMR_NO_IN_PARK             0XB2
   53          #define PRMR_GRACIAS                'V'
-C51 COMPILER V9.59.0.0   ACCESCAN                                                          07/28/2021 11:20:15 PAGE 2   
+C51 COMPILER V9.59.0.0   ACCESCAN                                                          11/19/2021 12:02:55 PAGE 2   
 
   54          #define PRMR_ERROR_LOOP             06          //0XE0
   55          #define PRMR_EXPIRO                 0XB4
@@ -126,7 +126,7 @@ line level    source
  113           Expira_dia
  114           
  115          };
-C51 COMPILER V9.59.0.0   ACCESCAN                                                          07/28/2021 11:20:15 PAGE 3   
+C51 COMPILER V9.59.0.0   ACCESCAN                                                          11/19/2021 12:02:55 PAGE 3   
 
  116          
  117          //unsigned char S1_B2[]={0x13, 0x03, 0x1D, 0x0B, 0x0E, 00, 00, 00, 00, 00, 0x01, 0x13, 0x03, 0x1D, 0x0E, 0
@@ -190,7 +190,7 @@ line level    source
  170   3              Debug_txt_Tibbo((unsigned char *) "\r\n");
  171   3            }
  172   2            
-C51 COMPILER V9.59.0.0   ACCESCAN                                                          07/28/2021 11:20:15 PAGE 4   
+C51 COMPILER V9.59.0.0   ACCESCAN                                                          11/19/2021 12:02:55 PAGE 4   
 
  173   2          }
  174   1          /*-------------------------------CMD B6 fuera de linea -------------------------------------------------
@@ -254,7 +254,7 @@ line level    source
  223   1          {
  224   2               PantallaLCD(DIREJASE_A_CAJA);
  225   2          }
-C51 COMPILER V9.59.0.0   ACCESCAN                                                          07/28/2021 11:20:15 PAGE 5   
+C51 COMPILER V9.59.0.0   ACCESCAN                                                          11/19/2021 12:02:55 PAGE 5   
 
  226   1          
  227   1            /*-------------------------------CMD 06  error de loop    ---------------------------------------------
@@ -318,7 +318,7 @@ line level    source
  270   1          /*-------------------------------CMD de wiegand---------------------------------------------------*/
  271   1          else if ((length_trama==6)&&(*buffer==STX)&&(*(buffer+1)=='W')&&*(buffer+(length_trama-1))==ETX)                
              -    /* cmd q comunica con monitor por wiegand*/
-C51 COMPILER V9.59.0.0   ACCESCAN                                                          07/28/2021 11:20:15 PAGE 6   
+C51 COMPILER V9.59.0.0   ACCESCAN                                                          11/19/2021 12:02:55 PAGE 6   
 
  272   1          {
  273   2              /*-------------------------------se covierte el numero serie de la tarjeta----------------------------
@@ -382,7 +382,7 @@ line level    source
  322   1        unsigned char j, NumDatos,time_out,MaxChrRx;
  323   1        unsigned int contador;
  324   1        
-C51 COMPILER V9.59.0.0   ACCESCAN                                                          07/28/2021 11:20:15 PAGE 7   
+C51 COMPILER V9.59.0.0   ACCESCAN                                                          11/19/2021 12:02:55 PAGE 7   
 
  325   1          NumDatos=0;
  326   1          MaxChrRx=11;
@@ -446,7 +446,7 @@ line level    source
  383            /*    
  384              }
  385              else if (*(buffer+1)=='[')
-C51 COMPILER V9.59.0.0   ACCESCAN                                                          07/28/2021 11:20:15 PAGE 8   
+C51 COMPILER V9.59.0.0   ACCESCAN                                                          11/19/2021 12:02:55 PAGE 8   
 
  386              {
  387                /*cancel*/
@@ -510,7 +510,7 @@ line level    source
  445   2            }
  446   1            Buffer_Lpr[j++]=':';                                /*separador del tab  o tarjeta MF*/
  447   1                        
-C51 COMPILER V9.59.0.0   ACCESCAN                                                          07/28/2021 11:20:15 PAGE 9   
+C51 COMPILER V9.59.0.0   ACCESCAN                                                          11/19/2021 12:02:55 PAGE 9   
 
  448   1            Block_read_clock_ascii(Buffer_Lpr+j);               /*año,mes,dia,hora,minutos,*/
  449   1            Buffer_Lpr[j+10]=':';                               /*separador fecha*/
@@ -574,7 +574,7 @@ line level    source
  506   1          Buffer_Lpr[j]=':';                            /*separador de la fecha de entrada*/
  507   1          
  508   1        /*fecha de entrada*/
-C51 COMPILER V9.59.0.0   ACCESCAN                                                          07/28/2021 11:20:15 PAGE 10  
+C51 COMPILER V9.59.0.0   ACCESCAN                                                          11/19/2021 12:02:55 PAGE 10  
 
  509   1          
  510   1          Block_read_clock_ascii(Buffer_Lpr+j+1);     //leo la fecha de entrada

@@ -1,4 +1,4 @@
-C51 COMPILER V9.59.0.0   VERIFICADOR                                                       07/28/2021 11:20:17 PAGE 1   
+C51 COMPILER V9.59.0.0   VERIFICADOR                                                       11/19/2021 12:02:57 PAGE 1   
 
 
 C51 COMPILER V9.59.0.0, COMPILATION OF MODULE VERIFICADOR
@@ -62,7 +62,7 @@ line level    source
   50          extern void Unique_Identifier_UID(void);
   51          extern void Power_off(void);
   52          extern void  send_port(unsigned char *buffer_port, unsigned char length_char);
-C51 COMPILER V9.59.0.0   VERIFICADOR                                                       07/28/2021 11:20:17 PAGE 2   
+C51 COMPILER V9.59.0.0   VERIFICADOR                                                       11/19/2021 12:02:57 PAGE 2   
 
   53          extern unsigned char bcd_hex (unsigned char l_data);
   54          
@@ -126,7 +126,7 @@ line level    source
  112          #define SEQ_ROTACION      0X15
  113          #define SEQ_MENSUAL       0X16
  114          #define SEQ_LOAD_PASSWORD 0X17
-C51 COMPILER V9.59.0.0   VERIFICADOR                                                       07/28/2021 11:20:17 PAGE 3   
+C51 COMPILER V9.59.0.0   VERIFICADOR                                                       11/19/2021 12:02:57 PAGE 3   
 
  115          #define SEQ_UID           0X18
  116          #define SEQ_UID_RPTA        0x19
@@ -190,7 +190,7 @@ line level    source
  174          /*------------------------------------------------------------------------------
  175          Definicion de la trama Lintech de las respuestas de los cmd
  176          ------------------------------------------------------------------------------*/
-C51 COMPILER V9.59.0.0   VERIFICADOR                                                       07/28/2021 11:20:17 PAGE 4   
+C51 COMPILER V9.59.0.0   VERIFICADOR                                                       11/19/2021 12:02:57 PAGE 4   
 
  177          
  178          #define Pos_TipoResp        4
@@ -254,7 +254,7 @@ line level    source
  236          #define AUDIO_GRACIAS     0XA2
  237          /*----------------------------------------------------------------------------
  238          definiciones para, el debuger. saber si la trama es enviada, o la trama es de respuesta
-C51 COMPILER V9.59.0.0   VERIFICADOR                                                       07/28/2021 11:20:17 PAGE 5   
+C51 COMPILER V9.59.0.0   VERIFICADOR                                                       11/19/2021 12:02:57 PAGE 5   
 
  239          ------------------------------------------------------------------------------*/
  240          
@@ -318,7 +318,7 @@ line level    source
  295          #define   MF_FECHA_OUT      0X0B        /*año,mes,dia,hora,minutos*/
  296          
  297          #define   MF_MENSUAL_ANO      0X05
-C51 COMPILER V9.59.0.0   VERIFICADOR                                                       07/28/2021 11:20:17 PAGE 6   
+C51 COMPILER V9.59.0.0   VERIFICADOR                                                       11/19/2021 12:02:57 PAGE 6   
 
  298          #define   MF_MENSUAL_MES      0X06
  299          #define   MF_MENSUAL_DIA      0X07
@@ -382,7 +382,7 @@ line level    source
  355           Expira_mes,
  356           Expira_dia
  357           
-C51 COMPILER V9.59.0.0   VERIFICADOR                                                       07/28/2021 11:20:17 PAGE 7   
+C51 COMPILER V9.59.0.0   VERIFICADOR                                                       11/19/2021 12:02:57 PAGE 7   
 
  358          };
  359          /*tipos de APB antipassback*/
@@ -446,7 +446,7 @@ line level    source
  417   4                }
  418   3                else if (Buffer_Rta_Lintech[Pos_TipoResp]=='N')
  419   3                {
-C51 COMPILER V9.59.0.0   VERIFICADOR                                                       07/28/2021 11:20:17 PAGE 8   
+C51 COMPILER V9.59.0.0   VERIFICADOR                                                       11/19/2021 12:02:57 PAGE 8   
 
  420   4                  
  421   4                  Trama_Validacion_P_N=3;                                                 /*error de trama*/
@@ -510,7 +510,7 @@ line level    source
  477   3                Delay_10ms(110);
  478   3                error_rx=0;
  479   3                cont_error_rx=0;
-C51 COMPILER V9.59.0.0   VERIFICADOR                                                       07/28/2021 11:20:17 PAGE 9   
+C51 COMPILER V9.59.0.0   VERIFICADOR                                                       11/19/2021 12:02:57 PAGE 9   
 
  480   3                error_rx_pto=0;
  481   3                Atascado=0; 
@@ -574,7 +574,7 @@ line level    source
  537   2            (0) LA RESPUESTA ES OK
  538   2            (1) NO RESPONDE EL PTO SERIE
  539   2            (2) NO RECIBIDO LA TRAMA 
-C51 COMPILER V9.59.0.0   VERIFICADOR                                                       07/28/2021 11:20:17 PAGE 10  
+C51 COMPILER V9.59.0.0   VERIFICADOR                                                       11/19/2021 12:02:57 PAGE 10  
 
  540   2            (3) ERROR DE TRAMA CMD (N)
  541   2      ------------------------------------------------------------------------------*/
@@ -638,7 +638,7 @@ line level    source
  597   2          if((temp=Trama_Validacion_P_N())!=0)
  598   2          {
  599   3            if(temp==2)
-C51 COMPILER V9.59.0.0   VERIFICADOR                                                       07/28/2021 11:20:17 PAGE 11  
+C51 COMPILER V9.59.0.0   VERIFICADOR                                                       11/19/2021 12:02:57 PAGE 11  
 
  600   3            {
  601   4            Estado=SEQ_CAPTURA_OK_EEPROM;                                                         /*no ha respondido*/
@@ -702,7 +702,7 @@ line level    source
  658   1        unsigned int addr;
  659   1        if (Horario != False )
  660   1        {
-C51 COMPILER V9.59.0.0   VERIFICADOR                                                       07/28/2021 11:20:17 PAGE 12  
+C51 COMPILER V9.59.0.0   VERIFICADOR                                                       11/19/2021 12:02:57 PAGE 12  
 
  661   2          /*se Lee la direccion del horario*/
  662   2          strcpy (Addr_horarios,(Addr_Horarios()));
@@ -766,7 +766,7 @@ line level    source
  720   1         Hora_High    = (rd_eeprom(0xa8, (addr + Hora_High_addr_Desde )) - 0x30)  << 4;
  721   1         HoraIni      = Hora_High | ((rd_eeprom(0xa8, (addr + Hora_Low_addr_Desde ))) - 0x30);
  722   1         Minuto_High  = ((rd_eeprom(0xa8, (addr + Minutos_High_addr_Desde ))) - 0x30)  << 4;
-C51 COMPILER V9.59.0.0   VERIFICADOR                                                       07/28/2021 11:20:17 PAGE 13  
+C51 COMPILER V9.59.0.0   VERIFICADOR                                                       11/19/2021 12:02:57 PAGE 13  
 
  723   1         MinutoIni    =  Minuto_High | ((rd_eeprom(0xa8, (addr +  Minutos_Low_addr_Desde ))) - 0x30);
  724   1         Debug_chr_Tibbo(HoraIni);
@@ -830,7 +830,7 @@ line level    source
  782   1        
  783   1        
  784   1        Debug_txt_Tibbo((unsigned char *) "HORA PROGRAMADA DESDE: ");
-C51 COMPILER V9.59.0.0   VERIFICADOR                                                       07/28/2021 11:20:17 PAGE 14  
+C51 COMPILER V9.59.0.0   VERIFICADOR                                                       11/19/2021 12:02:57 PAGE 14  
 
  785   1        Hora_Prog = Hora_Maxima(addr);
  786   1        Estado_Horario=En_Horario(HoraNow,Hora_Prog,addr);
@@ -894,7 +894,7 @@ line level    source
  841   3                  /*fecha de vencimiento de mensual o prepago*/
  842   3                  *(Atributos_Expedidor + Expira_ano) = buffer_S_B [MF_EXPIRA_ANO];
  843   3                  *(Atributos_Expedidor + Expira_mes) = buffer_S_B [MF_EXPIRA_MES];
-C51 COMPILER V9.59.0.0   VERIFICADOR                                                       07/28/2021 11:20:17 PAGE 15  
+C51 COMPILER V9.59.0.0   VERIFICADOR                                                       11/19/2021 12:02:57 PAGE 15  
 
  844   3                  *(Atributos_Expedidor + Expira_dia) = buffer_S_B [MF_EXPIRA_DIA];
  845   3                  falla=0;                                                                  
@@ -958,7 +958,7 @@ line level    source
  898   2            *(Atributos_Expedidor + fecha_Int_Dia) =    buffer_S_B [MF_FECHA_INT+2] ;
  899   2            *(Atributos_Expedidor + fecha_Int_Hora)=    buffer_S_B [MF_FECHA_INT+3] ;
  900   2            *(Atributos_Expedidor + fecha_Int_Min) =    buffer_S_B [MF_FECHA_INT+4] ;
-C51 COMPILER V9.59.0.0   VERIFICADOR                                                       07/28/2021 11:20:17 PAGE 16  
+C51 COMPILER V9.59.0.0   VERIFICADOR                                                       11/19/2021 12:02:57 PAGE 16  
 
  901   2            /*horario*/
  902   2            Debug_txt_Tibbo((unsigned char *) "HORARIO:");
@@ -1022,1444 +1022,1445 @@ line level    source
  959   4                  Estado_expedidor = SEQ_MENSUAL;
  960   4                }
  961   3              }
-C51 COMPILER V9.59.0.0   VERIFICADOR                                                       07/28/2021 11:20:17 PAGE 17  
+C51 COMPILER V9.59.0.0   VERIFICADOR                                                       11/19/2021 12:02:57 PAGE 17  
 
- 962   2              else
+ 962   2              else if(*(Atributos_Expedidor + Tipo_Tarjeta)== TARJETA_PERDIDA)  
  963   2              {
  964   3                Debug_txt_Tibbo((unsigned char *) "TIPO NUEVO DE TARJETA SIN DEFINIR\r\n");
  965   3                send_portERR(PRMR_NO_ROTACION);
- 966   3                Estado_expedidor=SEQ_EXPULSAR_TARJ;
- 967   3                
- 968   3              }
- 969   2             
- 970   2          }
- 971   1        else
- 972   1           {
- 973   2             g_cEstadoComSeqMF=SEQ_RD_S1B2;
- 974   2           }
- 975   1           
- 976   1           return Estado_expedidor;
- 977   1        
- 978   1      }
- 979          unsigned char Responde_Lectura_Tarjeta_Sector1_Bloque0 (unsigned char *Atributos_Expedidor)
- 980          {
- 981   1        unsigned char temp;
- 982   1        unsigned char Estado_expedidor;
- 983   1        static unsigned char buffer_S1_B0[17];
- 984   1        if (Buffer_Rta_Lintech[Pos_Length] >=0x18)
- 985   1           {
- 986   2        Debug_txt_Tibbo((unsigned char *) "SEQ_RD_S1B0 OK\r\n");                              /* trama OK CARGA numero de ticket
+ 966   3                Estado_expedidor=SEQ_ROTACION;
+ 967   3                //Estado_expedidor=SEQ_EXPULSAR_TARJ;
+ 968   3                
+ 969   3              }
+ 970   2             
+ 971   2          }
+ 972   1        else
+ 973   1           {
+ 974   2             g_cEstadoComSeqMF=SEQ_RD_S1B2;
+ 975   2           }
+ 976   1           
+ 977   1           return Estado_expedidor;
+ 978   1        
+ 979   1      }
+ 980          unsigned char Responde_Lectura_Tarjeta_Sector1_Bloque0 (unsigned char *Atributos_Expedidor)
+ 981          {
+ 982   1        unsigned char temp;
+ 983   1        unsigned char Estado_expedidor;
+ 984   1        static unsigned char buffer_S1_B0[17];
+ 985   1        if (Buffer_Rta_Lintech[Pos_Length] >=0x18)
+ 986   1           {
+ 987   2        Debug_txt_Tibbo((unsigned char *) "SEQ_RD_S1B0 OK\r\n");                              /* trama OK CARGA numero de ticket
              -*/
- 987   2                                          
- 988   2            
- 989   2        for (temp=0; temp<16; temp++)
- 990   2            {
- 991   3              
- 992   3              buffer_S1_B0[temp]=Buffer_Rta_Lintech[Pos_IniDatMF+temp];                                 /*almaceno la informacion de
+ 988   2                                          
+ 989   2            
+ 990   2        for (temp=0; temp<16; temp++)
+ 991   2            {
+ 992   3              
+ 993   3              buffer_S1_B0[temp]=Buffer_Rta_Lintech[Pos_IniDatMF+temp];                                 /*almaceno la informacion de
              - MF el ticket*/
- 993   3              if(Buffer_Rta_Lintech[Pos_IniDatMF+temp]==0)
- 994   3              {
- 995   4                break;
- 996   4              }
- 997   3            }
- 998   2            
- 999   2            Debug_txt_Tibbo((unsigned char *) "Numero Ticket: ");
-1000   2            Debug_txt_Tibbo(buffer_S1_B0);
-1001   2            Debug_txt_Tibbo((unsigned char *) "\r\n");
-1002   2            
-1003   2          
-1004   2            /*transmito pto paralelo*/  
-1005   2            if (*(Atributos_Expedidor + Tipo_Tarjeta)!= MENSUALIDAD)  
-1006   2            {
-1007   3            Timer_wait=0;                                                                               /*activo la barrera*/
-1008   3            Trama_pto_Paralelo_new(buffer_S1_B0,buffer_S_B,'s');
-1009   3            }
-1010   2            else
-1011   2            {
-1012   3            
-1013   3            Armar_Trama_Pto_Paralelo_Expedidor_Mensual(Atributos_Expedidor);
-1014   3            }
-1015   2            if(USE_LPR)
-1016   2            {
-1017   3              
-1018   3              /*envio datos a Monitor*/
-1019   3              if (*(Atributos_Expedidor + Tipo_Tarjeta)!= MENSUALIDAD)  
-1020   3              {
-1021   4              
-C51 COMPILER V9.59.0.0   VERIFICADOR                                                       07/28/2021 11:20:17 PAGE 18  
+ 994   3              if(Buffer_Rta_Lintech[Pos_IniDatMF+temp]==0)
+ 995   3              {
+ 996   4                break;
+ 997   4              }
+ 998   3            }
+ 999   2            
+1000   2            Debug_txt_Tibbo((unsigned char *) "Numero Ticket: ");
+1001   2            Debug_txt_Tibbo(buffer_S1_B0);
+1002   2            Debug_txt_Tibbo((unsigned char *) "\r\n");
+1003   2            
+1004   2          
+1005   2            /*transmito pto paralelo*/  
+1006   2            if (*(Atributos_Expedidor + Tipo_Tarjeta)!= MENSUALIDAD)  
+1007   2            {
+1008   3            Timer_wait=0;                                                                               /*activo la barrera*/
+1009   3            Trama_pto_Paralelo_new(buffer_S1_B0,buffer_S_B,'s');
+1010   3            }
+1011   2            else
+1012   2            {
+1013   3            
+1014   3            Armar_Trama_Pto_Paralelo_Expedidor_Mensual(Atributos_Expedidor);
+1015   3            }
+1016   2            if(USE_LPR)
+1017   2            {
+1018   3              
+1019   3              /*envio datos a Monitor*/
+1020   3              if (*(Atributos_Expedidor + Tipo_Tarjeta)!= MENSUALIDAD)  
+1021   3              {
+C51 COMPILER V9.59.0.0   VERIFICADOR                                                       11/19/2021 12:02:57 PAGE 18  
 
-1022   4              Cmd_LPR_Salida(Atributos_Expedidor,buffer_S1_B0); 
-1023   4              }
-1024   3              else
-1025   3              {
-1026   4              Cmd_LPR_Salida(Atributos_Expedidor,buffer_S1_B0); 
-1027   4              }
-1028   3            }
-1029   2            
+1022   4              
+1023   4              Cmd_LPR_Salida(Atributos_Expedidor,buffer_S1_B0); 
+1024   4              }
+1025   3              else
+1026   3              {
+1027   4              Cmd_LPR_Salida(Atributos_Expedidor,buffer_S1_B0); 
+1028   4              }
+1029   3            }
 1030   2            
 1031   2            
-1032   2            Estado_expedidor=SEQ_WR_S1B2;
-1033   2            
-1034   2          }else
-1035   1           {
-1036   2            Estado_expedidor= SEQ_RD_S1B0;
-1037   2           }
-1038   1           return Estado_expedidor;
-1039   1      }
-1040          
-1041          void Armar_Trama_Pto_Paralelo_Expedidor_Mensual(unsigned char *Atributos_Expedidor)
-1042          {
-1043   1        static unsigned char buffer[28];
-1044   1        //unsigned char j;
-1045   1        /*la trama esta compuesta de
-1046   1        STX,CMD,-,NoTICKET,-,FECHAINT,-,placa,ETX*/
-1047   1      
-1048   1        buffer[0]=STX;
-1049   1        buffer[1]=CMD_PTO_PARALELO_EXPEDIDOR_MENSUAL;
-1050   1        buffer[2]=*(Atributos_Expedidor + Uid_0);
-1051   1        buffer[3]=*(Atributos_Expedidor + Uid_1);
-1052   1        buffer[4]=*(Atributos_Expedidor + Uid_2);
-1053   1        buffer[5]=*(Atributos_Expedidor + Uid_3);
-1054   1        
-1055   1        //leo la fecha de entrada
-1056   1        //Block_read_Clock_Hex(buffer+6);         
-1057   1        
-1058   1        buffer[6]=*(Atributos_Expedidor + fecha_Int_Ano)+0x030;             /*año de entrada*/
-1059   1        buffer[7]=*(Atributos_Expedidor + fecha_Int_Mes)+0x030;         /*mes de entrada*/
-1060   1        buffer[8]=*(Atributos_Expedidor + fecha_Int_Dia)+0x030;         /*dia de entrada*/
-1061   1        buffer[9]=*(Atributos_Expedidor + fecha_Int_Hora)+0x030;          /*hora de entrada*/
-1062   1        buffer[10]=*(Atributos_Expedidor + fecha_Int_Min)+0x030;          /*minutos de entrada*/
-1063   1      
-1064   1        /*placa*/
-1065   1        if (rd_eeprom(0xa8,EE_CPRCN_ACTIVA)!=0)
-1066   1        {   
-1067   2          
-1068   2            buffer[11]= placa[0];
-1069   2            buffer[12]= placa[1];
-1070   2            buffer[13]= placa[2];
-1071   2            buffer[14]= placa[3];
-1072   2            buffer[15]= placa[4];
-1073   2            buffer[16]= placa[5];
-1074   2      
-1075   2        }
-1076   1      
-1077   1        if(*(Atributos_Expedidor + Type_Vehiculo) == AUTOMOVIL )
-1078   1        {
-1079   2          buffer[17]= 'C';
-1080   2        }
-1081   1        else
-1082   1        {
-1083   2          buffer[17]= 'M';
-C51 COMPILER V9.59.0.0   VERIFICADOR                                                       07/28/2021 11:20:17 PAGE 19  
+1032   2            
+1033   2            Estado_expedidor=SEQ_WR_S1B2;
+1034   2            
+1035   2          }else
+1036   1           {
+1037   2            Estado_expedidor= SEQ_RD_S1B0;
+1038   2           }
+1039   1           return Estado_expedidor;
+1040   1      }
+1041          
+1042          void Armar_Trama_Pto_Paralelo_Expedidor_Mensual(unsigned char *Atributos_Expedidor)
+1043          {
+1044   1        static unsigned char buffer[28];
+1045   1        //unsigned char j;
+1046   1        /*la trama esta compuesta de
+1047   1        STX,CMD,-,NoTICKET,-,FECHAINT,-,placa,ETX*/
+1048   1      
+1049   1        buffer[0]=STX;
+1050   1        buffer[1]=CMD_PTO_PARALELO_EXPEDIDOR_MENSUAL;
+1051   1        buffer[2]=*(Atributos_Expedidor + Uid_0);
+1052   1        buffer[3]=*(Atributos_Expedidor + Uid_1);
+1053   1        buffer[4]=*(Atributos_Expedidor + Uid_2);
+1054   1        buffer[5]=*(Atributos_Expedidor + Uid_3);
+1055   1        
+1056   1        //leo la fecha de entrada
+1057   1        //Block_read_Clock_Hex(buffer+6);         
+1058   1        
+1059   1        buffer[6]=*(Atributos_Expedidor + fecha_Int_Ano)+0x030;             /*año de entrada*/
+1060   1        buffer[7]=*(Atributos_Expedidor + fecha_Int_Mes)+0x030;         /*mes de entrada*/
+1061   1        buffer[8]=*(Atributos_Expedidor + fecha_Int_Dia)+0x030;         /*dia de entrada*/
+1062   1        buffer[9]=*(Atributos_Expedidor + fecha_Int_Hora)+0x030;          /*hora de entrada*/
+1063   1        buffer[10]=*(Atributos_Expedidor + fecha_Int_Min)+0x030;          /*minutos de entrada*/
+1064   1      
+1065   1        /*placa*/
+1066   1        if (rd_eeprom(0xa8,EE_CPRCN_ACTIVA)!=0)
+1067   1        {   
+1068   2          
+1069   2            buffer[11]= placa[0];
+1070   2            buffer[12]= placa[1];
+1071   2            buffer[13]= placa[2];
+1072   2            buffer[14]= placa[3];
+1073   2            buffer[15]= placa[4];
+1074   2            buffer[16]= placa[5];
+1075   2      
+1076   2        }
+1077   1      
+1078   1        if(*(Atributos_Expedidor + Type_Vehiculo) == AUTOMOVIL )
+1079   1        {
+1080   2          buffer[17]= 'C';
+1081   2        }
+1082   1        else
+1083   1        {
+C51 COMPILER V9.59.0.0   VERIFICADOR                                                       11/19/2021 12:02:57 PAGE 19  
 
-1084   2        }
-1085   1        
-1086   1        buffer[18]= ETX;
-1087   1        buffer[19]= 0;
-1088   1        ready=0;
-1089   1            while(busy==0);
-1090   1          send_port(buffer,19);                         /*trama transmitida pto paralelo*/
-1091   1          
-1092   1            Debug_Dividir_texto();                                              /*division del texto */
-1093   1            Debug_txt_Tibbo((unsigned char *) "Datos enviados pto paral=");       
-1094   1            DebugBufferMF(buffer,19,0);   
-1095   1            Debug_Dividir_texto();
-1096   1      }
-1097          unsigned char Analiza_Uid_Card(unsigned char *Atributos_Expedidor )
-1098          {
-1099   1        unsigned char Estado_expedidor;
-1100   1        unsigned char temp;
-1101   1            if (Buffer_Rta_Lintech[Pos_Length] >= 0x0f)
-1102   1            {
-1103   2              
-1104   2                for (temp=0; temp<16; ++temp)
-1105   2                {
-1106   3                  buffer_S_B[temp]=Buffer_Rta_Lintech[Pos_IniDatMF+temp];                           /*almaceno la informacion de MF
+1084   2          buffer[17]= 'M';
+1085   2        }
+1086   1        
+1087   1        buffer[18]= ETX;
+1088   1        buffer[19]= 0;
+1089   1        ready=0;
+1090   1            while(busy==0);
+1091   1          send_port(buffer,19);                         /*trama transmitida pto paralelo*/
+1092   1          
+1093   1            Debug_Dividir_texto();                                              /*division del texto */
+1094   1            Debug_txt_Tibbo((unsigned char *) "Datos enviados pto paral=");       
+1095   1            DebugBufferMF(buffer,19,0);   
+1096   1            Debug_Dividir_texto();
+1097   1      }
+1098          unsigned char Analiza_Uid_Card(unsigned char *Atributos_Expedidor )
+1099          {
+1100   1        unsigned char Estado_expedidor;
+1101   1        unsigned char temp;
+1102   1            if (Buffer_Rta_Lintech[Pos_Length] >= 0x0f)
+1103   1            {
+1104   2              
+1105   2                for (temp=0; temp<16; ++temp)
+1106   2                {
+1107   3                  buffer_S_B[temp]=Buffer_Rta_Lintech[Pos_IniDatMF+temp];                           /*almaceno la informacion de MF
              - en un arreglo*/
-1107   3                 
-1108   3                }
-1109   2                
-1110   2                Debug_txt_Tibbo((unsigned char *) "buffer_UID\r\n");
-1111   2                DebugBufferMF(buffer_S_B,16,RESPUESTA);
-1112   2                
-1113   2        
-1114   2                Debug_txt_Tibbo((unsigned char *) "UID_CARD :");  
-1115   2                Debug_chr_Tibbo((buffer_S_B [ MF_UID_0]));  
-1116   2                Debug_chr_Tibbo((buffer_S_B [ MF_UID_1]));  
-1117   2                Debug_chr_Tibbo((buffer_S_B [ MF_UID_2]));  
-1118   2                Debug_chr_Tibbo((buffer_S_B [ MF_UID_3]));
-1119   2                Debug_txt_Tibbo((unsigned char *) "\r\n");
-1120   2                
-1121   2              *(Atributos_Expedidor + Uid_0) = buffer_S_B [MF_UID_0];   
-1122   2              *(Atributos_Expedidor + Uid_1) = buffer_S_B [MF_UID_1];     
-1123   2              *(Atributos_Expedidor + Uid_2) = buffer_S_B [MF_UID_2];     
-1124   2              *(Atributos_Expedidor + Uid_3) = buffer_S_B [MF_UID_3]; 
-1125   2              Estado_expedidor=SEQ_LOAD_PASSWORD;                                                       //SEQ_TIPO_CARD;
-1126   2            }   
-1127   1            else
-1128   1            {
-1129   2              Estado_expedidor=SEQ_POWER_OFF;
-1130   2            } 
-1131   1            return Estado_expedidor;
-1132   1      }
-1133          
-1134          unsigned char Validar_Pago()
-1135          {
-1136   1        unsigned char Estado_expedidor;
-1137   1        unsigned char temp;
-1138   1          temp=check_fechaOut(buffer_S_B+MF_FECHA_OUT);                                         /*se analiza la fecha de salida*/
-1139   1              if(temp==1)
-1140   1              {
-1141   2                  Debug_txt_Tibbo((unsigned char *) "TARJETA SIN PAGO\r\n");
-1142   2                  send_portERR(0xA2);                                                             /*error audio*/ 
-1143   2                  send_portERR(0XE7);
-1144   2                  PantallaLCD(SIN_PAGO);                                                            /*envio el msj por la pantalla lcd o la raspberr
-C51 COMPILER V9.59.0.0   VERIFICADOR                                                       07/28/2021 11:20:17 PAGE 20  
+1108   3                 
+1109   3                }
+1110   2                
+1111   2                Debug_txt_Tibbo((unsigned char *) "buffer_UID\r\n");
+1112   2                DebugBufferMF(buffer_S_B,16,RESPUESTA);
+1113   2                
+1114   2        
+1115   2                Debug_txt_Tibbo((unsigned char *) "UID_CARD :");  
+1116   2                Debug_chr_Tibbo((buffer_S_B [ MF_UID_0]));  
+1117   2                Debug_chr_Tibbo((buffer_S_B [ MF_UID_1]));  
+1118   2                Debug_chr_Tibbo((buffer_S_B [ MF_UID_2]));  
+1119   2                Debug_chr_Tibbo((buffer_S_B [ MF_UID_3]));
+1120   2                Debug_txt_Tibbo((unsigned char *) "\r\n");
+1121   2                
+1122   2              *(Atributos_Expedidor + Uid_0) = buffer_S_B [MF_UID_0];   
+1123   2              *(Atributos_Expedidor + Uid_1) = buffer_S_B [MF_UID_1];     
+1124   2              *(Atributos_Expedidor + Uid_2) = buffer_S_B [MF_UID_2];     
+1125   2              *(Atributos_Expedidor + Uid_3) = buffer_S_B [MF_UID_3]; 
+1126   2              Estado_expedidor=SEQ_LOAD_PASSWORD;                                                       //SEQ_TIPO_CARD;
+1127   2            }   
+1128   1            else
+1129   1            {
+1130   2              Estado_expedidor=SEQ_POWER_OFF;
+1131   2            } 
+1132   1            return Estado_expedidor;
+1133   1      }
+1134          
+1135          unsigned char Validar_Pago()
+1136          {
+1137   1        unsigned char Estado_expedidor;
+1138   1        unsigned char temp;
+1139   1          temp=check_fechaOut(buffer_S_B+MF_FECHA_OUT);                                         /*se analiza la fecha de salida*/
+1140   1              if(temp==1)
+1141   1              {
+1142   2                  Debug_txt_Tibbo((unsigned char *) "TARJETA SIN PAGO\r\n");
+1143   2                  send_portERR(0xA2);                                                             /*error audio*/ 
+1144   2                  send_portERR(0XE7);
+C51 COMPILER V9.59.0.0   VERIFICADOR                                                       11/19/2021 12:02:57 PAGE 20  
 
+1145   2                  PantallaLCD(SIN_PAGO);                                                            /*envio el msj por la pantalla lcd o la raspberr
              -y*/
-1145   2                                                                                    /**leo el ticket*/  
-1146   2                  Estado_expedidor=SEQ_RD_S1B0_EJECT;         
-1147   2                              
-1148   2              }
-1149   1              else if (temp==2)
-1150   1              {
-1151   2                Debug_txt_Tibbo((unsigned char *) "Excede T.GRACIA\r\n\r\n");
-1152   2                send_portERR(0xA2);                                                               /*error audio*/         
-1153   2                send_portERR(0XE8);
-1154   2                PantallaLCD(EXCEDE_GRACIA);                                                       /*envio el msj por la pantalla lcd o la raspbe
+1146   2                                                                                    /**leo el ticket*/  
+1147   2                  Estado_expedidor=SEQ_RD_S1B0_EJECT;         
+1148   2                              
+1149   2              }
+1150   1              else if (temp==2)
+1151   1              {
+1152   2                Debug_txt_Tibbo((unsigned char *) "Excede T.GRACIA\r\n\r\n");
+1153   2                send_portERR(0xA2);                                                               /*error audio*/         
+1154   2                send_portERR(0XE8);
+1155   2                PantallaLCD(EXCEDE_GRACIA);                                                       /*envio el msj por la pantalla lcd o la raspbe
              -rry*/
-1155   2                Estado_expedidor=SEQ_EXPULSAR_TARJ; 
-1156   2              }
-1157   1              else
-1158   1              {
-1159   2                Debug_txt_Tibbo((unsigned char *) "Salida Autorizada\r\n");
-1160   2                                                                                                  /* Leo el ticket */
-1161   2                Estado_expedidor=SEQ_RD_S1B0; 
-1162   2              }
-1163   1          return  Estado_expedidor;
-1164   1      } 
-1165          unsigned char Valida_Mismo_Dia(unsigned char *Atributos_Expedidor)
-1166          {
-1167   1        unsigned char day;
-1168   1        unsigned char month;
-1169   1        unsigned char year;
-1170   1        unsigned char Valida_Mismo_Dia;
-1171   1        /*miramos si sale el mismo dia*/
-1172   1        Valida_Mismo_Dia = False;
-1173   1        year  = bcd_hex(lee_clk(RANO));
-1174   1        month = bcd_hex( lee_clk(RMES));
-1175   1        day = bcd_hex(lee_clk(RDIA));
-1176   1        
-1177   1          if (((year == *(Atributos_Expedidor + fecha_Int_Ano)) && (month == *(Atributos_Expedidor + fecha_Int_Mes
+1156   2                Estado_expedidor=SEQ_EXPULSAR_TARJ; 
+1157   2              }
+1158   1              else
+1159   1              {
+1160   2                Debug_txt_Tibbo((unsigned char *) "Salida Autorizada\r\n");
+1161   2                                                                                                  /* Leo el ticket */
+1162   2                Estado_expedidor=SEQ_RD_S1B0; 
+1163   2              }
+1164   1          return  Estado_expedidor;
+1165   1      } 
+1166          unsigned char Valida_Mismo_Dia(unsigned char *Atributos_Expedidor)
+1167          {
+1168   1        unsigned char day;
+1169   1        unsigned char month;
+1170   1        unsigned char year;
+1171   1        unsigned char Valida_Mismo_Dia;
+1172   1        /*miramos si sale el mismo dia*/
+1173   1        Valida_Mismo_Dia = False;
+1174   1        year  = bcd_hex(lee_clk(RANO));
+1175   1        month = bcd_hex( lee_clk(RMES));
+1176   1        day = bcd_hex(lee_clk(RDIA));
+1177   1        
+1178   1          if (((year == *(Atributos_Expedidor + fecha_Int_Ano)) && (month == *(Atributos_Expedidor + fecha_Int_Mes
              -)) && (day == *(Atributos_Expedidor + fecha_Int_Dia))))
-1178   1          {
-1179   2            Valida_Mismo_Dia = True;
-1180   2          }
-1181   1        
-1182   1            return Valida_Mismo_Dia ;
-1183   1      }
-1184          void SecuenciaExpedidor(void)
-1185          {
-1186   1        unsigned char temp;
-1187   1        unsigned int tiempo;
-1188   1        unsigned char Estado_Tiempo[4];
-1189   1        static unsigned char Atributos_Expedidor[18];
-1190   1        static unsigned char buffer_S1_B0[17];
-1191   1        unsigned char clock_temp[6];
-1192   1        static unsigned char contador=0;
-1193   1        unsigned char *atributos;
-1194   1        switch (g_cEstadoComSeqMF)
-1195   1        {
-1196   2      //***********************************************************************************************
-1197   2          
-1198   2          case SEQ_INICIO:
-1199   2      
-1200   2            if (ValTimeOutCom==1)
-1201   2            {
-1202   3              
-1203   3              Atascado=0;                                                                       /*activo el rele de reset del verificador*/   
-C51 COMPILER V9.59.0.0   VERIFICADOR                                                       07/28/2021 11:20:17 PAGE 21  
+1179   1          {
+1180   2            Valida_Mismo_Dia = True;
+1181   2          }
+1182   1        
+1183   1            return Valida_Mismo_Dia ;
+1184   1      }
+1185          void SecuenciaExpedidor(void)
+1186          {
+1187   1        unsigned char temp;
+1188   1        unsigned int tiempo;
+1189   1        unsigned char Estado_Tiempo[4];
+1190   1        static unsigned char Atributos_Expedidor[18];
+1191   1        static unsigned char buffer_S1_B0[17];
+1192   1        unsigned char clock_temp[6];
+1193   1        static unsigned char contador=0;
+1194   1        unsigned char *atributos;
+1195   1        switch (g_cEstadoComSeqMF)
+1196   1        {
+1197   2      //***********************************************************************************************
+1198   2          
+1199   2          case SEQ_INICIO:
+1200   2      
+1201   2            if (ValTimeOutCom==1)
+1202   2            {
+1203   3              
+C51 COMPILER V9.59.0.0   VERIFICADOR                                                       11/19/2021 12:02:57 PAGE 21  
 
-1204   3              Card_Insercion(Habilita);                                                         /* se envia el cmd de inicio insercion por boca*
+1204   3              Atascado=0;                                                                       /*activo el rele de reset del verificador*/   
+1205   3              Card_Insercion(Habilita);                                                         /* se envia el cmd de inicio insercion por boca*
              -/
-1205   3              g_cEstadoComSeqMF=SEQ_CARD_INSERCION;                                             // entra a validar la respuesta del transp
+1206   3              g_cEstadoComSeqMF=SEQ_CARD_INSERCION;                                             // entra a validar la respuesta del transp
              -orte
-1206   3              
-1207   3            }
-1208   2       
-1209   2          break;
-1210   2      
-1211   2      /*------------------------------------------------------------------------------
-1212   2      Analizo la trama de insercion por boca
-1213   2            (0) LA RESPUESTA ES OK
-1214   2            (1) NO RESPONDE EL PTO SERIE
-1215   2            (2) NO RECIBIDO LA TRAMA 
-1216   2            (3) ERROR DE TRAMA CMD (N)
-1217   2      ------------------------------------------------------------------------------*/      
-1218   2          
-1219   2          case SEQ_CARD_INSERCION:  
-1220   2            
-1221   2          if((temp=Trama_Validacion_P_N())!=0)
-1222   2          {
-1223   3            if(temp==2)
-1224   3            {
-1225   4            g_cEstadoComSeqMF=SEQ_CARD_INSERCION;                                                 /*no ha respondido*/
-1226   4            } 
-1227   3            else if (temp==3)
-1228   3            {
-1229   4            Debug_txt_Tibbo((unsigned char *) "CARD_INSERCION ERROR\r\n\r\n");                    /* trama no valida respuest
+1207   3              
+1208   3            }
+1209   2       
+1210   2          break;
+1211   2      
+1212   2      /*------------------------------------------------------------------------------
+1213   2      Analizo la trama de insercion por boca
+1214   2            (0) LA RESPUESTA ES OK
+1215   2            (1) NO RESPONDE EL PTO SERIE
+1216   2            (2) NO RECIBIDO LA TRAMA 
+1217   2            (3) ERROR DE TRAMA CMD (N)
+1218   2      ------------------------------------------------------------------------------*/      
+1219   2          
+1220   2          case SEQ_CARD_INSERCION:  
+1221   2            
+1222   2          if((temp=Trama_Validacion_P_N())!=0)
+1223   2          {
+1224   3            if(temp==2)
+1225   3            {
+1226   4            g_cEstadoComSeqMF=SEQ_CARD_INSERCION;                                                 /*no ha respondido*/
+1227   4            } 
+1228   3            else if (temp==3)
+1229   3            {
+1230   4            Debug_txt_Tibbo((unsigned char *) "CARD_INSERCION ERROR\r\n\r\n");                    /* trama no valida respuest
              -a incorrecta falla en la escritura */
-1230   4            DebugBufferMF(Buffer_Rta_Lintech,g_cContByteRx,RESPUESTA);                            /*imprimo la trama recibida*/ 
-1231   4            g_cEstadoComSeqMF=SEQ_INICIO;                                                         /* (3) Trama invalida cmd (N)*/ 
-1232   4            }     
-1233   3            else
-1234   3            {
-1235   4              /*Dispensador No Responde PTO SERIE ...*/
-1236   4          
-1237   4              if(temp=error_rx_pto()==0)
-1238   4              {
-1239   5                g_cEstadoComSeqMF=SEQ_CARD_INSERCION;
-1240   5              }
-1241   4              else if(temp=error_rx_pto()==1)
-1242   4              {
-1243   5                g_cEstadoComSeqMF=SEQ_INICIO;
-1244   5              }
-1245   4                                  
-1246   4            }       
-1247   3          }
-1248   2          else
-1249   2          {
-1250   3            Debug_txt_Tibbo((unsigned char *) "CARD_INSERCION OK\r\n\r\n");                       /* trama valida Habilitado *
+1231   4            DebugBufferMF(Buffer_Rta_Lintech,g_cContByteRx,RESPUESTA);                            /*imprimo la trama recibida*/ 
+1232   4            g_cEstadoComSeqMF=SEQ_INICIO;                                                         /* (3) Trama invalida cmd (N)*/ 
+1233   4            }     
+1234   3            else
+1235   3            {
+1236   4              /*Dispensador No Responde PTO SERIE ...*/
+1237   4          
+1238   4              if(temp=error_rx_pto()==0)
+1239   4              {
+1240   5                g_cEstadoComSeqMF=SEQ_CARD_INSERCION;
+1241   5              }
+1242   4              else if(temp=error_rx_pto()==1)
+1243   4              {
+1244   5                g_cEstadoComSeqMF=SEQ_INICIO;
+1245   5              }
+1246   4                                  
+1247   4            }       
+1248   3          }
+1249   2          else
+1250   2          {
+1251   3            Debug_txt_Tibbo((unsigned char *) "CARD_INSERCION OK\r\n\r\n");                       /* trama valida Habilitado *
              -/
-1251   3            DebugBufferMF(Buffer_Rta_Lintech,g_cContByteRx,RESPUESTA);                            /*imprimo la trama recibida*/
-1252   3            g_cEstadoComSeqMF=SEQ_CHECK_STATUS;                                                   /*respuesta ok*/
-1253   3          }     
-1254   2            
-1255   2          break;
-1256   2            
-1257   2      /*------------------------------------------------------------------------------
-1258   2      chequeo el estado de los sensores 
-1259   2      ------------------------------------------------------------------------------*/      
-1260   2          
-1261   2          case SEQ_CHECK_STATUS:  
-C51 COMPILER V9.59.0.0   VERIFICADOR                                                       07/28/2021 11:20:17 PAGE 22  
+1252   3            DebugBufferMF(Buffer_Rta_Lintech,g_cContByteRx,RESPUESTA);                            /*imprimo la trama recibida*/
+1253   3            g_cEstadoComSeqMF=SEQ_CHECK_STATUS;                                                   /*respuesta ok*/
+1254   3          }     
+1255   2            
+1256   2          break;
+1257   2            
+1258   2      /*------------------------------------------------------------------------------
+1259   2      chequeo el estado de los sensores 
+1260   2      ------------------------------------------------------------------------------*/      
+1261   2          
+C51 COMPILER V9.59.0.0   VERIFICADOR                                                       11/19/2021 12:02:57 PAGE 22  
 
-1262   2                if (ValTimeOutCom==1)
-1263   2            {       
-1264   3              Check_Status(S_NORMAL);                                                               /* envio el cmd de pregunta en q estado estan l
+1262   2          case SEQ_CHECK_STATUS:  
+1263   2                if (ValTimeOutCom==1)
+1264   2            {       
+1265   3              Check_Status(S_NORMAL);                                                               /* envio el cmd de pregunta en q estado estan l
              -os sensores*/
-1265   3              g_cEstadoComSeqMF=SEQ_RTA_CARD_POS;                                                   // entra a validar la respuesta del trans
+1266   3              g_cEstadoComSeqMF=SEQ_RTA_CARD_POS;                                                   // entra a validar la respuesta del trans
              -porte
-1266   3            }
-1267   2            break;      
-1268   2              
-1269   2      /*------------------------------------------------------------------------------
-1270   2      Valido la informacion de los sensores
-1271   2            (0) LA RESPUESTA ES OK
-1272   2            (1) NO RESPONDE EL PTO SERIE
-1273   2            (2) NO RECIBIDO LA TRAMA 
-1274   2            (3) ERROR DE TRAMA CMD (N)
-1275   2      ------------------------------------------------------------------------------*/    
-1276   2      
-1277   2          case SEQ_RTA_CARD_POS:
-1278   2            
-1279   2          if((temp=Trama_Validacion_P_N())!=0)
-1280   2          {
-1281   3            if(temp==2)
-1282   3            {
-1283   4            g_cEstadoComSeqMF=SEQ_RTA_CARD_POS;                                                       /*no ha respondido*/
-1284   4            } 
-1285   3            else if (temp==3)
-1286   3            {
-1287   4            Debug_txt_Tibbo((unsigned char *) "SEQ_CARD_INSERCION  FALLO\r\n");                     /* trama no valida*/
-1288   4            DebugBufferMF(Buffer_Rta_Lintech,g_cContByteRx,1);                                          /*imprimo la trama recibida*/
-1289   4            g_cEstadoComSeqMF=SEQ_CHECK_STATUS;                                                         /* (3) Trama invalida cmd (N)*/ 
-1290   4            }     
-1291   3            else
-1292   3            {
-1293   4              
-1294   4              /*Dispensador No Responde PTO SERIE ...*/
-1295   4          
-1296   4              if(temp=error_rx_pto()==0)
-1297   4              {
-1298   5                g_cEstadoComSeqMF=SEQ_RTA_CARD_POS;
-1299   5              }
-1300   4              else if(temp=error_rx_pto()==1)
-1301   4              {
-1302   5                g_cEstadoComSeqMF=SEQ_CHECK_STATUS;
-1303   5              }
-1304   4            
-1305   4            }
-1306   3          }
-1307   2          else
-1308   2          {
-1309   3            Debug_txt_Tibbo((unsigned char *) "CHECK STATUS OK\r\n");                                 /* trama valida Habilitado */
-1310   3            DebugBufferMF(Buffer_Rta_Lintech,g_cContByteRx,RESPUESTA);                                    /*imprimo la trama recibida
+1267   3            }
+1268   2            break;      
+1269   2              
+1270   2      /*------------------------------------------------------------------------------
+1271   2      Valido la informacion de los sensores
+1272   2            (0) LA RESPUESTA ES OK
+1273   2            (1) NO RESPONDE EL PTO SERIE
+1274   2            (2) NO RECIBIDO LA TRAMA 
+1275   2            (3) ERROR DE TRAMA CMD (N)
+1276   2      ------------------------------------------------------------------------------*/    
+1277   2      
+1278   2          case SEQ_RTA_CARD_POS:
+1279   2            
+1280   2          if((temp=Trama_Validacion_P_N())!=0)
+1281   2          {
+1282   3            if(temp==2)
+1283   3            {
+1284   4            g_cEstadoComSeqMF=SEQ_RTA_CARD_POS;                                                       /*no ha respondido*/
+1285   4            } 
+1286   3            else if (temp==3)
+1287   3            {
+1288   4            Debug_txt_Tibbo((unsigned char *) "SEQ_CARD_INSERCION  FALLO\r\n");                     /* trama no valida*/
+1289   4            DebugBufferMF(Buffer_Rta_Lintech,g_cContByteRx,1);                                          /*imprimo la trama recibida*/
+1290   4            g_cEstadoComSeqMF=SEQ_CHECK_STATUS;                                                         /* (3) Trama invalida cmd (N)*/ 
+1291   4            }     
+1292   3            else
+1293   3            {
+1294   4              
+1295   4              /*Dispensador No Responde PTO SERIE ...*/
+1296   4          
+1297   4              if(temp=error_rx_pto()==0)
+1298   4              {
+1299   5                g_cEstadoComSeqMF=SEQ_RTA_CARD_POS;
+1300   5              }
+1301   4              else if(temp=error_rx_pto()==1)
+1302   4              {
+1303   5                g_cEstadoComSeqMF=SEQ_CHECK_STATUS;
+1304   5              }
+1305   4            
+1306   4            }
+1307   3          }
+1308   2          else
+1309   2          {
+1310   3            Debug_txt_Tibbo((unsigned char *) "CHECK STATUS OK\r\n");                                 /* trama valida Habilitado */
+1311   3            DebugBufferMF(Buffer_Rta_Lintech,g_cContByteRx,RESPUESTA);                                    /*imprimo la trama recibida
              -*/
-1311   3              if (Buffer_Rta_Lintech[Pos_St0]=='0')                                                       /* CANAL LIBRE    no tiene tarjetas en
+1312   3              if (Buffer_Rta_Lintech[Pos_St0]=='0')                                                       /* CANAL LIBRE    no tiene tarjetas en
              - el mecanismo*/
-1312   3                  {
-1313   4                    
-1314   4                    Debug_txt_Tibbo((unsigned char *) "No tiene tarjetas en el mecanismo\r\n");       /* trama valida Habi
+1313   3                  {
+1314   4                    
+1315   4                    Debug_txt_Tibbo((unsigned char *) "No tiene tarjetas en el mecanismo\r\n");       /* trama valida Habi
              -litado insercion por boca*/
-1315   4                    ValTimeOutCom=TIME_CARD;
-1316   4                    g_cEstadoComSeqMF=SEQ_CHECK_STATUS;                                                   /*volvemos a preguntar  */          
-1317   4                    if (ValidaSensoresPaso()!=0)                                                        /*pregunto q alla presencia vehicular*/
-1318   4                    {
-C51 COMPILER V9.59.0.0   VERIFICADOR                                                       07/28/2021 11:20:17 PAGE 23  
+1316   4                    ValTimeOutCom=TIME_CARD;
+1317   4                    g_cEstadoComSeqMF=SEQ_CHECK_STATUS;                                                   /*volvemos a preguntar  */          
+1318   4                    if (ValidaSensoresPaso()!=0)                                                        /*pregunto q alla presencia vehicular*/
+C51 COMPILER V9.59.0.0   VERIFICADOR                                                       11/19/2021 12:02:57 PAGE 23  
 
-1319   5                      if(contador==0)                                                                   /*contador si es cero envia el msj a la pantala*/
-1320   5                      { 
-1321   6                        contador++;
-1322   6                        Debug_txt_Tibbo((unsigned char *) "Vehiculo en el loop\r\n");                   /* se encuentra un sensor 
+1319   4                    {
+1320   5                      if(contador==0)                                                                   /*contador si es cero envia el msj a la pantala*/
+1321   5                      { 
+1322   6                        contador++;
+1323   6                        Debug_txt_Tibbo((unsigned char *) "Vehiculo en el loop\r\n");                   /* se encuentra un sensor 
              -activo*/
-1323   6                        send_portERR(0xA0);                                                                 /*audio ingrese tarjeta con rele*/
-1324   6                        PantallaLCD(INGRESE);                                                             /*msj por raspberry "ingrese su tarjeta"*/
-1325   6                                          
-1326   6                      } else
-1327   5                      {
-1328   6                        contador++;                                                                       /*espera 20 ciclos para poder enviar msj nueva men
+1324   6                        send_portERR(0xA0);                                                                 /*audio ingrese tarjeta con rele*/
+1325   6                        PantallaLCD(INGRESE);                                                             /*msj por raspberry "ingrese su tarjeta"*/
+1326   6                                          
+1327   6                      } else
+1328   5                      {
+1329   6                        contador++;                                                                       /*espera 20 ciclos para poder enviar msj nueva men
              -te*/
-1329   6                        if (contador>= 20)contador=0;
-1330   6                      } 
-1331   5                    }else contador=0;
-1332   4                    
+1330   6                        if (contador>= 20)contador=0;
+1331   6                      } 
+1332   5                    }else contador=0;
 1333   4                    
-1334   4                  }
-1335   3                  else if (Buffer_Rta_Lintech[Pos_St0]=='1')                                              /*  se detecta la tarjeta en la bo
+1334   4                    
+1335   4                  }
+1336   3                  else if (Buffer_Rta_Lintech[Pos_St0]=='1')                                              /*  se detecta la tarjeta en la bo
              -ca TARJETA EN BEZZEL*/
-1336   3                  {
-1337   4                    
-1338   4                    Debug_txt_Tibbo((unsigned char *) "Tarjeta en la boca\r\n");                      /* trama valida Habilitado i
+1337   3                  {
+1338   4                    
+1339   4                    Debug_txt_Tibbo((unsigned char *) "Tarjeta en la boca\r\n");                      /* trama valida Habilitado i
              -nsercion por boca*/
-1339   4                    g_cEstadoComSeqMF=SEQ_EXPULSAR_TARJ;    
-1340   4                    //g_cEstadoComSeqMF=SEQ_CHECK_STATUS;                                                   /*volvemos a preguntar  */      
-1341   4                                           
-1342   4                  }
-1343   3                  else if (Buffer_Rta_Lintech[Pos_St0]=='2')                                            // TARJETA EN RF
-1344   3                  {
-1345   4                    Debug_txt_Tibbo((unsigned char *) "Tarjeta lista para leer en RF\r\n");             /* trama valida Habil
+1340   4                    g_cEstadoComSeqMF=SEQ_EXPULSAR_TARJ;    
+1341   4                    //g_cEstadoComSeqMF=SEQ_CHECK_STATUS;                                                   /*volvemos a preguntar  */      
+1342   4                                           
+1343   4                  }
+1344   3                  else if (Buffer_Rta_Lintech[Pos_St0]=='2')                                            // TARJETA EN RF
+1345   3                  {
+1346   4                    Debug_txt_Tibbo((unsigned char *) "Tarjeta lista para leer en RF\r\n");             /* trama valida Habil
              -itado insercion por boca*/
-1346   4                                
-1347   4                    
-1348   4                    if (ValidaSensoresPaso()!=0)                                                        /*pregunto q alla presencia vehicular*/
-1349   4                    {
-1350   5                    Debug_txt_Tibbo((unsigned char *) "Vehiculo en el loop\r\n");                   /* se encuentra un sensor ac
+1347   4                                
+1348   4                    
+1349   4                    if (ValidaSensoresPaso()!=0)                                                        /*pregunto q alla presencia vehicular*/
+1350   4                    {
+1351   5                    Debug_txt_Tibbo((unsigned char *) "Vehiculo en el loop\r\n");                   /* se encuentra un sensor ac
              -tivo*/
-1351   5                    //Aut_Card_check_Status();                                                            /* se pregunta el tipo de tarjeta si es MF5
+1352   5                    //Aut_Card_check_Status();                                                            /* se pregunta el tipo de tarjeta si es MF5
              -0*/
-1352   5                                                                                                        /*tarjeta presente prioridad  */
-1353   5                    g_cEstadoComSeqMF=SEQ_TIPO_CARD;//SEQ_REQUEST;                                                      /*vamos al siguiente paso 
+1353   5                                                                                                        /*tarjeta presente prioridad  */
+1354   5                    g_cEstadoComSeqMF=SEQ_TIPO_CARD;//SEQ_REQUEST;                                                      /*vamos al siguiente paso 
              -a con validar el cmd*/    
-1354   5                    }
-1355   4                    else
-1356   4                    {
-1357   5                      Debug_txt_Tibbo((unsigned char *) "Vehiculo no en el loop\r\n");              /* no hay vehiculo en el lo
+1355   5                    }
+1356   4                    else
+1357   4                    {
+1358   5                      Debug_txt_Tibbo((unsigned char *) "Vehiculo no en el loop\r\n");              /* no hay vehiculo en el lo
              -op*/
-1358   5                      send_portERR(0XE0);                                                               /*envio msj al PRINCIPAL lcd tarjeta*/
-1359   5                      PantallaLCD(ERROR_LOOP);                                                          /*envio el msj por la pantalla lcd o la raspb
+1359   5                      send_portERR(0XE0);                                                               /*envio msj al PRINCIPAL lcd tarjeta*/
+1360   5                      PantallaLCD(ERROR_LOOP);                                                          /*envio el msj por la pantalla lcd o la raspb
              -erry*/
-1360   5                      g_cEstadoComSeqMF=SEQ_EXPULSAR_TARJ;                                                /*volvemos a preguntar  */  
-1361   5                      
-1362   5                    }
-1363   4                                                                  
-1364   4                  }
-1365   3                                                                    
-1366   3          }     
-1367   2            
-1368   2          break;
-1369   2        
-1370   2      
-C51 COMPILER V9.59.0.0   VERIFICADOR                                                       07/28/2021 11:20:17 PAGE 24  
+1361   5                      g_cEstadoComSeqMF=SEQ_EXPULSAR_TARJ;                                                /*volvemos a preguntar  */  
+1362   5                      
+1363   5                    }
+1364   4                                                                  
+1365   4                  }
+1366   3                                                                    
+1367   3          }     
+1368   2            
+1369   2          break;
+1370   2        
+C51 COMPILER V9.59.0.0   VERIFICADOR                                                       11/19/2021 12:02:57 PAGE 24  
 
-1371   2      /*------------------------------------------------------------------------------
-1372   2      El vehiculo esta ubicado en el loop vengo de preguntar el tipo de tarjeta que esta en el lector
-1373   2      (1 0)  es una tarjeta valida Mf50 
-1374   2      las demas combinaciones son tomadas como no validas
-1375   2            (0) LA RESPUESTA ES OK
-1376   2            (1) NO RESPONDE EL PTO SERIE
-1377   2            (2) NO RECIBIDO LA TRAMA 
-1378   2            (3) ERROR DE TRAMA CMD (N)    
-1379   2      ------------------------------------------------------------------------------*/  
-1380   2      
-1381   2        case SEQ_REQUEST:
-1382   2          
-1383   2        if((temp=Trama_Validacion_P_N())!=0)
-1384   2          {
-1385   3            if(temp==2)
-1386   3            {
-1387   4            g_cEstadoComSeqMF=SEQ_REQUEST;                                                            /*no ha respondido*/
-1388   4            } 
-1389   3              else if (temp==3)
-1390   3            {
-1391   4              
-1392   4              Debug_txt_Tibbo((unsigned char *) "SEQ_REQUEST FALLO\r\n");                       /* trama no valida*/
-1393   4              DebugBufferMF(Buffer_Rta_Lintech,g_cContByteRx,1);                                    /*imprimo la trama recibida*/
-1394   4              g_cEstadoComSeqMF=SEQ_CHECK_STATUS;                                                   /* error de la trama */ 
-1395   4                                                                                                    /* (3) Trama invalida cmd (N)*/ 
-1396   4            } 
-1397   3            else
-1398   3            {
-1399   4              Debug_txt_Tibbo((unsigned char *) "Dispensador No Responde SEQ REQUEST...\r\n");      /* pto serie no res
+1371   2      
+1372   2      /*------------------------------------------------------------------------------
+1373   2      El vehiculo esta ubicado en el loop vengo de preguntar el tipo de tarjeta que esta en el lector
+1374   2      (1 0)  es una tarjeta valida Mf50 
+1375   2      las demas combinaciones son tomadas como no validas
+1376   2            (0) LA RESPUESTA ES OK
+1377   2            (1) NO RESPONDE EL PTO SERIE
+1378   2            (2) NO RECIBIDO LA TRAMA 
+1379   2            (3) ERROR DE TRAMA CMD (N)    
+1380   2      ------------------------------------------------------------------------------*/  
+1381   2      
+1382   2        case SEQ_REQUEST:
+1383   2          
+1384   2        if((temp=Trama_Validacion_P_N())!=0)
+1385   2          {
+1386   3            if(temp==2)
+1387   3            {
+1388   4            g_cEstadoComSeqMF=SEQ_REQUEST;                                                            /*no ha respondido*/
+1389   4            } 
+1390   3              else if (temp==3)
+1391   3            {
+1392   4              
+1393   4              Debug_txt_Tibbo((unsigned char *) "SEQ_REQUEST FALLO\r\n");                       /* trama no valida*/
+1394   4              DebugBufferMF(Buffer_Rta_Lintech,g_cContByteRx,1);                                    /*imprimo la trama recibida*/
+1395   4              g_cEstadoComSeqMF=SEQ_CHECK_STATUS;                                                   /* error de la trama */ 
+1396   4                                                                                                    /* (3) Trama invalida cmd (N)*/ 
+1397   4            } 
+1398   3            else
+1399   3            {
+1400   4              Debug_txt_Tibbo((unsigned char *) "Dispensador No Responde SEQ REQUEST...\r\n");      /* pto serie no res
              -ponde*/
-1400   4              send_portERR(0XE1);                                                                       /*la tarjeta no es valida no la puede identif
+1401   4              send_portERR(0XE1);                                                                       /*la tarjeta no es valida no la puede identif
              -icar*/
-1401   4              PantallaLCD(TARJETA_INVALIDA);                                                            /*envio el msj por la pantalla lcd o la ra
+1402   4              PantallaLCD(TARJETA_INVALIDA);                                                            /*envio el msj por la pantalla lcd o la ra
              -spberry*/
-1402   4              g_cEstadoComSeqMF=SEQ_EXPULSAR_TARJ;                                                      /* capturo la respuesta y regreso a che
+1403   4              g_cEstadoComSeqMF=SEQ_EXPULSAR_TARJ;                                                      /* capturo la respuesta y regreso a che
              -quear verificador*/ 
-1403   4            
-1404   4            }       
-1405   3          }
-1406   2          else
-1407   2          {
-1408   3             if (Buffer_Rta_Lintech[Card_type_H]=='1')                                                  /* pregunto si la tarjeta en el tran
+1404   4            
+1405   4            }       
+1406   3          }
+1407   2          else
+1408   2          {
+1409   3             if (Buffer_Rta_Lintech[Card_type_H]=='1')                                                  /* pregunto si la tarjeta en el tran
              -sporte es MF 50 */
-1409   3                    {
-1410   4                      if (Buffer_Rta_Lintech[Card_type_L]=='0') 
-1411   4                        {
-1412   5                          Debug_txt_Tibbo((unsigned char *) "Tarjeta valida MF50\r\n\r\n");             /* trama valida son MF50
+1410   3                    {
+1411   4                      if (Buffer_Rta_Lintech[Card_type_L]=='0') 
+1412   4                        {
+1413   5                          Debug_txt_Tibbo((unsigned char *) "Tarjeta valida MF50\r\n\r\n");             /* trama valida son MF50
              -*/
-1413   5                          DebugBufferMF(Buffer_Rta_Lintech,g_cContByteRx,1);                            /* se muestra la trama*/
-1414   5                                                                                                        // verifico q la clave este cargada en el transporte
-1415   5                          g_cEstadoComSeqMF=SEQ_UID;  //SEQ_MF_LINTECH;                                             /* la tarjeta es MF50*/
-1416   5                        }
-1417   4                        else if (Buffer_Rta_Lintech[Card_type_L]=='1')  
-1418   4                        {
-1419   5                          /*tarjeta MF70*/
-1420   5                          Debug_txt_Tibbo((unsigned char *) "Tarjeta valida MF70\n");   
-1421   5                          DebugBufferMF(Buffer_Rta_Lintech,g_cContByteRx,1);                            /* se muestra la trama*/
-1422   5                          g_cEstadoComSeqMF=SEQ_UID;  //SEQ_MF_LINTECH;                     
-1423   5                        }
-1424   4                        else
-1425   4                        {
-1426   5                        Debug_txt_Tibbo((unsigned char *) "Tarjeta invalida no es MF50\r\n\r\n");         /* trama no valida 
-C51 COMPILER V9.59.0.0   VERIFICADOR                                                       07/28/2021 11:20:17 PAGE 25  
+1414   5                          DebugBufferMF(Buffer_Rta_Lintech,g_cContByteRx,1);                            /* se muestra la trama*/
+1415   5                                                                                                        // verifico q la clave este cargada en el transporte
+1416   5                          g_cEstadoComSeqMF=SEQ_UID;  //SEQ_MF_LINTECH;                                             /* la tarjeta es MF50*/
+1417   5                        }
+1418   4                        else if (Buffer_Rta_Lintech[Card_type_L]=='1')  
+1419   4                        {
+1420   5                          /*tarjeta MF70*/
+1421   5                          Debug_txt_Tibbo((unsigned char *) "Tarjeta valida MF70\n");   
+1422   5                          DebugBufferMF(Buffer_Rta_Lintech,g_cContByteRx,1);                            /* se muestra la trama*/
+1423   5                          g_cEstadoComSeqMF=SEQ_UID;  //SEQ_MF_LINTECH;                     
+1424   5                        }
+1425   4                        else
+1426   4                        {
+C51 COMPILER V9.59.0.0   VERIFICADOR                                                       11/19/2021 12:02:57 PAGE 25  
 
+1427   5                        Debug_txt_Tibbo((unsigned char *) "Tarjeta invalida no es MF50\r\n\r\n");         /* trama no valida 
              -*/
-1427   5                        DebugBufferMF(Buffer_Rta_Lintech,g_cContByteRx,1);    
-1428   5                        send_portERR(0xA2);                                                             /*error audio*/ 
-1429   5                        send_portERR(0XE1);                                                             /*envio msj principal tarjeta invalidad*/
-1430   5                        PantallaLCD(TARJETA_INVALIDA);                                                  /*envio el msj por la pantalla lcd o la ra
+1428   5                        DebugBufferMF(Buffer_Rta_Lintech,g_cContByteRx,1);    
+1429   5                        send_portERR(0xA2);                                                             /*error audio*/ 
+1430   5                        send_portERR(0XE1);                                                             /*envio msj principal tarjeta invalidad*/
+1431   5                        PantallaLCD(TARJETA_INVALIDA);                                                  /*envio el msj por la pantalla lcd o la ra
              -spberry*/
-1431   5                        g_cEstadoComSeqMF=SEQ_EXPULSAR_TARJ;                                            /* capturo la respuesta y regreso a che
+1432   5                        g_cEstadoComSeqMF=SEQ_EXPULSAR_TARJ;                                            /* capturo la respuesta y regreso a che
              -quear verificador*/
-1432   5                         
-1433   5                        }
-1434   4                   }
-1435   3                    else 
-1436   3                    {
-1437   4                    Debug_txt_Tibbo((unsigned char *) "Tarjeta invalida no es MF50\r\n\r\n");           /* trama no valida *
+1433   5                         
+1434   5                        }
+1435   4                   }
+1436   3                    else 
+1437   3                    {
+1438   4                    Debug_txt_Tibbo((unsigned char *) "Tarjeta invalida no es MF50\r\n\r\n");           /* trama no valida *
              -/
-1438   4                    DebugBufferMF(Buffer_Rta_Lintech,g_cContByteRx,1);      
-1439   4                    send_portERR(0xA2);                                                             /*error audio*/ 
-1440   4                    send_portERR(0xe1);                                                     //la tarjeta no es valida 
-1441   4                    PantallaLCD(TARJETA_INVALIDA);                                                      /*envio el msj por la pantalla lcd o la ra
+1439   4                    DebugBufferMF(Buffer_Rta_Lintech,g_cContByteRx,1);      
+1440   4                    send_portERR(0xA2);                                                             /*error audio*/ 
+1441   4                    send_portERR(0xe1);                                                     //la tarjeta no es valida 
+1442   4                    PantallaLCD(TARJETA_INVALIDA);                                                      /*envio el msj por la pantalla lcd o la ra
              -spberry*/
-1442   4                    g_cEstadoComSeqMF=SEQ_EXPULSAR_TARJ;                                                /* capturo la respuesta y regreso a che
+1443   4                    g_cEstadoComSeqMF=SEQ_EXPULSAR_TARJ;                                                /* capturo la respuesta y regreso a che
              -quear verificador*/      
-1443   4                  
-1444   4                    }
-1445   3                                                                                                            /*respuesta ok inicia revisando sensores*/
-1446   3          }     
-1447   2                
-1448   2            break;
-1449   2      /*------------------------------------------------------------------------------
-1450   2      Verifica la eeprom 
-1451   2            (0) LA RESPUESTA ES OK
-1452   2            (1) NO RESPONDE EL PTO SERIE
-1453   2            (2) NO RECIBIDO LA TRAMA 
-1454   2            (3) ERROR DE TRAMA CMD (N)
-1455   2      ------------------------------------------------------------------------------*/  
-1456   2        case SEQ_MF_LINTECH:
-1457   2          
-1458   2        if((temp=Trama_Validacion_P_N())!=0)
-1459   2          {
-1460   3            if(temp==2)
-1461   3            {
-1462   4            g_cEstadoComSeqMF=SEQ_MF_LINTECH;                                                           /*no ha respondido*/
-1463   4            }
-1464   3            else if (temp==3)
-1465   3            {
-1466   4            Debug_txt_Tibbo((unsigned char *) "LOAD VERIFY EEPROM ERROR\r\n\r\n");                    /* trama no valida resp
+1444   4                  
+1445   4                    }
+1446   3                                                                                                            /*respuesta ok inicia revisando sensores*/
+1447   3          }     
+1448   2                
+1449   2            break;
+1450   2      /*------------------------------------------------------------------------------
+1451   2      Verifica la eeprom 
+1452   2            (0) LA RESPUESTA ES OK
+1453   2            (1) NO RESPONDE EL PTO SERIE
+1454   2            (2) NO RECIBIDO LA TRAMA 
+1455   2            (3) ERROR DE TRAMA CMD (N)
+1456   2      ------------------------------------------------------------------------------*/  
+1457   2        case SEQ_MF_LINTECH:
+1458   2          
+1459   2        if((temp=Trama_Validacion_P_N())!=0)
+1460   2          {
+1461   3            if(temp==2)
+1462   3            {
+1463   4            g_cEstadoComSeqMF=SEQ_MF_LINTECH;                                                           /*no ha respondido*/
+1464   4            }
+1465   3            else if (temp==3)
+1466   3            {
+1467   4            Debug_txt_Tibbo((unsigned char *) "LOAD VERIFY EEPROM ERROR\r\n\r\n");                    /* trama no valida resp
              -uesta incorrecta falla en la escritura de la clave*/
-1467   4            DebugBufferMF(Buffer_Rta_Lintech,g_cContByteRx,RESPUESTA);                                /*imprimo la trama recibida*/
+1468   4            DebugBufferMF(Buffer_Rta_Lintech,g_cContByteRx,RESPUESTA);                                /*imprimo la trama recibida*/
              -  
-1468   4            g_cEstadoComSeqMF=SEQ_INICIO;                                                             /* (3) Trama invalida cmd (N)*/ 
-1469   4            }       
-1470   3            else
-1471   3            { 
-1472   4              Debug_txt_Tibbo((unsigned char *) "Dispensador No Responde PTO SERIE ...\r\n\r\n");       
-1473   4              g_cEstadoComSeqMF=SEQ_INICIO;                                                         /* respuesta incorrecta*/
-1474   4            }
-1475   3          }
-1476   2          else
-1477   2          {
-1478   3            Debug_txt_Tibbo((unsigned char *) "LOAD VERIFY EEPROM OK\r\n");                       /* trama OK CARGA LA EEPROM 
+1469   4            g_cEstadoComSeqMF=SEQ_INICIO;                                                             /* (3) Trama invalida cmd (N)*/ 
+1470   4            }       
+1471   3            else
+1472   3            { 
+1473   4              Debug_txt_Tibbo((unsigned char *) "Dispensador No Responde PTO SERIE ...\r\n\r\n");       
+1474   4              g_cEstadoComSeqMF=SEQ_INICIO;                                                         /* respuesta incorrecta*/
+1475   4            }
+1476   3          }
+1477   2          else
+1478   2          {
+1479   3            Debug_txt_Tibbo((unsigned char *) "LOAD VERIFY EEPROM OK\r\n");                       /* trama OK CARGA LA EEPROM 
              -Y LA VERIFICA*/
-1479   3            DebugBufferMF(Buffer_Rta_Lintech,g_cContByteRx,RESPUESTA);                                /*imprimo la trama recibida*/
-C51 COMPILER V9.59.0.0   VERIFICADOR                                                       07/28/2021 11:20:17 PAGE 26  
+C51 COMPILER V9.59.0.0   VERIFICADOR                                                       11/19/2021 12:02:57 PAGE 26  
 
+1480   3            DebugBufferMF(Buffer_Rta_Lintech,g_cContByteRx,RESPUESTA);                                /*imprimo la trama recibida*/
              -  
-1480   3                                                                                                      /*leo MF */
-1481   3            g_cEstadoComSeqMF=SEQ_RD_S1B1;                                                            /*respuesta ok inicia clave verificada*/
-1482   3          }     
-1483   2      
-1484   2        
-1485   2        break;
-1486   2      /*------------------------------------------------------------------------------
-1487   2      Leo la Mf en el sector 1  bloque 1
-1488   2          se lee ID_CLIENTE, COD_PARK Y TIPO_TARJETA
-1489   2      ------------------------------------------------------------------------------*/    
-1490   2      
-1491   2        case SEQ_RD_S1B1:
-1492   2          
-1493   2          RD_MF(1,1);                                                                                 /*leo MF */
-1494   2          g_cEstadoComSeqMF=SEQ_RD_S1B1_RPTA; 
-1495   2        
-1496   2        break;
-1497   2      /*------------------------------------------------------------------------------
-1498   2      Analiso lo leido en Mf en el sector 1  bloque 1
-1499   2          se lee ID_CLIENTE, COD_PARK Y TIPO_TARJETA
-1500   2      ------------------------------------------------------------------------------*/      
-1501   2        
-1502   2        case SEQ_RD_S1B1_RPTA:
-1503   2          
-1504   2          if((temp=Trama_Validacion_P_N())!=0)
-1505   2          {
-1506   3            if(temp==2)
-1507   3            {
-1508   4            g_cEstadoComSeqMF=SEQ_RD_S1B1_RPTA;                                                           /*no ha respondido*/
-1509   4            }
-1510   3            else if (temp==3)
-1511   3            {
-1512   4            Debug_txt_Tibbo((unsigned char *) "SEQ_RD_S1B1 ERROR\r\n\r\n");                           /* trama no valida respues
+1481   3                                                                                                      /*leo MF */
+1482   3            g_cEstadoComSeqMF=SEQ_RD_S1B1;                                                            /*respuesta ok inicia clave verificada*/
+1483   3          }     
+1484   2      
+1485   2        
+1486   2        break;
+1487   2      /*------------------------------------------------------------------------------
+1488   2      Leo la Mf en el sector 1  bloque 1
+1489   2          se lee ID_CLIENTE, COD_PARK Y TIPO_TARJETA
+1490   2      ------------------------------------------------------------------------------*/    
+1491   2      
+1492   2        case SEQ_RD_S1B1:
+1493   2          
+1494   2          RD_MF(1,1);                                                                                 /*leo MF */
+1495   2          g_cEstadoComSeqMF=SEQ_RD_S1B1_RPTA; 
+1496   2        
+1497   2        break;
+1498   2      /*------------------------------------------------------------------------------
+1499   2      Analiso lo leido en Mf en el sector 1  bloque 1
+1500   2          se lee ID_CLIENTE, COD_PARK Y TIPO_TARJETA
+1501   2      ------------------------------------------------------------------------------*/      
+1502   2        
+1503   2        case SEQ_RD_S1B1_RPTA:
+1504   2          
+1505   2          if((temp=Trama_Validacion_P_N())!=0)
+1506   2          {
+1507   3            if(temp==2)
+1508   3            {
+1509   4            g_cEstadoComSeqMF=SEQ_RD_S1B1_RPTA;                                                           /*no ha respondido*/
+1510   4            }
+1511   3            else if (temp==3)
+1512   3            {
+1513   4            Debug_txt_Tibbo((unsigned char *) "SEQ_RD_S1B1 ERROR\r\n\r\n");                           /* trama no valida respues
              -ta incorrecta falla en la escritura de la clave*/
-1513   4            DebugBufferMF(Buffer_Rta_Lintech,g_cContByteRx,RESPUESTA);                                /*imprimo la trama recibida*/
+1514   4            DebugBufferMF(Buffer_Rta_Lintech,g_cContByteRx,RESPUESTA);                                /*imprimo la trama recibida*/
              -  
-1514   4            g_cEstadoComSeqMF=SEQ_INICIO;                                                             /* (3) Trama invalida cmd (N)*/ 
-1515   4            }       
-1516   3            else
-1517   3            { 
-1518   4              
-1519   4                /*Dispensador No Responde PTO SERIE ...*/
-1520   4          
-1521   4              if(temp=error_rx_pto()==0)
-1522   4              {
-1523   5                g_cEstadoComSeqMF=SEQ_RD_S1B1_RPTA;
-1524   5              }
-1525   4              else if(temp=error_rx_pto()==1)
-1526   4              {
-1527   5                g_cEstadoComSeqMF=SEQ_RD_S1B1;;
-1528   5              }
-1529   4                                                              /* respuesta incorrecta*/
-1530   4            }
-1531   3          }
-1532   2          else
-1533   2          {
-1534   3            g_cEstadoComSeqMF = Responde_Lectura_Tarjeta_Sector1_Bloque1(Atributos_Expedidor);
-1535   3          }     
-1536   2        break;
-1537   2      /*------------------------------------------------------------------------------
-1538   2      Leo la Mf en el  sector 1 bloque 2
-C51 COMPILER V9.59.0.0   VERIFICADOR                                                       07/28/2021 11:20:17 PAGE 27  
+1515   4            g_cEstadoComSeqMF=SEQ_INICIO;                                                             /* (3) Trama invalida cmd (N)*/ 
+1516   4            }       
+1517   3            else
+1518   3            { 
+1519   4              
+1520   4                /*Dispensador No Responde PTO SERIE ...*/
+1521   4          
+1522   4              if(temp=error_rx_pto()==0)
+1523   4              {
+1524   5                g_cEstadoComSeqMF=SEQ_RD_S1B1_RPTA;
+1525   5              }
+1526   4              else if(temp=error_rx_pto()==1)
+1527   4              {
+1528   5                g_cEstadoComSeqMF=SEQ_RD_S1B1;;
+1529   5              }
+1530   4                                                              /* respuesta incorrecta*/
+1531   4            }
+1532   3          }
+1533   2          else
+1534   2          {
+1535   3            g_cEstadoComSeqMF = Responde_Lectura_Tarjeta_Sector1_Bloque1(Atributos_Expedidor);
+1536   3          }     
+1537   2        break;
+1538   2      /*------------------------------------------------------------------------------
+C51 COMPILER V9.59.0.0   VERIFICADOR                                                       11/19/2021 12:02:57 PAGE 27  
 
-1539   2        Se lee Fecha in, fecha out
-1540   2      ------------------------------------------------------------------------------*/    
-1541   2        case SEQ_RD_S1B2: 
-1542   2        
-1543   2        RD_MF(1, 2);                                                                        /* Leo fecha y hora de ingreso y de salida*/
-1544   2        g_cEstadoComSeqMF=SEQ_RD_S1B2_RPTA;
-1545   2        break;  
-1546   2          
-1547   2      /*------------------------------------------------------------------------------
-1548   2      ANALIZO LO LEIDO  Mf en el  sector 1 bloque 2
-1549   2        Se lee Fecha in, fecha out
-1550   2      ------------------------------------------------------------------------------*/
-1551   2        case SEQ_RD_S1B2_RPTA:
-1552   2              
-1553   2        if((temp=Trama_Validacion_P_N())!=0)
-1554   2          {
-1555   3            if(temp==2)
-1556   3            {
-1557   4            g_cEstadoComSeqMF=SEQ_RD_S1B2_RPTA;                                                           /*no ha respondido*/
-1558   4            }
-1559   3            else if (temp==3)
-1560   3            {
-1561   4            Debug_txt_Tibbo((unsigned char *) "SEQ_RD_S1B2 ERROR\r\n");                           /* trama no valida respuesta i
+1539   2      Leo la Mf en el  sector 1 bloque 2
+1540   2        Se lee Fecha in, fecha out
+1541   2      ------------------------------------------------------------------------------*/    
+1542   2        case SEQ_RD_S1B2: 
+1543   2        
+1544   2        RD_MF(1, 2);                                                                        /* Leo fecha y hora de ingreso y de salida*/
+1545   2        g_cEstadoComSeqMF=SEQ_RD_S1B2_RPTA;
+1546   2        break;  
+1547   2          
+1548   2      /*------------------------------------------------------------------------------
+1549   2      ANALIZO LO LEIDO  Mf en el  sector 1 bloque 2
+1550   2        Se lee Fecha in, fecha out
+1551   2      ------------------------------------------------------------------------------*/
+1552   2        case SEQ_RD_S1B2_RPTA:
+1553   2              
+1554   2        if((temp=Trama_Validacion_P_N())!=0)
+1555   2          {
+1556   3            if(temp==2)
+1557   3            {
+1558   4            g_cEstadoComSeqMF=SEQ_RD_S1B2_RPTA;                                                           /*no ha respondido*/
+1559   4            }
+1560   3            else if (temp==3)
+1561   3            {
+1562   4            Debug_txt_Tibbo((unsigned char *) "SEQ_RD_S1B2 ERROR\r\n");                           /* trama no valida respuesta i
              -ncorrecta falla en la escritura de la clave*/
-1562   4            DebugBufferMF(Buffer_Rta_Lintech,g_cContByteRx,RESPUESTA);                                /*imprimo la trama recibida*/
+1563   4            DebugBufferMF(Buffer_Rta_Lintech,g_cContByteRx,RESPUESTA);                                /*imprimo la trama recibida*/
              -  
-1563   4            g_cEstadoComSeqMF=SEQ_INICIO;                                                             /* (3) Trama invalida cmd (N)*/ 
-1564   4            }       
-1565   3            else
-1566   3            { 
-1567   4                /*Dispensador No Responde PTO SERIE ...*/
-1568   4          
-1569   4              if(temp=error_rx_pto()==0)
-1570   4              {
-1571   5                g_cEstadoComSeqMF=SEQ_RD_S1B2_RPTA;
-1572   5              }
-1573   4              else if(temp=error_rx_pto()==1)
-1574   4              {
-1575   5                g_cEstadoComSeqMF=SEQ_RD_S1B2;
-1576   5              }
-1577   4                                                                  
-1578   4            }
-1579   3          }
-1580   2          else
-1581   2          {
-1582   3           g_cEstadoComSeqMF = Responde_Lectura_Tarjeta_Sector1_Bloque2 (Atributos_Expedidor);
-1583   3        
-1584   3          }
-1585   2          break;
-1586   2        case SEQ_ROTACION:
-1587   2          
-1588   2            
-1589   2            /*------------------------------------------------------------------------------  
-1590   2            sinc0bro  por  programacion
-1591   2          ------------------------------------------------------------------------------*/  
-1592   2            if(SIN_COBRO!=0)                                                                                                /*SINCOBRO =0 deshabilitado  =(1) sin c
+1564   4            g_cEstadoComSeqMF=SEQ_INICIO;                                                             /* (3) Trama invalida cmd (N)*/ 
+1565   4            }       
+1566   3            else
+1567   3            { 
+1568   4                /*Dispensador No Responde PTO SERIE ...*/
+1569   4          
+1570   4              if(temp=error_rx_pto()==0)
+1571   4              {
+1572   5                g_cEstadoComSeqMF=SEQ_RD_S1B2_RPTA;
+1573   5              }
+1574   4              else if(temp=error_rx_pto()==1)
+1575   4              {
+1576   5                g_cEstadoComSeqMF=SEQ_RD_S1B2;
+1577   5              }
+1578   4                                                                  
+1579   4            }
+1580   3          }
+1581   2          else
+1582   2          {
+1583   3           g_cEstadoComSeqMF = Responde_Lectura_Tarjeta_Sector1_Bloque2 (Atributos_Expedidor);
+1584   3        
+1585   3          }
+1586   2          break;
+1587   2        case SEQ_ROTACION:
+1588   2          
+1589   2            
+1590   2            /*------------------------------------------------------------------------------  
+1591   2            sinc0bro  por  programacion
+1592   2          ------------------------------------------------------------------------------*/  
+1593   2            if(SIN_COBRO!=0)                                                                                                /*SINCOBRO =0 deshabilitado  =(1) sin c
              -obro = (2) sin cobro salida el mismo dia*/
-1593   2            {
-1594   3              if (SIN_COBRO==1)
-1595   3              {
-1596   4                Debug_txt_Tibbo((unsigned char *) "Salida Autorizada\r\n");
-1597   4                                                                                                    
-C51 COMPILER V9.59.0.0   VERIFICADOR                                                       07/28/2021 11:20:17 PAGE 28  
+1594   2            {
+1595   3              if (SIN_COBRO==1)
+1596   3              {
+1597   4                Debug_txt_Tibbo((unsigned char *) "Salida Autorizada\r\n");
+C51 COMPILER V9.59.0.0   VERIFICADOR                                                       11/19/2021 12:02:57 PAGE 28  
 
-1598   4                g_cEstadoComSeqMF=SEQ_RD_S1B0;                                                                              /*sin cobro*/
-1599   4                break;
-1600   4              }
-1601   3              else if( SIN_COBRO ==2)
-1602   3              {
-1603   4                Block_read_Clock_Hex(clock_temp);                                                                           /*leo el reloj año,mes,dia*/
-1604   4                        
-1605   4          
-1606   4                if ((buffer_S_B[0]==clock_temp[0])&&(buffer_S_B[1]==clock_temp[1])&&(buffer_S_B[2]==clock_temp[2]))   
+1598   4                                                                                                    
+1599   4                g_cEstadoComSeqMF=SEQ_RD_S1B0;                                                                              /*sin cobro*/
+1600   4                break;
+1601   4              }
+1602   3              else if( SIN_COBRO ==2)
+1603   3              {
+1604   4                Block_read_Clock_Hex(clock_temp);                                                                           /*leo el reloj año,mes,dia*/
+1605   4                        
+1606   4          
+1607   4                if ((buffer_S_B[0]==clock_temp[0])&&(buffer_S_B[1]==clock_temp[1])&&(buffer_S_B[2]==clock_temp[2]))   
              -/*se analiza la fecha de entrada de la tarjeta MF y la fecha del dia */
-1607   4                {
-1608   5                  Debug_txt_Tibbo((unsigned char *) "Salida Autorizada\r\n");
-1609   5                                                                                                                            /* Leo el ticket */
-1610   5                  g_cEstadoComSeqMF=SEQ_RD_S1B0;                                                                            /*sin cobro el mismo dia*/
-1611   5                  break;
-1612   5                }                                                                                         
-1613   4                  else
-1614   4                  {
-1615   5                  Debug_txt_Tibbo((unsigned char *) "Excede T.GRACIA\r\n");                                             /*excede el timepo d
+1608   4                {
+1609   5                  Debug_txt_Tibbo((unsigned char *) "Salida Autorizada\r\n");
+1610   5                                                                                                                            /* Leo el ticket */
+1611   5                  g_cEstadoComSeqMF=SEQ_RD_S1B0;                                                                            /*sin cobro el mismo dia*/
+1612   5                  break;
+1613   5                }                                                                                         
+1614   4                  else
+1615   4                  {
+1616   5                  Debug_txt_Tibbo((unsigned char *) "Excede T.GRACIA\r\n");                                             /*excede el timepo d
              -e gracia del dia */
-1616   5                  send_portERR(0XE8);
-1617   5                  PantallaLCD(EXCEDE_GRACIA);                                                                               /*envio el msj por la pantalla lc
+1617   5                  send_portERR(0XE8);
+1618   5                  PantallaLCD(EXCEDE_GRACIA);                                                                               /*envio el msj por la pantalla lc
              -d o la raspberry*/
-1618   5                  g_cEstadoComSeqMF=SEQ_EXPULSAR_TARJ;
-1619   5                  break;              
-1620   5                  }
-1621   4                
+1619   5                  g_cEstadoComSeqMF=SEQ_EXPULSAR_TARJ;
+1620   5                  break;              
+1621   5                  }
 1622   4                
-1623   4              }
-1624   3            }
-1625   2      /*------------------------------------------------------------------------------
-1626   2          validacion descuentos  se maneja en 2 posiciones de memoria del MF
-1627   2            MF_LSB= tipo de descuento       
-1628   2      ------------------------------------------------------------------------------*/      
-1629   2            else if(buffer_S_B[MF_LSB]!=0)
-1630   2            {
-1631   3              
-1632   3             if((rd_eeprom(0xa8,EE_DCTO_PASA_CAJA))!= 0)  
-1633   3            {
-1634   4              Debug_Dividir_texto();
-1635   4              Debug_txt_Tibbo((unsigned char *) "CODIGO DE DCTO: ");                                                      /*codigo de descuento
+1623   4                
+1624   4              }
+1625   3            }
+1626   2      /*------------------------------------------------------------------------------
+1627   2          validacion descuentos  se maneja en 2 posiciones de memoria del MF
+1628   2            MF_LSB= tipo de descuento       
+1629   2      ------------------------------------------------------------------------------*/      
+1630   2            else if(buffer_S_B[MF_LSB]!=0)
+1631   2            {
+1632   3              
+1633   3             if((rd_eeprom(0xa8,EE_DCTO_PASA_CAJA))!= 0)  
+1634   3            {
+1635   4              Debug_Dividir_texto();
+1636   4              Debug_txt_Tibbo((unsigned char *) "CODIGO DE DCTO: ");                                                      /*codigo de descuento
              - es elnumero de descuento del cliente*/
-1636   4              Debug_chr_Tibbo(buffer_S_B[MF_LSB]);
-1637   4              Debug_txt_Tibbo((unsigned char *) "\r\n");  
-1638   4              /*parte alta del tiempo libre*/
-1639   4              temp=(buffer_S_B[MF_IN_PAGO]&0x70)>>4 ;                                                                   /*se lee la parte alta del ti
+1637   4              Debug_chr_Tibbo(buffer_S_B[MF_LSB]);
+1638   4              Debug_txt_Tibbo((unsigned char *) "\r\n");  
+1639   4              /*parte alta del tiempo libre*/
+1640   4              temp=(buffer_S_B[MF_IN_PAGO]&0x70)>>4 ;                                                                   /*se lee la parte alta del ti
              -empo libre y se rotsa 4 bits a la derecha*/
-1640   4              tiempo=temp;                                                                                                /*se carga en un entero*/
-1641   4              tiempo=(tiempo <<8) | buffer_S_B[MF_DCTO] ;                                                               /*MF_DCTO= tiene la parte b
+1641   4              tiempo=temp;                                                                                                /*se carga en un entero*/
+1642   4              tiempo=(tiempo <<8) | buffer_S_B[MF_DCTO] ;                                                               /*MF_DCTO= tiene la parte b
              -aja del tiempo libre, se une la parte alta con la baja */
-1642   4                                                                                                                          /*creando un int del tiemo de dcto*/
-1643   4              Debug_txt_Tibbo((unsigned char *) "TIEMPO DE DCTO: ");
-1644   4              sprintf( Estado_Tiempo,"%u",tiempo);                                                                        /*se muestra el tiempo de desc
+1643   4                                                                                                                          /*creando un int del tiemo de dcto*/
+1644   4              Debug_txt_Tibbo((unsigned char *) "TIEMPO DE DCTO: ");
+1645   4              sprintf( Estado_Tiempo,"%u",tiempo);                                                                        /*se muestra el tiempo de desc
              -uento*/
-1645   4              Debug_txt_Tibbo((unsigned char *)Estado_Tiempo);
-1646   4              Debug_txt_Tibbo((unsigned char *) "\r\n");
-1647   4              Debug_Dividir_texto();  
-1648   4              
-1649   4            /*tipo de descuento es el bit 8 de MF_IN_PAGO*/ 
-1650   4            /*por fecha que es fijar fecha de salida*/
-1651   4                if ((buffer_S_B[MF_IN_PAGO]&0x80)==0)                                                                   /*tipo de descuento por fecha 
+1646   4              Debug_txt_Tibbo((unsigned char *)Estado_Tiempo);
+1647   4              Debug_txt_Tibbo((unsigned char *) "\r\n");
+1648   4              Debug_Dividir_texto();  
+1649   4              
+1650   4            /*tipo de descuento es el bit 8 de MF_IN_PAGO*/ 
+1651   4            /*por fecha que es fijar fecha de salida*/
+1652   4                if ((buffer_S_B[MF_IN_PAGO]&0x80)==0)                                                                   /*tipo de descuento por fecha 
+C51 COMPILER V9.59.0.0   VERIFICADOR                                                       11/19/2021 12:02:57 PAGE 29  
+
              -de salida*/
-C51 COMPILER V9.59.0.0   VERIFICADOR                                                       07/28/2021 11:20:17 PAGE 29  
-
-1652   4                {
-1653   5                Debug_txt_Tibbo((unsigned char *) "DCTO FIJA FECHA DE OUT: ");                                            /**/
-1654   5                analiza_tiempo(buffer_S_B,tiempo); 
-1655   5              /*fijar fecha de salida*/
-1656   5                }
-1657   4                else
-1658   4                {
-1659   5                  if (tiempo== 0x64)                                                                                  /*tipo de dcto por porcentaje al 100 %*/
-1660   5                  {
-1661   6                    Debug_txt_Tibbo((unsigned char *) "DCTO PORCENTAJE 100% ");
-1662   6                    Debug_txt_Tibbo((unsigned char *) "Salida Autorizada\r\n");
-1663   6                                                                                                                      /* Leo el ticket */
-1664   6                    g_cEstadoComSeqMF=SEQ_RD_S1B0;                                                                    /**/                                              
-1665   6                    break;              
-1666   6                  }
-1667   5                  else
-1668   5                  {
-1669   6                    Debug_txt_Tibbo((unsigned char *) "DCTO NO EL 100%: ");
-1670   6                    send_portERR(ACERQUESE_CAJA); 
-1671   6                    PantallaLCD(DIRIJASE_CAJA); 
-1672   6                    g_cEstadoComSeqMF=SEQ_EXPULSAR_TARJ;                
-1673   6                  }             
-1674   5                }
-1675   4            }
-1676   3          }
-1677   2        /*------------------------------------------------------------------------------  
-1678   2            tiempo de gracia
-1679   2          T_GRACIA=1 tiene tiempo de gracia 
-1680   2          ------------------------------------------------------------------------------*/  
-1681   2            else if(T_GRACIA!=0)                                                                    /*si es diferente de cero tiene tiempo de gracia*
+1653   4                {
+1654   5                Debug_txt_Tibbo((unsigned char *) "DCTO FIJA FECHA DE OUT: ");                                            /**/
+1655   5                analiza_tiempo(buffer_S_B,tiempo); 
+1656   5              /*fijar fecha de salida*/
+1657   5                }
+1658   4                else
+1659   4                {
+1660   5                  if (tiempo== 0x64)                                                                                  /*tipo de dcto por porcentaje al 100 %*/
+1661   5                  {
+1662   6                    Debug_txt_Tibbo((unsigned char *) "DCTO PORCENTAJE 100% ");
+1663   6                    Debug_txt_Tibbo((unsigned char *) "Salida Autorizada\r\n");
+1664   6                                                                                                                      /* Leo el ticket */
+1665   6                    g_cEstadoComSeqMF=SEQ_RD_S1B0;                                                                    /**/                                              
+1666   6                    break;              
+1667   6                  }
+1668   5                  else
+1669   5                  {
+1670   6                    Debug_txt_Tibbo((unsigned char *) "DCTO NO EL 100%: ");
+1671   6                    send_portERR(ACERQUESE_CAJA); 
+1672   6                    PantallaLCD(DIRIJASE_CAJA); 
+1673   6                    g_cEstadoComSeqMF=SEQ_EXPULSAR_TARJ;                
+1674   6                  }             
+1675   5                }
+1676   4            }
+1677   3          }
+1678   2        /*------------------------------------------------------------------------------  
+1679   2            tiempo de gracia
+1680   2          T_GRACIA=1 tiene tiempo de gracia 
+1681   2          ------------------------------------------------------------------------------*/  
+1682   2            else if(T_GRACIA!=0)                                                                    /*si es diferente de cero tiene tiempo de gracia*
              -/
-1682   2            {
-1683   3              Debug_txt_Tibbo((unsigned char *) "Tiempo Gracia: ");
-1684   3              Debug_chr_Tibbo(T_GRACIA);                                                            /*imprimo la trama recibida*/ 
-1685   3              Debug_txt_Tibbo((unsigned char *) "\r\n");    
-1686   3              analiza_tiempo(buffer_S_B,T_GRACIA);                                                // Simula Fecha Max de Salida.
-1687   3            
-1688   3            }
-1689   2          /*------------------------------------------------------------------------------  
-1690   2          comun para todos
-1691   2          ------------------------------------------------------------------------------*/    
-1692   2            g_cEstadoComSeqMF=Validar_Pago();
-1693   2            
+1683   2            {
+1684   3              Debug_txt_Tibbo((unsigned char *) "Tiempo Gracia: ");
+1685   3              Debug_chr_Tibbo(T_GRACIA);                                                            /*imprimo la trama recibida*/ 
+1686   3              Debug_txt_Tibbo((unsigned char *) "\r\n");    
+1687   3              analiza_tiempo(buffer_S_B,T_GRACIA);                                                // Simula Fecha Max de Salida.
+1688   3            
+1689   3            }
+1690   2          /*------------------------------------------------------------------------------  
+1691   2          comun para todos
+1692   2          ------------------------------------------------------------------------------*/    
+1693   2            g_cEstadoComSeqMF=Validar_Pago();
 1694   2            
-1695   2        break;
-1696   2        case SEQ_MENSUAL:
-1697   2          
-1698   2        /*valida si esta programdo el horario y si esta en el rango*/
-1699   2        if (Horarios(Atributos_Expedidor [Horario]) == True)
-1700   2        {
-1701   3          /*cheque la fecha de expiracion del mensual*/
-1702   3          atributos = &Atributos_Expedidor [Expira_ano];//;buffer_S1_B1[MF_EXPIRA_ANO];
-1703   3          
-1704   3          if ( check_fechaOut_2(atributos) == True )
-1705   3            {
-1706   4                /*valida que la salida sea el mismo dia*/
-1707   4              if( Valida_Mismo_Dia(Atributos_Expedidor) == True)
-1708   4              {
-1709   5                Debug_txt_Tibbo((unsigned char *) "MENSUAL AL DIA\r\n");  
-1710   5                g_cEstadoComSeqMF=SEQ_RD_S1B0;
-1711   5              }
-1712   4              else
-C51 COMPILER V9.59.0.0   VERIFICADOR                                                       07/28/2021 11:20:17 PAGE 30  
+1695   2            
+1696   2        break;
+1697   2        case SEQ_MENSUAL:
+1698   2          
+1699   2        /*valida si esta programdo el horario y si esta en el rango*/
+1700   2        if (Horarios(Atributos_Expedidor [Horario]) == True)
+1701   2        {
+1702   3          /*cheque la fecha de expiracion del mensual*/
+1703   3          atributos = &Atributos_Expedidor [Expira_ano];//;buffer_S1_B1[MF_EXPIRA_ANO];
+1704   3          
+1705   3          if ( check_fechaOut_2(atributos) == True )
+1706   3            {
+1707   4                /*valida que la salida sea el mismo dia*/
+1708   4              if( Valida_Mismo_Dia(Atributos_Expedidor) == True)
+1709   4              {
+1710   5                Debug_txt_Tibbo((unsigned char *) "MENSUAL AL DIA\r\n");  
+1711   5                g_cEstadoComSeqMF=SEQ_RD_S1B0;
+1712   5              }
+C51 COMPILER V9.59.0.0   VERIFICADOR                                                       11/19/2021 12:02:57 PAGE 30  
 
-1713   4              {
-1714   5              Debug_txt_Tibbo((unsigned char *) "SALIDA NO ES EL MISMO DIA \r\n");  
-1715   5              g_cEstadoComSeqMF = Validar_Pago();
-1716   5              } 
-1717   4              
-1718   4            }
-1719   3              else 
-1720   3              {
-1721   4              send_portERR(PRMR_TARJETA_VENCIDA); 
-1722   4                  
-1723   4              PantallaLCD(TARJETA_VENCIDA);
-1724   4              Debug_txt_Tibbo((unsigned char *) "MENSUAL EXPIRA\r\n");
-1725   4              g_cEstadoComSeqMF = SEQ_EXPULSAR_TARJ;
-1726   4              
-1727   4              }
-1728   3        }
-1729   2        else
-1730   2          {
-1731   3            if(Horarios(Atributos_Expedidor [Horario])==0)
-1732   3            {
-1733   4              /*cheque la fecha de expiracion del mensual*/
-1734   4              atributos = &Atributos_Expedidor [Expira_ano];//;buffer_S1_B1[MF_EXPIRA_ANO];
-1735   4              if ( check_fechaOut_2(atributos) == True )
-1736   4              {
-1737   5              Debug_txt_Tibbo((unsigned char *) "MENSUAL AL DIA HORARIO 0\r\n");  
-1738   5              g_cEstadoComSeqMF=SEQ_RD_S1B0;
-1739   5              }
-1740   4              else
-1741   4              {
-1742   5              send_portERR(PRMR_TARJETA_VENCIDA); 
-1743   5              PantallaLCD(TARJETA_VENCIDA);
-1744   5              Debug_txt_Tibbo((unsigned char *) "MENSUAL EXPIRA\r\n");
-1745   5              g_cEstadoComSeqMF = SEQ_EXPULSAR_TARJ;
-1746   5              }
-1747   4          }
-1748   3          else
-1749   3            {
-1750   4            g_cEstadoComSeqMF = SEQ_EXPULSAR_TARJ;
-1751   4            }
-1752   3          }
-1753   2            break;
-1754   2        case SEQ_RD_S1B0:
-1755   2            
-1756   2            RD_MF(1, 0);                                                                    /* Leo el ticket */
-1757   2            g_cEstadoComSeqMF=SEQ_RD_S1B0_RPTA;
-1758   2        break;
-1759   2      /*------------------------------------------------------------------------------
-1760   2      Leo la Mf en el  sector 1 bloque 0
-1761   2          lee el ticket
-1762   2      ------------------------------------------------------------------------------*/    
-1763   2          
-1764   2        case SEQ_RD_S1B0_RPTA:
-1765   2        
-1766   2        if((temp=Trama_Validacion_P_N())!=0)
-1767   2          {
-1768   3            if(temp==2)
-1769   3            {
-1770   4            g_cEstadoComSeqMF=SEQ_RD_S1B0_RPTA;                                                           /*no ha respondido*/
-1771   4            }
-1772   3            else if (temp==3)
-1773   3            {
-1774   4            Debug_txt_Tibbo((unsigned char *) "SEQ_RD_S1B0 ERROR\r\n");                           /* trama no valida respuesta i
-C51 COMPILER V9.59.0.0   VERIFICADOR                                                       07/28/2021 11:20:17 PAGE 31  
+1713   4              else
+1714   4              {
+1715   5              Debug_txt_Tibbo((unsigned char *) "SALIDA NO ES EL MISMO DIA \r\n");  
+1716   5              g_cEstadoComSeqMF = Validar_Pago();
+1717   5              } 
+1718   4              
+1719   4            }
+1720   3              else 
+1721   3              {
+1722   4              send_portERR(PRMR_TARJETA_VENCIDA); 
+1723   4                  
+1724   4              PantallaLCD(TARJETA_VENCIDA);
+1725   4              Debug_txt_Tibbo((unsigned char *) "MENSUAL EXPIRA\r\n");
+1726   4              g_cEstadoComSeqMF = SEQ_EXPULSAR_TARJ;
+1727   4              
+1728   4              }
+1729   3        }
+1730   2        else
+1731   2          {
+1732   3            if(Horarios(Atributos_Expedidor [Horario])==0)
+1733   3            {
+1734   4              /*cheque la fecha de expiracion del mensual*/
+1735   4              atributos = &Atributos_Expedidor [Expira_ano];//;buffer_S1_B1[MF_EXPIRA_ANO];
+1736   4              if ( check_fechaOut_2(atributos) == True )
+1737   4              {
+1738   5              Debug_txt_Tibbo((unsigned char *) "MENSUAL AL DIA HORARIO 0\r\n");  
+1739   5              g_cEstadoComSeqMF=SEQ_RD_S1B0;
+1740   5              }
+1741   4              else
+1742   4              {
+1743   5              send_portERR(PRMR_TARJETA_VENCIDA); 
+1744   5              PantallaLCD(TARJETA_VENCIDA);
+1745   5              Debug_txt_Tibbo((unsigned char *) "MENSUAL EXPIRA\r\n");
+1746   5              g_cEstadoComSeqMF = SEQ_EXPULSAR_TARJ;
+1747   5              }
+1748   4          }
+1749   3          else
+1750   3            {
+1751   4            g_cEstadoComSeqMF = SEQ_EXPULSAR_TARJ;
+1752   4            }
+1753   3          }
+1754   2            break;
+1755   2        case SEQ_RD_S1B0:
+1756   2            
+1757   2            RD_MF(1, 0);                                                                    /* Leo el ticket */
+1758   2            g_cEstadoComSeqMF=SEQ_RD_S1B0_RPTA;
+1759   2        break;
+1760   2      /*------------------------------------------------------------------------------
+1761   2      Leo la Mf en el  sector 1 bloque 0
+1762   2          lee el ticket
+1763   2      ------------------------------------------------------------------------------*/    
+1764   2          
+1765   2        case SEQ_RD_S1B0_RPTA:
+1766   2        
+1767   2        if((temp=Trama_Validacion_P_N())!=0)
+1768   2          {
+1769   3            if(temp==2)
+1770   3            {
+1771   4            g_cEstadoComSeqMF=SEQ_RD_S1B0_RPTA;                                                           /*no ha respondido*/
+1772   4            }
+1773   3            else if (temp==3)
+1774   3            {
+C51 COMPILER V9.59.0.0   VERIFICADOR                                                       11/19/2021 12:02:57 PAGE 31  
 
+1775   4            Debug_txt_Tibbo((unsigned char *) "SEQ_RD_S1B0 ERROR\r\n");                           /* trama no valida respuesta i
              -ncorrecta el leer el bloque*/
-1775   4            DebugBufferMF(Buffer_Rta_Lintech,g_cContByteRx,RESPUESTA);                                /*imprimo la trama recibida*/
+1776   4            DebugBufferMF(Buffer_Rta_Lintech,g_cContByteRx,RESPUESTA);                                /*imprimo la trama recibida*/
              -  
-1776   4            g_cEstadoComSeqMF=SEQ_INICIO;                                                             /* (3) Trama invalida cmd (N)*/ 
-1777   4            }       
-1778   3            else
-1779   3            { 
-1780   4              /*Dispensador No Responde PTO SERIE ...*/
-1781   4          
-1782   4              if(temp=error_rx_pto()==0)
-1783   4              {
-1784   5                g_cEstadoComSeqMF=SEQ_RD_S1B0_RPTA;
-1785   5              }
-1786   4              else if(temp=error_rx_pto()==1)
-1787   4              {
-1788   5                g_cEstadoComSeqMF=SEQ_RD_S1B0;
-1789   5              }                                                       /* respuesta incorrecta*/
-1790   4            }
-1791   3          }
-1792   2          else
-1793   2          {
-1794   3            g_cEstadoComSeqMF=Responde_Lectura_Tarjeta_Sector1_Bloque0 (Atributos_Expedidor);
-1795   3        
-1796   3          }
-1797   2        break;
-1798   2      
-1799   2            
-1800   2      /*------------------------------------------------------------------------------
-1801   2      envio a escribir en  la Mf en el  sector 1 bloque 2
-1802   2          
-1803   2      ------------------------------------------------------------------------------*/    
-1804   2        case SEQ_WR_S1B2:
-1805   2        
-1806   2              
-1807   2              WR_MF(1, 2,Atributos_Expedidor);//buffer_S_B+MF_TIPO_VEHICULO
-1808   2              g_cEstadoComSeqMF=SEQ_WR_S1B2_RPTA;
-1809   2            
-1810   2        break;
-1811   2      /*------------------------------------------------------------------------------
-1812   2      espero la respuesta de la escritura en  la Mf en el  sector 1 bloque 2
-1813   2          
-1814   2      ------------------------------------------------------------------------------*/  
-1815   2        case SEQ_WR_S1B2_RPTA:
-1816   2          if((temp=Trama_Validacion_P_N())!=0)
-1817   2          {
-1818   3            if(temp==2)
-1819   3            {
-1820   4            g_cEstadoComSeqMF= SEQ_WR_S1B2_RPTA;                                                            /*no ha respondido*/
-1821   4            }
-1822   3            else if (temp==3)
-1823   3            {
-1824   4            Debug_txt_Tibbo((unsigned char *) "SEQ_WR_S1B2 ERROR\r\n\r\n");                           /* trama no valida respues
+1777   4            g_cEstadoComSeqMF=SEQ_INICIO;                                                             /* (3) Trama invalida cmd (N)*/ 
+1778   4            }       
+1779   3            else
+1780   3            { 
+1781   4              /*Dispensador No Responde PTO SERIE ...*/
+1782   4          
+1783   4              if(temp=error_rx_pto()==0)
+1784   4              {
+1785   5                g_cEstadoComSeqMF=SEQ_RD_S1B0_RPTA;
+1786   5              }
+1787   4              else if(temp=error_rx_pto()==1)
+1788   4              {
+1789   5                g_cEstadoComSeqMF=SEQ_RD_S1B0;
+1790   5              }                                                       /* respuesta incorrecta*/
+1791   4            }
+1792   3          }
+1793   2          else
+1794   2          {
+1795   3            g_cEstadoComSeqMF=Responde_Lectura_Tarjeta_Sector1_Bloque0 (Atributos_Expedidor);
+1796   3        
+1797   3          }
+1798   2        break;
+1799   2      
+1800   2            
+1801   2      /*------------------------------------------------------------------------------
+1802   2      envio a escribir en  la Mf en el  sector 1 bloque 2
+1803   2          
+1804   2      ------------------------------------------------------------------------------*/    
+1805   2        case SEQ_WR_S1B2:
+1806   2        
+1807   2              
+1808   2              WR_MF(1, 2,Atributos_Expedidor);//buffer_S_B+MF_TIPO_VEHICULO
+1809   2              g_cEstadoComSeqMF=SEQ_WR_S1B2_RPTA;
+1810   2            
+1811   2        break;
+1812   2      /*------------------------------------------------------------------------------
+1813   2      espero la respuesta de la escritura en  la Mf en el  sector 1 bloque 2
+1814   2          
+1815   2      ------------------------------------------------------------------------------*/  
+1816   2        case SEQ_WR_S1B2_RPTA:
+1817   2          if((temp=Trama_Validacion_P_N())!=0)
+1818   2          {
+1819   3            if(temp==2)
+1820   3            {
+1821   4            g_cEstadoComSeqMF= SEQ_WR_S1B2_RPTA;                                                            /*no ha respondido*/
+1822   4            }
+1823   3            else if (temp==3)
+1824   3            {
+1825   4            Debug_txt_Tibbo((unsigned char *) "SEQ_WR_S1B2 ERROR\r\n\r\n");                           /* trama no valida respues
              -ta incorrecta el escribir bloque*/
-1825   4            DebugBufferMF(Buffer_Rta_Lintech,g_cContByteRx,RESPUESTA);                                /*imprimo la trama recibida*/
+1826   4            DebugBufferMF(Buffer_Rta_Lintech,g_cContByteRx,RESPUESTA);                                /*imprimo la trama recibida*/
              -  
-1826   4            g_cEstadoComSeqMF=SEQ_INICIO;                                                             /* (3) Trama invalida cmd (N)*/ 
-1827   4            }       
-1828   3            else
-1829   3            { 
-1830   4              
-1831   4                /*Dispensador No Responde PTO SERIE ...*/
-1832   4          
-C51 COMPILER V9.59.0.0   VERIFICADOR                                                       07/28/2021 11:20:17 PAGE 32  
+1827   4            g_cEstadoComSeqMF=SEQ_INICIO;                                                             /* (3) Trama invalida cmd (N)*/ 
+1828   4            }       
+1829   3            else
+1830   3            { 
+1831   4              
+1832   4                /*Dispensador No Responde PTO SERIE ...*/
+C51 COMPILER V9.59.0.0   VERIFICADOR                                                       11/19/2021 12:02:57 PAGE 32  
 
-1833   4              if(temp=error_rx_pto()==0)
-1834   4              {
-1835   5                g_cEstadoComSeqMF=SEQ_WR_S1B2_RPTA;
-1836   5              }
-1837   4              else if(temp=error_rx_pto()==1)
-1838   4              {
-1839   5                g_cEstadoComSeqMF=SEQ_WR_S1B2;
-1840   5              }         
-1841   4              
+1833   4          
+1834   4              if(temp=error_rx_pto()==0)
+1835   4              {
+1836   5                g_cEstadoComSeqMF=SEQ_WR_S1B2_RPTA;
+1837   5              }
+1838   4              else if(temp=error_rx_pto()==1)
+1839   4              {
+1840   5                g_cEstadoComSeqMF=SEQ_WR_S1B2;
+1841   5              }         
 1842   4              
-1843   4            
-1844   4            }
-1845   3          }
-1846   2          else
-1847   2          {
-1848   3          
-1849   3            Debug_txt_Tibbo((unsigned char *) "SEQ_WR_S1B2 OK\r\n\r\n");                              /* trama OK CARGA numero de 
+1843   4              
+1844   4            
+1845   4            }
+1846   3          }
+1847   2          else
+1848   2          {
+1849   3          
+1850   3            Debug_txt_Tibbo((unsigned char *) "SEQ_WR_S1B2 OK\r\n\r\n");                              /* trama OK CARGA numero de 
              -ticket*/
-1850   3            DebugBufferMF(Buffer_Rta_Lintech,g_cContByteRx,RESPUESTA);                                /*imprimo la trama recibida*/
+1851   3            DebugBufferMF(Buffer_Rta_Lintech,g_cContByteRx,RESPUESTA);                                /*imprimo la trama recibida*/
              -    
-1851   3            //g_cEstadoComSeqMF=SEQ_WR_S2B0;  
-1852   3              /*capturo la tarjeta*/
-1853   3            lock=1;   
-1854   3            Debug_txt_Tibbo((unsigned char *) "SEQ_RTA_S2B0 OK\r\n");                             /* trama OK CARGA numero de tic
+1852   3            //g_cEstadoComSeqMF=SEQ_WR_S2B0;  
+1853   3              /*capturo la tarjeta*/
+1854   3            lock=1;   
+1855   3            Debug_txt_Tibbo((unsigned char *) "SEQ_RTA_S2B0 OK\r\n");                             /* trama OK CARGA numero de tic
              -ket*/
-1855   3            DebugBufferMF(Buffer_Rta_Lintech,g_cContByteRx,RESPUESTA);                                /*imprimo la trama recibida*/
+1856   3            DebugBufferMF(Buffer_Rta_Lintech,g_cContByteRx,RESPUESTA);                                /*imprimo la trama recibida*/
              -    
-1856   3            send_portERR(0xA1);                                                                         /*audio gracias*/ 
-1857   3            send_portERR(0XFF);
-1858   3            PantallaLCD(GRACIAS); 
-1859   3        
-1860   3            Debug_txt_Tibbo((unsigned char *) "ok tarjeta ok...\r\n");                              /* pto serie no responde*/
-1861   3            
-1862   3          if (Atributos_Expedidor [ Tipo_Tarjeta]!= MENSUALIDAD)  
-1863   3            {
-1864   4                  
-1865   4            g_cEstadoComSeqMF=SEQ_RTA_CAPTURE;
-1866   4            }
-1867   3            else
-1868   3            {
-1869   4              g_cEstadoComSeqMF=SEQ_EXPULSAR_TARJ;    
-1870   4            }
-1871   3          }
-1872   2          break;
-1873   2        case SEQ_WR_S2B0:
-1874   2          WR_MF(2, 0,buffer_S_B+MF_TIPO_VEHICULO);//s1b2
-1875   2        
-1876   2          g_cEstadoComSeqMF=SEQ_WR_S2B0_RPTA; 
-1877   2          break;
-1878   2        
+1857   3            send_portERR(0xA1);                                                                         /*audio gracias*/ 
+1858   3            send_portERR(0XFF);
+1859   3            PantallaLCD(GRACIAS); 
+1860   3        
+1861   3            Debug_txt_Tibbo((unsigned char *) "ok tarjeta ok...\r\n");                              /* pto serie no responde*/
+1862   3            
+1863   3          if (Atributos_Expedidor [ Tipo_Tarjeta]!= MENSUALIDAD)  
+1864   3            {
+1865   4                  
+1866   4            g_cEstadoComSeqMF=SEQ_RTA_CAPTURE;
+1867   4            }
+1868   3            else
+1869   3            {
+1870   4              g_cEstadoComSeqMF=SEQ_EXPULSAR_TARJ;    
+1871   4            }
+1872   3          }
+1873   2          break;
+1874   2        case SEQ_WR_S2B0:
+1875   2          WR_MF(2, 0,buffer_S_B+MF_TIPO_VEHICULO);//s1b2
+1876   2        
+1877   2          g_cEstadoComSeqMF=SEQ_WR_S2B0_RPTA; 
+1878   2          break;
 1879   2        
-1880   2        case SEQ_WR_S2B0_RPTA:
-1881   2      
-1882   2        if((temp=Trama_Validacion_P_N())!=0)
-1883   2          {
-1884   3            if(temp==2)
-1885   3            {
-1886   4            g_cEstadoComSeqMF=SEQ_WR_S2B0_RPTA;                                                           /*no ha respondido*/
-1887   4            }
-1888   3            else if (temp==3)
-1889   3            {
-1890   4            Debug_txt_Tibbo((unsigned char *) "SEQ_RTA_S2B0 ERROR\r\n");                            /* trama no valida respuesta 
-C51 COMPILER V9.59.0.0   VERIFICADOR                                                       07/28/2021 11:20:17 PAGE 33  
+1880   2        
+1881   2        case SEQ_WR_S2B0_RPTA:
+1882   2      
+1883   2        if((temp=Trama_Validacion_P_N())!=0)
+1884   2          {
+1885   3            if(temp==2)
+1886   3            {
+1887   4            g_cEstadoComSeqMF=SEQ_WR_S2B0_RPTA;                                                           /*no ha respondido*/
+1888   4            }
+1889   3            else if (temp==3)
+1890   3            {
+C51 COMPILER V9.59.0.0   VERIFICADOR                                                       11/19/2021 12:02:57 PAGE 33  
 
+1891   4            Debug_txt_Tibbo((unsigned char *) "SEQ_RTA_S2B0 ERROR\r\n");                            /* trama no valida respuesta 
              -incorrecta el leer el bloque*/
-1891   4            DebugBufferMF(Buffer_Rta_Lintech,g_cContByteRx,RESPUESTA);                                /*imprimo la trama recibida*/
+1892   4            DebugBufferMF(Buffer_Rta_Lintech,g_cContByteRx,RESPUESTA);                                /*imprimo la trama recibida*/
              -  
-1892   4            g_cEstadoComSeqMF=SEQ_INICIO;                                                             /* (3) Trama invalida cmd (N)*/ 
-1893   4            }       
-1894   3            else
-1895   3            { 
-1896   4                  /*Dispensador No Responde PTO SERIE ...*/
-1897   4          
-1898   4              if(temp=error_rx_pto()==0)
-1899   4              {
-1900   5                g_cEstadoComSeqMF=SEQ_WR_S2B0_RPTA;
-1901   5              }
-1902   4              else if(temp=error_rx_pto()==1)
-1903   4              {
-1904   5                g_cEstadoComSeqMF=SEQ_WR_S2B0;
-1905   5              }         
-1906   4          
-1907   4                  
-1908   4            }
-1909   3          }
-1910   2          else
-1911   2          {
-1912   3          
-1913   3            /*capturo la tarjeta*/
-1914   3            lock=1;   
-1915   3            Debug_txt_Tibbo((unsigned char *) "SEQ_RTA_S2B0 OK\r\n");                             /* trama OK CARGA numero de tic
+1893   4            g_cEstadoComSeqMF=SEQ_INICIO;                                                             /* (3) Trama invalida cmd (N)*/ 
+1894   4            }       
+1895   3            else
+1896   3            { 
+1897   4                  /*Dispensador No Responde PTO SERIE ...*/
+1898   4          
+1899   4              if(temp=error_rx_pto()==0)
+1900   4              {
+1901   5                g_cEstadoComSeqMF=SEQ_WR_S2B0_RPTA;
+1902   5              }
+1903   4              else if(temp=error_rx_pto()==1)
+1904   4              {
+1905   5                g_cEstadoComSeqMF=SEQ_WR_S2B0;
+1906   5              }         
+1907   4          
+1908   4                  
+1909   4            }
+1910   3          }
+1911   2          else
+1912   2          {
+1913   3          
+1914   3            /*capturo la tarjeta*/
+1915   3            lock=1;   
+1916   3            Debug_txt_Tibbo((unsigned char *) "SEQ_RTA_S2B0 OK\r\n");                             /* trama OK CARGA numero de tic
              -ket*/
-1916   3            DebugBufferMF(Buffer_Rta_Lintech,g_cContByteRx,RESPUESTA);                                /*imprimo la trama recibida*/
+1917   3            DebugBufferMF(Buffer_Rta_Lintech,g_cContByteRx,RESPUESTA);                                /*imprimo la trama recibida*/
              -    
-1917   3            send_portERR(0xA1);                                                                         /*audio gracias*/ 
-1918   3            send_portERR(0XFF);
-1919   3            PantallaLCD(GRACIAS); 
-1920   3        
-1921   3            Debug_txt_Tibbo((unsigned char *) "ok tarjeta ok...\r\n");                              /* pto serie no responde*/
-1922   3            
-1923   3          if (Atributos_Expedidor [ Tipo_Tarjeta]!= MENSUALIDAD)  
-1924   3            {
-1925   4                  
-1926   4            g_cEstadoComSeqMF=SEQ_RTA_CAPTURE;
-1927   4            }
-1928   3            else
-1929   3            {
-1930   4              g_cEstadoComSeqMF=SEQ_EXPULSAR_TARJ;    
-1931   4            }
-1932   3          }
-1933   2          break;
-1934   2          
-1935   2          case SEQ_RTA_CAPTURE:
-1936   2            
-1937   2            Mov_Card(MovPos_Capture); 
-1938   2            g_cEstadoComSeqMF=SEQ_RTA_CAPTURE_RPTA;
-1939   2            prto_ready=1;                                                       /*le da prioridad a la respuesta de la captura de tarjeta*/
-1940   2            break;
-1941   2      /*------------------------------------------------------------------------------
-1942   2      El vehiculo no se encuentra en el loop  ejecto la tarjeta y espero la respuesta
-1943   2            (0) LA RESPUESTA ES OK
-1944   2            (1) NO RESPONDE EL PTO SERIE
-1945   2            (2) NO RECIBIDO LA TRAMA 
-1946   2            (3) ERROR DE TRAMA CMD (N)
-1947   2      ------------------------------------------------------------------------------*/  
-1948   2      
-C51 COMPILER V9.59.0.0   VERIFICADOR                                                       07/28/2021 11:20:17 PAGE 34  
+1918   3            send_portERR(0xA1);                                                                         /*audio gracias*/ 
+1919   3            send_portERR(0XFF);
+1920   3            PantallaLCD(GRACIAS); 
+1921   3        
+1922   3            Debug_txt_Tibbo((unsigned char *) "ok tarjeta ok...\r\n");                              /* pto serie no responde*/
+1923   3            
+1924   3          if (Atributos_Expedidor [ Tipo_Tarjeta]!= MENSUALIDAD)  
+1925   3            {
+1926   4                  
+1927   4            g_cEstadoComSeqMF=SEQ_RTA_CAPTURE;
+1928   4            }
+1929   3            else
+1930   3            {
+1931   4              g_cEstadoComSeqMF=SEQ_EXPULSAR_TARJ;    
+1932   4            }
+1933   3          }
+1934   2          break;
+1935   2          
+1936   2          case SEQ_RTA_CAPTURE:
+1937   2            
+1938   2            Mov_Card(MovPos_Capture); 
+1939   2            g_cEstadoComSeqMF=SEQ_RTA_CAPTURE_RPTA;
+1940   2            prto_ready=1;                                                       /*le da prioridad a la respuesta de la captura de tarjeta*/
+1941   2            break;
+1942   2      /*------------------------------------------------------------------------------
+1943   2      El vehiculo no se encuentra en el loop  ejecto la tarjeta y espero la respuesta
+1944   2            (0) LA RESPUESTA ES OK
+1945   2            (1) NO RESPONDE EL PTO SERIE
+1946   2            (2) NO RECIBIDO LA TRAMA 
+1947   2            (3) ERROR DE TRAMA CMD (N)
+1948   2      ------------------------------------------------------------------------------*/  
+C51 COMPILER V9.59.0.0   VERIFICADOR                                                       11/19/2021 12:02:57 PAGE 34  
 
-1949   2        case SEQ_RTA_CAPTURE_RPTA:
-1950   2          
-1951   2          if((temp=Trama_Validacion_P_N())!=0)
-1952   2          {
-1953   3            if(temp==2)
-1954   3            {
-1955   4              
-1956   4                if (ValidaSensores_Out()==1)
-1957   4              {
-1958   5                lock=0;
-1959   5                Debug_txt_Tibbo((unsigned char *) "rele off\r\n");                          /* trama ok la tarjeta fue ejectada*/
-1960   5              
-1961   5              }
-1962   4            
-1963   4                g_cEstadoComSeqMF=SEQ_RTA_CAPTURE_RPTA;     
-1964   4              
+1949   2      
+1950   2        case SEQ_RTA_CAPTURE_RPTA:
+1951   2          
+1952   2          if((temp=Trama_Validacion_P_N())!=0)
+1953   2          {
+1954   3            if(temp==2)
+1955   3            {
+1956   4              
+1957   4                if (ValidaSensores_Out()==1)
+1958   4              {
+1959   5                lock=0;
+1960   5                Debug_txt_Tibbo((unsigned char *) "rele off\r\n");                          /* trama ok la tarjeta fue ejectada*/
+1961   5              
+1962   5              }
+1963   4            
+1964   4                g_cEstadoComSeqMF=SEQ_RTA_CAPTURE_RPTA;     
 1965   4              
-1966   4            } 
-1967   3              else if (temp==3)
-1968   3            {
-1969   4            Debug_txt_Tibbo((unsigned char *) "NO EJECT TARJET ERROR\r\n");                   /* Tama incorrecta no ejecta l
+1966   4              
+1967   4            } 
+1968   3              else if (temp==3)
+1969   3            {
+1970   4            Debug_txt_Tibbo((unsigned char *) "NO EJECT TARJET ERROR\r\n");                   /* Tama incorrecta no ejecta l
              -a tarjeta*/
-1970   4            DebugBufferMF(Buffer_Rta_Lintech,g_cContByteRx,RESPUESTA);                            /*imprimo la trama recibida*/
-1971   4            g_cEstadoComSeqMF=SEQ_INICIO;                                                         /* (3) Trama invalida cmd (N)*/ 
-1972   4            } 
-1973   3            else
-1974   3            {
-1975   4                    /*Dispensador No Responde PTO SERIE ...*/
-1976   4            
+1971   4            DebugBufferMF(Buffer_Rta_Lintech,g_cContByteRx,RESPUESTA);                            /*imprimo la trama recibida*/
+1972   4            g_cEstadoComSeqMF=SEQ_INICIO;                                                         /* (3) Trama invalida cmd (N)*/ 
+1973   4            } 
+1974   3            else
+1975   3            {
+1976   4                    /*Dispensador No Responde PTO SERIE ...*/
 1977   4            
-1978   4          
-1979   4              
-1980   4                if(temp=error_rx_pto()==0)
-1981   4                {
-1982   5                  g_cEstadoComSeqMF=SEQ_RTA_CAPTURE_RPTA;   
-1983   5                }
-1984   4                else if(temp=error_rx_pto()==1)
-1985   4                {
-1986   5                  
-1987   5                g_cEstadoComSeqMF=SEQ_RTA_CAPTURE;
-1988   5                }         
-1989   4          
-1990   4              
-1991   4            
-1992   4            }       
-1993   3          }
-1994   2          else
-1995   2          {
-1996   3                    
-1997   3            prto_ready=0;
-1998   3            Debug_txt_Tibbo((unsigned char *) "EJECT TARJET OK\r\n\r\n");                         /* trama ok la tarjeta fue ej
+1978   4            
+1979   4          
+1980   4              
+1981   4                if(temp=error_rx_pto()==0)
+1982   4                {
+1983   5                  g_cEstadoComSeqMF=SEQ_RTA_CAPTURE_RPTA;   
+1984   5                }
+1985   4                else if(temp=error_rx_pto()==1)
+1986   4                {
+1987   5                  
+1988   5                g_cEstadoComSeqMF=SEQ_RTA_CAPTURE;
+1989   5                }         
+1990   4          
+1991   4              
+1992   4            
+1993   4            }       
+1994   3          }
+1995   2          else
+1996   2          {
+1997   3                    
+1998   3            prto_ready=0;
+1999   3            Debug_txt_Tibbo((unsigned char *) "EJECT TARJET OK\r\n\r\n");                         /* trama ok la tarjeta fue ej
              -ectada*/
-1999   3            DebugBufferMF(Buffer_Rta_Lintech,g_cContByteRx,RESPUESTA);                            /*imprimo la trama recibida*/
-2000   3            
-2001   3            lock=0;
-2002   3            ValTimeOutCom=3;    
-2003   3            g_cEstadoComSeqMF=SEQ_CHECK_STATUS;                   //SEQ_INICIO;                                                     /*respuesta ok ini
+2000   3            DebugBufferMF(Buffer_Rta_Lintech,g_cContByteRx,RESPUESTA);                            /*imprimo la trama recibida*/
+2001   3            
+2002   3            lock=0;
+2003   3            ValTimeOutCom=3;    
+2004   3            g_cEstadoComSeqMF=SEQ_CHECK_STATUS;                   //SEQ_INICIO;                                                     /*respuesta ok ini
              -cia revisando sensores*/
-2004   3                                                          
-2005   3          }     
-2006   2            
-2007   2      
-C51 COMPILER V9.59.0.0   VERIFICADOR                                                       07/28/2021 11:20:17 PAGE 35  
+2005   3                                                          
+2006   3          }     
+2007   2            
+C51 COMPILER V9.59.0.0   VERIFICADOR                                                       11/19/2021 12:02:57 PAGE 35  
 
-2008   2          break;
-2009   2          
-2010   2      
+2008   2      
+2009   2          break;
+2010   2          
 2011   2      
-2012   2      case SEQ_RD_S1B0_EJECT: 
-2013   2          RD_MF(1, 0);                                                                      /**leo el ticket*/  
-2014   2          g_cEstadoComSeqMF=SEQ_RD_S1B0_EJECT_RPTA; 
-2015   2        break;  
-2016   2      /*------------------------------------------------------------------------------
-2017   2      Leo la Mf en el  sector 1 bloque 0 leo el ticket
-2018   2      LA tarjeta no tiene pago    
-2019   2        
-2020   2      ------------------------------------------------------------------------------*/
-2021   2        
+2012   2      
+2013   2      case SEQ_RD_S1B0_EJECT: 
+2014   2          RD_MF(1, 0);                                                                      /**leo el ticket*/  
+2015   2          g_cEstadoComSeqMF=SEQ_RD_S1B0_EJECT_RPTA; 
+2016   2        break;  
+2017   2      /*------------------------------------------------------------------------------
+2018   2      Leo la Mf en el  sector 1 bloque 0 leo el ticket
+2019   2      LA tarjeta no tiene pago    
+2020   2        
+2021   2      ------------------------------------------------------------------------------*/
 2022   2        
-2023   2        case SEQ_RD_S1B0_EJECT_RPTA:  
-2024   2          
-2025   2          if((temp=Trama_Validacion_P_N())!=0)
-2026   2          {
-2027   3            if(temp==2)
-2028   3            {
-2029   4            g_cEstadoComSeqMF=SEQ_RD_S1B0_EJECT_RPTA;                                                           /*no ha respondido*/
-2030   4            }
-2031   3            else if (temp==3)
-2032   3            {
-2033   4            Debug_txt_Tibbo((unsigned char *) "SEQ_RD_S1B0 ERROR\r\n");                           /* trama no valida respuesta i
+2023   2        
+2024   2        case SEQ_RD_S1B0_EJECT_RPTA:  
+2025   2          
+2026   2          if((temp=Trama_Validacion_P_N())!=0)
+2027   2          {
+2028   3            if(temp==2)
+2029   3            {
+2030   4            g_cEstadoComSeqMF=SEQ_RD_S1B0_EJECT_RPTA;                                                           /*no ha respondido*/
+2031   4            }
+2032   3            else if (temp==3)
+2033   3            {
+2034   4            Debug_txt_Tibbo((unsigned char *) "SEQ_RD_S1B0 ERROR\r\n");                           /* trama no valida respuesta i
              -ncorrecta el leer el bloque*/
-2034   4            DebugBufferMF(Buffer_Rta_Lintech,g_cContByteRx,RESPUESTA);                                /*imprimo la trama recibida*/
+2035   4            DebugBufferMF(Buffer_Rta_Lintech,g_cContByteRx,RESPUESTA);                                /*imprimo la trama recibida*/
              -  
-2035   4            g_cEstadoComSeqMF=SEQ_INICIO;                                                             /* (3) Trama invalida cmd (N)*/ 
-2036   4            }       
-2037   3            else
-2038   3            { 
-2039   4                  /*Dispensador No Responde PTO SERIE ...*/
-2040   4          
-2041   4              if(temp=error_rx_pto()==0)
-2042   4              {
-2043   5                g_cEstadoComSeqMF=SEQ_RD_S1B0_EJECT_RPTA;
-2044   5              }
-2045   4              else if(temp=error_rx_pto()==1)
-2046   4              {
-2047   5                g_cEstadoComSeqMF=SEQ_RD_S1B0_EJECT;
-2048   5              }         
-2049   4                                                  /* respuesta incorrecta*/
-2050   4            }
-2051   3          }
-2052   2          else
-2053   2          {
-2054   3            
-2055   3            Debug_txt_Tibbo((unsigned char *) "SEQ_RD_S1B0_EJECT OK\r\n");                              /* trama OK CARGA numero d
+2036   4            g_cEstadoComSeqMF=SEQ_INICIO;                                                             /* (3) Trama invalida cmd (N)*/ 
+2037   4            }       
+2038   3            else
+2039   3            { 
+2040   4                  /*Dispensador No Responde PTO SERIE ...*/
+2041   4          
+2042   4              if(temp=error_rx_pto()==0)
+2043   4              {
+2044   5                g_cEstadoComSeqMF=SEQ_RD_S1B0_EJECT_RPTA;
+2045   5              }
+2046   4              else if(temp=error_rx_pto()==1)
+2047   4              {
+2048   5                g_cEstadoComSeqMF=SEQ_RD_S1B0_EJECT;
+2049   5              }         
+2050   4                                                  /* respuesta incorrecta*/
+2051   4            }
+2052   3          }
+2053   2          else
+2054   2          {
+2055   3            
+2056   3            Debug_txt_Tibbo((unsigned char *) "SEQ_RD_S1B0_EJECT OK\r\n");                              /* trama OK CARGA numero d
              -e ticket*/
-2056   3            //DebugBufferMF(Buffer_Rta_Lintech,g_cContByteRx,RESPUESTA);                                /*imprimo la trama recibida
+2057   3            //DebugBufferMF(Buffer_Rta_Lintech,g_cContByteRx,RESPUESTA);                                /*imprimo la trama recibida
              -*/    
-2057   3            
-2058   3        for (temp=0; temp<16; temp++)
-2059   3            {
-2060   4              
-2061   4              buffer_S1_B0[temp]=Buffer_Rta_Lintech[Pos_IniDatMF+temp];                                 /*almaceno la informacion de
+2058   3            
+2059   3        for (temp=0; temp<16; temp++)
+2060   3            {
+2061   4              
+2062   4              buffer_S1_B0[temp]=Buffer_Rta_Lintech[Pos_IniDatMF+temp];                                 /*almaceno la informacion de
              - MF el ticket*/
-2062   4              if(Buffer_Rta_Lintech[Pos_IniDatMF+temp]==0)
-2063   4              {
-2064   5                break;
-C51 COMPILER V9.59.0.0   VERIFICADOR                                                       07/28/2021 11:20:17 PAGE 36  
+2063   4              if(Buffer_Rta_Lintech[Pos_IniDatMF+temp]==0)
+2064   4              {
+C51 COMPILER V9.59.0.0   VERIFICADOR                                                       11/19/2021 12:02:57 PAGE 36  
 
-2065   5              }
-2066   4            }
-2067   3            DebugBufferMF(buffer_S1_B0,16,RESPUESTA); 
-2068   3            Trama_pto_Paralelo_P(buffer_S1_B0,buffer_S_B,'P');    
-2069   3            g_cEstadoComSeqMF=SEQ_EXPULSAR_TARJ;    
-2070   3          } 
-2071   2            break;
-2072   2        case SEQ_UID:
-2073   2          Unique_Identifier_UID();
-2074   2        g_cEstadoComSeqMF = SEQ_UID_RPTA;
-2075   2        break;
-2076   2        case SEQ_UID_RPTA:
-2077   2            if((temp=Trama_Validacion_P_N())!=0)
-2078   2          {
-2079   3            if(temp==2)
-2080   3            {
-2081   4            g_cEstadoComSeqMF=SEQ_UID_RPTA;                                                       /*no ha respondido*/
-2082   4            } 
-2083   3            else if (temp==3)
-2084   3            {
-2085   4            Debug_txt_Tibbo((unsigned char *) "SEQ_UID_RPTA FALLO\r\n");                      /* trama no valida*/
-2086   4            DebugBufferMF(Buffer_Rta_Lintech,g_cContByteRx,1);                                          /*imprimo la trama recibida*/
-2087   4            g_cEstadoComSeqMF=SEQ_UID;                                                          /* (3) Trama invalida cmd (N)*/ 
-2088   4            }     
-2089   3            else
-2090   3            {
-2091   4              
-2092   4              /*Dispensador No Responde PTO SERIE ...*/
-2093   4          
-2094   4              if(temp=error_rx_pto()==0)
-2095   4              {
-2096   5                g_cEstadoComSeqMF=SEQ_UID_RPTA;
-2097   5              }
-2098   4              else if(temp=error_rx_pto()==1)
-2099   4              {
-2100   5                g_cEstadoComSeqMF=SEQ_UID;
-2101   5              }
-2102   4            
-2103   4            }
-2104   3          }
-2105   2          else
-2106   2          {
-2107   3            g_cEstadoComSeqMF = Analiza_Uid_Card(Atributos_Expedidor );
-2108   3          }
-2109   2          break;
-2110   2        case SEQ_LOAD_PASSWORD:
-2111   2          LoadVerify_EEprom();
-2112   2          g_cEstadoComSeqMF=SEQ_MF_LINTECH;   
-2113   2          break;
-2114   2        case SEQ_POWER_OFF:
-2115   2          Power_off();
-2116   2          g_cEstadoComSeqMF=SEQ_POWER_OFF_RPTA;
-2117   2          break;
-2118   2        case SEQ_POWER_OFF_RPTA:
-2119   2          if((temp=Trama_Validacion_P_N())!=0)
-2120   2          {
-2121   3            if(temp==2)
-2122   3            {
-2123   4            g_cEstadoComSeqMF=SEQ_POWER_OFF_RPTA;                                                       /*no ha respondido*/
-2124   4            } 
-2125   3            else if (temp==3)
-2126   3            {
-C51 COMPILER V9.59.0.0   VERIFICADOR                                                       07/28/2021 11:20:17 PAGE 37  
+2065   5                break;
+2066   5              }
+2067   4            }
+2068   3            DebugBufferMF(buffer_S1_B0,16,RESPUESTA); 
+2069   3            Trama_pto_Paralelo_P(buffer_S1_B0,buffer_S_B,'P');    
+2070   3            g_cEstadoComSeqMF=SEQ_EXPULSAR_TARJ;    
+2071   3          } 
+2072   2            break;
+2073   2        case SEQ_UID:
+2074   2          Unique_Identifier_UID();
+2075   2        g_cEstadoComSeqMF = SEQ_UID_RPTA;
+2076   2        break;
+2077   2        case SEQ_UID_RPTA:
+2078   2            if((temp=Trama_Validacion_P_N())!=0)
+2079   2          {
+2080   3            if(temp==2)
+2081   3            {
+2082   4            g_cEstadoComSeqMF=SEQ_UID_RPTA;                                                       /*no ha respondido*/
+2083   4            } 
+2084   3            else if (temp==3)
+2085   3            {
+2086   4            Debug_txt_Tibbo((unsigned char *) "SEQ_UID_RPTA FALLO\r\n");                      /* trama no valida*/
+2087   4            DebugBufferMF(Buffer_Rta_Lintech,g_cContByteRx,1);                                          /*imprimo la trama recibida*/
+2088   4            g_cEstadoComSeqMF=SEQ_UID;                                                          /* (3) Trama invalida cmd (N)*/ 
+2089   4            }     
+2090   3            else
+2091   3            {
+2092   4              
+2093   4              /*Dispensador No Responde PTO SERIE ...*/
+2094   4          
+2095   4              if(temp=error_rx_pto()==0)
+2096   4              {
+2097   5                g_cEstadoComSeqMF=SEQ_UID_RPTA;
+2098   5              }
+2099   4              else if(temp=error_rx_pto()==1)
+2100   4              {
+2101   5                g_cEstadoComSeqMF=SEQ_UID;
+2102   5              }
+2103   4            
+2104   4            }
+2105   3          }
+2106   2          else
+2107   2          {
+2108   3            g_cEstadoComSeqMF = Analiza_Uid_Card(Atributos_Expedidor );
+2109   3          }
+2110   2          break;
+2111   2        case SEQ_LOAD_PASSWORD:
+2112   2          LoadVerify_EEprom();
+2113   2          g_cEstadoComSeqMF=SEQ_MF_LINTECH;   
+2114   2          break;
+2115   2        case SEQ_POWER_OFF:
+2116   2          Power_off();
+2117   2          g_cEstadoComSeqMF=SEQ_POWER_OFF_RPTA;
+2118   2          break;
+2119   2        case SEQ_POWER_OFF_RPTA:
+2120   2          if((temp=Trama_Validacion_P_N())!=0)
+2121   2          {
+2122   3            if(temp==2)
+2123   3            {
+2124   4            g_cEstadoComSeqMF=SEQ_POWER_OFF_RPTA;                                                       /*no ha respondido*/
+2125   4            } 
+2126   3            else if (temp==3)
+C51 COMPILER V9.59.0.0   VERIFICADOR                                                       11/19/2021 12:02:57 PAGE 37  
 
-2127   4            Debug_txt_Tibbo((unsigned char *) "SEQ_POWER_OFF_RPTA  FALLO\r\n");                     /* trama no valida*/
-2128   4            DebugBufferMF(Buffer_Rta_Lintech,g_cContByteRx,1);                                          /*imprimo la trama recibida*/
-2129   4            g_cEstadoComSeqMF=SEQ_POWER_OFF;                                                          /* (3) Trama invalida cmd (N)*/ 
-2130   4            }     
-2131   3            else
-2132   3            {
-2133   4              
-2134   4              /*Dispensador No Responde PTO SERIE ...*/
-2135   4          
-2136   4              if(temp=error_rx_pto()==0)
-2137   4              {
-2138   5                g_cEstadoComSeqMF=SEQ_POWER_OFF_RPTA;
-2139   5              }
-2140   4              else if(temp=error_rx_pto()==1)
-2141   4              {
-2142   5                g_cEstadoComSeqMF=SEQ_POWER_OFF;
-2143   5              }
-2144   4            
-2145   4            }
-2146   3          }
-2147   2          else
-2148   2          {
-2149   3            g_cEstadoComSeqMF=SEQ_UID;
-2150   3          }
-2151   2          break;
-2152   2        case SEQ_POWER_ON:
-2153   2          Power_off();
-2154   2        g_cEstadoComSeqMF = SEQ_POWER_ON_RPTA;
-2155   2          break;
-2156   2        case SEQ_POWER_ON_RPTA:
-2157   2            if((temp=Trama_Validacion_P_N())!=0)
-2158   2          {
-2159   3            if(temp==2)
-2160   3            {
-2161   4            g_cEstadoComSeqMF=SEQ_POWER_ON_RPTA;                                                        /*no ha respondido*/
-2162   4            } 
-2163   3            else if (temp==3)
-2164   3            {
-2165   4            Debug_txt_Tibbo((unsigned char *) "SEQ_POWER_ON_RPTA  FALLO\r\n");                      /* trama no valida*/
-2166   4            DebugBufferMF(Buffer_Rta_Lintech,g_cContByteRx,1);                                          /*imprimo la trama recibida*/
-2167   4            g_cEstadoComSeqMF=SEQ_POWER_ON;                                                         /* (3) Trama invalida cmd (N)*/ 
-2168   4            }     
-2169   3            else
-2170   3            {
-2171   4              
-2172   4              /*Dispensador No Responde PTO SERIE ...*/
-2173   4          
-2174   4              if(temp=error_rx_pto()==0)
-2175   4              {
-2176   5                g_cEstadoComSeqMF=SEQ_POWER_ON_RPTA;
-2177   5              }
-2178   4              else if(temp=error_rx_pto()==1)
-2179   4              {
-2180   5                g_cEstadoComSeqMF=SEQ_POWER_ON;
-2181   5              }
-2182   4            
-2183   4            }
-2184   3          }
-2185   2          else
-2186   2          {
-2187   3            g_cEstadoComSeqMF=SEQ_LOAD_PASSWORD;
-2188   3          }
-C51 COMPILER V9.59.0.0   VERIFICADOR                                                       07/28/2021 11:20:17 PAGE 38  
+2127   3            {
+2128   4            Debug_txt_Tibbo((unsigned char *) "SEQ_POWER_OFF_RPTA  FALLO\r\n");                     /* trama no valida*/
+2129   4            DebugBufferMF(Buffer_Rta_Lintech,g_cContByteRx,1);                                          /*imprimo la trama recibida*/
+2130   4            g_cEstadoComSeqMF=SEQ_POWER_OFF;                                                          /* (3) Trama invalida cmd (N)*/ 
+2131   4            }     
+2132   3            else
+2133   3            {
+2134   4              
+2135   4              /*Dispensador No Responde PTO SERIE ...*/
+2136   4          
+2137   4              if(temp=error_rx_pto()==0)
+2138   4              {
+2139   5                g_cEstadoComSeqMF=SEQ_POWER_OFF_RPTA;
+2140   5              }
+2141   4              else if(temp=error_rx_pto()==1)
+2142   4              {
+2143   5                g_cEstadoComSeqMF=SEQ_POWER_OFF;
+2144   5              }
+2145   4            
+2146   4            }
+2147   3          }
+2148   2          else
+2149   2          {
+2150   3            g_cEstadoComSeqMF=SEQ_UID;
+2151   3          }
+2152   2          break;
+2153   2        case SEQ_POWER_ON:
+2154   2          Power_off();
+2155   2        g_cEstadoComSeqMF = SEQ_POWER_ON_RPTA;
+2156   2          break;
+2157   2        case SEQ_POWER_ON_RPTA:
+2158   2            if((temp=Trama_Validacion_P_N())!=0)
+2159   2          {
+2160   3            if(temp==2)
+2161   3            {
+2162   4            g_cEstadoComSeqMF=SEQ_POWER_ON_RPTA;                                                        /*no ha respondido*/
+2163   4            } 
+2164   3            else if (temp==3)
+2165   3            {
+2166   4            Debug_txt_Tibbo((unsigned char *) "SEQ_POWER_ON_RPTA  FALLO\r\n");                      /* trama no valida*/
+2167   4            DebugBufferMF(Buffer_Rta_Lintech,g_cContByteRx,1);                                          /*imprimo la trama recibida*/
+2168   4            g_cEstadoComSeqMF=SEQ_POWER_ON;                                                         /* (3) Trama invalida cmd (N)*/ 
+2169   4            }     
+2170   3            else
+2171   3            {
+2172   4              
+2173   4              /*Dispensador No Responde PTO SERIE ...*/
+2174   4          
+2175   4              if(temp=error_rx_pto()==0)
+2176   4              {
+2177   5                g_cEstadoComSeqMF=SEQ_POWER_ON_RPTA;
+2178   5              }
+2179   4              else if(temp=error_rx_pto()==1)
+2180   4              {
+2181   5                g_cEstadoComSeqMF=SEQ_POWER_ON;
+2182   5              }
+2183   4            
+2184   4            }
+2185   3          }
+2186   2          else
+2187   2          {
+2188   3            g_cEstadoComSeqMF=SEQ_LOAD_PASSWORD;
+C51 COMPILER V9.59.0.0   VERIFICADOR                                                       11/19/2021 12:02:57 PAGE 38  
 
-2189   2          break;
-2190   2        case SEQ_TIPO_CARD:
-2191   2          Aut_Card_check_Status();
-2192   2          g_cEstadoComSeqMF=SEQ_REQUEST;            
-2193   2          break;
-2194   2      /*------------------------------------------------------------------------------
-2195   2      expulsa la tarjeta por que no pertenece a MF50
-2196   2      ------------------------------------------------------------------------------*/    
-2197   2        
-2198   2        case SEQ_EXPULSAR_TARJ:
-2199   2            Card_Insercion(Inhabilita); 
-2200   2            g_cEstadoComSeqMF=SEQ_EXPULSAR_CHECK;
-2201   2        break;
-2202   2        
+2189   3          }
+2190   2          break;
+2191   2        case SEQ_TIPO_CARD:
+2192   2          Aut_Card_check_Status();
+2193   2          g_cEstadoComSeqMF=SEQ_REQUEST;            
+2194   2          break;
+2195   2      /*------------------------------------------------------------------------------
+2196   2      expulsa la tarjeta por que no pertenece a MF50
+2197   2      ------------------------------------------------------------------------------*/    
+2198   2        
+2199   2        case SEQ_EXPULSAR_TARJ:
+2200   2            Card_Insercion(Inhabilita); 
+2201   2            g_cEstadoComSeqMF=SEQ_EXPULSAR_CHECK;
+2202   2        break;
 2203   2        
-2204   2        case SEQ_EXPULSAR_CHECK:
-2205   2        if((temp=Trama_Validacion_P_N())!=0)
-2206   2          {
-2207   3            if(temp==2)
-2208   3            {
-2209   4            g_cEstadoComSeqMF=SEQ_EXPULSAR_CHECK;                                                       /*no ha respondido*/
-2210   4            }
-2211   3            else if (temp==3)
-2212   3            {
-2213   4              
-2214   4                g_cEstadoComSeqMF=SEQ_INICIO;                                                             /* (3) Trama invalida cmd (N)*/ 
-2215   4            }       
-2216   3            else
-2217   3            { 
-2218   4                  /*Dispensador No Responde PTO SERIE ...*/
-2219   4          
-2220   4              if(temp=error_rx_pto()==0)
-2221   4              {
-2222   5                g_cEstadoComSeqMF=SEQ_EXPULSAR_CHECK;
-2223   5              }
-2224   4              else if(temp=error_rx_pto()==1)
-2225   4              {
-2226   5                g_cEstadoComSeqMF=SEQ_EXPULSAR_TARJ;
-2227   5              }         
-2228   4                                                
-2229   4            }
-2230   3                                                                                
-2231   3          }
-2232   2          else
-2233   2          {
-2234   3            //lock=0;
-2235   3            g_cEstadoComSeqMF=SEQ_EXPULSAR;                                                             /*respuesta ok inicia clave verificada*/
-2236   3          }   
-2237   2          
-2238   2          break;
-2239   2          
-2240   2        case SEQ_EXPULSAR:
-2241   2          Mov_Card(MovPos_EjectFront);
-2242   2        g_cEstadoComSeqMF=SEQ_EXPULSAR_FROM;
-2243   2        
-2244   2        case SEQ_EXPULSAR_FROM:                       
-2245   2          if((temp=Trama_Validacion_P_N())!=0)
-2246   2          {
-2247   3            if(temp==2)
-2248   3            {
-2249   4            g_cEstadoComSeqMF=SEQ_EXPULSAR_FROM;                                                        /*no ha respondido*/
-2250   4            } 
-C51 COMPILER V9.59.0.0   VERIFICADOR                                                       07/28/2021 11:20:17 PAGE 39  
+2204   2        
+2205   2        case SEQ_EXPULSAR_CHECK:
+2206   2        if((temp=Trama_Validacion_P_N())!=0)
+2207   2          {
+2208   3            if(temp==2)
+2209   3            {
+2210   4            g_cEstadoComSeqMF=SEQ_EXPULSAR_CHECK;                                                       /*no ha respondido*/
+2211   4            }
+2212   3            else if (temp==3)
+2213   3            {
+2214   4              
+2215   4                g_cEstadoComSeqMF=SEQ_INICIO;                                                             /* (3) Trama invalida cmd (N)*/ 
+2216   4            }       
+2217   3            else
+2218   3            { 
+2219   4                  /*Dispensador No Responde PTO SERIE ...*/
+2220   4          
+2221   4              if(temp=error_rx_pto()==0)
+2222   4              {
+2223   5                g_cEstadoComSeqMF=SEQ_EXPULSAR_CHECK;
+2224   5              }
+2225   4              else if(temp=error_rx_pto()==1)
+2226   4              {
+2227   5                g_cEstadoComSeqMF=SEQ_EXPULSAR_TARJ;
+2228   5              }         
+2229   4                                                
+2230   4            }
+2231   3                                                                                
+2232   3          }
+2233   2          else
+2234   2          {
+2235   3            //lock=0;
+2236   3            g_cEstadoComSeqMF=SEQ_EXPULSAR;                                                             /*respuesta ok inicia clave verificada*/
+2237   3          }   
+2238   2          
+2239   2          break;
+2240   2          
+2241   2        case SEQ_EXPULSAR:
+2242   2          Mov_Card(MovPos_EjectFront);
+2243   2        g_cEstadoComSeqMF=SEQ_EXPULSAR_FROM;
+2244   2        
+2245   2        case SEQ_EXPULSAR_FROM:                       
+2246   2          if((temp=Trama_Validacion_P_N())!=0)
+2247   2          {
+2248   3            if(temp==2)
+2249   3            {
+2250   4            g_cEstadoComSeqMF=SEQ_EXPULSAR_FROM;                                                        /*no ha respondido*/
+C51 COMPILER V9.59.0.0   VERIFICADOR                                                       11/19/2021 12:02:57 PAGE 39  
 
-2251   3            else  g_cEstadoComSeqMF=SEQ_INICIO;                                                         /* respuesta incorrecta*/                             
+2251   4            } 
+2252   3            else  g_cEstadoComSeqMF=SEQ_INICIO;                                                         /* respuesta incorrecta*/                             
              -                    
-2252   3          }
-2253   2          else
-2254   2          {
-2255   3            lock=0;
-2256   3            g_cEstadoComSeqMF=SEQ_INICIO;                                                               /*respuesta ok inicia clave verificada*/
-2257   3          }   
-2258   2          
-2259   2        break;
-2260   2        
-2261   2      /*------------------------------------------------------------------------------
-2262   2      expulsa la tarjeta por que no pertenece a MF50
-2263   2      ------------------------------------------------------------------------------*/      
-2264   2          
-2265   2              default:
-2266   2              g_cEstadoComSeqMF=SEQ_INICIO; 
-2267   2              break;  
-2268   2            
-2269   2        } 
-2270   1      }
-2271          
+2253   3          }
+2254   2          else
+2255   2          {
+2256   3            lock=0;
+2257   3            g_cEstadoComSeqMF=SEQ_INICIO;                                                               /*respuesta ok inicia clave verificada*/
+2258   3          }   
+2259   2          
+2260   2        break;
+2261   2        
+2262   2      /*------------------------------------------------------------------------------
+2263   2      expulsa la tarjeta por que no pertenece a MF50
+2264   2      ------------------------------------------------------------------------------*/      
+2265   2          
+2266   2              default:
+2267   2              g_cEstadoComSeqMF=SEQ_INICIO; 
+2268   2              break;  
+2269   2            
+2270   2        } 
+2271   1      }
 2272          
-2273            
+2273          
+2274            
 
 
 MODULE INFORMATION:   STATIC OVERLAYABLE
-   CODE SIZE        =   6298    ----
+   CODE SIZE        =   6319    ----
    CONSTANT SIZE    =   1909    ----
    XDATA SIZE       =    102      82
    PDATA SIZE       =   ----    ----

@@ -959,11 +959,12 @@ unsigned char Responde_Lectura_Tarjeta_Sector1_Bloque2 (unsigned char *Atributos
 						Estado_expedidor = SEQ_MENSUAL;
 					}
 				}
-				else
+				else if(*(Atributos_Expedidor + Tipo_Tarjeta)== TARJETA_PERDIDA)	
 				{
 					Debug_txt_Tibbo((unsigned char *) "TIPO NUEVO DE TARJETA SIN DEFINIR\r\n");
 				  send_portERR(PRMR_NO_ROTACION);
-					Estado_expedidor=SEQ_EXPULSAR_TARJ;
+					Estado_expedidor=SEQ_ROTACION;
+					//Estado_expedidor=SEQ_EXPULSAR_TARJ;
 				  
 				}
 			 
